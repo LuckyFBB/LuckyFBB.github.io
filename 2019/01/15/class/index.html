@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>
+        
+            关于类的继承
+        
+    </title>
+    <link rel="icon" href="/blog.github.io/img/favicon.png">
+    <link rel="stylesheet" href="/blog.github.io/css/style.css">
+    <link rel="stylesheet" href="/blog.github.io/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog.github.io/css/gitment.css">
+    <link rel="stylesheet" href="/blog.github.io/css/hljs.min.css">
+    <script src="/blog.github.io/js/hljs.min.js"></script>  
+    <script src="/blog.github.io/js/gitment.browser.js"></script>  
+</head>
+<body>
+    <header class="header" id="header">
+    <h1>
+        <a class="title" href="/blog.github.io/">
+            FBB
+        </a>
+    </h1>
+    <h2>
+        <a class="motto">
+            think more, learn more !
+        </a>
+    </h2>
+    <nav class="navbar">
+        <ul class="menu">
+            
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/" class="menu-item-link">
+                        Home
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/archives/" class="menu-item-link">
+                        Archives
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/about/" class="menu-item-link">
+                        About
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
+                        Resume
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
+                        Github
+                    </a>
+                </li>
+            
+                
+            
+                
+                
+                <li class="menu-item">
+                    <a class="menu-item-link search">
+                        Search                   
+                        <i class="fa fa-long-arrow-right search-icon" aria-hidden="true"></i>
+                    </a>
+                        <input placeholder="Search..." class="search-input" style="display:none;border:none!important;" onkeydown="onEnter(event)" onkeypress="onEnter(event)">
+                </li>
+                
+        </ul>
+    </nav>
+</header>
+    <main class="main">
+        <article class="post">
+            <h1>
+                <a class="title" href="/blog.github.io/2019/01/15/class/"> 
+                    关于类的继承 
+                </a>
+            </h1>
+            <div class="meta">
+                <a class="date"> 
+                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
+                    2019-01-15   
+                </a>
+                
+                <a class="category">
+                    <i class="fa fa-th" aria-hidden="true"></i>  
+                </a>
+               
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/前端/">前端</a></li></ul>
+                
+                <a class="tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i>  
+                </a>
+                
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
+            </div>
+<div class="toc">
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#构造函数继承"><span class="toc-list-text">构造函数继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#原型链继承"><span class="toc-list-text">原型链继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承"><span class="toc-list-text">组合继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承优化-寄生"><span class="toc-list-text">组合继承优化(寄生)</span></a></li></ol>
+</div>
+            <div class="content">
+                <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。</p>
+<pre><code class="js">class Person(){}
+Person instanceof Function   //true
+</code></pre>
+<p>今天就逐步优化一下类继承的方式。<a id="more"></a></p>
+<h4 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h4><pre><code class="js">function Parent() {
+  this.name = &quot;Parent&quot;;
+}
+Parent.prototype.say = function () {
+  console.log(this.name);
+};
+function Child() {
+  Parent.call(this);
+  this.name = &quot;Child&quot;;
+}
+new Child().say();    //not a function
+</code></pre>
+<p>特点: 用call()、apply()将父类构造函数引入子类函数</p>
+<p>缺点: 只继承了父类构造函数的属性，没有继承父类原型的属性</p>
+<h4 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h4><pre><code class="js">function Parent() {
+  this.name = &quot;Parent&quot;;
+  this.list = [1, 2, 3]
+}
+function Child() {
+  this.name = &quot;Child&quot;;
+}
+Child.prototype = new Parent();
+let c1 = new Child();
+let c2 = new Child();
+console.log(c1.list);   //[1,2,3]
+c2.list.push(5);
+console.log(c1.list);   //[1,2,3,5]
+</code></pre>
+<p>特点: 让新实例的原型等于父类的实例</p>
+<p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
+<h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一</p>
+<pre><code class="js">function Parent() {
+  this.name = &quot;Parent&quot;
+}
+Parent.prototype.say = function () {
+  console.log(this.name);
+};
+function Child() {
+  Parent.call(this)   //构造函数继承
+  this.name = &quot;child&quot;
+}
+Child.prototype = new Parent()   //原型链继承
+</code></pre>
+<p>特点: 结合使用构造函数和原型链的特点</p>
+<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性<br><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><pre><code class="js">function Parent() {
+  this.name = &quot;Parent&quot;
+}
+Parent.prototype.say = function () {
+  console.log(this.name);
+};
+function Child() {
+  Parent.call(this)   //构造函数继承
+  this.name = &quot;child&quot;
+}
+Child.prototype = Object.create(Parent.prototype)   //寄生
+Child.prototype.constructor = Child
+new Child() instanceof Parent    //true
+new Child().constructor     //Child
+</code></pre>
+<p><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+
+            </div>
+          
+           
+            <div class="copyright">
+                <div class="name">
+                    <a>本文作者:</a>
+                    <a>LuckyFBB</a>
+                </div>
+                <div class="link">
+                    <a>本文链接:</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/01/15/class/">https://luckyfbb.github.io/blog.github.io/2019/01/15/class/</a>
+                </div>
+            </div>
+            
+
+          
+
+
+</article>
+
+
+<div class="more">
+
+    <div class="prev">
+   <a href="/blog.github.io/2019/01/15/vertical-align/">  line-height和vertical-align</a>
+    </div>
+
+<div></div>
+
+</div>
+
+<div class="bdsharebuttonbox">
+<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
+</a>
+<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
+</a>
+<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
+</a>
+<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
+</a>
+</div> -->
+<script>
+window._bd_share_config={
+    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
+    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></div>
+ 
+<div id="comments"></div>
+
+<script>
+    var gitment = new Gitment({
+    id: "Tue Jan 15 2019 11:10:48 GMT+0800",
+    owner: "LuckyFBB",
+    repo: "LuckyFBB.github.io",
+    oauth: {
+      client_id:"8d83609a651e972e308d",
+      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
+    }
+  })
+  gitment.render('comments')
+</script>
+    </main>
+    <a class="not-found">not found!</a>
+    <div class="search-items">
+    </div>
+    <a href="#header" id="top" style="display:none">
+        <i class="fa fa-sort-asc fa-2x"></i>
+    </a>
+    <footer class="footer">
+    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    </div>
+</footer>
+
+    <script src="/blog.github.io/js/jquery.js"></script>
+    <script src="/blog.github.io/js/toki.js"></script>  
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
