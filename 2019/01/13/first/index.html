@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            关于类的继承
+            开博之言
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,98 +88,39 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/01/15/class/"> 
-                    关于类的继承 
+                <a class="title" href="/blog.github.io/2019/01/13/first/"> 
+                    开博之言 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-15   
+                    2019-01-13   
                 </a>
                 
                 <a class="category">
                     <i class="fa fa-th" aria-hidden="true"></i>  
                 </a>
                
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/前端/">前端</a></li></ul>
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/生活/">生活</a></li></ul>
                 
                 <a class="tag">
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/其他/">其他</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#构造函数继承"><span class="toc-list-text">构造函数继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#原型链继承"><span class="toc-list-text">原型链继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承"><span class="toc-list-text">组合继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承优化-寄生"><span class="toc-list-text">组合继承优化(寄生)</span></a></li></ol>
+  
 </div>
             <div class="content">
-                <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。</p>
-<pre><code class="js">class Person(){}
-Person instanceof Function   //true
-</code></pre>
-<p>今天就逐步优化一下类继承的方式。<a id="more"></a></p>
-<h4 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this);    //可以向父类传递参数
-  this.name = &quot;Child&quot;;
-}
-new Child().say();    //not a function
-</code></pre>
-<p>特点: 用call()、apply()将父类构造函数引入子类函数</p>
-<p>缺点: 只继承了父类构造函数的属性，没有继承父类原型的属性</p>
-<h4 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;;
-  this.list = [1, 2, 3]
-}
-function Child() {
-  this.name = &quot;Child&quot;;
-}
-Child.prototype = new Parent();
-let c1 = new Child();
-let c2 = new Child();
-console.log(c1.list);   //[1,2,3]
-c2.list.push(5);
-console.log(c1.list);   //[1,2,3,5]
-</code></pre>
-<p>特点: 让新实例的原型等于父类的实例</p>
-<p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
-<h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一</p>
-<pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this)   //构造函数继承，第一次调用Parent()
-  this.name = &quot;child&quot;
-}
-Child.prototype = new Parent()   //原型链继承，第二次调用Parent()
-</code></pre>
-<p>特点: 结合使用构造函数和原型链的特点</p>
-<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this)   //构造函数继承
-  this.name = &quot;child&quot;
-}
-Child.prototype = Object.create(Parent.prototype)   //寄生
-Child.prototype.constructor = Child
-new Child() instanceof Parent    //true
-new Child().constructor     //Child
-</code></pre>
-<p><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+                <p>终于在9012年，搞上了博客，希望以后每周能一篇自己的博客。能够记录一下自己的学习生活。</p>
+<p>要做一个执行力Max的程序媛👨‍💻‍，不断拓展新的知识，不断深入已有的知识。</p>
+<p>希望能够在寒冬里面找到一个温暖的地方躲一躲。<a id="more"></a></p>
+<p>大概正在开始前端之路，半年之余吧，周围学习前端的人不算很多，一路上也走了很多弯路。出去找的第一份实习，实际上学习到的理论知识好像已经不太适用于现在的互联网了，但是认识了一群有趣且可爱的人，这大概是那个段时间最好的收获了吧。这群老哥老姐也教会我很多的东西，也带着我走在前端这条路上。</p>
+<p>离开了第一家公司，在秋招的时候才认识到自己知识上的缺乏，不管是深度还是广度上都没有办法达到一个好公司的要求。然后放弃了后半程秋招(那时候我还没想到今年是这样的一个行情)。进了一家小的互金公司实习，开始学习react/小程序，开始写h5页面。感觉自己还是有所进步的。周围也是一群年纪相仿的哥哥姐姐，学习之路也很开心。</p>
+<p>开始这个博客之前，希望能够给自己立几个Flag。每一个月都会有计划，且每一个月都能够高效的完成所列的计划。以后的时间也能够做个简单的程序媛，能够在这条编程的路上过得开心。敲出来的字母都是拥有灵魂的代码。</p>
+<p>冲鸭✨，要跑的更快一点🏃</p>
 
             </div>
           
@@ -191,7 +132,7 @@ new Child().constructor     //Child
                 </div>
                 <div class="link">
                     <a>Link:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/01/15/class/">https://luckyfbb.github.io/blog.github.io/2019/01/15/class/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/01/13/first/">https://luckyfbb.github.io/blog.github.io/2019/01/13/first/</a>
                 </div>
             </div>
             
@@ -205,15 +146,11 @@ new Child().constructor     //Child
 <div class="more">
 
     <div class="prev">
-   <a href="/blog.github.io/2019/01/15/vertical-align/">  line-height和vertical-align</a>
+   <a href="/blog.github.io/2019/01/15/class/">  关于类的继承</a>
     </div>
 
 <div></div>
 
-    <div class="next">
-    <a href="/blog.github.io/2019/01/13/first/"> 开博之言 </a>
-    </div>
-    
 </div>
 
 <div class="bdsharebuttonbox">
@@ -236,7 +173,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Tue Jan 15 2019 11:10:48 GMT+0800",
+    id: "Sun Jan 13 2019 22:47:15 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
