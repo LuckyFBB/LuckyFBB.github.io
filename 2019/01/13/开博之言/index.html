@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            JS迭代函数的使用
+            开博之言
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,115 +88,39 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/07/iterative-function/"> 
-                    JS迭代函数的使用 
+                <a class="title" href="/blog.github.io/2019/01/13/开博之言/"> 
+                    开博之言 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-07   
+                    2019-01-13   
                 </a>
                 
                 <a class="category">
                     <i class="fa fa-th" aria-hidden="true"></i>  
                 </a>
                
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/前端/">前端</a></li></ul>
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/生活/">生活</a></li></ul>
                 
                 <a class="tag">
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/其他/">其他</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#forEach"><span class="toc-list-text">forEach</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#map"><span class="toc-list-text">map</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#filter"><span class="toc-list-text">filter</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#every"><span class="toc-list-text">every</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#some"><span class="toc-list-text">some</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#reduce"><span class="toc-list-text">reduce</span></a></li></ol>
+  
 </div>
             <div class="content">
-                <p>总结一下JavaScript中迭代函数(filter，map，reduce等)的具体使用。<a id="more"></a></p>
-<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><p>简述: 让每一项去执行一次函数</p>
-<p>实例: </p>
-<pre><code class="js">//arr.forEach(callback, [thisObject])   thisObject改变回调函数里面的this指向，不指定默认为window
-//forEach的回调函数支持三个参数(value, index, array)
-//value数组的值，index数组的索引，array数组本身
-let arr = [1, 2, 3, 4, 5]
-arr.forEach(console.log)
-
-//1 0 (5) [1, 2, 3, 4, 5]
-//2 1 (5) [1, 2, 3, 4, 5]
-//3 2 (5) [1, 2, 3, 4, 5]
-//4 3 (5) [1, 2, 3, 4, 5]
-//5 4 (5) [1, 2, 3, 4, 5]
-
-arr.forEach(item =&gt; {
-  console.log(item)
-})
-//然后打印出1，2，3，4，5。只是执行一下函数，并没有返回值。
-</code></pre>
-<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><p>简述: 让数组通过函数操作之后返回一个新的数组</p>
-<p>实例: </p>
-<pre><code class="js">//arr.map(callback, [thisObject]);
-//map的回调函数支持三个参数(value, index, array)
-//回调函数中需要有return
-let arr = [1, 2, 3, 4, 5]
-arr.map(item =&gt; {
-  return item + 1
-})
-
-//最后返回一个新数组[2, 3, 4, 5, 6]
-//所以在react数据遍历使用map，因为拥有返回值，能够将处理之后的数据展示在界面上。
-</code></pre>
-<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><p>简述: 通过函数筛选出符合条件的项，返回一个新的数组</p>
-<p>实例: </p>
-<pre><code class="js">//arr.filter(callback, [thisObject])
-//filter的回调函数需要返回一个boolean值(==，不用强等于)
-let arr = [1, 2, 3, 4, 5]
-arr.filter(item =&gt; {
-  return item &gt; 2
-})
-
-//最后返回函数执行为true的项，组成一个新的数组[3, 4, 5]
-</code></pre>
-<h4 id="every"><a href="#every" class="headerlink" title="every"></a>every</h4><p>简述: 通过函数筛选出符合条件的项，返回一个新的数组</p>
-<p>实例: </p>
-<pre><code class="js">//arr.every(callback, [thisObject])
-//some要求每一个值让callback返回true就可以了
-let arr = [1, 2, 3, 4, 5]
-arr.filter(item =&gt; {
-  return item &gt; 2
-})
-
-//最后返回函数执行为true的项，组成一个新的数组[3, 4, 5]
-</code></pre>
-<h4 id="some"><a href="#some" class="headerlink" title="some"></a>some</h4><p>简述: 检测数组中是否有些项满足要求</p>
-<p>实例: </p>
-<pre><code class="js">//arr.come(callback, [thisObject])
-//some要求至少有1个值让callback返回true就可以了
-let arr = [1, 2, 3, 4, 5]
-arr.filter(item =&gt; {
-  return item &gt; 2
-})
-
-//最后返回函数执行为true的项，组成一个新的数组[3, 4, 5]
-</code></pre>
-<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><p>简述: 检测数组中的每一项是否满足要求</p>
-<p>实例: </p>
-<pre><code class="js">//arr.reduce(callback, [initialValue])
-//initialValue: 初始值
-//reduce的回调函数支持四个参数(prev, curr, index, array)
-//prev: 之前值，curr: 当前值，index: 当前索引，array: 数组本身
-//如果制定initialValue，prev的初始值为initialValue；若不指定，数组的第一位为prev，同时curr往后排一位。指定比不指定少一次迭代。
-let arr = [1, 2, 3, 4, 5]
-
-arr.reduce((prev, curr, inde, arry) =&gt; {
-  return prev + curr
-})  //15
-
-arr.reduce((prev, curr, inde, arry) =&gt; {
-  return prev + curr
-}, 10)  //25
-</code></pre>
+                <p>终于在9012年，搞上了博客，希望以后每周能一篇自己的博客。能够记录一下自己的学习生活。</p>
+<p>要做一个执行力Max的程序媛👨‍💻‍，不断拓展新的知识，不断深入已有的知识。</p>
+<p>希望能够在寒冬里面找到一个温暖的地方躲一躲。<a id="more"></a></p>
+<p>大概正在开始前端之路，半年之余吧，周围学习前端的人不算很多，一路上也走了很多弯路。出去找的第一份实习，实际上学习到的理论知识好像已经不太适用于现在的互联网了，但是认识了一群有趣且可爱的人，这大概是那个段时间最好的收获了吧。这群老哥老姐也教会我很多的东西，也带着我走在前端这条路上。</p>
+<p>离开了第一家公司，在秋招的时候才认识到自己知识上的缺乏，不管是深度还是广度上都没有办法达到一个好公司的要求。然后放弃了后半程秋招(那时候我还没想到今年是这样的一个行情)。进了一家小的互金公司实习，开始学习react/小程序，开始写h5页面。感觉自己还是有所进步的。周围也是一群年纪相仿的哥哥姐姐，学习之路也很开心。</p>
+<p>开始这个博客之前，希望能够给自己立几个Flag。每一个月都会有计划，且每一个月都能够高效的完成所列的计划。以后的时间也能够做个简单的程序媛，能够在这条编程的路上过得开心。敲出来的字母都是拥有灵魂的代码。</p>
+<p>冲鸭✨，要跑的更快一点🏃</p>
 
             </div>
           
@@ -208,7 +132,7 @@ arr.reduce((prev, curr, inde, arry) =&gt; {
                 </div>
                 <div class="link">
                     <a>本文链接:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/07/iterative-function/">https://luckyfbb.github.io/blog.github.io/2019/03/07/iterative-function/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/01/13/开博之言/">https://luckyfbb.github.io/blog.github.io/2019/01/13/开博之言/</a>
                 </div>
             </div>
             
@@ -221,12 +145,12 @@ arr.reduce((prev, curr, inde, arry) =&gt; {
 
 <div class="more">
 
+    <div class="prev">
+   <a href="/blog.github.io/2019/01/15/JS继承/">  关于类的继承</a>
+    </div>
+
 <div></div>
 
-    <div class="next">
-    <a href="/blog.github.io/2019/03/05/interview-zaw/"> 珍爱网前端面试面经 </a>
-    </div>
-    
 </div>
 
 <div class="bdsharebuttonbox">
@@ -249,7 +173,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Thu Mar 07 2019 10:22:54 GMT+0800",
+    id: "Sun Jan 13 2019 22:47:15 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {

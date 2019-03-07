@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            珍爱网前端面试面经
+            JS原生实现过程
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,14 +88,14 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/05/interview-zaw/"> 
-                    珍爱网前端面试面经 
+                <a class="title" href="/blog.github.io/2019/02/14/JS原生实现/"> 
+                    JS原生实现过程 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-05   
+                    2019-02-14   
                 </a>
                 
                 <a class="category">
@@ -108,58 +108,93 @@
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/面经/">面经</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new操作符"><span class="toc-list-text">new操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof操作符"><span class="toc-list-text">instanceof操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call和apply的实现"><span class="toc-list-text">call和apply的实现</span></a></li></ol>
 </div>
             <div class="content">
-                <p>忘记是什么时候内推的，然后简历通过了免笔试，拿到了面试机会。3.5下午视频面试。记录一下面试题目。<a id="more"></a></p>
-<blockquote>
-<p>基础</p>
-</blockquote>
-<ol>
-<li><p>function常用的传值类型(基本类型，引用类型)；几种基本类型，有什么引用类型？</p>
-</li>
-<li><p>ES6有什么特性？(聊了如下知识点)</p>
+                <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
+<h4 id="new操作符"><a href="#new操作符" class="headerlink" title="new操作符"></a>new操作符</h4><p>创建某个实例，必须使用new操作符。这种方式调用构造函数会经历以下4个步骤: </p>
 <ul>
-<li>let/const 不会变量提升，const定义常量(引申const obj添加值和进行复制)</li>
-<li>class继承(继承的关键字，构造函数中的关键字)</li>
-<li>模块化(export和export default的区别)</li>
-<li>map/filter/reduce等api</li>
-<li>数值解析</li>
-<li>模板字符串</li>
-<li>…扩展符</li>
-<li>promise</li>
-<li>generator</li>
+<li>创造一个新的对象</li>
+<li>将构造函数的作用域赋值给新对象(this指向该对象)</li>
+<li>执行构造函数中的代码(为新对象添加属性)</li>
+<li>返回新对象</li>
 </ul>
-</li>
-<li><p>事件委托，什么时候会使用？阻止冒泡的方法。</p>
-</li>
-<li><p>cookie的保护处理(大概是想问web安全的知识)。但是这一块比较薄弱，讲了一下跨站请求伪造。</p>
-</li>
-</ol>
-<blockquote>
-<p>react</p>
-</blockquote>
-<ol>
-<li><p>父子组件/兄弟组件的通信(讲了一下状态管理</p>
-</li>
-<li><p>为什么react里面使用map而不是用foreach</p>
-</li>
-<li><p>高阶组件了解吗?(不了解</p>
-</li>
-</ol>
-<blockquote>
-<p>算法</p>
-</blockquote>
-<ol>
-<li>100匹马中，挑选出跑的最快的10匹马，每次最多10匹马比赛，如何设计。</li>
-</ol>
-<blockquote>
-<p>总结</p>
-</blockquote>
-<p>公司用vue比较多，因为我比较熟悉react所以问的react相关技术栈。整个面试时间大概在40分钟的样子，面试时间很准时。整个过程比较流畅，但是题主在某些问题上达答得不是很好，面试官也赶时间没有聊太久，某一些题的回答也让他比较满意。等待ing…</p>
+<pre><code class="js">function myNew(fun){
+  var obj = Object.create(fun.prototype)
+  //var obj = {}
+  //obj.__proto__ = fun.prototype  与上述方法实现效果相同
+  var res = fun.call(obj)
+  return typeof res === &#39;object&#39; ? res : obj
+}
+</code></pre>
+<h4 id="instanceof操作符"><a href="#instanceof操作符" class="headerlink" title="instanceof操作符"></a>instanceof操作符</h4><p>instanceof可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的prototype。</p>
+<pre><code class="js">function myInstanceof(left, right) {
+  let prototype = right.prototype;
+  left = left.__proto__
+  while(true) {
+    if(left === null) {
+      return false;
+    }
+    if(prototype === left) {
+      return true;
+    }
+    left = left.__proto__;
+  }
+}
+</code></pre>
+<h4 id="call和apply的实现"><a href="#call和apply的实现" class="headerlink" title="call和apply的实现"></a>call和apply的实现</h4><pre><code class="js">call   func.call(obj,args1,args2);    //传入的是参数列表    
+apply  func.apply(obj,[args1,args2]);    //传入的是数组参数    记法：apply是a开头为array
+</code></pre>
+<p>思想</p>
+<pre><code class="js">改变this的指向，让bar()函数的this指向foo对象
+var foo={
+  value: 100
+}
+function bar(){
+  console.log(this.value);
+}
+bar.apply(foo);
+
+等同与将bar函数作为foo对象属性进行调用，即为下列方式
+var foo={
+  value: 100
+  bar: function(){
+    console.log(this.value);
+  }
+}
+
+因此我们总结模拟思路如下：
+1.将执行的函数作为对象属性
+2.执行函数
+3.将函数从对象中删除
+</code></pre>
+<p>call的实现</p>
+<pre><code class="js">Function.prototype.myCall=function(obj){   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+  var obj=obj||window;                     //取到传入的对象(执行上下文)，如果不传参数默认指向window
+  var obj.func=this;                       //给obj对象添加一个func方法，this也就是调用myCall的函数
+  var args=[...arguments].slice(1);        //取得传入除了obj的参数
+  var result=obj.func(...args);            //执行函数
+  delete obj.func;                         //删除函数
+  return result;                           
+}
+</code></pre>
+<p>apply的实现，只是和call传参上的实现不同</p>
+<pre><code class="js">Function.prototype.myApply=function(obj){   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+  var obj=obj||window;                      //取到传入的对象(执行上下文)，如果不传参数默认指向window
+  var obj.func=this;                        //给obj对象添加一个func方法，this也就是调用myCall的函数
+  var result;
+  if(arguments[1]){                         //判断是否传入数组参数,如果传入就要展开数组
+    result=obj.func(...arguments[1])
+  } else{
+    result=obj.func()
+  }
+  delete obj.func;                          //删除函数
+  return result;                           
+}
+</code></pre>
 
             </div>
           
@@ -171,7 +206,7 @@
                 </div>
                 <div class="link">
                     <a>本文链接:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/05/interview-zaw/">https://luckyfbb.github.io/blog.github.io/2019/03/05/interview-zaw/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/02/14/JS原生实现/">https://luckyfbb.github.io/blog.github.io/2019/02/14/JS原生实现/</a>
                 </div>
             </div>
             
@@ -185,13 +220,13 @@
 <div class="more">
 
     <div class="prev">
-   <a href="/blog.github.io/2019/03/07/iterative-function/">  JS迭代函数的使用</a>
+   <a href="/blog.github.io/2019/03/05/今日份感想/">  今日份感想</a>
     </div>
 
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/03/05/thinking/"> 今日份感想 </a>
+    <a href="/blog.github.io/2019/02/13/垂直居中/"> 如何实现元素居中 </a>
     </div>
     
 </div>
@@ -216,7 +251,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Tue Mar 05 2019 16:22:56 GMT+0800",
+    id: "Thu Feb 14 2019 09:38:50 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {

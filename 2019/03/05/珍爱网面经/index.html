@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            CSS中的流
+            珍爱网前端面试面经
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,14 +88,14 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/02/11/float/"> 
-                    CSS中的流 
+                <a class="title" href="/blog.github.io/2019/03/05/珍爱网面经/"> 
+                    珍爱网前端面试面经 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-11   
+                    2019-03-05   
                 </a>
                 
                 <a class="category">
@@ -108,70 +108,58 @@
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/CSS/">CSS</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/面经/">面经</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#魔鬼属性float"><span class="toc-list-text">魔鬼属性float</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#天然克星clear"><span class="toc-list-text">天然克星clear</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#BFC"><span class="toc-list-text">BFC</span></a></li></ol>
+  
 </div>
             <div class="content">
-                <p>简单总结一下’破坏流’和’保护流’的CSS属性。<a id="more"></a></p>
-<h5 id="魔鬼属性float"><a href="#魔鬼属性float" class="headerlink" title="魔鬼属性float"></a>魔鬼属性float</h5><ol>
-<li><p>float的本质与特性<br>浮动的本质是为了实现文字环绕效果<br>浮动的特性: </p>
+                <p>忘记是什么时候内推的，然后简历通过了免笔试，拿到了面试机会。3.5下午视频面试。记录一下面试题目。<a id="more"></a></p>
+<blockquote>
+<p>基础</p>
+</blockquote>
+<ol>
+<li><p>function常用的传值类型(基本类型，引用类型)；几种基本类型，有什么引用类型？</p>
+</li>
+<li><p>ES6有什么特性？(聊了如下知识点)</p>
 <ul>
-<li>包裹性</li>
-<li>块状化并格式上下文</li>
-<li>破坏文档流</li>
-<li>没有任何的margin合并</li>
+<li>let/const 不会变量提升，const定义常量(引申const obj添加值和进行复制)</li>
+<li>class继承(继承的关键字，构造函数中的关键字)</li>
+<li>模块化(export和export default的区别)</li>
+<li>map/filter/reduce等api</li>
+<li>数值解析</li>
+<li>模板字符串</li>
+<li>…扩展符</li>
+<li>promise</li>
+<li>generator</li>
 </ul>
 </li>
-<li><p>float的作用机制<br>让父元素的高度塌陷</p>
+<li><p>事件委托，什么时候会使用？阻止冒泡的方法。</p>
+</li>
+<li><p>cookie的保护处理(大概是想问web安全的知识)。但是这一块比较薄弱，讲了一下跨站请求伪造。</p>
 </li>
 </ol>
-<h5 id="天然克星clear"><a href="#天然克星clear" class="headerlink" title="天然克星clear"></a>天然克星clear</h5><ol>
-<li>clear属性<br>能够清除高度塌陷<br>元素盒子的边不能和前面的浮动元素相邻<br>只对块级元素有效<pre><code>10个&lt;li&gt;元素排列
-li{
- width:20px;
- height:20px;
- margin:5px;
- float:left;
-}
-li:nth-of-type(3){
- clear:both;
-}
-会排成两行，第一个包含两个方块，剩余方块全在第二行。
-因为clear属性让自身不能和前面的浮动元素相邻。
-</code></pre>属性值: <ul>
-<li>none: 默认值，左右浮动来就来</li>
-<li>left: 左侧抗浮动</li>
-<li>right: 右侧抗浮动</li>
-<li>both: 两侧抗浮动</li>
-</ul>
+<blockquote>
+<p>react</p>
+</blockquote>
+<ol>
+<li><p>父子组件/兄弟组件的通信(讲了一下状态管理</p>
+</li>
+<li><p>为什么react里面使用map而不是用foreach</p>
+</li>
+<li><p>高阶组件了解吗?(不了解</p>
 </li>
 </ol>
-<h5 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h5><ol>
-<li><p>定义<br>BFC(Block Formatting Context): 块级格式化上下文</p>
-</li>
-<li><p>特性: </p>
-<ul>
-<li>内部的Box会在垂直方向，一个接一个地放置。</li>
-<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
-<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
-<li>BFC的区域不会与float box重叠。</li>
-<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
-<li>计算BFC的高度时，浮动元素也参与计算</li>
-</ul>
-</li>
-<li><p>触发规则:</p>
-<ul>
-<li>html根元素</li>
-<li>float不为none</li>
-<li>overflow为auto/scroll/hidden</li>
-<li>display为table-cell/table-caption/inline-block</li>
-<li>position不为relative/static</li>
-</ul>
-</li>
+<blockquote>
+<p>算法</p>
+</blockquote>
+<ol>
+<li>100匹马中，挑选出跑的最快的10匹马，每次最多10匹马比赛，如何设计。</li>
 </ol>
-<p><a href="https://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html" target="_blank" rel="noopener">BFC</a></p>
+<blockquote>
+<p>总结</p>
+</blockquote>
+<p>公司用vue比较多，因为我比较熟悉react所以问的react相关技术栈。整个面试时间大概在40分钟的样子，面试时间很准时。整个过程比较流畅，但是题主在某些问题上达答得不是很好，面试官也赶时间没有聊太久，某一些题的回答也让他比较满意。等待ing…</p>
 
             </div>
           
@@ -183,7 +171,7 @@ li:nth-of-type(3){
                 </div>
                 <div class="link">
                     <a>本文链接:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/02/11/float/">https://luckyfbb.github.io/blog.github.io/2019/02/11/float/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/05/珍爱网面经/">https://luckyfbb.github.io/blog.github.io/2019/03/05/珍爱网面经/</a>
                 </div>
             </div>
             
@@ -197,13 +185,13 @@ li:nth-of-type(3){
 <div class="more">
 
     <div class="prev">
-   <a href="/blog.github.io/2019/02/13/center/">  如何实现元素居中</a>
+   <a href="/blog.github.io/2019/03/07/JS迭代函数/">  JS迭代函数的使用</a>
     </div>
 
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/01/26/JS/"> JavaScript高级教程 </a>
+    <a href="/blog.github.io/2019/03/05/今日份感想/"> 今日份感想 </a>
     </div>
     
 </div>
@@ -228,7 +216,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Mon Feb 11 2019 10:44:06 GMT+0800",
+    id: "Tue Mar 05 2019 16:22:56 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {

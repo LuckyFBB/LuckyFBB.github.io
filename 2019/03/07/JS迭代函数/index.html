@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            今日份感想
+            JS迭代函数的使用
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,37 +88,115 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/05/thinking/"> 
-                    今日份感想 
+                <a class="title" href="/blog.github.io/2019/03/07/JS迭代函数/"> 
+                    JS迭代函数的使用 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-05   
+                    2019-03-07   
                 </a>
                 
                 <a class="category">
                     <i class="fa fa-th" aria-hidden="true"></i>  
                 </a>
                
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/生活/">生活</a></li></ul>
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/前端/">前端</a></li></ul>
                 
                 <a class="tag">
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/其他/">其他</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#forEach"><span class="toc-list-text">forEach</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#map"><span class="toc-list-text">map</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#filter"><span class="toc-list-text">filter</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#every"><span class="toc-list-text">every</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#some"><span class="toc-list-text">some</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#reduce"><span class="toc-list-text">reduce</span></a></li></ol>
 </div>
             <div class="content">
-                <p>2019.3.5距离毕业还有四个月的样子。但是感觉糟糕透了，无业游民的感慨吧。<a id="more"></a></p>
-<p>2019.3.5离开了第二个实习公司，从去年11月到今年1月底，大概三个月的样子。最后工资没有达到预期范围离开了，也很感谢这三个月的时间，自己的进步也是很大的。到了这个公司接触了react/小程序，虽然都还在入门阶段，但是至少入门了。</p>
-<p>在这三个月期间，模仿了一个豆瓣小程序的实现，使用Charles抓取接口，自己模仿ui。花了两周的时间，学习小程序，编写了原生小程序代码，基于Taro的小程序代码。同时也接触公司的业务，协助师傅完成一些h5页面的开发，后台管理系统的开发。整个实习过程中，任务是不多的，更多的是自己的学习。对于ES6的使用也有了新的认识，React的基本使用也能够熟练掌握。</p>
-<p>辞职了，也就成为了一个无业游民，加入了春招大部队。秋招的时候，一直是对自己处于一个否定状态，面了几家没有结果之后，直接就放弃了。去了后面这个公司实习，这一次春招也是特别困难的，目前来说整个互联网行业都是比较惨的，各大公司裁员，春招压力无形来说是巨大的。没能顺利的走过秋招，希望能够自信的度过春招。</p>
-<p>最后的大学时光，好好做毕设，找个时间出去旅游。也希望着能在最后的大学时间学习一些新的知识，希望能够在离开工大之前，学一点nodeJS和web前端安全性相关的东西。</p>
+                <p>总结一下JavaScript中迭代函数(filter，map，reduce等)的具体使用。<a id="more"></a></p>
+<h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h4><p>简述: 让每一项去执行一次函数</p>
+<p>实例: </p>
+<pre><code class="js">//arr.forEach(callback, [thisObject])   thisObject改变回调函数里面的this指向，不指定默认为window
+//forEach的回调函数支持三个参数(value, index, array)
+//value数组的值，index数组的索引，array数组本身
+let arr = [1, 2, 3, 4, 5]
+arr.forEach(console.log)
+
+//1 0 (5) [1, 2, 3, 4, 5]
+//2 1 (5) [1, 2, 3, 4, 5]
+//3 2 (5) [1, 2, 3, 4, 5]
+//4 3 (5) [1, 2, 3, 4, 5]
+//5 4 (5) [1, 2, 3, 4, 5]
+
+arr.forEach(item =&gt; {
+  console.log(item)
+})
+//然后打印出1，2，3，4，5。只是执行一下函数，并没有返回值。
+</code></pre>
+<h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><p>简述: 让数组通过函数操作之后返回一个新的数组</p>
+<p>实例: </p>
+<pre><code class="js">//arr.map(callback, [thisObject]);
+//map的回调函数支持三个参数(value, index, array)
+//回调函数中需要有return
+let arr = [1, 2, 3, 4, 5]
+arr.map(item =&gt; {
+  return item + 1
+})
+
+//最后返回一个新数组[2, 3, 4, 5, 6]
+//所以在react数据遍历使用map，因为拥有返回值，能够将处理之后的数据展示在界面上。
+</code></pre>
+<h4 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h4><p>简述: 通过函数筛选出符合条件的项，返回一个新的数组</p>
+<p>实例: </p>
+<pre><code class="js">//arr.filter(callback, [thisObject])
+//filter的回调函数需要返回一个boolean值(==，不用强等于)
+let arr = [1, 2, 3, 4, 5]
+arr.filter(item =&gt; {
+  return item &gt; 2
+})
+
+//最后返回函数执行为true的项，组成一个新的数组[3, 4, 5]
+</code></pre>
+<h4 id="every"><a href="#every" class="headerlink" title="every"></a>every</h4><p>简述: 通过函数筛选出符合条件的项，返回一个新的数组</p>
+<p>实例: </p>
+<pre><code class="js">//arr.every(callback, [thisObject])
+//some要求每一个值让callback返回true就可以了
+let arr = [1, 2, 3, 4, 5]
+arr.filter(item =&gt; {
+  return item &gt; 2
+})
+
+//最后返回函数执行为true的项，组成一个新的数组[3, 4, 5]
+</code></pre>
+<h4 id="some"><a href="#some" class="headerlink" title="some"></a>some</h4><p>简述: 检测数组中是否有些项满足要求</p>
+<p>实例: </p>
+<pre><code class="js">//arr.come(callback, [thisObject])
+//some要求至少有1个值让callback返回true就可以了
+let arr = [1, 2, 3, 4, 5]
+arr.filter(item =&gt; {
+  return item &gt; 2
+})
+
+//最后返回函数执行为true的项，组成一个新的数组[3, 4, 5]
+</code></pre>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><p>简述: 检测数组中的每一项是否满足要求</p>
+<p>实例: </p>
+<pre><code class="js">//arr.reduce(callback, [initialValue])
+//initialValue: 初始值
+//reduce的回调函数支持四个参数(prev, curr, index, array)
+//prev: 之前值，curr: 当前值，index: 当前索引，array: 数组本身
+//如果制定initialValue，prev的初始值为initialValue；若不指定，数组的第一位为prev，同时curr往后排一位。指定比不指定少一次迭代。
+let arr = [1, 2, 3, 4, 5]
+
+arr.reduce((prev, curr, inde, arry) =&gt; {
+  return prev + curr
+})  //15
+
+arr.reduce((prev, curr, inde, arry) =&gt; {
+  return prev + curr
+}, 10)  //25
+</code></pre>
 
             </div>
           
@@ -130,7 +208,7 @@
                 </div>
                 <div class="link">
                     <a>本文链接:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/05/thinking/">https://luckyfbb.github.io/blog.github.io/2019/03/05/thinking/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/07/JS迭代函数/">https://luckyfbb.github.io/blog.github.io/2019/03/07/JS迭代函数/</a>
                 </div>
             </div>
             
@@ -144,13 +222,13 @@
 <div class="more">
 
     <div class="prev">
-   <a href="/blog.github.io/2019/03/05/interview-zaw/">  珍爱网前端面试面经</a>
+   <a href="/blog.github.io/2019/03/07/JS执行机制/">  JS执行机制</a>
     </div>
 
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/02/14/implementation-process/"> JS原生实现过程 </a>
+    <a href="/blog.github.io/2019/03/05/珍爱网面经/"> 珍爱网前端面试面经 </a>
     </div>
     
 </div>
@@ -175,7 +253,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Tue Mar 05 2019 13:35:24 GMT+0800",
+    id: "Thu Mar 07 2019 10:22:54 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
