@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            招银面经
+            公司笔试
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,14 +88,14 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/07/招银面经/"> 
-                    招银面经 
+                <a class="title" href="/blog.github.io/2019/03/08/公司笔试/"> 
+                    公司笔试 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-07   
+                    2019-03-08   
                 </a>
                 
                 <a class="category">
@@ -108,32 +108,77 @@
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/面经/">面经</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/笔试/">笔试</a></li></ul>
             </div>
 <div class="toc">
   
 </div>
             <div class="content">
-                <p>3.4号做了招银网络科技的笔试题，3.6号收到了电话面试通知，今天晚上接到了电话。整个面试过程大概17分钟。简单记录一下。<a id="more"></a></p>
+                <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
 <ol>
-<li><p>用现在的项目描述一下自己的能力(大概简单介绍了一下自己的项目经历)</p>
+<li><p>下列语句分别输出什么？</p>
+<pre><code>console.log(parseInt(&#39;01&#39;) + &#39;0&#39; + parseInt(&#39;010&#39;))    //1010
+console.log(1 === true)   //false                                                                                  
+console.log(typeof Aarry)   //undefined
+console.log(&#39;0&#39; == false)   //true
+console.log(1.toString())   //报错
+console.log(1..toString())   //1
+</code></pre><a id="more"></a>
 </li>
-<li><p>对Java/数据库有了解吗(以前简单的学过)</p>
-</li>
-<li><p>隐藏元素</p>
-</li>
-<li><p>session和cookie(把session和sessionStorage搞错了)</p>
-</li>
-<li><p>性能优化(讲了几个小的知识点)</p>
-</li>
-<li><p>web安全(讲了CSRF/XSS)</p>
-</li>
-<li><p>浏览器兼容性(回答得不是很好)</p>
-</li>
-<li><p>有什么点是我没有问到的，但是你了解的，可以聊一下</p>
+<li><p>请给出下列的输出</p>
+<pre><code>var arr1 = &#39;john&#39;.split(&#39;&#39;)
+var arr2 = arr1.reverse()
+var arr3 = &#39;jones&#39;.split(&#39;&#39;)
+arr2.push(arr3)
+console.log(&#39;array 1 : length=&#39; + arr1.length + &#39; last=&#39; + arr1.slice(-1))
+console.log(&#39;array 2 : length=&#39; + arr2.length + &#39; last=&#39; + arr2.slice(-1))
+</code></pre></li>
+<li><p>请给出下列的输出</p>
+<pre><code>new Promise(resolve =&gt; {
+setTimeout(() =&gt; {
+ resolve(&#39;hi&#39;)
+}, 1000)
+}).then((value) =&gt; {
+console.log(&#39;start &#39;, value)
+throw new Error(&#39;test error&#39;)
+}).catch(() =&gt; {
+console.log(&#39;I catch:&#39;, &#39;test error&#39;)
+}).then(() =&gt; {
+console.log(&#39;arrive here&#39;)
+}).catch(() =&gt; {
+console.log(&#39;No, I catch:&#39;, &quot;anther error&quot;)
+}).finally(() =&gt; {
+console.log(&#39;end&#39;)
+})
+</code></pre></li>
+<li><p>给出函数的返回结果</p>
+<pre><code>function transferArrToStr(arr) {
+const printArr = []
+let str = &#39;&#39;
+for (var i = 0; i &lt; arr.length; i++) {
+ printArr[i] = () =&gt; arr[i - 1]
+}
+printArr.forEach(item =&gt; {
+ str += item()
+})
+return str
+}
+const hello = [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
+transferArrToStr(hello)
+</code></pre></li>
+<li><p>给出函数的返回结果<br><code>`</code><br>function sortIntegers(a, b) {<br>return a - b<br>}</p>
 </li>
 </ol>
-<p>问题不是很多，只有不到20分钟的时间。每一个回答之后，面试官都是说可以。听不出来任何的语气，但是聊的还是挺开心的。期待有好的结果。</p>
+<p>function computeProduct(unsorted) {<br>  var sort_array = unsorted.sort(sortIntegers)<br>  var product1 = 1<br>  var product2 = 1<br>  var array_n_element = sort_array.length - 1<br>  for (var x = array_n_element; x &gt; array_n_element - 3; x–) {<br>    product1 = product1 <em> sort_array[x]<br>  }<br>  product2 = sort_array[0] </em> sort_array[1] * sort_array[array_n_element]<br>  if (product1 &gt; product2) return product1<br>  return product2<br>}<br>var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]<br>computeProduct(unsorted_array)</p>
+<pre><code>
+6. 请输出下列结果
+</code></pre><p>const globalVar = ‘xyz’;<br>(function outerFunc(outerArg) {<br>  let outerVar = ‘a’;<br>  (function innerFunc(innerArg) {<br>    let innerVar = ‘b’<br>    console.log(<br>      ‘outerArg = ‘ + outerArg + ‘\n’ +<br>      ‘outerVar = ‘ + outerVar + ‘\n’ +<br>      ‘innerArg = ‘ + innerArg + ‘\n’ +<br>      ‘innerVar = ‘ + innerVar + ‘\n’ +<br>      ‘globalVar = ‘ + globalVar<br>    )<br>  })(456)<br>})(123)</p>
+<pre><code>
+7. 使用栈判断大括号是否闭合
+</code></pre><p>function isBalanced(expression) {<br>  var checkingString = expression<br>  var stack = []<br>  if (checkingString.length &lt;= 0) return true<br>  for (var i = 0; i &lt; checkingString.length; i++) {<br>    if (checkingString[i] === ‘{‘) {<br>      stack.push(checkingString[i])<br>    } else if (checkingString[i] === ‘}’) {<br>      if (stack.length &gt; 0) {<br>        stack.pop() === ‘{‘<br>        continue<br>      } else {<br>        return false<br>      }<br>    }<br>  }<br>  if (stack.pop()) return false<br>  return true<br>}<br><code>`</code></p>
+<ol start="8">
+<li>实现二分查找法</li>
+</ol>
 
             </div>
           
@@ -145,7 +190,7 @@
                 </div>
                 <div class="link">
                     <a>本文链接:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/07/招银面经/">https://luckyfbb.github.io/blog.github.io/2019/03/07/招银面经/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/">https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/</a>
                 </div>
             </div>
             
@@ -158,14 +203,10 @@
 
 <div class="more">
 
-    <div class="prev">
-   <a href="/blog.github.io/2019/03/08/公司笔试/">  公司笔试</a>
-    </div>
-
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/03/07/JS执行机制/"> JS执行机制 </a>
+    <a href="/blog.github.io/2019/03/07/招银面经/"> 招银面经 </a>
     </div>
     
 </div>
@@ -190,7 +231,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Thu Mar 07 2019 20:59:05 GMT+0800",
+    id: "Fri Mar 08 2019 21:32:42 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
