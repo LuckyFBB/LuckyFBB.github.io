@@ -126,12 +126,12 @@ console.log(1..toString())   //1
 </code></pre><a id="more"></a>
 </li>
 <li><p>请给出下列的输出</p>
-<pre><code>var arr1 = &#39;john&#39;.split(&#39;&#39;)
-var arr2 = arr1.reverse()
-var arr3 = &#39;jones&#39;.split(&#39;&#39;)
-arr2.push(arr3)
-console.log(&#39;array 1 : length=&#39; + arr1.length + &#39; last=&#39; + arr1.slice(-1))
-console.log(&#39;array 2 : length=&#39; + arr2.length + &#39; last=&#39; + arr2.slice(-1))
+<pre><code>var arr1 = &#39;john&#39;.split(&#39;&#39;)           //[&#39;j&#39;, &#39;o&#39;, &#39;h&#39;, &#39;n&#39;]
+var arr2 = arr1.reverse()             //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]     reverse会改变原数组
+var arr3 = &#39;jones&#39;.split(&#39;&#39;)          //[&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]
+arr2.push(arr3)                       //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;, [&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]]
+console.log(&#39;array 1 : length=&#39; + arr1.length + &#39; last=&#39; + arr1.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
+console.log(&#39;array 2 : length=&#39; + arr2.length + &#39; last=&#39; + arr2.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
 </code></pre></li>
 <li><p>请给出下列的输出</p>
 <pre><code>new Promise(resolve =&gt; {
@@ -142,20 +142,25 @@ setTimeout(() =&gt; {
 console.log(&#39;start &#39;, value)
 throw new Error(&#39;test error&#39;)
 }).catch(() =&gt; {
-console.log(&#39;I catch:&#39;, &#39;test error&#39;)
+console.log(&#39;I catch: &#39;, &#39;test error&#39;)
+//console.log(x)    第二个catch就会报错
 }).then(() =&gt; {
 console.log(&#39;arrive here&#39;)
-}).catch(() =&gt; {
+}).catch(() =&gt; {   //用于接收第一个catch之后抛出的错误
 console.log(&#39;No, I catch:&#39;, &quot;anther error&quot;)
 }).finally(() =&gt; {
 console.log(&#39;end&#39;)
 })
+//start hi        resolve(&#39;hi&#39;)之后调用.then函数执行输出后，抛出异常
+//I catch: , test error       接收到抛出的异常执行输出，catch执行之后仍然返回一个promise
+//arrive here       
+//end     finally永远都会执行的函数，ES2018引入标准的
 </code></pre></li>
 <li><p>给出函数的返回结果</p>
 <pre><code>function transferArrToStr(arr) {
 const printArr = []
 let str = &#39;&#39;
-for (var i = 0; i &lt; arr.length; i++) {
+for (var i = 0; i &lt; arr.length; i++) {   //变量提升的问题，解决方法可以使用let
  printArr[i] = () =&gt; arr[i - 1]
 }
 printArr.forEach(item =&gt; {
@@ -164,12 +169,12 @@ printArr.forEach(item =&gt; {
 return str
 }
 const hello = [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
-transferArrToStr(hello)
+transferArrToStr(hello)    //&#39;ooooo&#39;
 </code></pre></li>
 <li><p>给出函数的返回结果<br><code>`</code><br>function sortIntegers(a, b) {<br>return a - b<br>}</p>
 </li>
 </ol>
-<p>function computeProduct(unsorted) {<br>  var sort_array = unsorted.sort(sortIntegers)<br>  var product1 = 1<br>  var product2 = 1<br>  var array_n_element = sort_array.length - 1<br>  for (var x = array_n_element; x &gt; array_n_element - 3; x–) {<br>    product1 = product1 <em> sort_array[x]<br>  }<br>  product2 = sort_array[0] </em> sort_array[1] * sort_array[array_n_element]<br>  if (product1 &gt; product2) return product1<br>  return product2<br>}<br>var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]<br>computeProduct(unsorted_array)</p>
+<p>function computeProduct(unsorted) {   //该算法实现计算数组中最大三个数的乘积<br>  var sort_array = unsorted.sort(sortIntegers)<br>  var product1 = 1<br>  var product2 = 1<br>  var array_n_element = sort_array.length - 1<br>  for (var x = array_n_element; x &gt; array_n_element - 3; x–) {<br>    product1 = product1 <em> sort_array[x]<br>  }<br>  product2 = sort_array[0] </em> sort_array[1] * sort_array[array_n_element]<br>  if (product1 &gt; product2) return product1<br>  return product2<br>}<br>var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]<br>computeProduct(unsorted_array)    //21000</p>
 <pre><code>
 6. 请输出下列结果
 </code></pre><p>const globalVar = ‘xyz’;<br>(function outerFunc(outerArg) {<br>  let outerVar = ‘a’;<br>  (function innerFunc(innerArg) {<br>    let innerVar = ‘b’<br>    console.log(<br>      ‘outerArg = ‘ + outerArg + ‘\n’ +<br>      ‘outerVar = ‘ + outerVar + ‘\n’ +<br>      ‘innerArg = ‘ + innerArg + ‘\n’ +<br>      ‘innerVar = ‘ + innerVar + ‘\n’ +<br>      ‘globalVar = ‘ + globalVar<br>    )<br>  })(456)<br>})(123)</p>
