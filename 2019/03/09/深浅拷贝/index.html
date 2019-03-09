@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            公司笔试
+            深浅拷贝
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -88,14 +88,14 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/08/公司笔试/"> 
-                    公司笔试 
+                <a class="title" href="/blog.github.io/2019/03/09/深浅拷贝/"> 
+                    深浅拷贝 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-08   
+                    2019-03-09   
                 </a>
                 
                 <a class="category">
@@ -108,82 +108,70 @@
                     <i class="fa fa-tags" aria-hidden="true"></i>  
                 </a>
                 
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/笔试/">笔试</a></li></ul>
+                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#浅拷贝"><span class="toc-list-text">浅拷贝</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#深拷贝"><span class="toc-list-text">深拷贝</span></a></li></ol>
 </div>
             <div class="content">
-                <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
+                <p>昨天出去面试，被面试官问到了深浅拷贝的问题，感觉回答不是特别完整，今天就来总结一下深浅拷贝的知识。</p>
+<p>JS有两种数据类型</p>
+<ul>
+<li>基本数据类型 string/number/boolean/undefined/null/symbol(ES6)</li>
+<li>引用数据类型 object/array/function<a id="more"></a>
+</li>
+</ul>
+<p>基本数据类型储存在栈内存中，保存与复制都是<strong>数据本身</strong><br><img src="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>引用数据类型储存在堆内存中，保存与复制都是<strong>指向对象的指针</strong><br><img src="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<h5 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h5><p>对于基本数据类型来说，拷贝一份互不影响；而对于数组和对象来说，只会拷贝数组或者对象的引用，对新旧数组进行修改，两个数组都会发生变化。</p>
+<p>基础的数组方法能够实现浅拷贝，例如concat()、slice()；对象能够使用Object.assign()实现浅拷贝。</p>
+<pre><code>如果是嵌套数组和对象，上述方法不可行
+let arr = [1, 2, 3, 4], arr1 = [1, 2, 3, [4, 5, 6]]
+
+let copyarr = arr.slice(), copyarr1 = arr1.slice()
+
+arr[1] = 5    //arr[1, 5, 3, 4], copyarr[1, 2, 3, 4]  
+
+arr1[3][1] = 7   //arr1[1, 2, 3, [4, 7, 6]], copyarr1[1, 2, 3, [4, 7, 6]]
+
+let obj = { a: 1, b: 2, c: 3 }, obj1 = { a: 1, b: 2, c: { d: 3, e: 4 } }
+
+let copyobj = Object.assign({}, obj), copyobj1 = Object.assign({}, obj1)
+
+obj.b = 4   //obj{ a: 1, b: 4, c: 3 }, copyobj{ a: 1, b: 2, c: 3 }
+
+obj1.c.d = 6    //obj1{ a: 1, b: 2, c: { d: 6, e: 4 } }, copyobj1{ a: 1, b: 2, c: { d: 6, e: 4 } }
+</code></pre><h5 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h5><p>指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</p>
 <ol>
-<li><p>下列语句分别输出什么？</p>
-<pre><code>console.log(parseInt(&#39;01&#39;) + &#39;0&#39; + parseInt(&#39;010&#39;))    //1010
-console.log(1 === true)   //false                                                                                  
-console.log(typeof Aarry)   //undefined
-console.log(&#39;0&#39; == false)   //true
-console.log(1.toString())   //报错
-console.log(1..toString())   //1
-</code></pre><a id="more"></a>
-</li>
-<li><p>请给出下列的输出</p>
-<pre><code>var arr1 = &#39;john&#39;.split(&#39;&#39;)           //[&#39;j&#39;, &#39;o&#39;, &#39;h&#39;, &#39;n&#39;]
-var arr2 = arr1.reverse()             //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]     reverse会改变原数组
-var arr3 = &#39;jones&#39;.split(&#39;&#39;)          //[&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]
-arr2.push(arr3)                       //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;, [&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]]
-console.log(&#39;array 1 : length=&#39; + arr1.length + &#39; last=&#39; + arr1.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
-console.log(&#39;array 2 : length=&#39; + arr2.length + &#39; last=&#39; + arr2.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
-</code></pre></li>
-<li><p>请给出下列的输出</p>
-<pre><code>new Promise(resolve =&gt; {
-setTimeout(() =&gt; {
- resolve(&#39;hi&#39;)
-}, 1000)
-}).then((value) =&gt; {
-console.log(&#39;start &#39;, value)
-throw new Error(&#39;test error&#39;)
-}).catch(() =&gt; {
-console.log(&#39;I catch: &#39;, &#39;test error&#39;)
-//console.log(x)    第二个catch就会报错
-}).then(() =&gt; {
-console.log(&#39;arrive here&#39;)
-}).catch(() =&gt; {   //用于接收第一个catch之后抛出的错误
-console.log(&#39;No, I catch:&#39;, &quot;anther error&quot;)
-}).finally(() =&gt; {
-console.log(&#39;end&#39;)
-})
-//start hi        resolve(&#39;hi&#39;)之后调用.then函数执行输出后，抛出异常
-//I catch: , test error       接收到抛出的异常执行输出，catch执行之后仍然返回一个promise
-//arrive here       
-//end     finally永远都会执行的函数，ES2018引入标准的
-</code></pre></li>
-<li><p>给出函数的返回结果</p>
-<pre><code>function transferArrToStr(arr) {
-const printArr = []
-let str = &#39;&#39;
-for (var i = 0; i &lt; arr.length; i++) {   //变量提升的问题，解决方法可以使用let
- printArr[i] = () =&gt; arr[i - 1]
-}
-printArr.forEach(item =&gt; {
- str += item()
-})
-return str
-}
-const hello = [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
-transferArrToStr(hello)    //&#39;ooooo&#39;
-</code></pre></li>
-<li><p>给出函数的返回结果<br><code>`</code><br>function sortIntegers(a, b) {<br>return a - b<br>}</p>
-</li>
+<li>可以使用JSON的两个函数方法实现深拷贝</li>
 </ol>
-<p>function computeProduct(unsorted) {   //该算法实现计算数组中最大三个数的乘积<br>  var sort_array = unsorted.sort(sortIntegers)<br>  var product1 = 1<br>  var product2 = 1<br>  var array_n_element = sort_array.length - 1<br>  for (var x = array_n_element; x &gt; array_n_element - 3; x–) {<br>    product1 = product1 <em> sort_array[x]<br>  }<br>  product2 = sort_array[0] </em> sort_array[1] * sort_array[array_n_element]<br>  if (product1 &gt; product2) return product1<br>  return product2<br>}<br>var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]<br>computeProduct(unsorted_array)    //21000</p>
-<pre><code>
-6. 请输出下列结果
-</code></pre><p>const globalVar = ‘xyz’;<br>(function outerFunc(outerArg) {<br>  let outerVar = ‘a’;<br>  (function innerFunc(innerArg) {<br>    let innerVar = ‘b’<br>    console.log(<br>      ‘outerArg = ‘ + outerArg + ‘\n’ +<br>      ‘outerVar = ‘ + outerVar + ‘\n’ +<br>      ‘innerArg = ‘ + innerArg + ‘\n’ +<br>      ‘innerVar = ‘ + innerVar + ‘\n’ +<br>      ‘globalVar = ‘ + globalVar<br>    )<br>  })(456)<br>})(123)</p>
-<pre><code>
-7. 使用栈判断大括号是否闭合
-</code></pre><p>function isBalanced(expression) {<br>  var checkingString = expression<br>  var stack = []<br>  if (checkingString.length &lt;= 0) return true<br>  for (var i = 0; i &lt; checkingString.length; i++) {<br>    if (checkingString[i] === ‘{‘) {<br>      stack.push(checkingString[i])<br>    } else if (checkingString[i] === ‘}’) {<br>      if (stack.length &gt; 0) {<br>        stack.pop() === ‘{‘<br>        continue<br>      } else {<br>        return false<br>      }<br>    }<br>  }<br>  if (stack.pop()) return false<br>  return true<br>}<br><code>`</code></p>
-<ol start="8">
-<li>实现二分查找法</li>
+<pre><code>let arr = [&#39;old&#39;, 1, true, [&#39;old1&#39;, &#39;old2&#39;], {old: 1}]
+
+let new_arr = JSON.parse( JSON.stringify(arr) );
+
+arr[3][1] = &#39;old4&#39;    //new_arr[&#39;old&#39;, 1, true, [&#39;old1&#39;, &#39;old2&#39;], {old: 1}]
+</code></pre><p>但是缺点就是不能拷贝函数和undefined</p>
+<ol start="2">
+<li>深拷贝函数</li>
 </ol>
+<pre><code>function deepClone(obj) {
+  function isObject(obj) {   //判断是不是对象
+    return typeof obj !== null &amp;&amp; typeof obj === &#39;object&#39; || typeof obj === &#39;function&#39;
+  }
+
+  if (!isObject(obj)) {
+    return;
+  }
+
+  let newObj = Array.isArray(obj) ? [] : {}    //判断对象类型
+
+  Object.keys(obj).forEach(key =&gt; {
+    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]   //判断当前值是不是对象
+  })
+
+  return newObj
+}
+</code></pre><p>以上就是深浅拷贝的知识。💪</p>
 
             </div>
           
@@ -195,7 +183,7 @@ transferArrToStr(hello)    //&#39;ooooo&#39;
                 </div>
                 <div class="link">
                     <a>本文链接:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/">https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/09/深浅拷贝/">https://luckyfbb.github.io/blog.github.io/2019/03/09/深浅拷贝/</a>
                 </div>
             </div>
             
@@ -208,14 +196,10 @@ transferArrToStr(hello)    //&#39;ooooo&#39;
 
 <div class="more">
 
-    <div class="prev">
-   <a href="/blog.github.io/2019/03/09/深浅拷贝/">  深浅拷贝</a>
-    </div>
-
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/03/07/招银面经/"> 招银面经 </a>
+    <a href="/blog.github.io/2019/03/08/公司笔试/"> 公司笔试 </a>
     </div>
     
 </div>
@@ -240,7 +224,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Fri Mar 08 2019 21:32:42 GMT+0800",
+    id: "Sat Mar 09 2019 09:27:11 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
