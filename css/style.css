@@ -245,8 +245,8 @@ main,
 }
 .post .content blockquote {
   border-left: 0.4em solid #516272;
-  background-color: #f2f3f4;
-  padding: 0.3em 0.5em 0.3em 1em;
+  background-color: #e0e0e0;
+  padding: 0em 0.5em 0em 1em;
   margin: 1em 0 1em 0;
 }
 .post .content h1 .headerlink {
@@ -584,7 +584,7 @@ main,
   border-left: 8px solid #2b3f52;
   margin: 0.5em 0 !important;
   margin-top: 3em !important;
-  background-color: #f3f3f3;
+  background-color: #e0e0e0;
 }
 .copyright * {
   overflow: hidden;

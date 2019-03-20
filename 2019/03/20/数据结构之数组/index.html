@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            CSS中的流
+            数据结构之数组
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -72,90 +72,76 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/02/11/浮动/"> 
-                    CSS中的流 
+                <a class="title" href="/blog.github.io/2019/03/20/数据结构之数组/"> 
+                    数据结构之数组 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-11   
+                    2019-03-20   
                 </a>
                 
                 <a class="category">
                     <i class="fa fa-th" aria-hidden="true"></i>  
                 </a>
                
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/前端/">前端</a></li></ul>
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/数据结构/">数据结构</a></li></ul>
                 
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/CSS/">CSS</a></li></ul>
+                    
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#魔鬼属性float"><span class="toc-list-text">魔鬼属性float</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#天然克星clear"><span class="toc-list-text">天然克星clear</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#BFC"><span class="toc-list-text">BFC</span></a></li></ol>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#数组的创建"><span class="toc-list-text">数组的创建</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#添加和删除元素"><span class="toc-list-text">添加和删除元素</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#数组方法参考"><span class="toc-list-text">数组方法参考</span></a></li></ol>
 </div>
             <div class="content">
-                <p>简单总结一下’破坏流’和’保护流’的CSS属性。<a id="more"></a></p>
-<h5 id="魔鬼属性float"><a href="#魔鬼属性float" class="headerlink" title="魔鬼属性float"></a>魔鬼属性float</h5><ol>
-<li><p>float的本质与特性<br>浮动的本质是为了实现文字环绕效果<br>浮动的特性: </p>
+                <p>学习JavaScript数据结构与算法之数组篇章。前端小白简单的学习笔记。<a id="more"></a></p>
+<h4 id="数组的创建"><a href="#数组的创建" class="headerlink" title="数组的创建"></a>数组的创建</h4><pre><code>var array = new Array();     //声明并初始化一个数组
+var array = new Array(7);   //创建指定长度的数组
+var array = new Array(1, 2, 3, 4);    //直接将数组元素作为参数传递给它的构造器
+
+var array = [];    //方便快捷
+
+array.length    //数组中有多少元素
+</code></pre><h4 id="添加和删除元素"><a href="#添加和删除元素" class="headerlink" title="添加和删除元素"></a>添加和删除元素</h4><pre><code>var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+number[number.length] = 5    //使用number.length属性添加元素
+
+number.push(6)     //使用push()方法，在末尾添加元素，返回数组长度
+
+number.unshift(6)     //使用shift()方法，在头部添加元素，返回数组长度
+
+number.pop()     //使用pop()方法，在末尾删除元素，返回删除值
+
+number.shift()    //使用shift()方法，在首部删除元素，返回删除值
+
+number.splice(5, 0, 1, 2, 3)    //使用splice方法，第一个参数表示想要删除或插入的元素的索引值。第二个参数是删除元素的个数。第三个参数往后，就是要添加到数组里的值。如果第二个参数是0，表示插入元素。
+</code></pre><h4 id="数组方法参考"><a href="#数组方法参考" class="headerlink" title="数组方法参考"></a>数组方法参考</h4><ol>
+<li><p>数组合并</p>
+<pre><code>var array = [1, 2, 3]
+var number = array.concat(4)
+var number = array.concat([4, 5, 6])   //concat方法可以向一个数组传递数组、对象或是元素
+</code></pre></li>
+<li><p>迭代器函数<br><a href="https://luckyfbb.github.io/blog.github.io/2019/03/07/JS%E8%BF%AD%E4%BB%A3%E5%87%BD%E6%95%B0/">迭代器函数的使用方法</a></p>
+</li>
+<li><p>搜索和排序</p>
 <ul>
-<li>包裹性</li>
-<li>块状化并格式上下文</li>
-<li>破坏文档流</li>
-<li>没有任何的margin合并</li>
+<li>搜索<pre><code>//indexOf方法返回与参数匹配的第一个元素的索引，lastIndexOf返回与参数匹配的最后一个元素的索引
+var number = [1, 2, 3, 4, 5, 2]
+number.indexOf(2)    //1
+number.lastIndexOf(2)    //1
+number.indexOf(100)  //-1
+</code></pre></li>
+<li>排序<pre><code>var num = number.reverse()    //reverse方法，数组内元素就会反序，改变原数组
+var num = number.sort()       //sort方法，数组内元素排序，可接受函数作为参数自定义排序，改变原数组
+</code></pre></li>
 </ul>
 </li>
-<li><p>float的作用机制<br>让父元素的高度塌陷</p>
-</li>
+<li><p>输出数组为字符串</p>
+<pre><code>var number = [1, 2, 3, 4]
+number.toString()      //&quot;1,2,3,4&quot;，把数组里所有元素输出为一个字符
+number.join(&#39;-&#39;)       //&quot;1-2-3-4&quot;，用一个不同的分隔符（比如-）把元素隔开
+</code></pre></li>
 </ol>
-<h5 id="天然克星clear"><a href="#天然克星clear" class="headerlink" title="天然克星clear"></a>天然克星clear</h5><ol>
-<li>clear属性<br>能够清除高度塌陷<br>元素盒子的边不能和前面的浮动元素相邻<br>只对块级元素有效<pre><code>10个&lt;li&gt;元素排列
-li{
- width:20px;
- height:20px;
- margin:5px;
- float:left;
-}
-li:nth-of-type(3){
- clear:both;
-}
-会排成两行，第一个包含两个方块，剩余方块全在第二行。
-因为clear属性让自身不能和前面的浮动元素相邻。
-</code></pre>属性值: <ul>
-<li>none: 默认值，左右浮动来就来</li>
-<li>left: 左侧抗浮动</li>
-<li>right: 右侧抗浮动</li>
-<li>both: 两侧抗浮动</li>
-</ul>
-</li>
-</ol>
-<h5 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h5><ol>
-<li><p>定义<br>BFC(Block Formatting Context): 块级格式化上下文</p>
-</li>
-<li><p>特性: </p>
-<ul>
-<li>内部的Box会在垂直方向，一个接一个地放置。</li>
-<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
-<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
-<li>BFC的区域不会与float box重叠。</li>
-<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
-<li>计算BFC的高度时，浮动元素也参与计算</li>
-</ul>
-</li>
-<li><p>触发规则:</p>
-<ul>
-<li>html根元素</li>
-<li>float不为none</li>
-<li>overflow为auto/scroll/hidden</li>
-<li>display为table-cell/table-caption/inline-block</li>
-<li>position不为relative/static</li>
-</ul>
-</li>
-</ol>
-<p><a href="https://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html" target="_blank" rel="noopener">BFC</a></p>
+<p>至此，数组的基本使用方法已经总结完毕。👍</p>
 
             </div>
           
@@ -167,7 +153,7 @@ li:nth-of-type(3){
                 </div>
                 <div class="link">
                     <a>Link:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/02/11/浮动/">https://luckyfbb.github.io/blog.github.io/2019/02/11/浮动/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/20/数据结构之数组/">https://luckyfbb.github.io/blog.github.io/2019/03/20/数据结构之数组/</a>
                 </div>
             </div>
             
@@ -180,14 +166,10 @@ li:nth-of-type(3){
 
 <div class="more">
 
-    <div class="prev">
-   <a href="/blog.github.io/2019/02/13/垂直居中/">  如何实现元素居中</a>
-    </div>
-
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/01/26/JS高级教程/"> JavaScript高级教程 </a>
+    <a href="/blog.github.io/2019/03/11/节流和防抖/"> 节流和防抖 </a>
     </div>
     
 </div>
@@ -212,7 +194,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Mon Feb 11 2019 10:44:06 GMT+0800",
+    id: "Wed Mar 20 2019 10:11:10 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {

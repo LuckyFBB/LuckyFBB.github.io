@@ -49,14 +49,6 @@
                 
             
                 <li class="menu-item">
-                    <a href="/blog.github.io/about/" class="menu-item-link">
-                        About
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
                     <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
                         Resume
                     </a>
@@ -73,14 +65,6 @@
                 
             
                 
-                
-                <li class="menu-item">
-                    <a class="menu-item-link search">
-                        Search                   
-                        <i class="fa fa-long-arrow-right search-icon" aria-hidden="true"></i>
-                    </a>
-                        <input placeholder="Search..." class="search-input" style="display:none;border:none!important;" onkeydown="onEnter(event)" onkeypress="onEnter(event)">
-                </li>
                 
         </ul>
     </nav>
@@ -117,24 +101,26 @@
                 <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
 <ol>
 <li><p>下列语句分别输出什么？</p>
-<pre><code>console.log(parseInt(&#39;01&#39;) + &#39;0&#39; + parseInt(&#39;010&#39;))    //1010
+<pre><code class="js">console.log(parseInt(&#39;01&#39;) + &#39;0&#39; + parseInt(&#39;010&#39;))    //1010
 console.log(1 === true)   //false                                                                                  
 console.log(typeof Aarry)   //function
 console.log(&#39;0&#39; == false)   //true
 console.log(1.toString())   //报错
 console.log(1..toString())   //1
-</code></pre><a id="more"></a>
+</code></pre>
+<a id="more"></a>
 </li>
 <li><p>请给出下列的输出</p>
-<pre><code>var arr1 = &#39;john&#39;.split(&#39;&#39;)           //[&#39;j&#39;, &#39;o&#39;, &#39;h&#39;, &#39;n&#39;]
+<pre><code class="js">var arr1 = &#39;john&#39;.split(&#39;&#39;)           //[&#39;j&#39;, &#39;o&#39;, &#39;h&#39;, &#39;n&#39;]
 var arr2 = arr1.reverse()             //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]     reverse会改变原数组
 var arr3 = &#39;jones&#39;.split(&#39;&#39;)          //[&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]
 arr2.push(arr3)                       //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;, [&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]]
 console.log(&#39;array 1 : length=&#39; + arr1.length + &#39; last=&#39; + arr1.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
 console.log(&#39;array 2 : length=&#39; + arr2.length + &#39; last=&#39; + arr2.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
-</code></pre></li>
+</code></pre>
+</li>
 <li><p>请给出下列的输出</p>
-<pre><code>new Promise(resolve =&gt; {
+<pre><code class="js">new Promise(resolve =&gt; {
 setTimeout(() =&gt; {
  resolve(&#39;hi&#39;)
 }, 1000)
@@ -155,9 +141,10 @@ console.log(&#39;end&#39;)
 //I catch: , test error       接收到抛出的异常执行输出，catch执行之后仍然返回一个promise
 //arrive here       
 //end     finally永远都会执行的函数，ES2018引入标准的
-</code></pre></li>
+</code></pre>
+</li>
 <li><p>给出函数的返回结果</p>
-<pre><code>function transferArrToStr(arr) {
+<pre><code class="js">function transferArrToStr(arr) {
 const printArr = []
 let str = &#39;&#39;
 for (var i = 0; i &lt; arr.length; i++) {   //变量提升的问题，解决方法可以使用let
@@ -170,19 +157,54 @@ return str
 }
 const hello = [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
 transferArrToStr(hello)    //&#39;ooooo&#39;
-</code></pre></li>
-<li><p>给出函数的返回结果<br><code>`</code><br>function sortIntegers(a, b) {<br>return a - b<br>}</p>
+</code></pre>
+</li>
+<li><p>给出函数的返回结果<br><code>`</code>js<br>function sortIntegers(a, b) {<br>return a - b<br>}</p>
 </li>
 </ol>
 <p>function computeProduct(unsorted) {   //该算法实现计算数组中最大三个数的乘积<br>  var sort_array = unsorted.sort(sortIntegers)<br>  var product1 = 1<br>  var product2 = 1<br>  var array_n_element = sort_array.length - 1<br>  for (var x = array_n_element; x &gt; array_n_element - 3; x–) {<br>    product1 = product1 <em> sort_array[x]<br>  }<br>  product2 = sort_array[0] </em> sort_array[1] * sort_array[array_n_element]<br>  if (product1 &gt; product2) return product1<br>  return product2<br>}<br>var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]<br>computeProduct(unsorted_array)    //21000</p>
 <pre><code>
 6. 请输出下列结果
-</code></pre><p>const globalVar = ‘xyz’;<br>(function outerFunc(outerArg) {<br>  let outerVar = ‘a’;<br>  (function innerFunc(innerArg) {<br>    let innerVar = ‘b’<br>    console.log(<br>      ‘outerArg = ‘ + outerArg + ‘\n’ +<br>      ‘outerVar = ‘ + outerVar + ‘\n’ +<br>      ‘innerArg = ‘ + innerArg + ‘\n’ +<br>      ‘innerVar = ‘ + innerVar + ‘\n’ +<br>      ‘globalVar = ‘ + globalVar<br>    )<br>  })(456)<br>})(123)</p>
-<pre><code>
-7. 使用栈判断大括号是否闭合
-</code></pre><p>function isBalanced(expression) {<br>  var checkingString = expression<br>  var stack = []<br>  if (checkingString.length &lt;= 0) return true<br>  for (var i = 0; i &lt; checkingString.length; i++) {<br>    if (checkingString[i] === ‘{‘) {<br>      stack.push(checkingString[i])<br>    } else if (checkingString[i] === ‘}’) {<br>      if (stack.length &gt; 0) {<br>        stack.pop() === ‘{‘<br>        continue<br>      } else {<br>        return false<br>      }<br>    }<br>  }<br>  if (stack.pop()) return false<br>  return true<br>}<br><code>`</code></p>
-<ol start="8">
-<li>实现二分查找法</li>
+```js
+const globalVar = &#39;xyz&#39;;
+(function outerFunc(outerArg) {
+  let outerVar = &#39;a&#39;;
+  (function innerFunc(innerArg) {
+    let innerVar = &#39;b&#39;
+    console.log(
+      &#39;outerArg = &#39; + outerArg + &#39;\n&#39; +
+      &#39;outerVar = &#39; + outerVar + &#39;\n&#39; +
+      &#39;innerArg = &#39; + innerArg + &#39;\n&#39; +
+      &#39;innerVar = &#39; + innerVar + &#39;\n&#39; +
+      &#39;globalVar = &#39; + globalVar
+    )
+  })(456)
+})(123)
+</code></pre><ol start="7">
+<li><p>使用栈判断大括号是否闭合</p>
+<pre><code class="js">function isBalanced(expression) {
+var checkingString = expression
+var stack = []
+if (checkingString.length &lt;= 0) return true
+for (var i = 0; i &lt; checkingString.length; i++) {
+ if (checkingString[i] === &#39;{&#39;) {   
+   stack.push(checkingString[i])
+ } else if (checkingString[i] === &#39;}&#39;) {
+   if (stack.length &gt; 0) {
+     stack.pop() === &#39;{&#39;
+     continue
+   } else {
+     return false
+   }
+ }
+}
+if (stack.pop()) return false
+return true
+}
+</code></pre>
+</li>
+<li><p>实现二分查找法</p>
+</li>
 </ol>
 
             </div>
@@ -190,11 +212,11 @@ transferArrToStr(hello)    //&#39;ooooo&#39;
            
             <div class="copyright">
                 <div class="name">
-                    <a>本文作者:</a>
+                    <a>Author:</a>
                     <a>LuckyFBB</a>
                 </div>
                 <div class="link">
-                    <a>本文链接:</a>
+                    <a>Link:</a>
                     <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/">https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/</a>
                 </div>
             </div>

@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            关于类的继承
+            节流和防抖
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -72,14 +72,14 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/01/15/JS继承/"> 
-                    关于类的继承 
+                <a class="title" href="/blog.github.io/2019/03/11/节流和防抖/"> 
+                    节流和防抖 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-15   
+                    2019-03-11   
                 </a>
                 
                 <a class="category">
@@ -95,75 +95,59 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#构造函数继承"><span class="toc-list-text">构造函数继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#原型链继承"><span class="toc-list-text">原型链继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承"><span class="toc-list-text">组合继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承优化-寄生"><span class="toc-list-text">组合继承优化(寄生)</span></a></li></ol>
+  
 </div>
             <div class="content">
-                <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。</p>
-<pre><code class="js">class Person(){}
-Person instanceof Function   //true
+                <p>在resize/scroll/keypress/mousemove等事件触发时，会不断调用回调函数。</p>
+<p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
+<p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息，最后使用setTimeout来控制事件的触发频率。<br><a id="more"></a></p>
+<blockquote>
+<p>事件节流</p>
+</blockquote>
+<ol>
+<li><p>基础介绍<br>在某段时间内，不管你触发了多少次事件，我都只认第一次，并在计时结束时给予响应。</p>
+<p>假设设置的时间为2000ms，再触发了事件的2000ms之内，你在多少触发该事件，都不会有任何作用，它只为第一个事件等待2000ms。时间一到，它就会执行了。</p>
+</li>
+<li><p>代码实现</p>
+</li>
+</ol>
+<pre><code class="js">function throttle(fn, delay) {
+  let pre = new Date()
+  return function () {
+    let _this = this
+    let args = arguments
+    let now = new Date()
+    if (now - pre &gt; delay) {
+      fn.apply(_this, args)
+      pre = now
+    }
+  }
+}
 </code></pre>
-<p>今天就逐步优化一下类继承的方式。<a id="more"></a></p>
-<h4 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;;
+<blockquote>
+<p>事件防抖</p>
+</blockquote>
+<ol>
+<li><p>基础介绍<br>在某段时间内，不管你触发了多少次事件，我都只认最后一次。</p>
+<p>假设设置时间为2000ms，如果触发事件的2000ms之内，你再次触发该事件，就会给新的事件添加新的计时器，之前的事件统统作废。只执行最后一次触发的事件。</p>
+</li>
+<li><p>代码实现</p>
+</li>
+</ol>
+<pre><code class="js">function debounce(fn, delay) {
+  let timer = null
+  return function () {
+    let _this = this
+    let args = arguments
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(function () {
+      fn.apply(_this, args)
+    }, delay)
+  }
 }
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this);    //可以向父类传递参数
-  this.name = &quot;Child&quot;;
-}
-new Child().say();    //not a function
 </code></pre>
-<p>特点: 用call()、apply()将父类构造函数引入子类函数</p>
-<p>缺点: 只继承了父类构造函数的属性，没有继承父类原型的属性</p>
-<h4 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;;
-  this.list = [1, 2, 3]
-}
-function Child() {
-  this.name = &quot;Child&quot;;
-}
-Child.prototype = new Parent();
-let c1 = new Child();
-let c2 = new Child();
-console.log(c1.list);   //[1,2,3]
-c2.list.push(5);
-console.log(c1.list);   //[1,2,3,5]
-</code></pre>
-<p>特点: 让新实例的原型等于父类的实例</p>
-<p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
-<h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一</p>
-<pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this)   //构造函数继承，第一次调用Parent()
-  this.name = &quot;child&quot;
-}
-Child.prototype = new Parent()   //原型链继承，第二次调用Parent()
-</code></pre>
-<p>特点: 结合使用构造函数和原型链的特点</p>
-<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this)   //构造函数继承
-  this.name = &quot;child&quot;
-}
-Child.prototype = Object.create(Parent.prototype)   //寄生
-Child.prototype.constructor = Child
-new Child() instanceof Parent    //true
-new Child().constructor     //Child
-</code></pre>
-<p><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 
             </div>
           
@@ -175,7 +159,7 @@ new Child().constructor     //Child
                 </div>
                 <div class="link">
                     <a>Link:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/01/15/JS继承/">https://luckyfbb.github.io/blog.github.io/2019/01/15/JS继承/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/11/节流和防抖/">https://luckyfbb.github.io/blog.github.io/2019/03/11/节流和防抖/</a>
                 </div>
             </div>
             
@@ -189,13 +173,13 @@ new Child().constructor     //Child
 <div class="more">
 
     <div class="prev">
-   <a href="/blog.github.io/2019/01/15/vertical-align/">  line-height和vertical-align</a>
+   <a href="/blog.github.io/2019/03/20/数据结构之数组/">  数据结构之数组</a>
     </div>
 
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/01/13/开博之言/"> 开博之言 </a>
+    <a href="/blog.github.io/2019/03/09/深浅拷贝/"> 深浅拷贝 </a>
     </div>
     
 </div>
@@ -220,7 +204,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Tue Jan 15 2019 11:10:48 GMT+0800",
+    id: "Mon Mar 11 2019 13:59:40 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
