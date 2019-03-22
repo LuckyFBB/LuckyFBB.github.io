@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>
+        
+            数据结构之链表
+        
+    </title>
+    <link rel="icon" href="/blog.github.io/img/favicon.png">
+    <link rel="stylesheet" href="/blog.github.io/css/style.css">
+    <link rel="stylesheet" href="/blog.github.io/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog.github.io/css/gitment.css">
+    <link rel="stylesheet" href="/blog.github.io/css/hljs.min.css">
+    <script src="/blog.github.io/js/hljs.min.js"></script>  
+    <script src="/blog.github.io/js/gitment.browser.js"></script>  
+</head>
+<body>
+    <header class="header" id="header">
+    <h1>
+        <a class="title" href="/blog.github.io/">
+            FBB
+        </a>
+    </h1>
+    <h2>
+        <a class="motto">
+            think more, learn more !
+        </a>
+    </h2>
+    <nav class="navbar">
+        <ul class="menu">
+            
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/" class="menu-item-link">
+                        Home
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/archives/" class="menu-item-link">
+                        Archives
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
+                        Resume
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
+                        Github
+                    </a>
+                </li>
+            
+                
+            
+                
+                
+        </ul>
+    </nav>
+</header>
+    <main class="main">
+        <article class="post">
+            <h1>
+                <a class="title" href="/blog.github.io/2019/03/22/数据结构之链表/"> 
+                    数据结构之链表 
+                </a>
+            </h1>
+            <div class="meta">
+                <a class="date"> 
+                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
+                    2019-03-22   
+                </a>
+                
+                <a class="category">
+                    <i class="fa fa-th" aria-hidden="true"></i>  
+                </a>
+               
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/数据结构/">数据结构</a></li></ul>
+                
+                    
+            </div>
+<div class="toc">
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#创建链表"><span class="toc-list-text">创建链表</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#双向链表"><span class="toc-list-text">双向链表</span></a></li></ol>
+</div>
+            <div class="content">
+                <p>学习JavaScript数据结构与算法之链表篇章。前端小白简单的学习笔记。</p>
+<p>链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。</p>
+<p>链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何位置的任何元素，而要想访问链表中间的一个元素，需要从起点开始迭代列表直到找到所需的元素。<a id="more"></a></p>
+<h4 id="创建链表"><a href="#创建链表" class="headerlink" title="创建链表"></a>创建链表</h4><pre><code class="js">function LinkedList() {
+  var Node = function (element) {
+    this.element = element
+    this.next = null
+  }
+  var length = 0
+  var head = null
+
+  this.append = function (element) {    //向链表尾部添加元素
+    var node = new Node(element)
+    var current
+    if (head === null) {     //当链表为空的时候，直接插入
+      head = node
+    } else {
+      current = head
+      while (current.next) {
+        current = current.next        //找到当前链表的最后一项
+      }
+      current.next = node       //最后一项的next指针指向node
+    }
+    length++     //长度加一
+  }
+
+  this.removeAt = function (position) {       //删除某一个位置的节点
+    if (position &gt; -1 &amp;&amp; position &lt; length) {   //判断是否越界
+      var current = head, previous, index = 0;
+      if (position === 0) {         //删除第一个节点
+        head = current.next
+      } else {
+        while (index &lt; position) {    //迭代链表
+          previous = current
+          current = current.next
+          index++
+        }
+        previous.next = current.next     //previous和current的后继节点连接，删除current
+      }
+      length--
+      return current.element
+    } else {
+      return null
+    }
+  }
+
+  this.insert = function (position, element) {     //可以在任意位置插入一个元素
+    if (position &gt; -1 &amp;&amp; position &lt; length) {
+      var node = new Node(element), current = head, previous, index = 0;
+      if (position === 0) {          //判断插入位置是否为第一个
+        node.next = current
+        head = node
+      } else {
+        while (index &lt; position) {      //迭代链表
+          previous = current
+          current = current.next
+          index++
+        }
+        previous.next = node
+        node.next = current
+      }
+      length++
+      return true
+    } else {
+      return false
+    }
+  }
+
+  this.toString = function () {        //链表按着字符串输出
+    var current = head
+    var string = &#39;&#39;
+    while (current) {        //迭代链表
+      string = current.element
+      current = current.next
+    }
+    return string
+  }
+
+  this.indexOf = function (element) {     //查找该值是否在链表中存在
+    var current = head
+    var index = -1
+    while (current) {             //迭代链表
+      if (current.element === element) {     //找到，则返回当前索引
+        return index
+      }
+      index++
+      current = current.next
+    }
+    return -1
+  }
+
+  this.remove = function (element) {    //删除某个值
+    var index = this.indexOf(element)         //查找到当前值的索引
+    return this.removeAt(index)          //按位置删除当前值
+  }
+
+  this.isEmpty = function () {      //判断当前链表是否为空
+    return length === 0
+  }
+
+  this.size = function () {       //判断当前链表的大小
+    return length
+  }
+
+  this.getHead = function () {      //返回链表头部
+    return head
+  }
+}
+</code></pre>
+<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>双向链表和普通链表的区别在于，在链表中，一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素。</p>
+<p>双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节点的下一个或前一个元素。</p>
+<p>链表的实现：</p>
+<pre><code class="js">function DoublyLinkedList() {
+  var Node = function (element) {
+    this.element = element
+    this.prev = null       //前继节点
+    this.next = null       //后继节点
+  }
+  var length = 0
+  var head = null
+  var tail = null           //用来保存对列表最后一项的引用的tail属性
+
+  this.insert = function (position, element) {       //插入节点
+    if (position &gt;= 0 &amp;&amp; position &lt;= length) {       //检查是否越界
+      var node = new Node(element)
+      var current = head, previous, index = 0
+      if (position === 0) {     //如果是在第一个位置插入
+        if (!head) {        //如果当前链表为空
+          head = node
+          tail = node
+        } else {
+          node.next = current
+          current.prev = node
+          head = node
+        }
+      } else if (position === length) {          //如果是最后一位
+        current = tail
+        current.next = node
+        node.prev = current
+        tail = node
+      } else {
+        while (index &lt; position) {     //链表迭代
+          previous = current
+          current = current.next
+          index++
+        }
+        previous.next = node
+        node.prev = previous
+        node.next = current
+        current.prev = node
+      }
+      length++
+      return true
+    } else {
+      return false
+    }
+  }
+
+  this.removeAt = function (position) {          //删除任意位置的节点
+    if (position &gt;= 0 &amp;&amp; position &lt;= length) {    //检查是否越界
+      var current = head, previous, index = 0
+      if (position === 0) {             //删除第一位
+        head = current.next
+        if (length === 1) {
+          tail = null
+        } else {
+          head.prev = null
+        }
+      } else if (position === length - 1) {       //删除最后一位
+        current = tail
+        tail = current.prev
+        tail.next = null
+      } else {
+        while (index &lt; position) {
+          previous = current
+          current = current.next
+          index++
+        }
+        previous.next = current.next
+        current.next.prev = previous
+      }
+      length--
+      return true
+    } else {
+      return false
+    }
+  }
+
+  //其他方法与单向链表相同
+}
+</code></pre>
+<p>至此，链表的基本使用方法已经总结完毕。接下来会是集合的学习。👍</p>
+
+            </div>
+          
+           
+            <div class="copyright">
+                <div class="name">
+                    <a>Author:</a>
+                    <a>LuckyFBB</a>
+                </div>
+                <div class="link">
+                    <a>Link:</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/22/数据结构之链表/">https://luckyfbb.github.io/blog.github.io/2019/03/22/数据结构之链表/</a>
+                </div>
+            </div>
+            
+
+          
+
+
+</article>
+
+
+<div class="more">
+
+<div></div>
+
+    <div class="next">
+    <a href="/blog.github.io/2019/03/21/数据结构之栈、队列/"> 数据结构之栈、队列 </a>
+    </div>
+    
+</div>
+
+<div class="bdsharebuttonbox">
+<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
+</a>
+<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
+</a>
+<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
+</a>
+<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
+</a>
+</div> -->
+<script>
+window._bd_share_config={
+    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
+    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></div>
+ 
+<!-- <div id="comments"></div>
+
+<script>
+    var gitment = new Gitment({
+    id: "Fri Mar 22 2019 09:29:32 GMT+0800",
+    owner: "LuckyFBB",
+    repo: "LuckyFBB.github.io",
+    oauth: {
+      client_id:"8d83609a651e972e308d",
+      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
+    }
+  })
+  gitment.render('comments')
+</script> -->
+    </main>
+    <a class="not-found">not found!</a>
+    <div class="search-items">
+    </div>
+    <a href="#header" id="top" style="display:none">
+        <i class="fa fa-sort-asc fa-2x"></i>
+    </a>
+    <footer class="footer">
+    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    </div>
+</footer>
+
+    <script src="/blog.github.io/js/jquery.js"></script>
+    <script src="/blog.github.io/js/toki.js"></script>  
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
