@@ -72,14 +72,14 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/20/数据结构之集合/"> 
+                <a class="title" href="/blog.github.io/2019/03/23/数据结构之集合/"> 
                     数据结构之集合 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-20   
+                    2019-03-23   
                 </a>
                 
                 <a class="category">
@@ -91,12 +91,98 @@
                     
             </div>
 <div class="toc">
-  
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#创建集合"><span class="toc-list-text">创建集合</span></a></li></ol>
 </div>
             <div class="content">
                 <p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
 <p>集合是由一组无序且唯一（即不能重复）的项组成的。</p>
 <p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。<a id="more"></a></p>
+<h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><pre><code class="js">function Set() {
+  var items = {}
+
+  this.has = function (value) {        //判断该值是否在集合中，在则返回true，否则返回false
+    return items.hasOwnProperty(value)
+  }
+
+  this.add = function (value) {         //向集合中添加元素
+    if (!this.has(value)) {     //判断该值是否在集合中
+      items[value] = value
+      return true
+    }
+    return false
+  }
+
+  this.remove = function (value) {        //删除某个值
+    if (this.has(value)) {             //判断集合中是否有这个值
+      delete items[value]
+      return true
+    }
+    return false
+  }
+
+  this.clear = function () {            //清空集合
+    items = {}
+  }
+
+  this.size = function () {
+    return Object.keys(items).length
+  }
+
+  this.values = function () {              //返回当前集合的元素
+    return Object.keys(items)
+  }
+
+  this.union = function (otherSet) {         //求两个集合的并集
+    var unionSet = new Set()                 //新建集合
+    var values = this.values()
+    values.forEach(item =&gt; {
+      unionSet.add(item)
+    })
+    values = otherSet.values()
+    values.forEach(item =&gt; {
+      unionSet.add(item)
+    })
+    return unionSet
+  }
+
+  this.intersection = function (otherSet) {       //求两个集合的交集
+    var intersectionSet = new Set()
+    var values = this.values()
+    values.forEach(item =&gt; {
+      if (otherSet.has(item)) {
+        intersectionSet.add(item)
+      }
+    })
+    return intersectionSet
+  }
+
+  this.difference = function (otherSet) {         //求两个集合的差集
+    var differenceSet = new Set()
+    var values = this.values()
+    values.forEach(item =&gt; {
+      if (!otherSet.has(item)) {
+        differenceSet.add(item)
+      }
+    })
+    return differenceSet
+  }
+
+  this.subSet = function (otherSet) {               //求当前集合是否是另一个集合的子集
+    if (this.size() &gt; otherSet.size()) {
+      return false
+    } else {
+      var values = this.values
+      values.forEach(item =&gt; {
+        if (!otherSet.has(item)) {
+          return false
+        }
+        return true
+      })
+    }
+  }
+}
+</code></pre>
+<p>至此，集合的基本使用方法已经总结完毕。顺序性数据结构的学习已经结束了。接下来是散列和字典的学习，两种非序列性的数据结构。👍</p>
 
             </div>
           
@@ -108,7 +194,7 @@
                 </div>
                 <div class="link">
                     <a>Link:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/20/数据结构之集合/">https://luckyfbb.github.io/blog.github.io/2019/03/20/数据结构之集合/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/23/数据结构之集合/">https://luckyfbb.github.io/blog.github.io/2019/03/23/数据结构之集合/</a>
                 </div>
             </div>
             
@@ -121,14 +207,10 @@
 
 <div class="more">
 
-    <div class="prev">
-   <a href="/blog.github.io/2019/03/20/数据结构之数组/">  数据结构之数组</a>
-    </div>
-
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/03/11/节流和防抖/"> 节流和防抖 </a>
+    <a href="/blog.github.io/2019/03/22/数据结构之链表/"> 数据结构之链表 </a>
     </div>
     
 </div>
@@ -153,7 +235,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Wed Mar 20 2019 10:11:10 GMT+0800",
+    id: "Sat Mar 23 2019 10:11:10 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
