@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            节流和防抖
+            数据结构之集合
         
     </title>
     <link rel="icon" href="/blog.github.io/img/favicon.png">
@@ -72,82 +72,31 @@
     <main class="main">
         <article class="post">
             <h1>
-                <a class="title" href="/blog.github.io/2019/03/11/节流和防抖/"> 
-                    节流和防抖 
+                <a class="title" href="/blog.github.io/2019/03/20/数据结构之集合/"> 
+                    数据结构之集合 
                 </a>
             </h1>
             <div class="meta">
                 <a class="date"> 
                     <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-11   
+                    2019-03-20   
                 </a>
                 
                 <a class="category">
                     <i class="fa fa-th" aria-hidden="true"></i>  
                 </a>
                
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/前端/">前端</a></li></ul>
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/数据结构/">数据结构</a></li></ul>
                 
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
+                    
             </div>
 <div class="toc">
   
 </div>
             <div class="content">
-                <p>在resize/scroll/keypress/mousemove等事件触发时，会不断调用回调函数。</p>
-<p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
-<p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息，最后使用setTimeout来控制事件的触发频率。<br><a id="more"></a></p>
-<blockquote>
-<p>事件节流</p>
-</blockquote>
-<ol>
-<li><p>基础介绍<br>在某段时间内，不管你触发了多少次事件，我都只认第一次，并在计时结束时给予响应。</p>
-<p>假设设置的时间为2000ms，再触发了事件的2000ms之内，你在多少触发该事件，都不会有任何作用，它只为第一个事件等待2000ms。时间一到，它就会执行了。</p>
-</li>
-<li><p>代码实现</p>
-</li>
-</ol>
-<pre><code class="js">function throttle(fn, delay) {
-  let pre = new Date()
-  return function () {
-    let _this = this
-    let args = arguments
-    let now = new Date()
-    if (now - pre &gt; delay) {
-      fn.apply(_this, args)
-      pre = now
-    }
-  }
-}
-</code></pre>
-<blockquote>
-<p>事件防抖</p>
-</blockquote>
-<ol>
-<li><p>基础介绍<br>在某段时间内，不管你触发了多少次事件，我都只认最后一次。</p>
-<p>假设设置时间为2000ms，如果触发事件的2000ms之内，你再次触发该事件，就会给新的事件添加新的计时器，之前的事件统统作废。只执行最后一次触发的事件。</p>
-</li>
-<li><p>代码实现</p>
-</li>
-</ol>
-<pre><code class="js">function debounce(fn, delay) {
-  let timer = null
-  return function () {
-    let _this = this
-    let args = arguments
-    if (timer) {
-      clearTimeout(timer)
-    }
-    timer = setTimeout(function () {
-      fn.apply(_this, args)
-    }, delay)
-  }
-}
-</code></pre>
+                <p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
+<p>集合是由一组无序且唯一（即不能重复）的项组成的。</p>
+<p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。<a id="more"></a></p>
 
             </div>
           
@@ -159,7 +108,7 @@
                 </div>
                 <div class="link">
                     <a>Link:</a>
-                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/11/节流和防抖/">https://luckyfbb.github.io/blog.github.io/2019/03/11/节流和防抖/</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/20/数据结构之集合/">https://luckyfbb.github.io/blog.github.io/2019/03/20/数据结构之集合/</a>
                 </div>
             </div>
             
@@ -173,13 +122,13 @@
 <div class="more">
 
     <div class="prev">
-   <a href="/blog.github.io/2019/03/20/数据结构之集合/">  数据结构之集合</a>
+   <a href="/blog.github.io/2019/03/20/数据结构之数组/">  数据结构之数组</a>
     </div>
 
 <div></div>
 
     <div class="next">
-    <a href="/blog.github.io/2019/03/09/深浅拷贝/"> 深浅拷贝 </a>
+    <a href="/blog.github.io/2019/03/11/节流和防抖/"> 节流和防抖 </a>
     </div>
     
 </div>
@@ -204,7 +153,7 @@ window._bd_share_config={
 
 <script>
     var gitment = new Gitment({
-    id: "Mon Mar 11 2019 13:59:40 GMT+0800",
+    id: "Wed Mar 20 2019 10:11:10 GMT+0800",
     owner: "LuckyFBB",
     repo: "LuckyFBB.github.io",
     oauth: {
