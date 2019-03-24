@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>
+        
+            数据结构之字典和散列表
+        
+    </title>
+    <link rel="icon" href="/blog.github.io/img/favicon.png">
+    <link rel="stylesheet" href="/blog.github.io/css/style.css">
+    <link rel="stylesheet" href="/blog.github.io/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/blog.github.io/css/gitment.css">
+    <link rel="stylesheet" href="/blog.github.io/css/hljs.min.css">
+    <script src="/blog.github.io/js/hljs.min.js"></script>  
+    <script src="/blog.github.io/js/gitment.browser.js"></script>  
+</head>
+<body>
+    <header class="header" id="header">
+    <h1>
+        <a class="title" href="/blog.github.io/">
+            FBB
+        </a>
+    </h1>
+    <h2>
+        <a class="motto">
+            think more, learn more !
+        </a>
+    </h2>
+    <nav class="navbar">
+        <ul class="menu">
+            
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/" class="menu-item-link">
+                        Home
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="/blog.github.io/archives/" class="menu-item-link">
+                        Archives
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
+                        Resume
+                    </a>
+                </li>
+            
+                
+            
+                <li class="menu-item">
+                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
+                        Github
+                    </a>
+                </li>
+            
+                
+            
+                
+                
+        </ul>
+    </nav>
+</header>
+    <main class="main">
+        <article class="post">
+            <h1>
+                <a class="title" href="/blog.github.io/2019/03/24/数据结构之字典和散列表/"> 
+                    数据结构之字典和散列表 
+                </a>
+            </h1>
+            <div class="meta">
+                <a class="date"> 
+                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
+                    2019-03-24   
+                </a>
+                
+                <a class="category">
+                    <i class="fa fa-th" aria-hidden="true"></i>  
+                </a>
+               
+                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog.github.io/categories/数据结构/">数据结构</a></li></ul>
+                
+                    
+            </div>
+<div class="toc">
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#字典"><span class="toc-list-text">字典</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#创建一个字典"><span class="toc-list-text">创建一个字典</span></a></li></ol></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#散列表"><span class="toc-list-text">散列表</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#创建一个散列表"><span class="toc-list-text">创建一个散列表</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#散列表的冲突处理"><span class="toc-list-text">散列表的冲突处理</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#创建更好的散列函数"><span class="toc-list-text">创建更好的散列函数</span></a></li></ol></li></ol>
+</div>
+            <div class="content">
+                <p>学习JavaScript数据结构与算法之字典、散列表篇章。前端小白简单的学习笔记。</p>
+<p>在集合、字典、散列表中可以存储不重复的值。集合中感兴趣的是值的本身，我们将每个值作为元素来储存。在字典中，采用[键，值]的方式来储存数据。散列表和字典存储数据的方式差不多。但是在实现上略微不同。<a id="more"></a></p>
+<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><h5 id="创建一个字典"><a href="#创建一个字典" class="headerlink" title="创建一个字典"></a>创建一个字典</h5><pre><code class="js">function Dictionary() {
+  var items = {}
+
+  this.has = function (key) {    //判断该字典中是否含有key，如果某个键值存在于这个字典中，则返回true，反之则返回false。
+    return key in items
+  }
+
+  this.set = function (key, value) {     //向字典中添加新元素或者更新一个已有的值
+    items[key] = value
+  }
+
+  this.remove = function (key) {        //通过使用键值来从字典中移除键值对应的数据值
+    if (this.has(key)) {         //判断是否存在当前键值
+      delete items[key]
+      return true
+    }
+    return false
+  }
+
+  this.get = function (key) {        //通过键值查找特定的数值并返回
+    return this.has(key) ? items[key] : undefined
+  }
+
+  this.values = function () {        //将字典所包含的所有数值以数组形式返回
+    return Object.values(items)
+  }
+
+  this.size = function () {                //返回字典所包含元素的数量。与数组的length属性类似
+    return Object.keys(items).length
+  }
+
+  this.keys = function () {              //将字典所包含的所有键名以数组形式返回
+    return Object.keys(items)
+  }
+
+  this.clear = function () {             //将这个字典中的所有元素全部删除
+    items = {}
+  }
+
+  this.getItems = function () {
+    return items
+  }
+}
+</code></pre>
+<h4 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h4><p>散列表的作用就是尽可能快的在数据结构中找到一个值。在之前的数据结构中，使用get方法获取一个值，需要遍历整个数据结构。但是使用散列表的话，就能够知道值得具体位置，从而快速获取到该值。</p>
+<p>散列表的作用就是给一个值，然后返回该值在表中的地址。</p>
+<h5 id="创建一个散列表"><a href="#创建一个散列表" class="headerlink" title="创建一个散列表"></a>创建一个散列表</h5><pre><code class="js">function HashTable() {
+  var table = []
+  var loseloseHashCode = function (key) {         //散列函数
+    var hash = 0                                  //储存hash值
+    for (let i = 0; i &lt; key.length; i++) {
+      hash += key.charCodeAt(i)                   //获得每个字符的ascii码值
+    }
+    return hash % 39                              //为了使储存的地址值小一点，会采用hash值和任意值取余数
+  }
+
+  this.put = function (key, value) {              //向散列表增加一个新的项（也能更新散列表）。
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    table[position] = value
+  }
+
+  this.get = function (key) {                     //返回根据键值检索到的特定的值
+    return table[loseloseHashCode(key)]
+  }
+
+  this.remove = function (key) {                  //根据键值从散列表中移除值
+    table[loseloseHashCode(key)] = undefined
+  }
+}
+</code></pre>
+<h5 id="散列表的冲突处理"><a href="#散列表的冲突处理" class="headerlink" title="散列表的冲突处理"></a>散列表的冲突处理</h5><p>有时候，一些键会有相同的散列值。不同的值在散列表中对应相同位置的时候，我们称其为冲突。</p>
+<ol>
+<li>分离连接<br>分离链接法包括为散列表的每一个位置创建一个链表并将元素储存在里面。它是解决冲突最简单的方法，但是需要开辟新的空间。</li>
+</ol>
+<p><img src="https://upload-images.jianshu.io/upload_images/12814322-e59692372b1d590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="image.png"></p>
+<pre><code class="js">function HashTable() {
+  var table = []
+  var loseloseHashCode = function (key) {         //散列函数
+    var hash = 0                                  //储存hash值
+    for (let i = 0; i &lt; key.length; i++) {
+      hash += key.charCodeAt(i)                   //获得每个字符的ascii码值
+    }
+    return hash % 39                              //为了使储存的地址值小一点，会采用hash值和任意值取余数
+  }
+
+  var ValuePair = function () {                   //创建一个新类来辅助表示要加入链表的值
+    this.key = key
+    this.value = value
+    this.toString = function () {
+      return &#39;[ &#39; + this.key + &#39;-&#39; + this.value + &#39; ]&#39;
+    }
+  }
+
+  this.put = function (key, value) {              //向散列表增加一个新的项（也能更新散列表）。
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    if (table[position] === undefined) {          //判断当前地址中是否被占据
+      table[position] = new LinkedList()          //没有的话，创建一个链表
+    }
+    table[position].append(new ValuePair(key, value))  //向链表中添加一个值
+  }
+
+  this.get = function (key) {                     //返回根据键值检索到的特定的值
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    if (table[position]) {                        //当前位置存在元素
+      var current = table[position].getHead()     //获取到当前链表的头部
+      while (current) {
+        if (current.element.key === key) {        //判断当前节点的key
+          return current.element.value
+        }
+        current = current.next
+      }
+    }
+    return undefined
+  }
+
+  this.remove = function (key) {                  //根据键值从散列表中移除值
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    if (table[position]) {
+      var current = table[position].getHead()     //获取链表头部
+      while (current) {
+        if (current.element.key === key) {
+          table[position].remove(current.element)    //移除当前节点
+          if (table[position].isEmpty()) {        //移除节点之后，当前链表为空，则设置为undefined
+            table[position] = undefined
+          }
+          return true
+        }
+        current = current.next
+      }
+    }
+    return false
+  }
+}
+</code></pre>
+<ol start="2">
+<li>线性探查<br>当想向表中某个位置加入一个新元素的时候，如果索引为index的位置已经被占据了，就尝试index+1的位置。如果index+1的位置也被占据了，就尝试index+2的位置，以此类推。</li>
+</ol>
+<pre><code class="js">function HashTable() {
+  var table = []
+  var loseloseHashCode = function (key) {         //散列函数
+    var hash = 0                                  //储存hash值
+    for (let i = 0; i &lt; key.length; i++) {
+      hash += key.charCodeAt(i)                   //获得每个字符的ascii码值
+    }
+    return hash % 39                              //为了使储存的地址值小一点，会采用hash值和任意值取余数
+  }
+  var ValuePair = function () {                   //创建一个新类来辅助表示要加入链表的值
+    this.key = key
+    this.value = value
+    this.toString = function () {
+      return &#39;[ &#39; + this.key + &#39;-&#39; + this.value + &#39; ]&#39;
+    }
+  }
+
+  this.put = function (key, value) {              //向散列表增加一个新的项（也能更新散列表）
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    if (table[position] === undefined) {          //当前地址没有数据，直接赋值
+      table[position] === new ValuePair(key, value)
+    } else {
+      var index = ++position                      //下一个地支值
+      while (table[index] != undefined) {         //找到从当前position出发，第一个不为undefined的值
+        index++
+      }
+      table[position] === new ValuePair(key, value)
+    }
+  }
+
+  this.get = function (key) {                     //返回根据键值检索到的特定的值
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    if (table[position]) {
+      if (table[position].key === key) {          //找到相同key值，返回value
+        return table[position].value
+      } else {
+        var index = ++position                    //否则继续往下寻找
+        while (table[index] === undefined || table[index].key != key) {
+          index++
+        }
+        if (table[index].key === key) {
+          return table[index].value
+        }
+      }
+    }
+    return undefined
+  }
+
+  this.remove = function (key) {                  //根据键值从散列表中移除值
+    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+    if (table[position]) {
+      if (table[position].key === key) {          //找到相同key值，返回value
+        table[position] = undefined
+      } else {
+        var index = ++position                    //否则继续往下寻找
+        while (table[index] === undefined || table[index].key != key) {
+          index++
+        }
+        if (table[index].key === key) {
+          table[position] = undefined
+        }
+      }
+      return true
+    }
+    return false
+  }
+}
+</code></pre>
+<h5 id="创建更好的散列函数"><a href="#创建更好的散列函数" class="headerlink" title="创建更好的散列函数"></a>创建更好的散列函数</h5><p>我们实现的“lose lose”散列函数并不是一个表现良好的散列函数，它会产生太多的冲突。如果我们使用这个函数的话，会产生各种各样的冲突。</p>
+<p>比较常用的散列函数</p>
+<pre><code class="js">var djb2HashCode = function (key) {
+  var hash = 5381                                //初始化hash值
+  for (var i = 0; i &lt; key.length; i++) {         //迭代key值
+    hash = hash * 33 + key.charCodeAt(i)
+  }
+  return hash % 1013                             //返回最后的hash值
+}
+</code></pre>
+<p>至此，字典和散列表的基本使用方法已经总结完毕。接下来会是树的学习。👍</p>
+
+            </div>
+          
+           
+            <div class="copyright">
+                <div class="name">
+                    <a>Author:</a>
+                    <a>LuckyFBB</a>
+                </div>
+                <div class="link">
+                    <a>Link:</a>
+                    <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/24/数据结构之字典和散列表/">https://luckyfbb.github.io/blog.github.io/2019/03/24/数据结构之字典和散列表/</a>
+                </div>
+            </div>
+            
+
+          
+
+
+</article>
+
+
+<div class="more">
+
+<div></div>
+
+    <div class="next">
+    <a href="/blog.github.io/2019/03/23/this的全面解析/"> this的全面解析 </a>
+    </div>
+    
+</div>
+
+<div class="bdsharebuttonbox">
+<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
+</a>
+<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
+</a>
+<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
+</a>
+<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
+</a>
+</div> -->
+<script>
+window._bd_share_config={
+    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
+    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script></div>
+ 
+<!-- <div id="comments"></div>
+
+<script>
+    var gitment = new Gitment({
+    id: "Sun Mar 24 2019 11:34:49 GMT+0800",
+    owner: "LuckyFBB",
+    repo: "LuckyFBB.github.io",
+    oauth: {
+      client_id:"8d83609a651e972e308d",
+      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
+    }
+  })
+  gitment.render('comments')
+</script> -->
+    </main>
+    <a class="not-found">not found!</a>
+    <div class="search-items">
+    </div>
+    <a href="#header" id="top" style="display:none">
+        <i class="fa fa-sort-asc fa-2x"></i>
+    </a>
+    <footer class="footer">
+    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    </div>
+</footer>
+
+    <script src="/blog.github.io/js/jquery.js"></script>
+    <script src="/blog.github.io/js/toki.js"></script>  
+  <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
