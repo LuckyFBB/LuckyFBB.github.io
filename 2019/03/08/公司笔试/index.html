@@ -159,28 +159,43 @@ const hello = [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
 transferArrToStr(hello)    //&#39;ooooo&#39;
 </code></pre>
 </li>
-<li><p>给出函数的返回结果<br><code>`</code>js<br>function sortIntegers(a, b) {<br>return a - b<br>}</p>
+<li><p>给出函数的返回结果</p>
+<pre><code class="js">function sortIntegers(a, b) {
+return a - b
+}
+function computeProduct(unsorted) {   //该算法实现计算数组中最大三个数的乘积
+var sort_array = unsorted.sort(sortIntegers)
+var product1 = 1
+var product2 = 1
+var array_n_element = sort_array.length - 1
+for (var x = array_n_element; x &gt; array_n_element - 3; x--) {
+ product1 = product1 * sort_array[x]
+}
+product2 = sort_array[0] * sort_array[1] * sort_array[array_n_element]
+if (product1 &gt; product2) return product1
+return product2
+}
+var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]
+computeProduct(unsorted_array)    //21000
+</code></pre>
 </li>
-</ol>
-<p>function computeProduct(unsorted) {   //该算法实现计算数组中最大三个数的乘积<br>  var sort_array = unsorted.sort(sortIntegers)<br>  var product1 = 1<br>  var product2 = 1<br>  var array_n_element = sort_array.length - 1<br>  for (var x = array_n_element; x &gt; array_n_element - 3; x–) {<br>    product1 = product1 <em> sort_array[x]<br>  }<br>  product2 = sort_array[0] </em> sort_array[1] * sort_array[array_n_element]<br>  if (product1 &gt; product2) return product1<br>  return product2<br>}<br>var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]<br>computeProduct(unsorted_array)    //21000</p>
-<pre><code>
-6. 请输出下列结果
-```js
-const globalVar = &#39;xyz&#39;;
+<li><p>请输出下列结果</p>
+<pre><code class="js">const globalVar = &#39;xyz&#39;;
 (function outerFunc(outerArg) {
-  let outerVar = &#39;a&#39;;
-  (function innerFunc(innerArg) {
-    let innerVar = &#39;b&#39;
-    console.log(
-      &#39;outerArg = &#39; + outerArg + &#39;\n&#39; +
-      &#39;outerVar = &#39; + outerVar + &#39;\n&#39; +
-      &#39;innerArg = &#39; + innerArg + &#39;\n&#39; +
-      &#39;innerVar = &#39; + innerVar + &#39;\n&#39; +
-      &#39;globalVar = &#39; + globalVar
-    )
-  })(456)
+let outerVar = &#39;a&#39;;
+(function innerFunc(innerArg) {
+ let innerVar = &#39;b&#39;
+ console.log(
+   &#39;outerArg = &#39; + outerArg + &#39;\n&#39; +
+   &#39;outerVar = &#39; + outerVar + &#39;\n&#39; +
+   &#39;innerArg = &#39; + innerArg + &#39;\n&#39; +
+   &#39;innerVar = &#39; + innerVar + &#39;\n&#39; +
+   &#39;globalVar = &#39; + globalVar
+ )
+})(456)
 })(123)
-</code></pre><ol start="7">
+</code></pre>
+</li>
 <li><p>使用栈判断大括号是否闭合</p>
 <pre><code class="js">function isBalanced(expression) {
 var checkingString = expression
@@ -212,11 +227,11 @@ return true
            
             <div class="copyright">
                 <div class="name">
-                    <a>本文作者:</a>
+                    <a>Author:</a>
                     <a>LuckyFBB</a>
                 </div>
                 <div class="link">
-                    <a>本文链接:</a>
+                    <a>Link:</a>
                     <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/">https://luckyfbb.github.io/blog.github.io/2019/03/08/公司笔试/</a>
                 </div>
             </div>
