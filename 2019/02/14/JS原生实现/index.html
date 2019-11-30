@@ -95,41 +95,41 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new操作符"><span class="toc-list-text">new操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof操作符"><span class="toc-list-text">instanceof操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call和apply的实现"><span class="toc-list-text">call和apply的实现</span></a></li></ol>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-和-apply-的实现"><span class="toc-list-text">call 和 apply 的实现</span></a></li></ol>
 </div>
             <div class="content">
                 <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
-<h4 id="new操作符"><a href="#new操作符" class="headerlink" title="new操作符"></a>new操作符</h4><p>创建某个实例，必须使用new操作符。这种方式调用构造函数会经历以下4个步骤: </p>
+<h4 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h4><p>创建某个实例，必须使用 new 操作符。这种方式调用构造函数会经历以下 4 个步骤:</p>
 <ul>
 <li>创造一个新的对象</li>
-<li>将构造函数的作用域赋值给新对象(this指向该对象)</li>
+<li>将构造函数的作用域赋值给新对象(this 指向该对象)</li>
 <li>执行构造函数中的代码(为新对象添加属性)</li>
 <li>返回新对象</li>
 </ul>
-<pre><code class="js">function myNew(fun){
-  var obj = Object.create(fun.prototype)
+<pre><code class="js">function myNew(fun) {
+  var obj = Object.create(fun.prototype);
   //var obj = {}
   //obj.__proto__ = fun.prototype  与上述方法实现效果相同
-  var res = fun.call(obj)
-  return typeof res === &#39;object&#39; ? res : obj
+  var res = fun.call(obj);
+  return typeof res === &quot;object&quot; ? res : obj;
 }
 </code></pre>
-<h4 id="instanceof操作符"><a href="#instanceof操作符" class="headerlink" title="instanceof操作符"></a>instanceof操作符</h4><p>instanceof可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的prototype。</p>
+<h4 id="instanceof-操作符"><a href="#instanceof-操作符" class="headerlink" title="instanceof 操作符"></a>instanceof 操作符</h4><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
 <pre><code class="js">function myInstanceof(left, right) {
   let prototype = right.prototype;
-  left = left.__proto__
-  while(true) {
-    if(left === null) {
+  left = left.__proto__;
+  while (true) {
+    if (left === null) {
       return false;
     }
-    if(prototype === left) {
+    if (prototype === left) {
       return true;
     }
     left = left.__proto__;
   }
 }
 </code></pre>
-<h4 id="call和apply的实现"><a href="#call和apply的实现" class="headerlink" title="call和apply的实现"></a>call和apply的实现</h4><pre><code class="js">call   func.call(obj,args1,args2);    //传入的是参数列表    
+<h4 id="call-和-apply-的实现"><a href="#call-和-apply-的实现" class="headerlink" title="call 和 apply 的实现"></a>call 和 apply 的实现</h4><pre><code class="js">call   func.call(obj,args1,args2);    //传入的是参数列表
 apply  func.apply(obj,[args1,args2]);    //传入的是数组参数    记法：apply是a开头为array
 </code></pre>
 <p>思想</p>
@@ -155,29 +155,32 @@ var foo={
 2.执行函数
 3.将函数从对象中删除
 </code></pre>
-<p>call的实现</p>
-<pre><code class="js">Function.prototype.myCall=function(obj){   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
-  var obj=obj||window;                     //取到传入的对象(执行上下文)，如果不传参数默认指向window
-  var obj.func=this;                       //给obj对象添加一个func方法，this也就是调用myCall的函数
-  var args=[...arguments].slice(1);        //取得传入除了obj的参数
-  var result=obj.func(...args);            //执行函数
-  delete obj.func;                         //删除函数
-  return result;                           
-}
+<p>call 的实现</p>
+<pre><code class="js">Function.prototype.myCall = function(context) {
+  //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+  const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
+  ctx.func = this; //给obj对象添加一个func方法，this也就是调用myCall的函数
+  const args = [...arguments].slice(1); //取得传入除了obj的参数
+  const result = ctx.func(...args); //执行函数
+  delete ctx.func; //删除函数
+  return result;
+};
 </code></pre>
-<p>apply的实现，只是和call传参上的实现不同</p>
-<pre><code class="js">Function.prototype.myApply=function(obj){   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
-  var obj=obj||window;                      //取到传入的对象(执行上下文)，如果不传参数默认指向window
-  var obj.func=this;                        //给obj对象添加一个func方法，this也就是调用myCall的函数
-  var result;
-  if(arguments[1]){                         //判断是否传入数组参数,如果传入就要展开数组
-    result=obj.func(...arguments[1])
-  } else{
-    result=obj.func()
+<p>apply 的实现，只是和 call 传参上的实现不同</p>
+<pre><code class="js">Function.prototype.myApply = function(context) {
+  //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+  const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
+  ctx.func = this; //给ctx对象添加一个func方法，this也就是调用myCall的函数
+  let result;
+  if (arguments[1]) {
+    //判断是否传入数组参数,如果传入就要展开数组
+    result = ctx.func(...arguments[1]);
+  } else {
+    result = ctx.func();
   }
-  delete obj.func;                          //删除函数
-  return result;                           
-}
+  delete ctx.func; //删除函数
+  return result;
+};
 </code></pre>
 
             </div>
