@@ -95,8 +95,8 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol>
-</div>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#jsonp-的实现"><span class="toc-list-text">jsonp 的实现</span></a>
+</li></div>
             <div class="content">
                 <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
 <h4 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h4><p>创建某个实例，必须使用 new 操作符。这种方式调用构造函数会经历以下 4 个步骤:</p>
@@ -226,6 +226,40 @@ function myFlat(arr) {
   });
   return result;
 }
+</code></pre>
+<h3 id="jsonp-的实现"><a href="#jsonp-的实现" class="headerlink" title="jsonp 的实现"></a>jsonp 的实现</h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
+<pre><code class="js">function jsonp(url, data) {
+  data = data || {};
+  return new Promise((resovle, reject) =&gt; {
+    const cbFn = `jsonp_${Date.now()}`;
+    data.callback = cbFn;
+    const head = document.querySelector(&quot;head&quot;);
+    const script = document.createElement(&quot;script&quot;);
+    const src = `${url}?${dataToUrl(data)}`;
+    script.src = src;
+    head.append(script);
+    window[ncbFn] = res =&gt; {
+      resovle(res);
+      head.removeChild(script);
+      window[cbFn] = null;
+    };
+  });
+}
+
+function dataToUrl(data) {
+  return Object.keys(data)
+    .reduce((pre, curr) =&gt; {
+      pre.push(`${curr}=${data[curr]}`);
+      return pre;
+    }, [])
+    .join(&quot;&amp;&quot;);
+}
+
+jsonp(&quot;http://jsonplaceholder.typicode.com/comments&quot;, {
+  postId: 1
+}).then(res =&gt; {
+  console.log(res);
+});
 </code></pre>
 
             </div>
