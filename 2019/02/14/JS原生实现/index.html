@@ -95,7 +95,7 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-和-apply-的实现"><span class="toc-list-text">call 和 apply 的实现</span></a></li></ol>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-和-apply-的实现"><span class="toc-list-text">call 和 apply 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat的实现"><span class="toc-list-text">flat的实现</span></a></li></ol>
 </div>
             <div class="content">
                 <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
@@ -110,7 +110,8 @@
   var obj = Object.create(fun.prototype);
   //var obj = {}
   //obj.__proto__ = fun.prototype  与上述方法实现效果相同
-  var res = fun.call(obj);
+  var args = [...arguments].slice(1);
+  var res = fun.call(obj, args);
   return typeof res === &quot;object&quot; ? res : obj;
 }
 </code></pre>
@@ -155,7 +156,9 @@ var foo={
 2.执行函数
 3.将函数从对象中删除
 </code></pre>
-<p>call 的实现</p>
+<ul>
+<li>call 的实现</li>
+</ul>
 <pre><code class="js">Function.prototype.myCall = function(context) {
   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
   const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
@@ -166,7 +169,9 @@ var foo={
   return result;
 };
 </code></pre>
-<p>apply 的实现，只是和 call 传参上的实现不同</p>
+<ul>
+<li>apply 的实现，只是和 call 传参上的实现不同</li>
+</ul>
 <pre><code class="js">Function.prototype.myApply = function(context) {
   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
   const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
@@ -182,17 +187,35 @@ var foo={
   return result;
 };
 </code></pre>
+<h4 id="flat的实现"><a href="#flat的实现" class="headerlink" title="flat的实现"></a>flat的实现</h4><p>ES6中新增了flat方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
+<pre><code class="js">function isArray(arr) {
+  return Array.isArray(arr);
+}
+
+function myFlat(arr) {
+  var result = [];
+  var deep = arguments[1] === undefined ? 1 : arguments[1];   //判断是否传入展平层级
+  arr.forEach(element =&gt; {
+    if (isArray(element) &amp;&amp; deep &gt;= 1) {
+      result = result.concat(myFlat(element, deep - 1));
+    } else {
+      result.push(element);
+    }
+  });
+  return result;
+}
+</code></pre>
 
             </div>
           
            
             <div class="copyright">
                 <div class="name">
-                    <a>Author:</a>
+                    <a>本文作者:</a>
                     <a>LuckyFBB</a>
                 </div>
                 <div class="link">
-                    <a>Link:</a>
+                    <a>本文链接:</a>
                     <a class="permalink" href="https://luckyfbb.github.io/blog.github.io/2019/02/14/JS原生实现/">https://luckyfbb.github.io/blog.github.io/2019/02/14/JS原生实现/</a>
                 </div>
             </div>
