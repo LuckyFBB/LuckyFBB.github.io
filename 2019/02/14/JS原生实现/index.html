@@ -95,7 +95,7 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog.github.io/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-和-apply-的实现"><span class="toc-list-text">call 和 apply 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat的实现"><span class="toc-list-text">flat的实现</span></a></li></ol>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol>
 </div>
             <div class="content">
                 <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
@@ -130,23 +130,24 @@
   }
 }
 </code></pre>
-<h4 id="call-和-apply-的实现"><a href="#call-和-apply-的实现" class="headerlink" title="call 和 apply 的实现"></a>call 和 apply 的实现</h4><pre><code class="js">call   func.call(obj,args1,args2);    //传入的是参数列表
-apply  func.apply(obj,[args1,args2]);    //传入的是数组参数    记法：apply是a开头为array
+<h4 id="call-apply-bind-的实现"><a href="#call-apply-bind-的实现" class="headerlink" title="call / apply / bind 的实现"></a>call / apply / bind 的实现</h4><pre><code class="js">call  func.call(obj, args1, args2); //传入的是参数列表
+apply func.apply(obj, [args1, args2]); //传入的是数组参数    记法：apply是a开头为array
+bind  func.bind(obj, args1, args2); //返回的是函数，前两者为立即执行
 </code></pre>
 <p>思想</p>
 <pre><code class="js">改变this的指向，让bar()函数的this指向foo对象
-var foo={
+var foo = {
   value: 100
 }
-function bar(){
+function bar() {
   console.log(this.value);
 }
 bar.apply(foo);
 
 等同与将bar函数作为foo对象属性进行调用，即为下列方式
-var foo={
+var foo = {
   value: 100
-  bar: function(){
+  bar: function() {
     console.log(this.value);
   }
 }
@@ -161,6 +162,10 @@ var foo={
 </ul>
 <pre><code class="js">Function.prototype.myCall = function(context) {
   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+  if (typeof this !== &quot;function&quot;) {
+    //判断调用是否为函数
+    throw new TypeError(&quot;Error&quot;);
+  }
   const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
   ctx.func = this; //给obj对象添加一个func方法，this也就是调用myCall的函数
   const args = [...arguments].slice(1); //取得传入除了obj的参数
@@ -173,9 +178,11 @@ var foo={
 <li>apply 的实现，只是和 call 传参上的实现不同</li>
 </ul>
 <pre><code class="js">Function.prototype.myApply = function(context) {
-  //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
-  const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
-  ctx.func = this; //给ctx对象添加一个func方法，this也就是调用myCall的函数
+  if (typeof this !== &quot;function&quot;) {
+    throw new TypeError(&quot;Error&quot;);
+  }
+  const ctx = context || window;
+  ctx.func = this;
   let result;
   if (arguments[1]) {
     //判断是否传入数组参数,如果传入就要展开数组
@@ -183,18 +190,33 @@ var foo={
   } else {
     result = ctx.func();
   }
-  delete ctx.func; //删除函数
+  delete ctx.func;
   return result;
 };
 </code></pre>
-<h4 id="flat的实现"><a href="#flat的实现" class="headerlink" title="flat的实现"></a>flat的实现</h4><p>ES6中新增了flat方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
+<ul>
+<li>bind 的实现<br>相对于前两个，这个函数返回的函数，并不是立即执行。</li>
+</ul>
+<pre><code class="js">Function.prototype.myBind = function(context) {
+  if (typeof this !== &quot;function&quot;) {
+    throw new TypeError(&quot;Error&quot;);
+  }
+  context = context || window;
+  const _this = this;
+  const args = [...arguments].slice(1);
+  return function F() {
+    return _this.apply(context, args.concat(...arguments));
+  };
+};
+</code></pre>
+<h4 id="flat-的实现"><a href="#flat-的实现" class="headerlink" title="flat 的实现"></a>flat 的实现</h4><p>ES6 中新增了 flat 方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
 <pre><code class="js">function isArray(arr) {
   return Array.isArray(arr);
 }
 
 function myFlat(arr) {
   var result = [];
-  var deep = arguments[1] === undefined ? 1 : arguments[1];   //判断是否传入展平层级
+  var deep = arguments[1] === undefined ? 1 : arguments[1]; //判断是否传入展平层级
   arr.forEach(element =&gt; {
     if (isArray(element) &amp;&amp; deep &gt;= 1) {
       result = result.concat(myFlat(element, deep - 1));
