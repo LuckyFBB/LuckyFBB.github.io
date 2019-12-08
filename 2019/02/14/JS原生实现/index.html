@@ -95,7 +95,7 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#jsonp-的实现"><span class="toc-list-text">jsonp 的实现</span></a>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#jsonp-的实现"><span class="toc-list-text">jsonp 的实现</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#函数柯里化"><span class="toc-list-text">函数柯里化</span></a></li></ol>
 </li></div>
             <div class="content">
                 <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
@@ -260,6 +260,32 @@ jsonp(&quot;http://jsonplaceholder.typicode.com/comments&quot;, {
 }).then(res =&gt; {
   console.log(res);
 });
+</code></pre>
+<h4 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h4><p>当某个函数一次需要接受多个参数时，可以使用柯里化来使得当前函数一次性接受少一点的参数。</p>
+<p>百科：把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。</p>
+<pre><code class="js">function carry(fn) {
+  const args = [...arguments].slice(1);
+  if (fn.length &lt;= args.length) {
+    //当传入参数的数量&gt;=函数参数数量时，执行函数
+    return fn(...args);
+  }
+  return function() {
+    //返回一个函数，等待传入其他参数
+    const args1 = [...arguments];
+    return carry(fn, ...args, ...args1);
+  };
+}
+
+function add(a, b, c) {
+  return a + b + c;
+}
+
+const carryAdd = carry(add);
+
+carryAdd(1, 2, 3);
+carryAdd(1)(2, 3);
+carryAdd(1)(2)(3);
+carryAdd(1)()(2)()(3);
 </code></pre>
 
             </div>
