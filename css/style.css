@@ -89,7 +89,6 @@ main,
   font-weight: 200;
   font-size: 2.5em;
   color: #333;
-  font-family: UnifrakturMaguntia;
   border-bottom: 1px dotted #ccc;
 }
 .header .title:hover {
@@ -98,7 +97,7 @@ main,
 .header .motto {
   font-family: Coustard !important;
   color: #444;
-  font-size: 0.4em;
+  font-size: 0.6em;
   font-weight: 500;
   margin: 1em 0;
 }
