@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
         
-            JS原生实现过程
+            JS原生实现过程和JS算法题
         
     </title>
     <link rel="icon" href="/img/favicon.png">
@@ -73,7 +73,7 @@
         <article class="post">
             <h1>
                 <a class="title" href="/2019/02/14/JS原生实现/"> 
-                    JS原生实现过程 
+                    JS原生实现过程和JS算法题 
                 </a>
             </h1>
             <div class="meta">
@@ -95,7 +95,7 @@
                     <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
             </div>
 <div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#jsonp-的实现"><span class="toc-list-text">jsonp 的实现</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#函数柯里化"><span class="toc-list-text">函数柯里化</span></a></li></ol>
+  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#jsonp-的实现"><span class="toc-list-text">jsonp 的实现</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#函数柯里化"><span class="toc-list-text">函数柯里化</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#LazyMan-链式调用"><span class="toc-list-text">LazyMan(链式调用)</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#数组去重"><span class="toc-list-text">数组去重</span></a></li></ol>
 </li></div>
             <div class="content">
                 <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
@@ -290,7 +290,83 @@ carryAdd(1)(2, 3);
 carryAdd(1)(2)(3);
 carryAdd(1)()(2)()(3);
 </code></pre>
+<h4 id="LazyMan-链式调用"><a href="#LazyMan-链式调用" class="headerlink" title="LazyMan(链式调用)"></a>LazyMan(链式调用)</h4><pre><code class="js">function LazyMan(name) {
+  return new _LazyMan(name);
+}
 
+function _LazyMan(name) {
+  this.name = name;
+  this.queue = []; //初始化队列
+  this.queue.push(() =&gt; {
+    console.log(&quot;Hi, &quot; + name);
+    this.next();
+  });
+  setTimeout(() =&gt; {
+    this.next();
+  }, 0);
+}
+
+_LazyMan.prototype.next = function() {
+  const fn = this.queue.shift();
+  fn &amp;&amp; fn();
+};
+
+_LazyMan.prototype.eat = function(food) {
+  this.queue.push(() =&gt; {
+    console.log(this.name + &quot; eat &quot; + food);
+    this.next();
+  });
+  return this;
+};
+
+_LazyMan.prototype.sleep = function(time) {
+  this.queue.push(() =&gt; {
+    setTimeout(() =&gt; {
+      console.log(this.name + &quot; sleep &quot; + time + &quot;s&quot;);
+      this.next();
+    }, time * 1000);
+  });
+  return this;
+};
+</code></pre>
+<h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h4><ul>
+<li>includes实现<pre><code class="js">Array.prototype.unique = function() {
+const arr = this;
+const result = [];
+arr.forEach(item =&gt; {
+  if (!result.includes(item)) {
+    result.push(item);
+  }
+});
+return result;
+};
+</code></pre>
+</li>
+<li><p>reduce + sort实现</p>
+<pre><code class="js">Array.prototype.unique = function() {
+const arr = this;
+return arr
+  .sort((a, b) =&gt; a - b)
+  .reduce((pre, curr) =&gt; {
+    if (pre.length === 0 || pre[pre.length - 1] !== curr) {
+      pre.push(curr);
+    }
+    return pre;
+  }, []);
+};
+</code></pre>
+</li>
+<li><p>对象实现<br>可以使用普通对象，或者使用ES6 Map<br><code>`</code>js<br>Array.prototype.unique = function() {<br>const map = new Map();    //只能存在一个key<br>return this.filter(item =&gt; {<br>  return !map.has(item) &amp;&amp; map.set(item, 1);<br>});<br>};</p>
+</li>
+</ul>
+<p>Array.prototype.unique = function() {<br>  const obj = {};<br>  return this.filter(item =&gt; {<br>    return obj.hasOwnProperty(item) ? false : (obj[item] = true);<br>  });<br>};</p>
+<pre><code>
+- Set数据结构
+```js
+Array.prototype.unique = function() {
+  return Array.from(new Set([...this]));
+};
+</code></pre>
             </div>
           
            
