@@ -117,6 +117,9 @@
 </code></pre>
 <h4 id="instanceof-操作符"><a href="#instanceof-操作符" class="headerlink" title="instanceof 操作符"></a>instanceof 操作符</h4><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
 <pre><code class="js">function myInstanceof(left, right) {
+  if (typeof left !== &quot;object&quot; || typeof left !== &quot;function&quot;) {
+    return false;
+  }
   let prototype = right.prototype;
   left = left.__proto__;
   while (true) {
