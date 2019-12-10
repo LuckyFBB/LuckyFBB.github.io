@@ -16,18 +16,13 @@
     <meta name="description" content>
     
     <title>
-      深浅拷贝 - FBB
+      JS手写实现题 - FBB
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
   </head>
   <body>
-    
-    <div id="post-toc" class="animated hiddenToc hide">
-      <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol>
-    </div>
     
     <div id="fixed-menu-wrap">
       <span class="iconfont icon-sousuo search-box menu-reset"></span>
@@ -148,11 +143,11 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">深浅拷贝</div>
+      <div class="title">JS手写实现题</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
-          <span>2019/03/09</span>
+          <span>2019/12/10</span>
         </span>
 
         
@@ -179,6 +174,10 @@
                     <a href="/tags/JS">JS</a>
                   
                 
+                  
+                    <a href="/tags/笔试">笔试</a>
+                  
+                
             </span>
           </span>
          
@@ -186,63 +185,122 @@
       <div>
       </div>
     </div>
-    <p>昨天出去面试，被面试官问到了深浅拷贝的问题，感觉回答不是特别完整，今天就来总结一下深浅拷贝的知识。</p>
-<p>JS有两种数据类型</p>
-<ul>
-<li>基本数据类型 string/number/boolean/undefined/null/symbol(ES6)</li>
-<li>引用数据类型 object/array/function<a id="more"></a>
-</li>
-</ul>
-<p>基本数据类型储存在栈内存中，保存与复制都是<strong>数据本身</strong><br><a href="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
-<p>引用数据类型储存在堆内存中，保存与复制都是<strong>指向对象的指针</strong>，其实最后复制和原始对象都是指向同一个地址<br><a href="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
-<h5 id="浅拷贝">浅拷贝<a class="post-anchor" href="#浅拷贝"></a></h5><p>对于基本数据类型来说，拷贝一份互不影响；而对于数组和对象来说，只会拷贝数组或者对象的引用，对新旧数组进行修改，两个数组都会发生变化。</p>
-<p>基础的数组方法能够实现浅拷贝，例如concat()、slice()；对象能够使用Object.assign()实现浅拷贝；两者同是都可以使用扩展运算符实现浅拷贝。<br><pre><code class="hljs undefined">如果是嵌套数组和对象，上述方法不可行
-let arr = [1, 2, 3, 4], arr1 = [1, 2, 3, [4, 5, 6]]
-
-let copyarr = arr.slice(), copyarr1 = arr1.slice()
-
-arr[1] = 5    //arr[1, 5, 3, 4], copyarr[1, 2, 3, 4]  
-
-arr1[3][1] = 7   //arr1[1, 2, 3, [4, 7, 6]], copyarr1[1, 2, 3, [4, 7, 6]]
-
-let obj = &#123; a: 1, b: 2, c: 3 &#125;, obj1 = &#123; a: 1, b: 2, c: &#123; d: 3, e: 4 &#125; &#125;
-
-let copyobj = Object.assign(&#123;&#125;, obj), copyobj1 = Object.assign(&#123;&#125;, obj1)
-
-obj.b = 4   //obj&#123; a: 1, b: 4, c: 3 &#125;, copyobj&#123; a: 1, b: 2, c: 3 &#125;
-
-obj1.c.d = 6    //obj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;, copyobj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;</code></pre></p>
-<h5 id="深拷贝">深拷贝<a class="post-anchor" href="#深拷贝"></a></h5><p>指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</p>
+    <p>笔试面试期间会遇到一些采用 JS 实现的算法题。<br>在这里做一个归档，尽可能多的写出解决方案是我的初衷。</p>
+<a id="more"></a>
 <ol>
-<li>可以使用JSON的两个函数方法实现深拷贝</li>
+<li>函数组合运行</li>
 </ol>
-<pre><code class="hljs undefined">let arr = [&apos;old&apos;, 1, true, [&apos;old1&apos;, &apos;old2&apos;], &#123;old: 1&#125;]
+<pre><code class="hljs js"><span class="hljs-comment">/**
+ * 说明：实现一个方法，可将多个函数方法按从左到右的方式组合运行。
+ * 如`composeFunctions(fn1,fn2,fn3,fn4)`等价于`fn4(fn3(fn2(fn1))`。
+ * 示例：
+ *  const add = x =&gt; x + 1;
+ *  const multiply = (x, y) =&gt; x * y;
+ *  const multiplyAdd = composeFunctions(multiply, add);
+ *  multiplyAdd(3, 4) // 返回 13
+ */</span>
 
-let new_arr = JSON.parse( JSON.stringify(arr) );
-
-arr[3][1] = &apos;old4&apos;    //new_arr[&apos;old&apos;, 1, true, [&apos;old1&apos;, &apos;old2&apos;], &#123;old: 1&#125;]</code></pre>
-<p>但是缺点就是不能拷贝函数和undefined</p>
-<ol start="2">
-<li>深拷贝函数</li>
-</ol>
-<pre><code class="hljs undefined">function deepClone(obj) &#123;
-  function isObject(obj) &#123;   //判断是不是对象
-    return typeof obj !== null &amp;&amp; typeof obj === &apos;object&apos; || typeof obj === &apos;function&apos;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">composeFunctions</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> args = [...arguments];
+  <span class="hljs-keyword">if</span> (args.length === <span class="hljs-number">1</span>) &#123;
+    <span class="hljs-comment">//如果只有一个函数，直接当前函数</span>
+    <span class="hljs-keyword">return</span> args[<span class="hljs-number">0</span>];
   &#125;
-
-  if (!isObject(obj)) &#123;
-    return;
-  &#125;
-
-  let newObj = Array.isArray(obj) ? [] : &#123;&#125;    //判断对象类型
-
-  Object.keys(obj).forEach(key =&gt; &#123;
-    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]   //判断当前值是不是对象
-  &#125;)
-
-  return newObj
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-comment">//否则返回一个新的函数</span>
+    <span class="hljs-keyword">const</span> args1 = [...arguments];
+    <span class="hljs-keyword">return</span> args.reduce(<span class="hljs-function">(<span class="hljs-params">pre, curr</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pre === <span class="hljs-string">"function"</span>) &#123;
+        <span class="hljs-comment">//如果是第一次执行，pre为function，之后为执行函数返回值</span>
+        <span class="hljs-keyword">return</span> curr(pre(...args1));
+      &#125;
+      <span class="hljs-keyword">return</span> curr(pre);
+    &#125;);
+  &#125;;
 &#125;</code></pre>
-<p>以上就是深浅拷贝的知识。💪</p>
+<ol start="2">
+<li><p>扁平化</p>
+<pre><code class="hljs js"><span class="hljs-comment">/*
+ * 说明：请实现 flatten(input) 函数，input 为一个 javascript 对象（Object 或者 Array），返回值为扁平化后的结果。
+ * 示例：
+ *   var input = &#123;
+ *     a: 1,
+ *     b: [ 1, 2, &#123; c: true &#125;, [ 3 ] ],
+ *     d: &#123; e: 2, f: 3 &#125;,
+ *     g: null,
+ *   &#125;
+ *   var output = flatten(input);
+ *   output如下
+ *   &#123;
+ *     "a": 1,
+ *     "b[0]": 1,
+ *     "b[1]": 2,
+ *     "b[2].c": true,
+ *     "b[3][0]": 3,
+ *     "d.e": 2,
+ *     "d.f": 3,
+ *     // "g": null,  值为null或者undefined，丢弃
+ *  &#125;
+ */</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-comment">//判断是不是对象</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(obj) === <span class="hljs-string">"[object Object]"</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArray</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-comment">//判断是不是数组</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.isArray(obj);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isRemove</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-comment">//判断是不是null或者undefined</span>
+  <span class="hljs-keyword">return</span> obj === <span class="hljs-literal">null</span> || obj === <span class="hljs-literal">undefined</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_flat</span>(<span class="hljs-params">prekey, input</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> result = &#123;&#125;;
+  <span class="hljs-keyword">if</span> (isObject(input)) &#123;
+    <span class="hljs-comment">//是对象</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
+      result = <span class="hljs-built_in">Object</span>.assign(result, _flat(prekey + <span class="hljs-string">"."</span> + key, input[key]));
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isArray(input)) &#123;
+    <span class="hljs-comment">//是数组</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
+      result = <span class="hljs-built_in">Object</span>.assign(
+        result,
+        _flat(prekey + <span class="hljs-string">"["</span> + key + <span class="hljs-string">"]"</span>, input[key])
+      );
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isRemove(input)) &#123;
+    <span class="hljs-comment">//不是null或者undefined</span>
+    result[prekey] = input;
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+</li>
+<li><p>数组交错重排序</p>
+<pre><code class="hljs js"><span class="hljs-comment">/* 数组交错重排序
+ * 说明：给定一个数组，按指定个数拆分多份，并对每一份进行升序排序，
+ * 比如一个6个数据项的数组，指定个数为3，即把数组按 2 份排序
+ * 示例：
+ * const list = [4, 2, 5, 6, 3, 1];
+ * // 按每 2 个一份分别进行升序排序
+ * interlaceSort(list, 2); [2, 4, 5, 6, 1, 3]
+ * interlaceSort(list, 3); [2, 4, 5, 1, 3, 6]
+ * interlaceSort(list, 6); [1, 2, 3, 4, 5, 6]
+*/</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">interlaceSort</span>(<span class="hljs-params">list, count</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> result = [];
+  <span class="hljs-keyword">while</span> (list.length) &#123;
+    <span class="hljs-comment">//list.splice(0, count) 拿到count个数据，并且改变原数组</span>
+    result = result.concat(list.splice(<span class="hljs-number">0</span>, count).sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b));
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre></li>
+</ol>
 
 
   
@@ -269,12 +327,10 @@ arr[3][1] = &apos;old4&apos;    //new_arr[&apos;old&apos;, 1, true, [&apos;old1&
   <div class="post-guide">
     <div class="item left">
         
-          <a href="/2019/03/11/节流和防抖/">节流和防抖</a>
-        
     </div>
     <div class="item right">
         
-          <a href="/2019/03/08/公司笔试/">艾耕公司笔试</a>
+          <a href="/2019/03/24/数据结构之字典和散列表/">数据结构之字典和散列表</a>
         
     </div>
   </div>
@@ -286,7 +342,7 @@ arr[3][1] = &apos;old4&apos;    //new_arr[&apos;old&apos;, 1, true, [&apos;old1&
       本文作者：<a href="https://luckyfbb.github.io">FBB</a>
     </div>
     <div class="link">
-      永久链接：<a href="https://luckyfbb.github.io/2019/03/09/深浅拷贝/">https://luckyfbb.github.io/2019/03/09/深浅拷贝/</a>
+      永久链接：<a href="https://luckyfbb.github.io/2019/12/10/JS算法题/">https://luckyfbb.github.io/2019/12/10/JS算法题/</a>
     </div>
     <div class="declare">
       版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！

@@ -16,7 +16,7 @@
     <meta name="description" content>
     
     <title>
-      公司笔试 - FBB
+      艾耕公司笔试 - FBB
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
@@ -143,7 +143,7 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">公司笔试</div>
+      <div class="title">艾耕公司笔试</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
@@ -181,122 +181,144 @@
       <div>
       </div>
     </div>
-    <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
+    <p>今天去了艾耕公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
 <ol>
-<li>下列语句分别输出什么？<pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'01'</span>) + <span class="hljs-string">'0'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'010'</span>))    <span class="hljs-comment">//1010</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-literal">true</span>)   <span class="hljs-comment">//false                                                                                  </span>
+<li>下列语句分别输出什么？</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'01'</span>) + <span class="hljs-string">'0'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'010'</span>))    <span class="hljs-comment">//1010</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-literal">true</span>)   <span class="hljs-comment">//false</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> Aarry)   <span class="hljs-comment">//function</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'0'</span> == <span class="hljs-literal">false</span>)   <span class="hljs-comment">//true</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>toString())   <span class="hljs-comment">//报错</span>
 <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>.toString())   <span class="hljs-comment">//1</span></code></pre>
-</li>
-</ol>
 <a id="more"></a>
 <ol start="2">
-<li><p>请给出下列的输出</p>
-<pre><code class="hljs js"><span class="hljs-keyword">var</span> arr1 = <span class="hljs-string">'john'</span>.split(<span class="hljs-string">''</span>)           <span class="hljs-comment">//['j', 'o', 'h', 'n']</span>
-<span class="hljs-keyword">var</span> arr2 = arr1.reverse()             <span class="hljs-comment">//['n', 'h', 'o', 'j']     reverse会改变原数组</span>
-<span class="hljs-keyword">var</span> arr3 = <span class="hljs-string">'jones'</span>.split(<span class="hljs-string">''</span>)          <span class="hljs-comment">//['j', 'o', 'n', 'e', 's']</span>
-arr2.push(arr3)                       <span class="hljs-comment">//['n', 'h', 'o', 'j', ['j', 'o', 'n', 'e', 's']]</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'array 1 : length='</span> + arr1.length + <span class="hljs-string">' last='</span> + arr1.slice(<span class="hljs-number">-1</span>))    <span class="hljs-comment">//['n', 'h', 'o', 'j']</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'array 2 : length='</span> + arr2.length + <span class="hljs-string">' last='</span> + arr2.slice(<span class="hljs-number">-1</span>))    <span class="hljs-comment">//['n', 'h', 'o', 'j']</span></code></pre>
-</li>
-<li><p>请给出下列的输出</p>
+<li>请给出下列的输出</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> arr1 = <span class="hljs-string">"john"</span>.split(<span class="hljs-string">""</span>); <span class="hljs-comment">//['j', 'o', 'h', 'n']</span>
+<span class="hljs-keyword">var</span> arr2 = arr1.reverse(); <span class="hljs-comment">//['n', 'h', 'o', 'j']     reverse会改变原数组</span>
+<span class="hljs-keyword">var</span> arr3 = <span class="hljs-string">"jones"</span>.split(<span class="hljs-string">""</span>); <span class="hljs-comment">//['j', 'o', 'n', 'e', 's']</span>
+arr2.push(arr3); <span class="hljs-comment">//['n', 'h', 'o', 'j', ['j', 'o', 'n', 'e', 's']]</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"array 1 : length="</span> + arr1.length + <span class="hljs-string">" last="</span> + arr1.slice(<span class="hljs-number">-1</span>)); <span class="hljs-comment">//['n', 'h', 'o', 'j']</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"array 2 : length="</span> + arr2.length + <span class="hljs-string">" last="</span> + arr2.slice(<span class="hljs-number">-1</span>)); <span class="hljs-comment">//['n', 'h', 'o', 'j']</span></code></pre>
+<ol start="3">
+<li>请给出下列的输出</li>
+</ol>
 <pre><code class="hljs js"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;
   setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-    resolve(<span class="hljs-string">'hi'</span>)
-  &#125;, <span class="hljs-number">1000</span>)
-&#125;).then(<span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start '</span>, value)
-  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test error'</span>)
-&#125;).catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'I catch: '</span>, <span class="hljs-string">'test error'</span>)
-  <span class="hljs-comment">//console.log(x)    第二个catch就会报错</span>
-&#125;).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'arrive here'</span>)
-&#125;).catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;   <span class="hljs-comment">//用于接收第一个catch之后抛出的错误</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'No, I catch:'</span>, <span class="hljs-string">"anther error"</span>)
-&#125;).finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>)
+    resolve(<span class="hljs-string">"hi"</span>);
+  &#125;, <span class="hljs-number">1000</span>);
 &#125;)
+  .then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"start "</span>, value);
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"test error"</span>);
+  &#125;)
+  .catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"I catch: "</span>, <span class="hljs-string">"test error"</span>);
+    <span class="hljs-comment">//console.log(x)    第二个catch就会报错</span>
+  &#125;)
+  .then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"arrive here"</span>);
+  &#125;)
+  .catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-comment">//用于接收第一个catch之后抛出的错误</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"No, I catch:"</span>, <span class="hljs-string">"anther error"</span>);
+  &#125;)
+  .finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"end"</span>);
+  &#125;);
 <span class="hljs-comment">//start hi        resolve('hi')之后调用.then函数执行输出后，抛出异常</span>
 <span class="hljs-comment">//I catch: , test error       接收到抛出的异常执行输出，catch执行之后仍然返回一个promise</span>
-<span class="hljs-comment">//arrive here       </span>
+<span class="hljs-comment">//arrive here</span>
 <span class="hljs-comment">//end     finally永远都会执行的函数，ES2018引入标准的</span></code></pre>
-</li>
-<li><p>给出函数的返回结果</p>
+<ol start="4">
+<li>给出函数的返回结果</li>
+</ol>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transferArrToStr</span>(<span class="hljs-params">arr</span>) </span>&#123;
-  <span class="hljs-keyword">const</span> printArr = []
-  <span class="hljs-keyword">let</span> str = <span class="hljs-string">''</span>
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;   <span class="hljs-comment">//变量提升的问题，解决方法可以使用let</span>
-    printArr[i] = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> arr[i - <span class="hljs-number">1</span>]
+  <span class="hljs-keyword">const</span> printArr = [];
+  <span class="hljs-keyword">let</span> str = <span class="hljs-string">""</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;
+    <span class="hljs-comment">//变量提升的问题，解决方法可以使用let</span>
+    printArr[i] = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> arr[i - <span class="hljs-number">1</span>];
   &#125;
   printArr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-    str += item()
-  &#125;)
-  <span class="hljs-keyword">return</span> str
+    str += item();
+  &#125;);
+  <span class="hljs-keyword">return</span> str;
 &#125;
-<span class="hljs-keyword">const</span> hello = [<span class="hljs-string">'h'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'o'</span>]
-transferArrToStr(hello)    <span class="hljs-comment">//'ooooo'</span></code></pre>
-</li>
-<li><p>给出函数的返回结果</p>
+<span class="hljs-keyword">const</span> hello = [<span class="hljs-string">"h"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"l"</span>, <span class="hljs-string">"l"</span>, <span class="hljs-string">"o"</span>];
+transferArrToStr(hello); <span class="hljs-comment">//'ooooo'</span></code></pre>
+<ol start="5">
+<li>给出函数的返回结果</li>
+</ol>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortIntegers</span>(<span class="hljs-params">a, b</span>) </span>&#123;
-  <span class="hljs-keyword">return</span> a - b
+  <span class="hljs-keyword">return</span> a - b;
 &#125;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computeProduct</span>(<span class="hljs-params">unsorted</span>) </span>&#123;   <span class="hljs-comment">//该算法实现计算数组中最大三个数的乘积</span>
-  <span class="hljs-keyword">var</span> sort_array = unsorted.sort(sortIntegers)
-  <span class="hljs-keyword">var</span> product1 = <span class="hljs-number">1</span>
-  <span class="hljs-keyword">var</span> product2 = <span class="hljs-number">1</span>
-  <span class="hljs-keyword">var</span> array_n_element = sort_array.length - <span class="hljs-number">1</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computeProduct</span>(<span class="hljs-params">unsorted</span>) </span>&#123;
+  <span class="hljs-comment">//该算法实现计算数组中最大三个数的乘积</span>
+  <span class="hljs-keyword">var</span> sort_array = unsorted.sort(sortIntegers);
+  <span class="hljs-keyword">var</span> product1 = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">var</span> product2 = <span class="hljs-number">1</span>;
+  <span class="hljs-keyword">var</span> array_n_element = sort_array.length - <span class="hljs-number">1</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> x = array_n_element; x &gt; array_n_element - <span class="hljs-number">3</span>; x--) &#123;
-    product1 = product1 * sort_array[x]
+    product1 = product1 * sort_array[x];
   &#125;
-  product2 = sort_array[<span class="hljs-number">0</span>] * sort_array[<span class="hljs-number">1</span>] * sort_array[array_n_element]
-  <span class="hljs-keyword">if</span> (product1 &gt; product2) <span class="hljs-keyword">return</span> product1
-  <span class="hljs-keyword">return</span> product2
+  product2 = sort_array[<span class="hljs-number">0</span>] * sort_array[<span class="hljs-number">1</span>] * sort_array[array_n_element];
+  <span class="hljs-keyword">if</span> (product1 &gt; product2) <span class="hljs-keyword">return</span> product1;
+  <span class="hljs-keyword">return</span> product2;
 &#125;
-<span class="hljs-keyword">var</span> unsorted_array = [<span class="hljs-number">-10</span>, <span class="hljs-number">7</span>, <span class="hljs-number">29</span>, <span class="hljs-number">30</span>, <span class="hljs-number">5</span>, <span class="hljs-number">-10</span>, <span class="hljs-number">-70</span>]
-computeProduct(unsorted_array)    <span class="hljs-comment">//21000</span></code></pre>
-</li>
-<li><p>请输出下列结果</p>
-<pre><code class="hljs js"><span class="hljs-keyword">const</span> globalVar = <span class="hljs-string">'xyz'</span>;
+<span class="hljs-keyword">var</span> unsorted_array = [<span class="hljs-number">-10</span>, <span class="hljs-number">7</span>, <span class="hljs-number">29</span>, <span class="hljs-number">30</span>, <span class="hljs-number">5</span>, <span class="hljs-number">-10</span>, <span class="hljs-number">-70</span>];
+computeProduct(unsorted_array); <span class="hljs-comment">//21000</span></code></pre>
+<ol start="6">
+<li>请输出下列结果</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> globalVar = <span class="hljs-string">"xyz"</span>;
 (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outerFunc</span>(<span class="hljs-params">outerArg</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> outerVar = <span class="hljs-string">'a'</span>;
+  <span class="hljs-keyword">let</span> outerVar = <span class="hljs-string">"a"</span>;
   (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">innerFunc</span>(<span class="hljs-params">innerArg</span>) </span>&#123;
-    <span class="hljs-keyword">let</span> innerVar = <span class="hljs-string">'b'</span>
+    <span class="hljs-keyword">let</span> innerVar = <span class="hljs-string">"b"</span>;
     <span class="hljs-built_in">console</span>.log(
-      <span class="hljs-string">'outerArg = '</span> + outerArg + <span class="hljs-string">'\n'</span> +
-      <span class="hljs-string">'outerVar = '</span> + outerVar + <span class="hljs-string">'\n'</span> +
-      <span class="hljs-string">'innerArg = '</span> + innerArg + <span class="hljs-string">'\n'</span> +
-      <span class="hljs-string">'innerVar = '</span> + innerVar + <span class="hljs-string">'\n'</span> +
-      <span class="hljs-string">'globalVar = '</span> + globalVar
-    )
-  &#125;)(<span class="hljs-number">456</span>)
-&#125;)(<span class="hljs-number">123</span>)</code></pre>
-</li>
-<li><p>使用栈判断大括号是否闭合</p>
+      <span class="hljs-string">"outerArg = "</span> +
+        outerArg +
+        <span class="hljs-string">"\n"</span> +
+        <span class="hljs-string">"outerVar = "</span> +
+        outerVar +
+        <span class="hljs-string">"\n"</span> +
+        <span class="hljs-string">"innerArg = "</span> +
+        innerArg +
+        <span class="hljs-string">"\n"</span> +
+        <span class="hljs-string">"innerVar = "</span> +
+        innerVar +
+        <span class="hljs-string">"\n"</span> +
+        <span class="hljs-string">"globalVar = "</span> +
+        globalVar
+    );
+  &#125;)(<span class="hljs-number">456</span>);
+&#125;)(<span class="hljs-number">123</span>);</code></pre>
+<ol start="7">
+<li>使用栈判断大括号是否闭合</li>
+</ol>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isBalanced</span>(<span class="hljs-params">expression</span>) </span>&#123;
-  <span class="hljs-keyword">var</span> checkingString = expression
-  <span class="hljs-keyword">var</span> stack = []
-  <span class="hljs-keyword">if</span> (checkingString.length &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">var</span> checkingString = expression;
+  <span class="hljs-keyword">var</span> stack = [];
+  <span class="hljs-keyword">if</span> (checkingString.length &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; checkingString.length; i++) &#123;
-    <span class="hljs-keyword">if</span> (checkingString[i] === <span class="hljs-string">'&#123;'</span>) &#123;   
-      stack.push(checkingString[i])
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (checkingString[i] === <span class="hljs-string">'&#125;'</span>) &#123;
+    <span class="hljs-keyword">if</span> (checkingString[i] === <span class="hljs-string">"&#123;"</span>) &#123;
+      stack.push(checkingString[i]);
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (checkingString[i] === <span class="hljs-string">"&#125;"</span>) &#123;
       <span class="hljs-keyword">if</span> (stack.length &gt; <span class="hljs-number">0</span>) &#123;
-        stack.pop() === <span class="hljs-string">'&#123;'</span>
-        <span class="hljs-keyword">continue</span>
+        stack.pop() === <span class="hljs-string">"&#123;"</span>;
+        <span class="hljs-keyword">continue</span>;
       &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
       &#125;
     &#125;
   &#125;
-  <span class="hljs-keyword">if</span> (stack.pop()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">if</span> (stack.pop()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 &#125;</code></pre>
-</li>
-<li><p>实现二分查找法</p>
-</li>
+<ol start="8">
+<li>实现二分查找法</li>
 </ol>
 
 

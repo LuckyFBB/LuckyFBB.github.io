@@ -16,18 +16,13 @@
     <meta name="description" content>
     
     <title>
-      深浅拷贝 - FBB
+      归档2019/12 - FBB
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
   </head>
   <body>
-    
-    <div id="post-toc" class="animated hiddenToc hide">
-      <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol>
-    </div>
     
     <div id="fixed-menu-wrap">
       <span class="iconfont icon-sousuo search-box menu-reset"></span>
@@ -62,7 +57,7 @@
           首页
         </a>
         
-        <a href="/archives" class>
+        <a href="/archives" class="current">
           归档
         </a>
         
@@ -112,7 +107,7 @@
             首页
           </a>
           
-          <a href="/archives" class>
+          <a href="/archives" class="current">
             归档
           </a>
           
@@ -145,159 +140,43 @@
     </div>
     <div id="container">
       <div class="main animated bounceInRight delay-0.7s">
-        <article class="post-entry">
-    <div class="header">
-      
-      <div class="title">深浅拷贝</div>
-      <div class="meta">
-        <span class="item">
-          <span class="iconfont icon-time-circle"></span>
-          <span>2019/03/09</span>
-        </span>
-
-        
-
-         
-        <span class="item">
-          <span class="iconfont icon-folder"></span>
-          <span>
-              
-                
-                  <a href="/categories/前端">前端</a>
-                
-              
-          </span>
-        </span>
-        
-        
-         
-          <span class="item">
-            <span class="iconfont icon-tag1"></span>
-            <span>
-                
-                  
-                    <a href="/tags/JS">JS</a>
-                  
-                
-            </span>
-          </span>
-         
-      </div>
-      <div>
-      </div>
-    </div>
-    <p>昨天出去面试，被面试官问到了深浅拷贝的问题，感觉回答不是特别完整，今天就来总结一下深浅拷贝的知识。</p>
-<p>JS有两种数据类型</p>
-<ul>
-<li>基本数据类型 string/number/boolean/undefined/null/symbol(ES6)</li>
-<li>引用数据类型 object/array/function<a id="more"></a>
-</li>
-</ul>
-<p>基本数据类型储存在栈内存中，保存与复制都是<strong>数据本身</strong><br><a href="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
-<p>引用数据类型储存在堆内存中，保存与复制都是<strong>指向对象的指针</strong>，其实最后复制和原始对象都是指向同一个地址<br><a href="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
-<h5 id="浅拷贝">浅拷贝<a class="post-anchor" href="#浅拷贝"></a></h5><p>对于基本数据类型来说，拷贝一份互不影响；而对于数组和对象来说，只会拷贝数组或者对象的引用，对新旧数组进行修改，两个数组都会发生变化。</p>
-<p>基础的数组方法能够实现浅拷贝，例如concat()、slice()；对象能够使用Object.assign()实现浅拷贝；两者同是都可以使用扩展运算符实现浅拷贝。<br><pre><code class="hljs undefined">如果是嵌套数组和对象，上述方法不可行
-let arr = [1, 2, 3, 4], arr1 = [1, 2, 3, [4, 5, 6]]
-
-let copyarr = arr.slice(), copyarr1 = arr1.slice()
-
-arr[1] = 5    //arr[1, 5, 3, 4], copyarr[1, 2, 3, 4]  
-
-arr1[3][1] = 7   //arr1[1, 2, 3, [4, 7, 6]], copyarr1[1, 2, 3, [4, 7, 6]]
-
-let obj = &#123; a: 1, b: 2, c: 3 &#125;, obj1 = &#123; a: 1, b: 2, c: &#123; d: 3, e: 4 &#125; &#125;
-
-let copyobj = Object.assign(&#123;&#125;, obj), copyobj1 = Object.assign(&#123;&#125;, obj1)
-
-obj.b = 4   //obj&#123; a: 1, b: 4, c: 3 &#125;, copyobj&#123; a: 1, b: 2, c: 3 &#125;
-
-obj1.c.d = 6    //obj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;, copyobj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;</code></pre></p>
-<h5 id="深拷贝">深拷贝<a class="post-anchor" href="#深拷贝"></a></h5><p>指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</p>
-<ol>
-<li>可以使用JSON的两个函数方法实现深拷贝</li>
-</ol>
-<pre><code class="hljs undefined">let arr = [&apos;old&apos;, 1, true, [&apos;old1&apos;, &apos;old2&apos;], &#123;old: 1&#125;]
-
-let new_arr = JSON.parse( JSON.stringify(arr) );
-
-arr[3][1] = &apos;old4&apos;    //new_arr[&apos;old&apos;, 1, true, [&apos;old1&apos;, &apos;old2&apos;], &#123;old: 1&#125;]</code></pre>
-<p>但是缺点就是不能拷贝函数和undefined</p>
-<ol start="2">
-<li>深拷贝函数</li>
-</ol>
-<pre><code class="hljs undefined">function deepClone(obj) &#123;
-  function isObject(obj) &#123;   //判断是不是对象
-    return typeof obj !== null &amp;&amp; typeof obj === &apos;object&apos; || typeof obj === &apos;function&apos;
-  &#125;
-
-  if (!isObject(obj)) &#123;
-    return;
-  &#125;
-
-  let newObj = Array.isArray(obj) ? [] : &#123;&#125;    //判断对象类型
-
-  Object.keys(obj).forEach(key =&gt; &#123;
-    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]   //判断当前值是不是对象
-  &#125;)
-
-  return newObj
-&#125;</code></pre>
-<p>以上就是深浅拷贝的知识。💪</p>
-
-
-  
-    <div class="post-reward">
-    <div id="reward-button">打赏</div>
-      <div id="qr">
-        <div class="wrap">
-            
-            <div class="bg-wrap">
-              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
-              支付宝
-            </div>
-            
-            
-            <div class="bg-wrap">
-                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
-              微信
-            </div>
-            
+        <div id="archives">
+    
+        <div class="title">
+            归档 
+             - 2019/12
         </div>
-      </div>
-    </div>
-  
-  <div class="post-guide">
-    <div class="item left">
-        
-          <a href="/2019/03/11/节流和防抖/">节流和防抖</a>
-        
-    </div>
-    <div class="item right">
-        
-          <a href="/2019/03/08/公司笔试/">艾耕公司笔试</a>
-        
-    </div>
-  </div>
+    
 
-  
 
-  <div class="post-copyright">
-    <div class="auth">
-      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
-    </div>
-    <div class="link">
-      永久链接：<a href="https://luckyfbb.github.io/2019/03/09/深浅拷贝/">https://luckyfbb.github.io/2019/03/09/深浅拷贝/</a>
-    </div>
-    <div class="declare">
-      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
-    </div>
-  </div>
 
-  <div id="comment"></div>
 
-  
-  
-</article>
+    
+    
+    <section class="wrap">
+        <div class="meta">
+            <a href="/archives/2019">
+                2019
+            </a>
+        </div>
+        <div class="year">
+            
+            <article class="item">
+            <a href="/2019/12/10/JS算法题/" title="JS手写实现题">
+                <span>2019/12/10</span>
+                <span>JS手写实现题</span>
+            </a>
+            </article>
+            
+    
+        </div>
+    </section>
+      
+<div class="paginator">
+    <span class="page-number current">1</span>
+</div>
+</div>
+
         <footer>
           <div class="copyright">
             ©2019
