@@ -1,466 +1,794 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>
-        
-            FBB
-        
-    </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <section class="posts">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
     
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/07/JS迭代函数/"> 
-                    JS迭代函数的使用 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-07   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>总结一下 JavaScript 中迭代函数(filter，map，reduce 等)的具体使用。</p>
-<pre><code>ES5：
+    <title>
+          FBB
+    </title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        
+<div class="posts">
+  <ul>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/07/JS迭代函数/">JS迭代函数的使用</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/07</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>总结一下 JavaScript 中迭代函数(filter，map，reduce 等)的具体使用。</p>
+<pre><code class="hljs undefined">ES5：
 forEach、every 、some、 filter、map、reduce、reduceRight、
 ES6：
-find、findIndex、keys、values、entries
-</code></pre>
-                
-            </div>
-            <div class="continue">
-            <a href="/2019/03/07/JS迭代函数/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+find、findIndex、keys、values、entries</code></pre></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/05/珍爱网面经/"> 
-                    珍爱网前端面试面经 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-05   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/面经/">面经</a></li></ul>
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
-                
-                <p>忘记是什么时候内推的，然后简历通过了免笔试，拿到了面试机会。3.5下午视频面试。记录一下面试题目。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/05/珍爱网面经/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/05/今日份感想/"> 
-                    今日份感想 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-05   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/其他/">其他</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>2019.3.5距离毕业还有四个月的样子。但是感觉糟糕透了，无业游民的感慨吧。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/05/今日份感想/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/02/14/JS原生实现/"> 
-                    JS原生实现过程和JS算法题 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-14   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>总结一下一些操作符或者方法的原生实现。持续更新
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/02/14/JS原生实现/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/02/13/垂直居中/"> 
-                    如何实现元素居中 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-13   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>总结一下居中方法。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/02/13/垂直居中/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/02/11/浮动/"> 
-                    CSS中的流 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-11   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>简单总结一下’破坏流’和’保护流’的CSS属性。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/02/11/浮动/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/01/26/JS高级教程/"> 
-                    JavaScript高级教程 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-26   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>准备春招的过程中，重读JS高级教程。记录一下一些知识点。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/01/26/JS高级教程/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/01/19/个推面经/"> 
-                    个推前端面试面经 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-19   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/面经/">面经</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>被同学内推，周二发送了简历，周三发出了面试邀请。周五下午有幸去浙江每日互动有限公司(个推)面试，进行一下简单的记录。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/01/19/个推面经/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/01/15/vertical-align/"> 
-                    line-height和vertical-align 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-15   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>总结一下line-height和他的好朋友vertical-align。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/01/15/vertical-align/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/01/15/JS继承/"> 
-                    关于类的继承 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-15   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。</p>
-<pre><code class="js">class Person(){}
-Person instanceof Function   //true
-</code></pre>
-<p>今天就逐步优化一下类继承的方式。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/01/15/JS继承/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-</section>
 
-  <nav class="page-nav">
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
-  </nav>
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/07/JS迭代函数/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/07/JS迭代函数/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/07/JS迭代函数/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
 
-    </main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/05/珍爱网面经/">珍爱网前端面试面经</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/05</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>忘记是什么时候内推的，然后简历通过了免笔试，拿到了面试机会。3.5下午视频面试。记录一下面试题目。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/面经">面经</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/05/珍爱网面经/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/05/珍爱网面经/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/05/珍爱网面经/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/05/今日份感想/">今日份感想</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/05</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>2019.3.5距离毕业还有四个月的样子。但是感觉糟糕透了，无业游民的感慨吧。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/生活">生活</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/其他">其他</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/05/今日份感想/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/05/今日份感想/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/05/今日份感想/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/02/14/JS原生实现/">JS原生实现过程和JS算法题</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/02/14</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>总结一下一些操作符或者方法的原生实现。持续更新</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/02/14/JS原生实现/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/02/14/JS原生实现/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/02/14/JS原生实现/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/02/13/垂直居中/">如何实现元素居中</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/02/13</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>总结一下居中方法。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br></p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/CSS">CSS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/02/13/垂直居中/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/02/13/垂直居中/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/02/13/垂直居中/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/02/11/浮动/">CSS中的流</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/02/11</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>简单总结一下’破坏流’和’保护流’的CSS属性。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/CSS">CSS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/02/11/浮动/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/02/11/浮动/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/02/11/浮动/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/01/26/JS高级教程/">JavaScript高级教程</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/01/26</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>准备春招的过程中，重读JS高级教程。记录一下一些知识点。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/01/26/JS高级教程/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/01/26/JS高级教程/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/01/26/JS高级教程/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/01/19/个推面经/">个推前端面试面经</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/01/19</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>被同学内推，周二发送了简历，周三发出了面试邀请。周五下午有幸去浙江每日互动有限公司(个推)面试，进行一下简单的记录。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/面经">面经</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/01/19/个推面经/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/01/19/个推面经/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/01/19/个推面经/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/01/15/vertical-align/">line-height和vertical-align</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/01/15</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>总结一下line-height和他的好朋友vertical-align。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/CSS">CSS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/01/15/vertical-align/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/01/15/vertical-align/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/01/15/vertical-align/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/01/15/JS继承/">关于类的继承</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/01/15</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。<br><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>()</span>&#123;&#125;
+Person <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Function</span>   <span class="hljs-comment">//true</span></code></pre></p>
+<p>今天就逐步优化一下类继承的方式。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/01/15/JS继承/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/01/15/JS继承/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/01/15/JS继承/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    
+  </ul>
+</div>
+
+<div class="paginator">
+  <a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a>
+</div>
+
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

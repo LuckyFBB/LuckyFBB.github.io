@@ -1,268 +1,375 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            数据结构之集合
-        
+      数据结构之集合 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/23/数据结构之集合/"> 
-                    数据结构之集合 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-23   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#创建集合"><span class="toc-list-text">创建集合</span></a></li></ol>
-</div>
-            <div class="content">
-                <p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
-<p>集合是由一组无序且唯一（即不能重复）的项组成的。</p>
-<p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。<a id="more"></a></p>
-<h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><pre><code class="js">function Set() {
-  var items = {}
-
-  this.has = function (value) {        //判断该值是否在集合中，在则返回true，否则返回false
-    return items.hasOwnProperty(value)
-  }
-
-  this.add = function (value) {         //向集合中添加元素
-    if (!this.has(value)) {     //判断该值是否在集合中
-      items[value] = value
-      return true
-    }
-    return false
-  }
-
-  this.remove = function (value) {        //删除某个值
-    if (this.has(value)) {             //判断集合中是否有这个值
-      delete items[value]
-      return true
-    }
-    return false
-  }
-
-  this.clear = function () {            //清空集合
-    items = {}
-  }
-
-  this.size = function () {
-    return Object.keys(items).length
-  }
-
-  this.values = function () {              //返回当前集合的元素
-    return Object.keys(items)
-  }
-
-  this.union = function (otherSet) {         //求两个集合的并集
-    var unionSet = new Set()                 //新建集合
-    var values = this.values()
-    values.forEach(item =&gt; {
-      unionSet.add(item)
-    })
-    values = otherSet.values()
-    values.forEach(item =&gt; {
-      unionSet.add(item)
-    })
-    return unionSet
-  }
-
-  this.intersection = function (otherSet) {       //求两个集合的交集
-    var intersectionSet = new Set()
-    var values = this.values()
-    values.forEach(item =&gt; {
-      if (otherSet.has(item)) {
-        intersectionSet.add(item)
-      }
-    })
-    return intersectionSet
-  }
-
-  this.difference = function (otherSet) {         //求两个集合的差集
-    var differenceSet = new Set()
-    var values = this.values()
-    values.forEach(item =&gt; {
-      if (!otherSet.has(item)) {
-        differenceSet.add(item)
-      }
-    })
-    return differenceSet
-  }
-
-  this.subSet = function (otherSet) {               //求当前集合是否是另一个集合的子集
-    if (this.size() &gt; otherSet.size()) {
-      return false
-    } else {
-      var values = this.values
-      values.forEach(item =&gt; {
-        if (!otherSet.has(item)) {
-          return false
-        }
-        return true
-      })
-    }
-  }
-}
-</code></pre>
-<p>至此，集合的基本使用方法已经总结完毕。顺序性数据结构的学习已经结束了。接下来是散列和字典的学习，两种非序列性的数据结构。👍</p>
-
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/03/23/数据结构之集合/">http://yoursite.com/2019/03/23/数据结构之集合/</a>
-                </div>
-            </div>
-            
-
-          
-
-
-</article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/03/24/数据结构之字典和散列表/">  数据结构之字典和散列表</a>
-    </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/03/22/数据结构之链表/"> 数据结构之链表 </a>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建集合"><span class="toc-text">创建集合</span></a></li></ol>
     </div>
     
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Sat Mar 23 2019 10:11:10 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
     </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
     </div>
-</footer>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">数据结构之集合</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/03/23</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/数据结构">数据结构</a>
+                
+              
+          </span>
+        </span>
+        
+        
+        
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
+<p>集合是由一组无序且唯一（即不能重复）的项组成的。</p>
+<p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。<a id="more"></a></p>
+<h4 id="创建集合">创建集合<a class="post-anchor" href="#创建集合"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Set</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> items = &#123;&#125;
+
+  <span class="hljs-keyword">this</span>.has = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;        <span class="hljs-comment">//判断该值是否在集合中，在则返回true，否则返回false</span>
+    <span class="hljs-keyword">return</span> items.hasOwnProperty(value)
+  &#125;
+
+  <span class="hljs-keyword">this</span>.add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;         <span class="hljs-comment">//向集合中添加元素</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.has(value)) &#123;     <span class="hljs-comment">//判断该值是否在集合中</span>
+      items[value] = value
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  &#125;
+
+  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;        <span class="hljs-comment">//删除某个值</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.has(value)) &#123;             <span class="hljs-comment">//判断集合中是否有这个值</span>
+      <span class="hljs-keyword">delete</span> items[value]
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  &#125;
+
+  <span class="hljs-keyword">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;            <span class="hljs-comment">//清空集合</span>
+    items = &#123;&#125;
+  &#125;
+
+  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(items).length
+  &#125;
+
+  <span class="hljs-keyword">this</span>.values = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;              <span class="hljs-comment">//返回当前集合的元素</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(items)
+  &#125;
+
+  <span class="hljs-keyword">this</span>.union = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;         <span class="hljs-comment">//求两个集合的并集</span>
+    <span class="hljs-keyword">var</span> unionSet = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()                 <span class="hljs-comment">//新建集合</span>
+    <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values()
+    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+      unionSet.add(item)
+    &#125;)
+    values = otherSet.values()
+    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+      unionSet.add(item)
+    &#125;)
+    <span class="hljs-keyword">return</span> unionSet
+  &#125;
+
+  <span class="hljs-keyword">this</span>.intersection = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;       <span class="hljs-comment">//求两个集合的交集</span>
+    <span class="hljs-keyword">var</span> intersectionSet = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()
+    <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values()
+    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (otherSet.has(item)) &#123;
+        intersectionSet.add(item)
+      &#125;
+    &#125;)
+    <span class="hljs-keyword">return</span> intersectionSet
+  &#125;
+
+  <span class="hljs-keyword">this</span>.difference = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;         <span class="hljs-comment">//求两个集合的差集</span>
+    <span class="hljs-keyword">var</span> differenceSet = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()
+    <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values()
+    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (!otherSet.has(item)) &#123;
+        differenceSet.add(item)
+      &#125;
+    &#125;)
+    <span class="hljs-keyword">return</span> differenceSet
+  &#125;
+
+  <span class="hljs-keyword">this</span>.subSet = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;               <span class="hljs-comment">//求当前集合是否是另一个集合的子集</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.size() &gt; otherSet.size()) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values
+      values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+        <span class="hljs-keyword">if</span> (!otherSet.has(item)) &#123;
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+      &#125;)
+    &#125;
+  &#125;
+&#125;</code></pre>
+<p>至此，集合的基本使用方法已经总结完毕。顺序性数据结构的学习已经结束了。接下来是散列和字典的学习，两种非序列性的数据结构。👍</p>
+
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/03/24/数据结构之字典和散列表/">数据结构之字典和散列表</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/03/22/数据结构之链表/">数据结构之链表</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/03/23/数据结构之集合/">https://luckyfbb.github.io/2019/03/23/数据结构之集合/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

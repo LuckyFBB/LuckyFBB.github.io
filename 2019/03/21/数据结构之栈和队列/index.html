@@ -1,271 +1,373 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            数据结构之栈、队列
-        
+      数据结构之栈、队列 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/21/数据结构之栈和队列/"> 
-                    数据结构之栈、队列 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-21   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#栈的创建"><span class="toc-list-text">栈的创建</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#队列的创建"><span class="toc-list-text">队列的创建</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#优先队列"><span class="toc-list-text">优先队列</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#循环队列"><span class="toc-list-text">循环队列</span></a></li></ol>
-</div>
-            <div class="content">
-                <p>学习JavaScript数据结构与算法之栈和队列篇章。前端小白简单的学习笔记。</p>
-<p>栈是一种遵从后进先出（LIFO）原则的有序集合。新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端就叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。</p>
-<p>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。<a id="more"></a></p>
-<h4 id="栈的创建"><a href="#栈的创建" class="headerlink" title="栈的创建"></a>栈的创建</h4><pre><code class="js">function Stack() {
-  var items = []
-  this.push = function (elememt) {   //负责往栈里添加新元素，该方法只添加元素到栈顶
-    items.push(elememt)
-  }
-  this.pop = function () {     //用来移除栈里的元素，栈遵从LIFO原则，移出的是最后添加进去的元素
-    return items.pop()
-  }
-  this.peek = function () {    //返回栈顶元素
-    return items[items.length - 1]
-  }
-  this.isEmpty = function () {   //判断栈是否为空
-    return items.length === 0
-  }
-  this.size = function () {   //返回栈的大小
-    return items.length
-  }
-  this.clear = function () {    //用来移除栈里所有的元素，把栈清空
-    items = [];
-  };
-}
-</code></pre>
-<h4 id="队列的创建"><a href="#队列的创建" class="headerlink" title="队列的创建"></a>队列的创建</h4><pre><code class="js">function Queue() {
-  var items = []
-  this.enqueue = function (element) {    //这个方法负责向队列添加新元素，新的项只能添加到队列末尾
-    items.push(element);
-  }
-  this.dequeue = function () {      //负责从队列移除项，由于队列遵循先进先出原则，先添加的项也是最先被移除的
-    return items.shift();
-  }
-  this.front = function () {       //会返回队列最前面的项
-    return items[0];
-  }
-  this.isEmpty = function () {      //判断队列是否为空
-    return items.length == 0;
-  }
-  this.clear = function () {        //清空队列
-    items = [];
-  }
-  this.size = function () {      //返回队列的大小
-    return items.length;
-  }
-}
-</code></pre>
-<h4 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h4><p>元素的添加和删除基于优先级的。</p>
-<pre><code class="js">function PriorityQueue() {
-  var items = []
-  function QueueElement(element, priority) {    //要添加的元素和元素的优先级
-    this.element = element;
-    this.priority = priority;
-  }
-  this.enqueue = function (element, priority) {
-    var queueElement = new QueueElement(element, priority)
-    if (this.isEmpty) {    //当队列为空的时候，直接添加元素
-      item.push(queueElement)
-    } else {
-      var added = false
-      for (var i = 0; i &lt; items.length; i++) {
-        if (queueElement.priority &lt; items[i].priority) {         //添加元素的优先级和已有元素的优先级的比较
-          items.splice(i, 0, queueElement)       //插入元素
-          added = true
-          break
-        }
-      }
-      if (!added) {             //判断是否添加，如果没有的话，说明优先级最高，放到最后
-        items.push(queueElement)
-      }
-    }
-  }
-
-  //其他方法和普通队列实现是一样的
-}
-</code></pre>
-<h4 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h4><p>循环队列的一个例子就是击鼓传花游戏（HotPotato）。在这个游戏中，孩子们围成一个圆圈，把花尽快地传递给旁边的人。某一时刻传花停止，这个时候花在谁手里，谁就退出圆圈结束游戏。重复这个过程，直到只剩一个孩子（胜者）。</p>
-<pre><code class="js">function hotPotato(nameList, num) {
-  var queue = new queue()    //基本队列
-  nameList.forEach(item =&gt; queue.enqueue(item))   //把数据放到队列里面
-  var eliminated = &#39;&#39;   //初始化淘汰者的名字
-  while (queue.size() &gt; 1) {    //当队列里还有两个及其以上的元素
-    for (var i = 0; i &lt; num; i++) {
-      queue.enqueue(queue.dequeue())     //从队列开头移除一项，再将其添加到队列末尾
-    }
-    eliminated = queue.dequeue()     //处于队列首位的就是淘汰者
-    console.log(&#39;这次淘汰的人：&#39; + eliminated)
-  }
-  return queue.dequeue()     //返回游戏的胜利者
-}
-</code></pre>
-<p>至此，栈和队列的基本使用方法已经总结完毕。接下来会是链表的学习。👍</p>
-
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/03/21/数据结构之栈和队列/">http://yoursite.com/2019/03/21/数据结构之栈和队列/</a>
-                </div>
-            </div>
-            
-
-          
-
-
-</article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/03/22/数据结构之链表/">  数据结构之链表</a>
-    </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/03/20/数据结构之数组/"> 数据结构之数组 </a>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#栈的创建"><span class="toc-text">栈的创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#队列的创建"><span class="toc-text">队列的创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优先队列"><span class="toc-text">优先队列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#循环队列"><span class="toc-text">循环队列</span></a></li></ol>
     </div>
     
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Thu Mar 21 2019 09:40:50 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
     </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
     </div>
-</footer>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">数据结构之栈、队列</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/03/21</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/数据结构">数据结构</a>
+                
+              
+          </span>
+        </span>
+        
+        
+        
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>学习JavaScript数据结构与算法之栈和队列篇章。前端小白简单的学习笔记。</p>
+<p>栈是一种遵从后进先出（LIFO）原则的有序集合。新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端就叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。</p>
+<p>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。<a id="more"></a></p>
+<h4 id="栈的创建">栈的创建<a class="post-anchor" href="#栈的创建"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Stack</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> items = []
+  <span class="hljs-keyword">this</span>.push = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elememt</span>) </span>&#123;   <span class="hljs-comment">//负责往栈里添加新元素，该方法只添加元素到栈顶</span>
+    items.push(elememt)
+  &#125;
+  <span class="hljs-keyword">this</span>.pop = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;     <span class="hljs-comment">//用来移除栈里的元素，栈遵从LIFO原则，移出的是最后添加进去的元素</span>
+    <span class="hljs-keyword">return</span> items.pop()
+  &#125;
+  <span class="hljs-keyword">this</span>.peek = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;    <span class="hljs-comment">//返回栈顶元素</span>
+    <span class="hljs-keyword">return</span> items[items.length - <span class="hljs-number">1</span>]
+  &#125;
+  <span class="hljs-keyword">this</span>.isEmpty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;   <span class="hljs-comment">//判断栈是否为空</span>
+    <span class="hljs-keyword">return</span> items.length === <span class="hljs-number">0</span>
+  &#125;
+  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;   <span class="hljs-comment">//返回栈的大小</span>
+    <span class="hljs-keyword">return</span> items.length
+  &#125;
+  <span class="hljs-keyword">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;    <span class="hljs-comment">//用来移除栈里所有的元素，把栈清空</span>
+    items = [];
+  &#125;;
+&#125;</code></pre>
+<h4 id="队列的创建">队列的创建<a class="post-anchor" href="#队列的创建"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Queue</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> items = []
+  <span class="hljs-keyword">this</span>.enqueue = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;    <span class="hljs-comment">//这个方法负责向队列添加新元素，新的项只能添加到队列末尾</span>
+    items.push(element);
+  &#125;
+  <span class="hljs-keyword">this</span>.dequeue = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//负责从队列移除项，由于队列遵循先进先出原则，先添加的项也是最先被移除的</span>
+    <span class="hljs-keyword">return</span> items.shift();
+  &#125;
+  <span class="hljs-keyword">this</span>.front = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;       <span class="hljs-comment">//会返回队列最前面的项</span>
+    <span class="hljs-keyword">return</span> items[<span class="hljs-number">0</span>];
+  &#125;
+  <span class="hljs-keyword">this</span>.isEmpty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//判断队列是否为空</span>
+    <span class="hljs-keyword">return</span> items.length == <span class="hljs-number">0</span>;
+  &#125;
+  <span class="hljs-keyword">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;        <span class="hljs-comment">//清空队列</span>
+    items = [];
+  &#125;
+  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//返回队列的大小</span>
+    <span class="hljs-keyword">return</span> items.length;
+  &#125;
+&#125;</code></pre>
+<h4 id="优先队列">优先队列<a class="post-anchor" href="#优先队列"></a></h4><p>元素的添加和删除基于优先级的。<br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PriorityQueue</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> items = []
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">QueueElement</span>(<span class="hljs-params">element, priority</span>) </span>&#123;    <span class="hljs-comment">//要添加的元素和元素的优先级</span>
+    <span class="hljs-keyword">this</span>.element = element;
+    <span class="hljs-keyword">this</span>.priority = priority;
+  &#125;
+  <span class="hljs-keyword">this</span>.enqueue = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element, priority</span>) </span>&#123;
+    <span class="hljs-keyword">var</span> queueElement = <span class="hljs-keyword">new</span> QueueElement(element, priority)
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.isEmpty) &#123;    <span class="hljs-comment">//当队列为空的时候，直接添加元素</span>
+      item.push(queueElement)
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">var</span> added = <span class="hljs-literal">false</span>
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; items.length; i++) &#123;
+        <span class="hljs-keyword">if</span> (queueElement.priority &lt; items[i].priority) &#123;         <span class="hljs-comment">//添加元素的优先级和已有元素的优先级的比较</span>
+          items.splice(i, <span class="hljs-number">0</span>, queueElement)       <span class="hljs-comment">//插入元素</span>
+          added = <span class="hljs-literal">true</span>
+          <span class="hljs-keyword">break</span>
+        &#125;
+      &#125;
+      <span class="hljs-keyword">if</span> (!added) &#123;             <span class="hljs-comment">//判断是否添加，如果没有的话，说明优先级最高，放到最后</span>
+        items.push(queueElement)
+      &#125;
+    &#125;
+  &#125;
+
+  <span class="hljs-comment">//其他方法和普通队列实现是一样的</span>
+&#125;</code></pre></p>
+<h4 id="循环队列">循环队列<a class="post-anchor" href="#循环队列"></a></h4><p>循环队列的一个例子就是击鼓传花游戏（HotPotato）。在这个游戏中，孩子们围成一个圆圈，把花尽快地传递给旁边的人。某一时刻传花停止，这个时候花在谁手里，谁就退出圆圈结束游戏。重复这个过程，直到只剩一个孩子（胜者）。<br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hotPotato</span>(<span class="hljs-params">nameList, num</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> queue = <span class="hljs-keyword">new</span> queue()    <span class="hljs-comment">//基本队列</span>
+  nameList.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> queue.enqueue(item))   <span class="hljs-comment">//把数据放到队列里面</span>
+  <span class="hljs-keyword">var</span> eliminated = <span class="hljs-string">''</span>   <span class="hljs-comment">//初始化淘汰者的名字</span>
+  <span class="hljs-keyword">while</span> (queue.size() &gt; <span class="hljs-number">1</span>) &#123;    <span class="hljs-comment">//当队列里还有两个及其以上的元素</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; num; i++) &#123;
+      queue.enqueue(queue.dequeue())     <span class="hljs-comment">//从队列开头移除一项，再将其添加到队列末尾</span>
+    &#125;
+    eliminated = queue.dequeue()     <span class="hljs-comment">//处于队列首位的就是淘汰者</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'这次淘汰的人：'</span> + eliminated)
+  &#125;
+  <span class="hljs-keyword">return</span> queue.dequeue()     <span class="hljs-comment">//返回游戏的胜利者</span>
+&#125;</code></pre></p>
+<p>至此，栈和队列的基本使用方法已经总结完毕。接下来会是链表的学习。👍</p>
+
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/03/22/数据结构之链表/">数据结构之链表</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/03/20/数据结构之数组/">数据结构之数组</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/03/21/数据结构之栈和队列/">https://luckyfbb.github.io/2019/03/21/数据结构之栈和队列/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

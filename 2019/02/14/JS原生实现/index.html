@@ -1,451 +1,567 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            JS原生实现过程和JS算法题
-        
+      JS原生实现过程和JS算法题 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li></ol>
+    </li></div>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
         </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
+        
+        <a href="/archives" class>
+          归档
         </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
             
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">JS原生实现过程和JS算法题</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/02/14</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
                 
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
+                  <a href="/categories/前端">前端</a>
                 
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
                 
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
+                  
+                    <a href="/tags/JS">JS</a>
+                  
                 
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/02/14/JS原生实现/"> 
-                    JS原生实现过程和JS算法题 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-14   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#new-操作符"><span class="toc-list-text">new 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#instanceof-操作符"><span class="toc-list-text">instanceof 操作符</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#call-apply-bind-的实现"><span class="toc-list-text">call / apply / bind 的实现</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#flat-的实现"><span class="toc-list-text">flat 的实现</span></a></li></ol><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#jsonp-的实现"><span class="toc-list-text">jsonp 的实现</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#函数柯里化"><span class="toc-list-text">函数柯里化</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#LazyMan-链式调用"><span class="toc-list-text">LazyMan(链式调用)</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#数组去重"><span class="toc-list-text">数组去重</span></a></li></ol>
-</li></div>
-            <div class="content">
-                <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
-<h4 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h4><p>创建某个实例，必须使用 new 操作符。这种方式调用构造函数会经历以下 4 个步骤:</p>
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
+<h4 id="new-操作符">new 操作符<a class="post-anchor" href="#new-操作符"></a></h4><p>创建某个实例，必须使用 new 操作符。这种方式调用构造函数会经历以下 4 个步骤:</p>
 <ul>
 <li>创造一个新的对象</li>
 <li>将构造函数的作用域赋值给新对象(this 指向该对象)</li>
 <li>执行构造函数中的代码(为新对象添加属性)</li>
 <li>返回新对象</li>
 </ul>
-<pre><code class="js">function myNew(fun) {
-  var obj = Object.create(fun.prototype);
-  //var obj = {}
-  //obj.__proto__ = fun.prototype  与上述方法实现效果相同
-  var args = [...arguments].slice(1);
-  var res = fun.call(obj, args);
-  return typeof res === &quot;object&quot; ? res : obj;
-}
-</code></pre>
-<h4 id="instanceof-操作符"><a href="#instanceof-操作符" class="headerlink" title="instanceof 操作符"></a>instanceof 操作符</h4><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
-<pre><code class="js">function myInstanceof(left, right) {
-  if (typeof left !== &quot;object&quot; || typeof left !== &quot;function&quot;) {
-    return false;
-  }
-  let prototype = right.prototype;
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myNew</span>(<span class="hljs-params">fun</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> obj = <span class="hljs-built_in">Object</span>.create(fun.prototype);
+  <span class="hljs-comment">//var obj = &#123;&#125;</span>
+  <span class="hljs-comment">//obj.__proto__ = fun.prototype  与上述方法实现效果相同</span>
+  <span class="hljs-keyword">var</span> args = [...arguments].slice(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">var</span> res = fun.call(obj, args);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> res === <span class="hljs-string">"object"</span> ? res : obj;
+&#125;</code></pre>
+<h4 id="instanceof-操作符">instanceof 操作符<a class="post-anchor" href="#instanceof-操作符"></a></h4><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myInstanceof</span>(<span class="hljs-params">left, right</span>) </span>&#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> left !== <span class="hljs-string">"object"</span> || <span class="hljs-keyword">typeof</span> left !== <span class="hljs-string">"function"</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  &#125;
+  <span class="hljs-keyword">let</span> prototype = right.prototype;
   left = left.__proto__;
-  while (true) {
-    if (left === null) {
-      return false;
-    }
-    if (prototype === left) {
-      return true;
-    }
+  <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;
+    <span class="hljs-keyword">if</span> (left === <span class="hljs-literal">null</span>) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (prototype === left) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    &#125;
     left = left.__proto__;
-  }
-}
-</code></pre>
-<h4 id="call-apply-bind-的实现"><a href="#call-apply-bind-的实现" class="headerlink" title="call / apply / bind 的实现"></a>call / apply / bind 的实现</h4><pre><code class="js">call  func.call(obj, args1, args2); //传入的是参数列表
-apply func.apply(obj, [args1, args2]); //传入的是数组参数    记法：apply是a开头为array
-bind  func.bind(obj, args1, args2); //返回的是函数，前两者为立即执行
-</code></pre>
+  &#125;
+&#125;</code></pre>
+<h4 id="call-apply-bind-的实现">call / apply / bind 的实现<a class="post-anchor" href="#call-apply-bind-的实现"></a></h4><pre><code class="hljs js">call  func.call(obj, args1, args2); <span class="hljs-comment">//传入的是参数列表</span>
+apply func.apply(obj, [args1, args2]); <span class="hljs-comment">//传入的是数组参数    记法：apply是a开头为array</span>
+bind  func.bind(obj, args1, args2); <span class="hljs-comment">//返回的是函数，前两者为立即执行</span></code></pre>
 <p>思想</p>
-<pre><code class="js">改变this的指向，让bar()函数的this指向foo对象
-var foo = {
-  value: 100
-}
-function bar() {
-  console.log(this.value);
-}
+<pre><code class="hljs js">改变<span class="hljs-keyword">this</span>的指向，让bar()函数的<span class="hljs-keyword">this</span>指向foo对象
+<span class="hljs-keyword">var</span> foo = &#123;
+  <span class="hljs-attr">value</span>: <span class="hljs-number">100</span>
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bar</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.value);
+&#125;
 bar.apply(foo);
 
 等同与将bar函数作为foo对象属性进行调用，即为下列方式
-var foo = {
-  value: 100
-  bar: function() {
-    console.log(this.value);
-  }
-}
+<span class="hljs-keyword">var</span> foo = &#123;
+  <span class="hljs-attr">value</span>: <span class="hljs-number">100</span>
+  <span class="hljs-attr">bar</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.value);
+  &#125;
+&#125;
 
 因此我们总结模拟思路如下：
-1.将执行的函数作为对象属性
-2.执行函数
-3.将函数从对象中删除
-</code></pre>
+<span class="hljs-number">1.</span>将执行的函数作为对象属性
+<span class="hljs-number">2.</span>执行函数
+<span class="hljs-number">3.</span>将函数从对象中删除</code></pre>
 <ul>
 <li>call 的实现</li>
 </ul>
-<pre><code class="js">Function.prototype.myCall = function(context) {
-  //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
-  if (typeof this !== &quot;function&quot;) {
-    //判断调用是否为函数
-    throw new TypeError(&quot;Error&quot;);
-  }
-  const ctx = context || window; //取到传入的对象(执行上下文)，如果不传参数默认指向window
-  ctx.func = this; //给obj对象添加一个func方法，this也就是调用myCall的函数
-  const args = [...arguments].slice(1); //取得传入除了obj的参数
-  const result = ctx.func(...args); //执行函数
-  delete ctx.func; //删除函数
-  return result;
-};
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myCall = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
+  <span class="hljs-comment">//使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
+    <span class="hljs-comment">//判断调用是否为函数</span>
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
+  &#125;
+  <span class="hljs-keyword">const</span> ctx = context || <span class="hljs-built_in">window</span>; <span class="hljs-comment">//取到传入的对象(执行上下文)，如果不传参数默认指向window</span>
+  ctx.func = <span class="hljs-keyword">this</span>; <span class="hljs-comment">//给obj对象添加一个func方法，this也就是调用myCall的函数</span>
+  <span class="hljs-keyword">const</span> args = [...arguments].slice(<span class="hljs-number">1</span>); <span class="hljs-comment">//取得传入除了obj的参数</span>
+  <span class="hljs-keyword">const</span> result = ctx.func(...args); <span class="hljs-comment">//执行函数</span>
+  <span class="hljs-keyword">delete</span> ctx.func; <span class="hljs-comment">//删除函数</span>
+  <span class="hljs-keyword">return</span> result;
+&#125;;</code></pre>
 <ul>
 <li>apply 的实现，只是和 call 传参上的实现不同</li>
 </ul>
-<pre><code class="js">Function.prototype.myApply = function(context) {
-  if (typeof this !== &quot;function&quot;) {
-    throw new TypeError(&quot;Error&quot;);
-  }
-  const ctx = context || window;
-  ctx.func = this;
-  let result;
-  if (arguments[1]) {
-    //判断是否传入数组参数,如果传入就要展开数组
-    result = ctx.func(...arguments[1]);
-  } else {
+<pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myApply = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
+  &#125;
+  <span class="hljs-keyword">const</span> ctx = context || <span class="hljs-built_in">window</span>;
+  ctx.func = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">let</span> result;
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]) &#123;
+    <span class="hljs-comment">//判断是否传入数组参数,如果传入就要展开数组</span>
+    result = ctx.func(...arguments[<span class="hljs-number">1</span>]);
+  &#125; <span class="hljs-keyword">else</span> &#123;
     result = ctx.func();
-  }
-  delete ctx.func;
-  return result;
-};
-</code></pre>
+  &#125;
+  <span class="hljs-keyword">delete</span> ctx.func;
+  <span class="hljs-keyword">return</span> result;
+&#125;;</code></pre>
 <ul>
 <li>bind 的实现<br>相对于前两个，这个函数返回的函数，并不是立即执行。</li>
 </ul>
-<pre><code class="js">Function.prototype.myBind = function(context) {
-  if (typeof this !== &quot;function&quot;) {
-    throw new TypeError(&quot;Error&quot;);
-  }
-  context = context || window;
-  const _this = this;
-  const args = [...arguments].slice(1);
-  return function F() {
-    return _this.apply(context, args.concat(...arguments));
-  };
-};
-</code></pre>
-<h4 id="flat-的实现"><a href="#flat-的实现" class="headerlink" title="flat 的实现"></a>flat 的实现</h4><p>ES6 中新增了 flat 方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
-<pre><code class="js">function isArray(arr) {
-  return Array.isArray(arr);
-}
+<pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myBind = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
+  &#125;
+  context = context || <span class="hljs-built_in">window</span>;
+  <span class="hljs-keyword">const</span> _this = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">const</span> args = [...arguments].slice(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">F</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">return</span> _this.apply(context, args.concat(...arguments));
+  &#125;;
+&#125;;</code></pre>
+<h4 id="flat-的实现">flat 的实现<a class="post-anchor" href="#flat-的实现"></a></h4><p>ES6 中新增了 flat 方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArray</span>(<span class="hljs-params">arr</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.isArray(arr);
+&#125;
 
-function myFlat(arr) {
-  var result = [];
-  var deep = arguments[1] === undefined ? 1 : arguments[1]; //判断是否传入展平层级
-  arr.forEach(element =&gt; {
-    if (isArray(element) &amp;&amp; deep &gt;= 1) {
-      result = result.concat(myFlat(element, deep - 1));
-    } else {
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myFlat</span>(<span class="hljs-params">arr</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> result = [];
+  <span class="hljs-keyword">var</span> deep = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] === <span class="hljs-literal">undefined</span> ? <span class="hljs-number">1</span> : <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]; <span class="hljs-comment">//判断是否传入展平层级</span>
+  arr.forEach(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (isArray(element) &amp;&amp; deep &gt;= <span class="hljs-number">1</span>) &#123;
+      result = result.concat(myFlat(element, deep - <span class="hljs-number">1</span>));
+    &#125; <span class="hljs-keyword">else</span> &#123;
       result.push(element);
-    }
-  });
-  return result;
-}
-</code></pre>
-<h3 id="jsonp-的实现"><a href="#jsonp-的实现" class="headerlink" title="jsonp 的实现"></a>jsonp 的实现</h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
-<pre><code class="js">function jsonp(url, data) {
-  data = data || {};
-  return new Promise((resovle, reject) =&gt; {
-    const cbFn = `jsonp_${Date.now()}`;
+    &#125;
+  &#125;);
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<h3 id="jsonp-的实现">jsonp 的实现<a class="post-anchor" href="#jsonp-的实现"></a></h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonp</span>(<span class="hljs-params">url, data</span>) </span>&#123;
+  data = data || &#123;&#125;;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resovle, reject</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">const</span> cbFn = <span class="hljs-string">`jsonp_<span class="hljs-subst">$&#123;<span class="hljs-built_in">Date</span>.now()&#125;</span>`</span>;
     data.callback = cbFn;
-    const head = document.querySelector(&quot;head&quot;);
-    const script = document.createElement(&quot;script&quot;);
-    const src = `${url}?${dataToUrl(data)}`;
+    <span class="hljs-keyword">const</span> head = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">"head"</span>);
+    <span class="hljs-keyword">const</span> script = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"script"</span>);
+    <span class="hljs-keyword">const</span> src = <span class="hljs-string">`<span class="hljs-subst">$&#123;url&#125;</span>?<span class="hljs-subst">$&#123;dataToUrl(data)&#125;</span>`</span>;
     script.src = src;
     head.append(script);
-    window[ncbFn] = res =&gt; {
+    <span class="hljs-built_in">window</span>[ncbFn] = <span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
       resovle(res);
       head.removeChild(script);
-      window[cbFn] = null;
-    };
-  });
-}
+      <span class="hljs-built_in">window</span>[cbFn] = <span class="hljs-literal">null</span>;
+    &#125;;
+  &#125;);
+&#125;
 
-function dataToUrl(data) {
-  return Object.keys(data)
-    .reduce((pre, curr) =&gt; {
-      pre.push(`${curr}=${data[curr]}`);
-      return pre;
-    }, [])
-    .join(&quot;&amp;&quot;);
-}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dataToUrl</span>(<span class="hljs-params">data</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(data)
+    .reduce(<span class="hljs-function">(<span class="hljs-params">pre, curr</span>) =&gt;</span> &#123;
+      pre.push(<span class="hljs-string">`<span class="hljs-subst">$&#123;curr&#125;</span>=<span class="hljs-subst">$&#123;data[curr]&#125;</span>`</span>);
+      <span class="hljs-keyword">return</span> pre;
+    &#125;, [])
+    .join(<span class="hljs-string">"&amp;"</span>);
+&#125;
 
-jsonp(&quot;http://jsonplaceholder.typicode.com/comments&quot;, {
-  postId: 1
-}).then(res =&gt; {
-  console.log(res);
-});
-</code></pre>
-<h4 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h4><p>当某个函数一次需要接受多个参数时，可以使用柯里化来使得当前函数一次性接受少一点的参数。</p>
+jsonp(<span class="hljs-string">"http://jsonplaceholder.typicode.com/comments"</span>, &#123;
+  <span class="hljs-attr">postId</span>: <span class="hljs-number">1</span>
+&#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+  <span class="hljs-built_in">console</span>.log(res);
+&#125;);</code></pre>
+<h4 id="函数柯里化">函数柯里化<a class="post-anchor" href="#函数柯里化"></a></h4><p>当某个函数一次需要接受多个参数时，可以使用柯里化来使得当前函数一次性接受少一点的参数。</p>
 <p>百科：把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。</p>
-<pre><code class="js">function carry(fn) {
-  const args = [...arguments].slice(1);
-  if (fn.length &lt;= args.length) {
-    //当传入参数的数量&gt;=函数参数数量时，执行函数
-    return fn(...args);
-  }
-  return function() {
-    //返回一个函数，等待传入其他参数
-    const args1 = [...arguments];
-    return carry(fn, ...args, ...args1);
-  };
-}
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>(<span class="hljs-params">fn</span>) </span>&#123;
+  <span class="hljs-keyword">const</span> args = [...arguments].slice(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">if</span> (fn.length &lt;= args.length) &#123;
+    <span class="hljs-comment">//当传入参数的数量&gt;=函数参数数量时，执行函数</span>
+    <span class="hljs-keyword">return</span> fn(...args);
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-comment">//返回一个函数，等待传入其他参数</span>
+    <span class="hljs-keyword">const</span> args1 = [...arguments];
+    <span class="hljs-keyword">return</span> carry(fn, ...args, ...args1);
+  &#125;;
+&#125;
 
-function add(a, b, c) {
-  return a + b + c;
-}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">a, b, c</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> a + b + c;
+&#125;
 
-const carryAdd = carry(add);
+<span class="hljs-keyword">const</span> carryAdd = carry(add);
 
-carryAdd(1, 2, 3);
-carryAdd(1)(2, 3);
-carryAdd(1)(2)(3);
-carryAdd(1)()(2)()(3);
-</code></pre>
-<h4 id="LazyMan-链式调用"><a href="#LazyMan-链式调用" class="headerlink" title="LazyMan(链式调用)"></a>LazyMan(链式调用)</h4><pre><code class="js">function LazyMan(name) {
-  return new _LazyMan(name);
-}
+carryAdd(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+carryAdd(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+carryAdd(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>);
+carryAdd(<span class="hljs-number">1</span>)()(<span class="hljs-number">2</span>)()(<span class="hljs-number">3</span>);</code></pre>
+<h4 id="LazyMan-链式调用">LazyMan(链式调用)<a class="post-anchor" href="#LazyMan-链式调用"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LazyMan</span>(<span class="hljs-params">name</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> _LazyMan(name);
+&#125;
 
-function _LazyMan(name) {
-  this.name = name;
-  this.queue = []; //初始化队列
-  this.queue.push(() =&gt; {
-    console.log(&quot;Hi, &quot; + name);
-    this.next();
-  });
-  setTimeout(() =&gt; {
-    this.next();
-  }, 0);
-}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_LazyMan</span>(<span class="hljs-params">name</span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.name = name;
+  <span class="hljs-keyword">this</span>.queue = []; <span class="hljs-comment">//初始化队列</span>
+  <span class="hljs-keyword">this</span>.queue.push(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Hi, "</span> + name);
+    <span class="hljs-keyword">this</span>.next();
+  &#125;);
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">this</span>.next();
+  &#125;, <span class="hljs-number">0</span>);
+&#125;
 
-_LazyMan.prototype.next = function() {
-  const fn = this.queue.shift();
+_LazyMan.prototype.next = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> fn = <span class="hljs-keyword">this</span>.queue.shift();
   fn &amp;&amp; fn();
-};
+&#125;;
 
-_LazyMan.prototype.eat = function(food) {
-  this.queue.push(() =&gt; {
-    console.log(this.name + &quot; eat &quot; + food);
-    this.next();
-  });
-  return this;
-};
+_LazyMan.prototype.eat = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">food</span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.queue.push(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">" eat "</span> + food);
+    <span class="hljs-keyword">this</span>.next();
+  &#125;);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+&#125;;
 
-_LazyMan.prototype.sleep = function(time) {
-  this.queue.push(() =&gt; {
-    setTimeout(() =&gt; {
-      console.log(this.name + &quot; sleep &quot; + time + &quot;s&quot;);
-      this.next();
-    }, time * 1000);
-  });
-  return this;
-};
-</code></pre>
-<h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h4><ul>
-<li>includes实现<pre><code class="js">Array.prototype.unique = function() {
-const arr = this;
-const result = [];
-arr.forEach(item =&gt; {
-  if (!result.includes(item)) {
-    result.push(item);
-  }
-});
-return result;
-};
-</code></pre>
+_LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.queue.push(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">" sleep "</span> + time + <span class="hljs-string">"s"</span>);
+      <span class="hljs-keyword">this</span>.next();
+    &#125;, time * <span class="hljs-number">1000</span>);
+  &#125;);
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+&#125;;</code></pre>
+<h4 id="数组去重">数组去重<a class="post-anchor" href="#数组去重"></a></h4><ul>
+<li><p>includes实现</p>
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">const</span> result = [];
+  arr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (!result.includes(item)) &#123;
+      result.push(item);
+    &#125;
+  &#125;);
+  <span class="hljs-keyword">return</span> result;
+&#125;;</code></pre>
 </li>
 <li><p>reduce + sort实现</p>
-<pre><code class="js">Array.prototype.unique = function() {
-const arr = this;
-return arr
-  .sort((a, b) =&gt; a - b)
-  .reduce((pre, curr) =&gt; {
-    if (pre.length === 0 || pre[pre.length - 1] !== curr) {
-      pre.push(curr);
-    }
-    return pre;
-  }, []);
-};
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">return</span> arr
+    .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b)
+    .reduce(<span class="hljs-function">(<span class="hljs-params">pre, curr</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (pre.length === <span class="hljs-number">0</span> || pre[pre.length - <span class="hljs-number">1</span>] !== curr) &#123;
+        pre.push(curr);
+      &#125;
+      <span class="hljs-keyword">return</span> pre;
+    &#125;, []);
+&#125;;</code></pre>
 </li>
-<li><p>对象实现<br>可以使用普通对象，或者使用ES6 Map<br><code>`</code>js<br>Array.prototype.unique = function() {<br>const map = new Map();    //只能存在一个key<br>return this.filter(item =&gt; {<br>  return !map.has(item) &amp;&amp; map.set(item, 1);<br>});<br>};</p>
+<li><p>对象实现<br>可以使用普通对象，或者使用ES6 Map</p>
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();    <span class="hljs-comment">//只能存在一个key</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">return</span> !map.has(item) &amp;&amp; map.set(item, <span class="hljs-number">1</span>);
+  &#125;);
+&#125;;
+
+<span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> obj = &#123;&#125;;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+    <span class="hljs-keyword">return</span> obj.hasOwnProperty(item) ? <span class="hljs-literal">false</span> : (obj[item] = <span class="hljs-literal">true</span>);
+  &#125;);
+&#125;;
+<span class="hljs-string">``</span><span class="hljs-string">` 
+
+- Set数据结构
+`</span><span class="hljs-string">``</span>js
+<span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...this]));
+&#125;;</code></pre>
 </li>
 </ul>
-<p>Array.prototype.unique = function() {<br>  const obj = {};<br>  return this.filter(item =&gt; {<br>    return obj.hasOwnProperty(item) ? false : (obj[item] = true);<br>  });<br>};</p>
-<pre><code>
-- Set数据结构
-```js
-Array.prototype.unique = function() {
-  return Array.from(new Set([...this]));
-};
-</code></pre>
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/02/14/JS原生实现/">http://yoursite.com/2019/02/14/JS原生实现/</a>
-                </div>
+
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
             
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/03/05/今日份感想/">今日份感想</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/02/13/垂直居中/">如何实现元素居中</a>
+        
+    </div>
+  </div>
 
-          
+  
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/02/14/JS原生实现/">https://luckyfbb.github.io/2019/02/14/JS原生实现/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
 
+  <div id="comment"></div>
+
+  
+  
 </article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/03/05/今日份感想/">  今日份感想</a>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/02/13/垂直居中/"> 如何实现元素居中 </a>
-    </div>
-    
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Thu Feb 14 2019 09:38:50 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
-    </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

@@ -1,459 +1,800 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>
-        
-            FBB
-        
-    </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <section class="posts">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
     
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/24/数据结构之字典和散列表/"> 
-                    数据结构之字典和散列表 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-24   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
-            </div>
-            <div class="content">
-                
-                <p>学习JavaScript数据结构与算法之字典、散列表篇章。前端小白简单的学习笔记。</p>
-<p>在集合、字典、散列表中可以存储不重复的值。集合中感兴趣的是值的本身，我们将每个值作为元素来储存。在字典中，采用[键，值]的方式来储存数据。散列表和字典存储数据的方式差不多。但是在实现上略微不同。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/24/数据结构之字典和散列表/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+    <title>
+          FBB
+    </title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/23/数据结构之集合/"> 
-                    数据结构之集合 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-23   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
+        <a href="/" class="current">
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class="current">
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        
+<div class="posts">
+  <ul>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/24/数据结构之字典和散列表/">数据结构之字典和散列表</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/24</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>学习JavaScript数据结构与算法之字典、散列表篇章。前端小白简单的学习笔记。</p>
+<p>在集合、字典、散列表中可以存储不重复的值。集合中感兴趣的是值的本身，我们将每个值作为元素来储存。在字典中，采用[键，值]的方式来储存数据。散列表和字典存储数据的方式差不多。但是在实现上略微不同。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/数据结构">数据结构</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
                 
-                <p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/24/数据结构之字典和散列表/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/24/数据结构之字典和散列表/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/24/数据结构之字典和散列表/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/23/数据结构之集合/">数据结构之集合</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/23</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
 <p>集合是由一组无序且唯一（即不能重复）的项组成的。</p>
-<p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/23/数据结构之集合/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+<p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。</p></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/22/数据结构之链表/"> 
-                    数据结构之链表 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-22   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/数据结构">数据结构</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
                 
-                <p>学习JavaScript数据结构与算法之链表篇章。前端小白简单的学习笔记。</p>
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/23/数据结构之集合/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/23/数据结构之集合/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/23/数据结构之集合/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/22/数据结构之链表/">数据结构之链表</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/22</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>学习JavaScript数据结构与算法之链表篇章。前端小白简单的学习笔记。</p>
 <p>链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。</p>
-<p>链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何位置的任何元素，而要想访问链表中间的一个元素，需要从起点开始迭代列表直到找到所需的元素。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/22/数据结构之链表/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+<p>链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何位置的任何元素，而要想访问链表中间的一个元素，需要从起点开始迭代列表直到找到所需的元素。</p></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/21/数据结构之栈和队列/"> 
-                    数据结构之栈、队列 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-21   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/数据结构">数据结构</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
                 
-                <p>学习JavaScript数据结构与算法之栈和队列篇章。前端小白简单的学习笔记。</p>
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/22/数据结构之链表/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/22/数据结构之链表/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/22/数据结构之链表/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/21/数据结构之栈和队列/">数据结构之栈、队列</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/21</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>学习JavaScript数据结构与算法之栈和队列篇章。前端小白简单的学习笔记。</p>
 <p>栈是一种遵从后进先出（LIFO）原则的有序集合。新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端就叫栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。</p>
-<p>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/21/数据结构之栈和队列/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+<p>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。</p></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/20/数据结构之数组/"> 
-                    数据结构之数组 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-20   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/数据结构">数据结构</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
                 
-                <p>学习JavaScript数据结构与算法之数组篇章。前端小白简单的学习笔记。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/20/数据结构之数组/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
+              </span>
             </div>
-        </article>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/21/数据结构之栈和队列/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/21/数据结构之栈和队列/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/21/数据结构之栈和队列/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/20/数据结构之数组/">数据结构之数组</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/20</span>
+        </div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/11/节流和防抖/"> 
-                    节流和防抖 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-11   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
+        <div class="excerpt post-wrap"><p>学习JavaScript数据结构与算法之数组篇章。前端小白简单的学习笔记。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/数据结构">数据结构</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
                 
-                <p>在resize/scroll/keypress/mousemove等事件触发时，会不断调用回调函数。</p>
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/20/数据结构之数组/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/20/数据结构之数组/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/20/数据结构之数组/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/11/节流和防抖/">节流和防抖</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/11</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>在resize/scroll/keypress/mousemove等事件触发时，会不断调用回调函数。</p>
 <p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
-<p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息，最后使用setTimeout来控制事件的触发频率。<br>
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/11/节流和防抖/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+<p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息，最后使用setTimeout来控制事件的触发频率。<br></p></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/09/深浅拷贝/"> 
-                    深浅拷贝 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-09   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
-                
-                <p>昨天出去面试，被面试官问到了深浅拷贝的问题，感觉回答不是特别完整，今天就来总结一下深浅拷贝的知识。</p>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/11/节流和防抖/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/11/节流和防抖/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/11/节流和防抖/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/09/深浅拷贝/">深浅拷贝</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/09</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>昨天出去面试，被面试官问到了深浅拷贝的问题，感觉回答不是特别完整，今天就来总结一下深浅拷贝的知识。</p>
 <p>JS有两种数据类型</p>
 <ul>
 <li>基本数据类型 string/number/boolean/undefined/null/symbol(ES6)</li>
-<li>引用数据类型 object/array/function
-                
-            </li></ul></div>
-            <div class="continue">
-            <a href="/2019/03/09/深浅拷贝/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+<li>引用数据类型 object/array/function</li></ul></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/08/公司笔试/"> 
-                    公司笔试 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-08   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔试/">笔试</a></li></ul>
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
-                
-                <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/09/深浅拷贝/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/09/深浅拷贝/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/09/深浅拷贝/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/08/公司笔试/">公司笔试</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/08</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
 <ol>
-<li><p>下列语句分别输出什么？</p>
-<pre><code class="js">console.log(parseInt(&#39;01&#39;) + &#39;0&#39; + parseInt(&#39;010&#39;))    //1010
-console.log(1 === true)   //false                                                                                  
-console.log(typeof Aarry)   //function
-console.log(&#39;0&#39; == false)   //true
-console.log(1.toString())   //报错
-console.log(1..toString())   //1
-</code></pre>
-                
-            </li></ol></div>
-            <div class="continue">
-            <a href="/2019/03/08/公司笔试/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
+<li>下列语句分别输出什么？<pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'01'</span>) + <span class="hljs-string">'0'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'010'</span>))    <span class="hljs-comment">//1010</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-literal">true</span>)   <span class="hljs-comment">//false                                                                                  </span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> Aarry)   <span class="hljs-comment">//function</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'0'</span> == <span class="hljs-literal">false</span>)   <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>toString())   <span class="hljs-comment">//报错</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>.toString())   <span class="hljs-comment">//1</span></code></pre>
+</li>
+</ol></div>
         
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/07/招银面经/"> 
-                    招银面经 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-07   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/面经/">面经</a></li></ul>
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
             </div>
-            <div class="content">
-                
-                <p>3.4号做了招银网络科技的笔试题，3.6号收到了电话面试通知，今天晚上接到了电话。整个面试过程大概17分钟。简单记录一下。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/07/招银面经/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/07/JS执行机制/"> 
-                    JS执行机制 
-                </a>
-            </h1>
-                        <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-07   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-            <div class="content">
-                
-                <p>关于JS执行机制这一块内容，一直是自己比较难以理解的知识点，结合自己看的资料与代码实践，写一篇总结。
-                
-            </p></div>
-            <div class="continue">
-            <a href="/2019/03/07/JS执行机制/">
-            继续阅读            <i class="fa fa-angle-right" aria-hidden="true"></i>
-            </a>
-            </div>
-        </article>
-        
-</section>
 
-  <nav class="page-nav">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/笔试">笔试</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/08/公司笔试/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/08/公司笔试/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/08/公司笔试/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
 
-    </main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/07/招银面经/">招银面经</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/07</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>3.4号做了招银网络科技的笔试题，3.6号收到了电话面试通知，今天晚上接到了电话。整个面试过程大概17分钟。简单记录一下。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/面经">面经</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/07/招银面经/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/07/招银面经/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/07/招银面经/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/07/JS执行机制/">JS执行机制</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/07</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>关于JS执行机制这一块内容，一直是自己比较难以理解的知识点，结合自己看的资料与代码实践，写一篇总结。</p></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/JS">JS</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/07/JS执行机制/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/07/JS执行机制/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/07/JS执行机制/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
+    
+  </ul>
+</div>
+
+<div class="paginator">
+  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a>
+</div>
+
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

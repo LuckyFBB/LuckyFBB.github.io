@@ -1,393 +1,496 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            数据结构之字典和散列表
-        
+      数据结构之字典和散列表 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#字典"><span class="toc-text">字典</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建一个字典"><span class="toc-text">创建一个字典</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#散列表"><span class="toc-text">散列表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建一个散列表"><span class="toc-text">创建一个散列表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#散列表的冲突处理"><span class="toc-text">散列表的冲突处理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#创建更好的散列函数"><span class="toc-text">创建更好的散列函数</span></a></li></ol></li></ol>
+    </div>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
         </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
+        
+        <a href="/archives" class>
+          归档
         </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
             
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">数据结构之字典和散列表</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/03/24</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
                 
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
+                  <a href="/categories/数据结构">数据结构</a>
                 
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/24/数据结构之字典和散列表/"> 
-                    数据结构之字典和散列表 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-24   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#字典"><span class="toc-list-text">字典</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#创建一个字典"><span class="toc-list-text">创建一个字典</span></a></li></ol></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#散列表"><span class="toc-list-text">散列表</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#创建一个散列表"><span class="toc-list-text">创建一个散列表</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#散列表的冲突处理"><span class="toc-list-text">散列表的冲突处理</span></a></li><li class="toc-list-item toc-list-level-5"><a class="toc-list-link" href="#创建更好的散列函数"><span class="toc-list-text">创建更好的散列函数</span></a></li></ol></li></ol>
-</div>
-            <div class="content">
-                <p>学习JavaScript数据结构与算法之字典、散列表篇章。前端小白简单的学习笔记。</p>
+              
+          </span>
+        </span>
+        
+        
+        
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>学习JavaScript数据结构与算法之字典、散列表篇章。前端小白简单的学习笔记。</p>
 <p>在集合、字典、散列表中可以存储不重复的值。集合中感兴趣的是值的本身，我们将每个值作为元素来储存。在字典中，采用[键，值]的方式来储存数据。散列表和字典存储数据的方式差不多。但是在实现上略微不同。<a id="more"></a></p>
-<h4 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h4><h5 id="创建一个字典"><a href="#创建一个字典" class="headerlink" title="创建一个字典"></a>创建一个字典</h5><pre><code class="js">function Dictionary() {
-  var items = {}
+<h4 id="字典">字典<a class="post-anchor" href="#字典"></a></h4><h5 id="创建一个字典">创建一个字典<a class="post-anchor" href="#创建一个字典"></a></h5><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Dictionary</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> items = &#123;&#125;
 
-  this.has = function (key) {    //判断该字典中是否含有key，如果某个键值存在于这个字典中，则返回true，反之则返回false。
-    return key in items
-  }
+  <span class="hljs-keyword">this</span>.has = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;    <span class="hljs-comment">//判断该字典中是否含有key，如果某个键值存在于这个字典中，则返回true，反之则返回false。</span>
+    <span class="hljs-keyword">return</span> key <span class="hljs-keyword">in</span> items
+  &#125;
 
-  this.set = function (key, value) {     //向字典中添加新元素或者更新一个已有的值
+  <span class="hljs-keyword">this</span>.set = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>&#123;     <span class="hljs-comment">//向字典中添加新元素或者更新一个已有的值</span>
     items[key] = value
-  }
+  &#125;
 
-  this.remove = function (key) {        //通过使用键值来从字典中移除键值对应的数据值
-    if (this.has(key)) {         //判断是否存在当前键值
-      delete items[key]
-      return true
-    }
-    return false
-  }
+  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;        <span class="hljs-comment">//通过使用键值来从字典中移除键值对应的数据值</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.has(key)) &#123;         <span class="hljs-comment">//判断是否存在当前键值</span>
+      <span class="hljs-keyword">delete</span> items[key]
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  &#125;
 
-  this.get = function (key) {        //通过键值查找特定的数值并返回
-    return this.has(key) ? items[key] : undefined
-  }
+  <span class="hljs-keyword">this</span>.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;        <span class="hljs-comment">//通过键值查找特定的数值并返回</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.has(key) ? items[key] : <span class="hljs-literal">undefined</span>
+  &#125;
 
-  this.values = function () {        //将字典所包含的所有数值以数组形式返回
-    return Object.values(items)
-  }
+  <span class="hljs-keyword">this</span>.values = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;        <span class="hljs-comment">//将字典所包含的所有数值以数组形式返回</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.values(items)
+  &#125;
 
-  this.size = function () {                //返回字典所包含元素的数量。与数组的length属性类似
-    return Object.keys(items).length
-  }
+  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;                <span class="hljs-comment">//返回字典所包含元素的数量。与数组的length属性类似</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(items).length
+  &#125;
 
-  this.keys = function () {              //将字典所包含的所有键名以数组形式返回
-    return Object.keys(items)
-  }
+  <span class="hljs-keyword">this</span>.keys = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;              <span class="hljs-comment">//将字典所包含的所有键名以数组形式返回</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(items)
+  &#125;
 
-  this.clear = function () {             //将这个字典中的所有元素全部删除
-    items = {}
-  }
+  <span class="hljs-keyword">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;             <span class="hljs-comment">//将这个字典中的所有元素全部删除</span>
+    items = &#123;&#125;
+  &#125;
 
-  this.getItems = function () {
-    return items
-  }
-}
-</code></pre>
-<h4 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h4><p>散列表的作用就是尽可能快的在数据结构中找到一个值。在之前的数据结构中，使用get方法获取一个值，需要遍历整个数据结构。但是使用散列表的话，就能够知道值得具体位置，从而快速获取到该值。</p>
+  <span class="hljs-keyword">this</span>.getItems = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">return</span> items
+  &#125;
+&#125;</code></pre>
+<h4 id="散列表">散列表<a class="post-anchor" href="#散列表"></a></h4><p>散列表的作用就是尽可能快的在数据结构中找到一个值。在之前的数据结构中，使用get方法获取一个值，需要遍历整个数据结构。但是使用散列表的话，就能够知道值得具体位置，从而快速获取到该值。</p>
 <p>散列表的作用就是给一个值，然后返回该值在表中的地址。</p>
-<h5 id="创建一个散列表"><a href="#创建一个散列表" class="headerlink" title="创建一个散列表"></a>创建一个散列表</h5><pre><code class="js">function HashTable() {
-  var table = []
-  var loseloseHashCode = function (key) {         //散列函数
-    var hash = 0                                  //储存hash值
-    for (let i = 0; i &lt; key.length; i++) {
-      hash += key.charCodeAt(i)                   //获得每个字符的ascii码值
-    }
-    return hash % 39                              //为了使储存的地址值小一点，会采用hash值和任意值取余数
-  }
+<h5 id="创建一个散列表">创建一个散列表<a class="post-anchor" href="#创建一个散列表"></a></h5><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HashTable</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> table = []
+  <span class="hljs-keyword">var</span> loseloseHashCode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;         <span class="hljs-comment">//散列函数</span>
+    <span class="hljs-keyword">var</span> hash = <span class="hljs-number">0</span>                                  <span class="hljs-comment">//储存hash值</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; key.length; i++) &#123;
+      hash += key.charCodeAt(i)                   <span class="hljs-comment">//获得每个字符的ascii码值</span>
+    &#125;
+    <span class="hljs-keyword">return</span> hash % <span class="hljs-number">39</span>                              <span class="hljs-comment">//为了使储存的地址值小一点，会采用hash值和任意值取余数</span>
+  &#125;
 
-  this.put = function (key, value) {              //向散列表增加一个新的项（也能更新散列表）。
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
+  <span class="hljs-keyword">this</span>.put = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>&#123;              <span class="hljs-comment">//向散列表增加一个新的项（也能更新散列表）。</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
     table[position] = value
-  }
+  &#125;
 
-  this.get = function (key) {                     //返回根据键值检索到的特定的值
-    return table[loseloseHashCode(key)]
-  }
+  <span class="hljs-keyword">this</span>.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;                     <span class="hljs-comment">//返回根据键值检索到的特定的值</span>
+    <span class="hljs-keyword">return</span> table[loseloseHashCode(key)]
+  &#125;
 
-  this.remove = function (key) {                  //根据键值从散列表中移除值
-    table[loseloseHashCode(key)] = undefined
-  }
-}
-</code></pre>
-<h5 id="散列表的冲突处理"><a href="#散列表的冲突处理" class="headerlink" title="散列表的冲突处理"></a>散列表的冲突处理</h5><p>有时候，一些键会有相同的散列值。不同的值在散列表中对应相同位置的时候，我们称其为冲突。</p>
+  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;                  <span class="hljs-comment">//根据键值从散列表中移除值</span>
+    table[loseloseHashCode(key)] = <span class="hljs-literal">undefined</span>
+  &#125;
+&#125;</code></pre>
+<h5 id="散列表的冲突处理">散列表的冲突处理<a class="post-anchor" href="#散列表的冲突处理"></a></h5><p>有时候，一些键会有相同的散列值。不同的值在散列表中对应相同位置的时候，我们称其为冲突。</p>
 <ol>
 <li>分离连接<br>分离链接法包括为散列表的每一个位置创建一个链表并将元素储存在里面。它是解决冲突最简单的方法，但是需要开辟新的空间。</li>
 </ol>
-<p><img src="https://upload-images.jianshu.io/upload_images/12814322-e59692372b1d590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="image.png"></p>
-<pre><code class="js">function HashTable() {
-  var table = []
-  var loseloseHashCode = function (key) {         //散列函数
-    var hash = 0                                  //储存hash值
-    for (let i = 0; i &lt; key.length; i++) {
-      hash += key.charCodeAt(i)                   //获得每个字符的ascii码值
-    }
-    return hash % 39                              //为了使储存的地址值小一点，会采用hash值和任意值取余数
-  }
+<p><a href="https://upload-images.jianshu.io/upload_images/12814322-e59692372b1d590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-e59692372b1d590e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="image.png"></a><br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HashTable</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> table = []
+  <span class="hljs-keyword">var</span> loseloseHashCode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;         <span class="hljs-comment">//散列函数</span>
+    <span class="hljs-keyword">var</span> hash = <span class="hljs-number">0</span>                                  <span class="hljs-comment">//储存hash值</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; key.length; i++) &#123;
+      hash += key.charCodeAt(i)                   <span class="hljs-comment">//获得每个字符的ascii码值</span>
+    &#125;
+    <span class="hljs-keyword">return</span> hash % <span class="hljs-number">39</span>                              <span class="hljs-comment">//为了使储存的地址值小一点，会采用hash值和任意值取余数</span>
+  &#125;
 
-  var ValuePair = function () {                   //创建一个新类来辅助表示要加入链表的值
-    this.key = key
-    this.value = value
-    this.toString = function () {
-      return &#39;[ &#39; + this.key + &#39;-&#39; + this.value + &#39; ]&#39;
-    }
-  }
+  <span class="hljs-keyword">var</span> ValuePair = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;                   <span class="hljs-comment">//创建一个新类来辅助表示要加入链表的值</span>
+    <span class="hljs-keyword">this</span>.key = key
+    <span class="hljs-keyword">this</span>.value = value
+    <span class="hljs-keyword">this</span>.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-string">'[ '</span> + <span class="hljs-keyword">this</span>.key + <span class="hljs-string">'-'</span> + <span class="hljs-keyword">this</span>.value + <span class="hljs-string">' ]'</span>
+    &#125;
+  &#125;
 
-  this.put = function (key, value) {              //向散列表增加一个新的项（也能更新散列表）。
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
-    if (table[position] === undefined) {          //判断当前地址中是否被占据
-      table[position] = new LinkedList()          //没有的话，创建一个链表
-    }
-    table[position].append(new ValuePair(key, value))  //向链表中添加一个值
-  }
+  <span class="hljs-keyword">this</span>.put = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>&#123;              <span class="hljs-comment">//向散列表增加一个新的项（也能更新散列表）。</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
+    <span class="hljs-keyword">if</span> (table[position] === <span class="hljs-literal">undefined</span>) &#123;          <span class="hljs-comment">//判断当前地址中是否被占据</span>
+      table[position] = <span class="hljs-keyword">new</span> LinkedList()          <span class="hljs-comment">//没有的话，创建一个链表</span>
+    &#125;
+    table[position].append(<span class="hljs-keyword">new</span> ValuePair(key, value))  <span class="hljs-comment">//向链表中添加一个值</span>
+  &#125;
 
-  this.get = function (key) {                     //返回根据键值检索到的特定的值
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
-    if (table[position]) {                        //当前位置存在元素
-      var current = table[position].getHead()     //获取到当前链表的头部
-      while (current) {
-        if (current.element.key === key) {        //判断当前节点的key
-          return current.element.value
-        }
+  <span class="hljs-keyword">this</span>.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;                     <span class="hljs-comment">//返回根据键值检索到的特定的值</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
+    <span class="hljs-keyword">if</span> (table[position]) &#123;                        <span class="hljs-comment">//当前位置存在元素</span>
+      <span class="hljs-keyword">var</span> current = table[position].getHead()     <span class="hljs-comment">//获取到当前链表的头部</span>
+      <span class="hljs-keyword">while</span> (current) &#123;
+        <span class="hljs-keyword">if</span> (current.element.key === key) &#123;        <span class="hljs-comment">//判断当前节点的key</span>
+          <span class="hljs-keyword">return</span> current.element.value
+        &#125;
         current = current.next
-      }
-    }
-    return undefined
-  }
+      &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
+  &#125;
 
-  this.remove = function (key) {                  //根据键值从散列表中移除值
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
-    if (table[position]) {
-      var current = table[position].getHead()     //获取链表头部
-      while (current) {
-        if (current.element.key === key) {
-          table[position].remove(current.element)    //移除当前节点
-          if (table[position].isEmpty()) {        //移除节点之后，当前链表为空，则设置为undefined
-            table[position] = undefined
-          }
-          return true
-        }
+  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;                  <span class="hljs-comment">//根据键值从散列表中移除值</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
+    <span class="hljs-keyword">if</span> (table[position]) &#123;
+      <span class="hljs-keyword">var</span> current = table[position].getHead()     <span class="hljs-comment">//获取链表头部</span>
+      <span class="hljs-keyword">while</span> (current) &#123;
+        <span class="hljs-keyword">if</span> (current.element.key === key) &#123;
+          table[position].remove(current.element)    <span class="hljs-comment">//移除当前节点</span>
+          <span class="hljs-keyword">if</span> (table[position].isEmpty()) &#123;        <span class="hljs-comment">//移除节点之后，当前链表为空，则设置为undefined</span>
+            table[position] = <span class="hljs-literal">undefined</span>
+          &#125;
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+        &#125;
         current = current.next
-      }
-    }
-    return false
-  }
-}
-</code></pre>
+      &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  &#125;
+&#125;</code></pre></p>
 <ol start="2">
 <li>线性探查<br>当想向表中某个位置加入一个新元素的时候，如果索引为index的位置已经被占据了，就尝试index+1的位置。如果index+1的位置也被占据了，就尝试index+2的位置，以此类推。</li>
 </ol>
-<pre><code class="js">function HashTable() {
-  var table = []
-  var loseloseHashCode = function (key) {         //散列函数
-    var hash = 0                                  //储存hash值
-    for (let i = 0; i &lt; key.length; i++) {
-      hash += key.charCodeAt(i)                   //获得每个字符的ascii码值
-    }
-    return hash % 39                              //为了使储存的地址值小一点，会采用hash值和任意值取余数
-  }
-  var ValuePair = function () {                   //创建一个新类来辅助表示要加入链表的值
-    this.key = key
-    this.value = value
-    this.toString = function () {
-      return &#39;[ &#39; + this.key + &#39;-&#39; + this.value + &#39; ]&#39;
-    }
-  }
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HashTable</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> table = []
+  <span class="hljs-keyword">var</span> loseloseHashCode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;         <span class="hljs-comment">//散列函数</span>
+    <span class="hljs-keyword">var</span> hash = <span class="hljs-number">0</span>                                  <span class="hljs-comment">//储存hash值</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; key.length; i++) &#123;
+      hash += key.charCodeAt(i)                   <span class="hljs-comment">//获得每个字符的ascii码值</span>
+    &#125;
+    <span class="hljs-keyword">return</span> hash % <span class="hljs-number">39</span>                              <span class="hljs-comment">//为了使储存的地址值小一点，会采用hash值和任意值取余数</span>
+  &#125;
+  <span class="hljs-keyword">var</span> ValuePair = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;                   <span class="hljs-comment">//创建一个新类来辅助表示要加入链表的值</span>
+    <span class="hljs-keyword">this</span>.key = key
+    <span class="hljs-keyword">this</span>.value = value
+    <span class="hljs-keyword">this</span>.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-string">'[ '</span> + <span class="hljs-keyword">this</span>.key + <span class="hljs-string">'-'</span> + <span class="hljs-keyword">this</span>.value + <span class="hljs-string">' ]'</span>
+    &#125;
+  &#125;
 
-  this.put = function (key, value) {              //向散列表增加一个新的项（也能更新散列表）
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
-    if (table[position] === undefined) {          //当前地址没有数据，直接赋值
-      table[position] === new ValuePair(key, value)
-    } else {
-      var index = ++position                      //下一个地支值
-      while (table[index] != undefined) {         //找到从当前position出发，第一个不为undefined的值
+  <span class="hljs-keyword">this</span>.put = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) </span>&#123;              <span class="hljs-comment">//向散列表增加一个新的项（也能更新散列表）</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
+    <span class="hljs-keyword">if</span> (table[position] === <span class="hljs-literal">undefined</span>) &#123;          <span class="hljs-comment">//当前地址没有数据，直接赋值</span>
+      table[position] === <span class="hljs-keyword">new</span> ValuePair(key, value)
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">var</span> index = ++position                      <span class="hljs-comment">//下一个地支值</span>
+      <span class="hljs-keyword">while</span> (table[index] != <span class="hljs-literal">undefined</span>) &#123;         <span class="hljs-comment">//找到从当前position出发，第一个不为undefined的值</span>
         index++
-      }
-      table[position] === new ValuePair(key, value)
-    }
-  }
+      &#125;
+      table[position] === <span class="hljs-keyword">new</span> ValuePair(key, value)
+    &#125;
+  &#125;
 
-  this.get = function (key) {                     //返回根据键值检索到的特定的值
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
-    if (table[position]) {
-      if (table[position].key === key) {          //找到相同key值，返回value
-        return table[position].value
-      } else {
-        var index = ++position                    //否则继续往下寻找
-        while (table[index] === undefined || table[index].key != key) {
+  <span class="hljs-keyword">this</span>.get = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;                     <span class="hljs-comment">//返回根据键值检索到的特定的值</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
+    <span class="hljs-keyword">if</span> (table[position]) &#123;
+      <span class="hljs-keyword">if</span> (table[position].key === key) &#123;          <span class="hljs-comment">//找到相同key值，返回value</span>
+        <span class="hljs-keyword">return</span> table[position].value
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">var</span> index = ++position                    <span class="hljs-comment">//否则继续往下寻找</span>
+        <span class="hljs-keyword">while</span> (table[index] === <span class="hljs-literal">undefined</span> || table[index].key != key) &#123;
           index++
-        }
-        if (table[index].key === key) {
-          return table[index].value
-        }
-      }
-    }
-    return undefined
-  }
+        &#125;
+        <span class="hljs-keyword">if</span> (table[index].key === key) &#123;
+          <span class="hljs-keyword">return</span> table[index].value
+        &#125;
+      &#125;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>
+  &#125;
 
-  this.remove = function (key) {                  //根据键值从散列表中移除值
-    var position = loseloseHashCode(key)          //计算出hash值，也就是存放新项的地址
-    if (table[position]) {
-      if (table[position].key === key) {          //找到相同key值，返回value
-        table[position] = undefined
-      } else {
-        var index = ++position                    //否则继续往下寻找
-        while (table[index] === undefined || table[index].key != key) {
+  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;                  <span class="hljs-comment">//根据键值从散列表中移除值</span>
+    <span class="hljs-keyword">var</span> position = loseloseHashCode(key)          <span class="hljs-comment">//计算出hash值，也就是存放新项的地址</span>
+    <span class="hljs-keyword">if</span> (table[position]) &#123;
+      <span class="hljs-keyword">if</span> (table[position].key === key) &#123;          <span class="hljs-comment">//找到相同key值，返回value</span>
+        table[position] = <span class="hljs-literal">undefined</span>
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">var</span> index = ++position                    <span class="hljs-comment">//否则继续往下寻找</span>
+        <span class="hljs-keyword">while</span> (table[index] === <span class="hljs-literal">undefined</span> || table[index].key != key) &#123;
           index++
-        }
-        if (table[index].key === key) {
-          table[position] = undefined
-        }
-      }
-      return true
-    }
-    return false
-  }
-}
-</code></pre>
-<h5 id="创建更好的散列函数"><a href="#创建更好的散列函数" class="headerlink" title="创建更好的散列函数"></a>创建更好的散列函数</h5><p>我们实现的“lose lose”散列函数并不是一个表现良好的散列函数，它会产生太多的冲突。如果我们使用这个函数的话，会产生各种各样的冲突。</p>
-<p>比较常用的散列函数</p>
-<pre><code class="js">var djb2HashCode = function (key) {
-  var hash = 5381                                //初始化hash值
-  for (var i = 0; i &lt; key.length; i++) {         //迭代key值
-    hash = hash * 33 + key.charCodeAt(i)
-  }
-  return hash % 1013                             //返回最后的hash值
-}
-</code></pre>
+        &#125;
+        <span class="hljs-keyword">if</span> (table[index].key === key) &#123;
+          table[position] = <span class="hljs-literal">undefined</span>
+        &#125;
+      &#125;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  &#125;
+&#125;</code></pre>
+<h5 id="创建更好的散列函数">创建更好的散列函数<a class="post-anchor" href="#创建更好的散列函数"></a></h5><p>我们实现的“lose lose”散列函数并不是一个表现良好的散列函数，它会产生太多的冲突。如果我们使用这个函数的话，会产生各种各样的冲突。</p>
+<p>比较常用的散列函数<br><pre><code class="hljs js"><span class="hljs-keyword">var</span> djb2HashCode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> hash = <span class="hljs-number">5381</span>                                <span class="hljs-comment">//初始化hash值</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; key.length; i++) &#123;         <span class="hljs-comment">//迭代key值</span>
+    hash = hash * <span class="hljs-number">33</span> + key.charCodeAt(i)
+  &#125;
+  <span class="hljs-keyword">return</span> hash % <span class="hljs-number">1013</span>                             <span class="hljs-comment">//返回最后的hash值</span>
+&#125;</code></pre></p>
 <p>至此，字典和散列表的基本使用方法已经总结完毕。接下来会是树的学习。👍</p>
 
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/03/24/数据结构之字典和散列表/">http://yoursite.com/2019/03/24/数据结构之字典和散列表/</a>
-                </div>
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
             
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/03/23/数据结构之集合/">数据结构之集合</a>
+        
+    </div>
+  </div>
 
-          
+  
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/03/24/数据结构之字典和散列表/">https://luckyfbb.github.io/2019/03/24/数据结构之字典和散列表/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
 
+  <div id="comment"></div>
+
+  
+  
 </article>
-
-
-<div class="more">
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/03/23/数据结构之集合/"> 数据结构之集合 </a>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-    
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Sun Mar 24 2019 11:34:49 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
-    </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

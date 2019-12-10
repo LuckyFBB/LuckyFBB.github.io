@@ -1,108 +1,189 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            数据结构之数组
-        
+      数据结构之数组 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#数组的创建"><span class="toc-text">数组的创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加和删除元素"><span class="toc-text">添加和删除元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组方法参考"><span class="toc-text">数组方法参考</span></a></li></ol>
+    </div>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
         </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
+        
+        <a href="/archives" class>
+          归档
         </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
             
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">数据结构之数组</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/03/20</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
                 
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
+                  <a href="/categories/数据结构">数据结构</a>
                 
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/20/数据结构之数组/"> 
-                    数据结构之数组 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-20   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#数组的创建"><span class="toc-list-text">数组的创建</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#添加和删除元素"><span class="toc-list-text">添加和删除元素</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#数组方法参考"><span class="toc-list-text">数组方法参考</span></a></li></ol>
-</div>
-            <div class="content">
-                <p>学习JavaScript数据结构与算法之数组篇章。前端小白简单的学习笔记。<a id="more"></a></p>
-<h4 id="数组的创建"><a href="#数组的创建" class="headerlink" title="数组的创建"></a>数组的创建</h4><pre><code>var array = new Array();     //声明并初始化一个数组
+              
+          </span>
+        </span>
+        
+        
+        
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>学习JavaScript数据结构与算法之数组篇章。前端小白简单的学习笔记。<a id="more"></a></p>
+<h4 id="数组的创建">数组的创建<a class="post-anchor" href="#数组的创建"></a></h4><pre><code class="hljs undefined">var array = new Array();     //声明并初始化一个数组
 var array = new Array(7);   //创建指定长度的数组
 var array = new Array(1, 2, 3, 4);    //直接将数组元素作为参数传递给它的构造器
 
 var array = [];    //方便快捷
 
-array.length    //数组中有多少元素
-</code></pre><h4 id="添加和删除元素"><a href="#添加和删除元素" class="headerlink" title="添加和删除元素"></a>添加和删除元素</h4><pre><code>var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+array.length    //数组中有多少元素</code></pre>
+<h4 id="添加和删除元素">添加和删除元素<a class="post-anchor" href="#添加和删除元素"></a></h4><pre><code class="hljs undefined">var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 number[number.length] = 5    //使用number.length属性添加元素
 
 number.push(6)     //使用push()方法，在末尾添加元素，返回数组长度
@@ -113,115 +194,144 @@ number.pop()     //使用pop()方法，在末尾删除元素，返回删除值
 
 number.shift()    //使用shift()方法，在首部删除元素，返回删除值
 
-number.splice(5, 0, 1, 2, 3)    //使用splice方法，第一个参数表示想要删除或插入的元素的索引值。第二个参数是删除元素的个数。第三个参数往后，就是要添加到数组里的值。如果第二个参数是0，表示插入元素。
-</code></pre><h4 id="数组方法参考"><a href="#数组方法参考" class="headerlink" title="数组方法参考"></a>数组方法参考</h4><ol>
+number.splice(5, 0, 1, 2, 3)    //使用splice方法，第一个参数表示想要删除或插入的元素的索引值。第二个参数是删除元素的个数。第三个参数往后，就是要添加到数组里的值。如果第二个参数是0，表示插入元素。</code></pre>
+<h4 id="数组方法参考">数组方法参考<a class="post-anchor" href="#数组方法参考"></a></h4><ol>
 <li><p>数组合并</p>
-<pre><code>var array = [1, 2, 3]
+<pre><code class="hljs undefined">var array = [1, 2, 3]
 var number = array.concat(4)
-var number = array.concat([4, 5, 6])   //concat方法可以向一个数组传递数组、对象或是元素
-</code></pre></li>
-<li><p>迭代器函数<br><a href="https://luckyfbb.github.io/blog.github.io/2019/03/07/JS%E8%BF%AD%E4%BB%A3%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener">迭代器函数的使用方法</a></p>
+var number = array.concat([4, 5, 6])   //concat方法可以向一个数组传递数组、对象或是元素</code></pre>
+</li>
+<li><p>迭代器函数<br><a href="https://luckyfbb.github.io/blog.github.io/2019/03/07/JS%E8%BF%AD%E4%BB%A3%E5%87%BD%E6%95%B0/">迭代器函数的使用方法</a></p>
 </li>
 <li><p>搜索和排序</p>
 <ul>
-<li>搜索<pre><code>//indexOf方法返回与参数匹配的第一个元素的索引，lastIndexOf返回与参数匹配的最后一个元素的索引
+<li><p>搜索</p>
+<pre><code class="hljs undefined">//indexOf方法返回与参数匹配的第一个元素的索引，lastIndexOf返回与参数匹配的最后一个元素的索引
 var number = [1, 2, 3, 4, 5, 2]
 number.indexOf(2)    //1
 number.lastIndexOf(2)    //1
-number.indexOf(100)  //-1
-</code></pre></li>
-<li>排序<pre><code>var num = number.reverse()    //reverse方法，数组内元素就会反序，改变原数组
-var num = number.sort()       //sort方法，数组内元素排序，可接受函数作为参数自定义排序，改变原数组
-</code></pre></li>
+number.indexOf(100)  //-1</code></pre>
+</li>
+<li><p>排序</p>
+<pre><code class="hljs undefined">var num = number.reverse()    //reverse方法，数组内元素就会反序，改变原数组
+var num = number.sort()       //sort方法，数组内元素排序，可接受函数作为参数自定义排序，改变原数组</code></pre>
+</li>
 </ul>
 </li>
 <li><p>输出数组为字符串</p>
-<pre><code>var number = [1, 2, 3, 4]
+<pre><code class="hljs undefined">var number = [1, 2, 3, 4]
 number.toString()      //&quot;1,2,3,4&quot;，把数组里所有元素输出为一个字符
-number.join(&#39;-&#39;)       //&quot;1-2-3-4&quot;，用一个不同的分隔符（比如-）把元素隔开
-</code></pre></li>
+number.join(&apos;-&apos;)       //&quot;1-2-3-4&quot;，用一个不同的分隔符（比如-）把元素隔开</code></pre>
+</li>
 </ol>
 <p>至此，数组的基本使用方法已经总结完毕。接下来会是栈和队列的学习。👍</p>
 
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/03/20/数据结构之数组/">http://yoursite.com/2019/03/20/数据结构之数组/</a>
-                </div>
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
             
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/03/21/数据结构之栈和队列/">数据结构之栈、队列</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/03/11/节流和防抖/">节流和防抖</a>
+        
+    </div>
+  </div>
 
-          
+  
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/03/20/数据结构之数组/">https://luckyfbb.github.io/2019/03/20/数据结构之数组/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
 
+  <div id="comment"></div>
+
+  
+  
 </article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/03/21/数据结构之栈和队列/">  数据结构之栈、队列</a>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/03/11/节流和防抖/"> 节流和防抖 </a>
-    </div>
-    
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Wed Mar 20 2019 10:11:10 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
-    </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

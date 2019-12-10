@@ -1,306 +1,410 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            公司笔试
-        
+      公司笔试 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
         </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
+        
+        <a href="/archives" class>
+          归档
         </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
             
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">公司笔试</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/03/08</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
                 
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
+                  <a href="/categories/前端">前端</a>
                 
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
                 
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
+                  
+                    <a href="/tags/笔试">笔试</a>
+                  
                 
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/08/公司笔试/"> 
-                    公司笔试 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-08   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔试/">笔试</a></li></ul>
-            </div>
-<div class="toc">
-  
-</div>
-            <div class="content">
-                <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>今天去了一家小公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
 <ol>
-<li><p>下列语句分别输出什么？</p>
-<pre><code class="js">console.log(parseInt(&#39;01&#39;) + &#39;0&#39; + parseInt(&#39;010&#39;))    //1010
-console.log(1 === true)   //false                                                                                  
-console.log(typeof Aarry)   //function
-console.log(&#39;0&#39; == false)   //true
-console.log(1.toString())   //报错
-console.log(1..toString())   //1
-</code></pre>
+<li>下列语句分别输出什么？<pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'01'</span>) + <span class="hljs-string">'0'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'010'</span>))    <span class="hljs-comment">//1010</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-literal">true</span>)   <span class="hljs-comment">//false                                                                                  </span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> Aarry)   <span class="hljs-comment">//function</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'0'</span> == <span class="hljs-literal">false</span>)   <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>toString())   <span class="hljs-comment">//报错</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>.toString())   <span class="hljs-comment">//1</span></code></pre>
+</li>
+</ol>
 <a id="more"></a>
+<ol start="2">
+<li><p>请给出下列的输出</p>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> arr1 = <span class="hljs-string">'john'</span>.split(<span class="hljs-string">''</span>)           <span class="hljs-comment">//['j', 'o', 'h', 'n']</span>
+<span class="hljs-keyword">var</span> arr2 = arr1.reverse()             <span class="hljs-comment">//['n', 'h', 'o', 'j']     reverse会改变原数组</span>
+<span class="hljs-keyword">var</span> arr3 = <span class="hljs-string">'jones'</span>.split(<span class="hljs-string">''</span>)          <span class="hljs-comment">//['j', 'o', 'n', 'e', 's']</span>
+arr2.push(arr3)                       <span class="hljs-comment">//['n', 'h', 'o', 'j', ['j', 'o', 'n', 'e', 's']]</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'array 1 : length='</span> + arr1.length + <span class="hljs-string">' last='</span> + arr1.slice(<span class="hljs-number">-1</span>))    <span class="hljs-comment">//['n', 'h', 'o', 'j']</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'array 2 : length='</span> + arr2.length + <span class="hljs-string">' last='</span> + arr2.slice(<span class="hljs-number">-1</span>))    <span class="hljs-comment">//['n', 'h', 'o', 'j']</span></code></pre>
 </li>
 <li><p>请给出下列的输出</p>
-<pre><code class="js">var arr1 = &#39;john&#39;.split(&#39;&#39;)           //[&#39;j&#39;, &#39;o&#39;, &#39;h&#39;, &#39;n&#39;]
-var arr2 = arr1.reverse()             //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]     reverse会改变原数组
-var arr3 = &#39;jones&#39;.split(&#39;&#39;)          //[&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]
-arr2.push(arr3)                       //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;, [&#39;j&#39;, &#39;o&#39;, &#39;n&#39;, &#39;e&#39;, &#39;s&#39;]]
-console.log(&#39;array 1 : length=&#39; + arr1.length + &#39; last=&#39; + arr1.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
-console.log(&#39;array 2 : length=&#39; + arr2.length + &#39; last=&#39; + arr2.slice(-1))    //[&#39;n&#39;, &#39;h&#39;, &#39;o&#39;, &#39;j&#39;]
-</code></pre>
-</li>
-<li><p>请给出下列的输出</p>
-<pre><code class="js">new Promise(resolve =&gt; {
-setTimeout(() =&gt; {
- resolve(&#39;hi&#39;)
-}, 1000)
-}).then((value) =&gt; {
-console.log(&#39;start &#39;, value)
-throw new Error(&#39;test error&#39;)
-}).catch(() =&gt; {
-console.log(&#39;I catch: &#39;, &#39;test error&#39;)
-//console.log(x)    第二个catch就会报错
-}).then(() =&gt; {
-console.log(&#39;arrive here&#39;)
-}).catch(() =&gt; {   //用于接收第一个catch之后抛出的错误
-console.log(&#39;No, I catch:&#39;, &quot;anther error&quot;)
-}).finally(() =&gt; {
-console.log(&#39;end&#39;)
-})
-//start hi        resolve(&#39;hi&#39;)之后调用.then函数执行输出后，抛出异常
-//I catch: , test error       接收到抛出的异常执行输出，catch执行之后仍然返回一个promise
-//arrive here       
-//end     finally永远都会执行的函数，ES2018引入标准的
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;
+  setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    resolve(<span class="hljs-string">'hi'</span>)
+  &#125;, <span class="hljs-number">1000</span>)
+&#125;).then(<span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start '</span>, value)
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'test error'</span>)
+&#125;).catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'I catch: '</span>, <span class="hljs-string">'test error'</span>)
+  <span class="hljs-comment">//console.log(x)    第二个catch就会报错</span>
+&#125;).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'arrive here'</span>)
+&#125;).catch(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;   <span class="hljs-comment">//用于接收第一个catch之后抛出的错误</span>
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'No, I catch:'</span>, <span class="hljs-string">"anther error"</span>)
+&#125;).finally(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end'</span>)
+&#125;)
+<span class="hljs-comment">//start hi        resolve('hi')之后调用.then函数执行输出后，抛出异常</span>
+<span class="hljs-comment">//I catch: , test error       接收到抛出的异常执行输出，catch执行之后仍然返回一个promise</span>
+<span class="hljs-comment">//arrive here       </span>
+<span class="hljs-comment">//end     finally永远都会执行的函数，ES2018引入标准的</span></code></pre>
 </li>
 <li><p>给出函数的返回结果</p>
-<pre><code class="js">function transferArrToStr(arr) {
-const printArr = []
-let str = &#39;&#39;
-for (var i = 0; i &lt; arr.length; i++) {   //变量提升的问题，解决方法可以使用let
- printArr[i] = () =&gt; arr[i - 1]
-}
-printArr.forEach(item =&gt; {
- str += item()
-})
-return str
-}
-const hello = [&#39;h&#39;, &#39;e&#39;, &#39;l&#39;, &#39;l&#39;, &#39;o&#39;]
-transferArrToStr(hello)    //&#39;ooooo&#39;
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transferArrToStr</span>(<span class="hljs-params">arr</span>) </span>&#123;
+  <span class="hljs-keyword">const</span> printArr = []
+  <span class="hljs-keyword">let</span> str = <span class="hljs-string">''</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;   <span class="hljs-comment">//变量提升的问题，解决方法可以使用let</span>
+    printArr[i] = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> arr[i - <span class="hljs-number">1</span>]
+  &#125;
+  printArr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+    str += item()
+  &#125;)
+  <span class="hljs-keyword">return</span> str
+&#125;
+<span class="hljs-keyword">const</span> hello = [<span class="hljs-string">'h'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'o'</span>]
+transferArrToStr(hello)    <span class="hljs-comment">//'ooooo'</span></code></pre>
 </li>
 <li><p>给出函数的返回结果</p>
-<pre><code class="js">function sortIntegers(a, b) {
-return a - b
-}
-function computeProduct(unsorted) {   //该算法实现计算数组中最大三个数的乘积
-var sort_array = unsorted.sort(sortIntegers)
-var product1 = 1
-var product2 = 1
-var array_n_element = sort_array.length - 1
-for (var x = array_n_element; x &gt; array_n_element - 3; x--) {
- product1 = product1 * sort_array[x]
-}
-product2 = sort_array[0] * sort_array[1] * sort_array[array_n_element]
-if (product1 &gt; product2) return product1
-return product2
-}
-var unsorted_array = [-10, 7, 29, 30, 5, -10, -70]
-computeProduct(unsorted_array)    //21000
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sortIntegers</span>(<span class="hljs-params">a, b</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> a - b
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">computeProduct</span>(<span class="hljs-params">unsorted</span>) </span>&#123;   <span class="hljs-comment">//该算法实现计算数组中最大三个数的乘积</span>
+  <span class="hljs-keyword">var</span> sort_array = unsorted.sort(sortIntegers)
+  <span class="hljs-keyword">var</span> product1 = <span class="hljs-number">1</span>
+  <span class="hljs-keyword">var</span> product2 = <span class="hljs-number">1</span>
+  <span class="hljs-keyword">var</span> array_n_element = sort_array.length - <span class="hljs-number">1</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> x = array_n_element; x &gt; array_n_element - <span class="hljs-number">3</span>; x--) &#123;
+    product1 = product1 * sort_array[x]
+  &#125;
+  product2 = sort_array[<span class="hljs-number">0</span>] * sort_array[<span class="hljs-number">1</span>] * sort_array[array_n_element]
+  <span class="hljs-keyword">if</span> (product1 &gt; product2) <span class="hljs-keyword">return</span> product1
+  <span class="hljs-keyword">return</span> product2
+&#125;
+<span class="hljs-keyword">var</span> unsorted_array = [<span class="hljs-number">-10</span>, <span class="hljs-number">7</span>, <span class="hljs-number">29</span>, <span class="hljs-number">30</span>, <span class="hljs-number">5</span>, <span class="hljs-number">-10</span>, <span class="hljs-number">-70</span>]
+computeProduct(unsorted_array)    <span class="hljs-comment">//21000</span></code></pre>
 </li>
 <li><p>请输出下列结果</p>
-<pre><code class="js">const globalVar = &#39;xyz&#39;;
-(function outerFunc(outerArg) {
-let outerVar = &#39;a&#39;;
-(function innerFunc(innerArg) {
- let innerVar = &#39;b&#39;
- console.log(
-   &#39;outerArg = &#39; + outerArg + &#39;\n&#39; +
-   &#39;outerVar = &#39; + outerVar + &#39;\n&#39; +
-   &#39;innerArg = &#39; + innerArg + &#39;\n&#39; +
-   &#39;innerVar = &#39; + innerVar + &#39;\n&#39; +
-   &#39;globalVar = &#39; + globalVar
- )
-})(456)
-})(123)
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> globalVar = <span class="hljs-string">'xyz'</span>;
+(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outerFunc</span>(<span class="hljs-params">outerArg</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> outerVar = <span class="hljs-string">'a'</span>;
+  (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">innerFunc</span>(<span class="hljs-params">innerArg</span>) </span>&#123;
+    <span class="hljs-keyword">let</span> innerVar = <span class="hljs-string">'b'</span>
+    <span class="hljs-built_in">console</span>.log(
+      <span class="hljs-string">'outerArg = '</span> + outerArg + <span class="hljs-string">'\n'</span> +
+      <span class="hljs-string">'outerVar = '</span> + outerVar + <span class="hljs-string">'\n'</span> +
+      <span class="hljs-string">'innerArg = '</span> + innerArg + <span class="hljs-string">'\n'</span> +
+      <span class="hljs-string">'innerVar = '</span> + innerVar + <span class="hljs-string">'\n'</span> +
+      <span class="hljs-string">'globalVar = '</span> + globalVar
+    )
+  &#125;)(<span class="hljs-number">456</span>)
+&#125;)(<span class="hljs-number">123</span>)</code></pre>
 </li>
 <li><p>使用栈判断大括号是否闭合</p>
-<pre><code class="js">function isBalanced(expression) {
-var checkingString = expression
-var stack = []
-if (checkingString.length &lt;= 0) return true
-for (var i = 0; i &lt; checkingString.length; i++) {
- if (checkingString[i] === &#39;{&#39;) {   
-   stack.push(checkingString[i])
- } else if (checkingString[i] === &#39;}&#39;) {
-   if (stack.length &gt; 0) {
-     stack.pop() === &#39;{&#39;
-     continue
-   } else {
-     return false
-   }
- }
-}
-if (stack.pop()) return false
-return true
-}
-</code></pre>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isBalanced</span>(<span class="hljs-params">expression</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> checkingString = expression
+  <span class="hljs-keyword">var</span> stack = []
+  <span class="hljs-keyword">if</span> (checkingString.length &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; checkingString.length; i++) &#123;
+    <span class="hljs-keyword">if</span> (checkingString[i] === <span class="hljs-string">'&#123;'</span>) &#123;   
+      stack.push(checkingString[i])
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (checkingString[i] === <span class="hljs-string">'&#125;'</span>) &#123;
+      <span class="hljs-keyword">if</span> (stack.length &gt; <span class="hljs-number">0</span>) &#123;
+        stack.pop() === <span class="hljs-string">'&#123;'</span>
+        <span class="hljs-keyword">continue</span>
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+      &#125;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">if</span> (stack.pop()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+&#125;</code></pre>
 </li>
 <li><p>实现二分查找法</p>
 </li>
 </ol>
 
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/03/08/公司笔试/">http://yoursite.com/2019/03/08/公司笔试/</a>
-                </div>
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
             
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/03/09/深浅拷贝/">深浅拷贝</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/03/07/招银面经/">招银面经</a>
+        
+    </div>
+  </div>
 
-          
+  
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/03/08/公司笔试/">https://luckyfbb.github.io/2019/03/08/公司笔试/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
 
+  <div id="comment"></div>
+
+  
+  
 </article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/03/09/深浅拷贝/">  深浅拷贝</a>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/03/07/招银面经/"> 招银面经 </a>
-    </div>
-    
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Fri Mar 08 2019 21:32:42 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
-    </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

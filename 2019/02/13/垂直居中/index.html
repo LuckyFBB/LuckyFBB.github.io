@@ -1,319 +1,433 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            如何实现元素居中
-        
+      如何实现元素居中 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/02/13/垂直居中/"> 
-                    如何实现元素居中 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-02-13   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#水平居中"><span class="toc-list-text">水平居中</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#行内元素"><span class="toc-list-text">行内元素</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#块级元素"><span class="toc-list-text">块级元素</span></a></li></ol></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#垂直居中"><span class="toc-list-text">垂直居中</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#行内元素-1"><span class="toc-list-text">行内元素</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#块级元素-1"><span class="toc-list-text">块级元素</span></a></li></ol></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#水平垂直居中"><span class="toc-list-text">水平垂直居中</span></a></li></ol>
-</div>
-            <div class="content">
-                <p>总结一下居中方法。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><a id="more"></a></p>
-<h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><h4 id="行内元素"><a href="#行内元素" class="headerlink" title="行内元素"></a>行内元素</h4><p>  <strong>利用text-align可以实现在块级元素内部的行类元素居中。</strong>这个方法对inline、inline-block、inline-table和inline-flex元素水平居中都有效果</p>
-<pre><code>  .parent{  //父容器上设置
-    text-align: cnter
-  }
-</code></pre><p>  如果块级元素内部包含着一个块级元素，<strong>可以将块级元素转化为行内块元素</strong>。在使用上述方法就能达到水平居中。</p>
-<pre><code>  &lt;div class=&#39;parent&#39;&gt;
-    &lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-  &lt;/div&gt;
-  &lt;style&gt;
-    .parent{
-      text-align: center;
-    }
-    .child{
-      display: inline-block;       /*改变子元素成为行内块元素*/
-    }
-  &lt;/style&gt;
-</code></pre><h4 id="块级元素"><a href="#块级元素" class="headerlink" title="块级元素"></a>块级元素</h4><ol>
-<li><p>margin: 0 auto</p>
-<pre><code>.child{
-width: 100px;   /*确保该块级元素定宽*/
-margin: 0 auto;
-}
-</code></pre></li>
-<li><p>使用absolute + transform(如果父元素定宽，可以使用absolute + 负margin)<br>父元素相对定位，子元素绝对定位。往右移动子元素，移动距离为父容器的一半，然后左移子元素宽度的一半达到居中。</p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-.parent{
- position: relative;
-}
-.child{
- position: absolute;
- left: 50%;
- transform: translateX(-50%)
-}
-&lt;/style&gt;
-</code></pre></li>
-<li><p>使用flex + justify-content(<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">flex布局</a>)</p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-.parent{
- display: flex;    /*默认主轴为row*/
- justify-content: cneter;
-}
-&lt;/style&gt;
-</code></pre></li>
-</ol>
-<h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><h4 id="行内元素-1"><a href="#行内元素-1" class="headerlink" title="行内元素"></a>行内元素</h4><ol>
-<li><p>单行内联元素<br>height值和line-height值相等即可</p>
-<pre><code>&lt;div&gt;
-&lt;span&gt;认真学习前端的人&lt;/span&gt;
-&lt;/div&gt;
-&lt;style&gt;
-div{
- height: 100px;
- line-height: 100px;
-}
-&lt;/style&gt;
-</code></pre></li>
-<li><p>多行内联元素<br>使用flex + justify-content + <strong>flex-deriction: column(主轴方向为竖直方向)</strong></p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;p&gt;React 是一个用于构建用户界面的 JAVASCRIPT 库。
-React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）。
-React 起源于 Facebook 的内部项目，用来架设 Instagram 的网站，并于 2013 年 5 月开源。
-React 拥有较高的性能，代码逻辑非常简单，越来越多的人已开始关注和使用它。&lt;/p&gt;
-&lt;/div&gt;
-&lt;style&gt;
-.parent{
- height: 150px;
- display: flex;
- flex-deriction: column;
- justify-content: center;
-}
-&lt;/style&gt;
-</code></pre></li>
-</ol>
-<h4 id="块级元素-1"><a href="#块级元素-1" class="headerlink" title="块级元素"></a>块级元素</h4><ol>
-<li><p>使用absolute + transform(如果父元素定高，可以使用absolute + 负margin)<br>通过绝对定位元素距离顶部50%，借助CSS3中的transform属性向Y轴反向偏移50%的方法实现垂直居中。</p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-.parent{
- position: relative;
-}
-.child{
- position: absolute;
- top: 50%;
- transform: translateY(-50%)
-}
-&lt;/style&gt;
-</code></pre></li>
-<li><p>使用flex + align-items</p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-.parent{
- display: flex;    /*默认主轴为row*/
- align-items: cneter;    /*交叉轴*/
-}
-&lt;/style&gt;
-</code></pre><h3 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h3></li>
-<li><p>使用absolute + transform<br>在未知元素的高宽的情况下实现元素的垂直居中。(已知宽高可以用负margin)</p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
- .parent{
-   position: relative;
- }
- .child{
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%)
- }
-&lt;/style&gt;
-</code></pre></li>
-<li><p>使用flex布局<br>在主轴和纵轴都设置对齐方式</p>
-<pre><code>&lt;div class=&#39;parent&#39;&gt;
-&lt;div class=&#39;child&#39;&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
- .parent{
-   display: flex;    /*默认主轴为row*/
-   align-items: cneter;    /*交叉轴*/
-   justify-content: center;   /*主轴*/
- }
-&lt;/style&gt;
-</code></pre></li>
-</ol>
-
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/02/13/垂直居中/">http://yoursite.com/2019/02/13/垂直居中/</a>
-                </div>
-            </div>
-            
-
-          
-
-
-</article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/02/14/JS原生实现/">  JS原生实现过程和JS算法题</a>
-    </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/02/11/浮动/"> CSS中的流 </a>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#水平居中"><span class="toc-text">水平居中</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#行内元素"><span class="toc-text">行内元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#块级元素"><span class="toc-text">块级元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#垂直居中"><span class="toc-text">垂直居中</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#行内元素-1"><span class="toc-text">行内元素</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#块级元素-1"><span class="toc-text">块级元素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#水平垂直居中"><span class="toc-text">水平垂直居中</span></a></li></ol>
     </div>
     
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Wed Feb 13 2019 11:20:24 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
     </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
     </div>
-</footer>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">如何实现元素居中</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/02/13</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/前端">前端</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/CSS">CSS</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>总结一下居中方法。<br><a href="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a><br><a id="more"></a></p>
+<h3 id="水平居中">水平居中<a class="post-anchor" href="#水平居中"></a></h3><h4 id="行内元素">行内元素<a class="post-anchor" href="#行内元素"></a></h4><p>  <strong>利用text-align可以实现在块级元素内部的行类元素居中。</strong>这个方法对inline、inline-block、inline-table和inline-flex元素水平居中都有效果<br>  <pre><code class="hljs undefined">.parent&#123;  //父容器上设置
+  text-align: cnter
+&#125;</code></pre></p>
+<p>  如果块级元素内部包含着一个块级元素，<strong>可以将块级元素转化为行内块元素</strong>。在使用上述方法就能达到水平居中。<br>  <pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    text-align: center;
+  &#125;
+  .child&#123;
+    display: inline-block;       /*改变子元素成为行内块元素*/
+  &#125;
+&lt;/style&gt;</code></pre></p>
+<h4 id="块级元素">块级元素<a class="post-anchor" href="#块级元素"></a></h4><ol>
+<li><p>margin: 0 auto</p>
+<pre><code class="hljs undefined">.child&#123;
+  width: 100px;   /*确保该块级元素定宽*/
+  margin: 0 auto;
+&#125;</code></pre>
+</li>
+<li><p>使用absolute + transform(如果父元素定宽，可以使用absolute + 负margin)<br>父元素相对定位，子元素绝对定位。往右移动子元素，移动距离为父容器的一半，然后左移子元素宽度的一半达到居中。</p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    position: relative;
+  &#125;
+  .child&#123;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%)
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+<li><p>使用flex + justify-content(<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">flex布局</a>)</p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    display: flex;    /*默认主轴为row*/
+    justify-content: cneter;
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+</ol>
+<h3 id="垂直居中">垂直居中<a class="post-anchor" href="#垂直居中"></a></h3><h4 id="行内元素-1">行内元素<a class="post-anchor" href="#行内元素-1"></a></h4><ol>
+<li><p>单行内联元素<br>height值和line-height值相等即可</p>
+<pre><code class="hljs undefined">&lt;div&gt;
+  &lt;span&gt;认真学习前端的人&lt;/span&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  div&#123;
+    height: 100px;
+    line-height: 100px;
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+<li><p>多行内联元素<br>使用flex + justify-content + <strong>flex-deriction: column(主轴方向为竖直方向)</strong></p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+  &lt;p&gt;React 是一个用于构建用户界面的 JAVASCRIPT 库。
+  React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）。
+  React 起源于 Facebook 的内部项目，用来架设 Instagram 的网站，并于 2013 年 5 月开源。
+  React 拥有较高的性能，代码逻辑非常简单，越来越多的人已开始关注和使用它。&lt;/p&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    height: 150px;
+    display: flex;
+    flex-deriction: column;
+    justify-content: center;
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+</ol>
+<h4 id="块级元素-1">块级元素<a class="post-anchor" href="#块级元素-1"></a></h4><ol>
+<li><p>使用absolute + transform(如果父元素定高，可以使用absolute + 负margin)<br>通过绝对定位元素距离顶部50%，借助CSS3中的transform属性向Y轴反向偏移50%的方法实现垂直居中。</p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    position: relative;
+  &#125;
+  .child&#123;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+<li><p>使用flex + align-items</p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    display: flex;    /*默认主轴为row*/
+    align-items: cneter;    /*交叉轴*/
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+</ol>
+<h3 id="水平垂直居中">水平垂直居中<a class="post-anchor" href="#水平垂直居中"></a></h3><ol>
+<li><p>使用absolute + transform<br>在未知元素的高宽的情况下实现元素的垂直居中。(已知宽高可以用负margin)</p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+&lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    position: relative;
+  &#125;
+  .child&#123;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+  &#125;
+&lt;/style&gt;</code></pre>
+</li>
+<li><p>使用flex布局<br>在主轴和纵轴都设置对齐方式</p>
+<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+&lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .parent&#123;
+    display: flex;    /*默认主轴为row*/
+    align-items: cneter;    /*交叉轴*/
+    justify-content: center;   /*主轴*/
+  &#125;
+&lt;/style&gt;</code></pre></li>
+</ol>
+
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/02/14/JS原生实现/">JS原生实现过程和JS算法题</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/02/11/浮动/">CSS中的流</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/02/13/垂直居中/">https://luckyfbb.github.io/2019/02/13/垂直居中/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

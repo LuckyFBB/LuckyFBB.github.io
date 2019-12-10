@@ -1,371 +1,476 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            数据结构之链表
-        
+      数据结构之链表 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建链表"><span class="toc-text">创建链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#双向链表"><span class="toc-text">双向链表</span></a></li></ol>
+    </div>
+    
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
         </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
+        
+        <a href="/archives" class>
+          归档
         </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
             
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">数据结构之链表</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/03/22</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
                 
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
+                  <a href="/categories/数据结构">数据结构</a>
                 
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/03/22/数据结构之链表/"> 
-                    数据结构之链表 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-03-22   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构/">数据结构</a></li></ul>
-                
-                    
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#创建链表"><span class="toc-list-text">创建链表</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#双向链表"><span class="toc-list-text">双向链表</span></a></li></ol>
-</div>
-            <div class="content">
-                <p>学习JavaScript数据结构与算法之链表篇章。前端小白简单的学习笔记。</p>
+              
+          </span>
+        </span>
+        
+        
+        
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>学习JavaScript数据结构与算法之链表篇章。前端小白简单的学习笔记。</p>
 <p>链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。</p>
 <p>链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何位置的任何元素，而要想访问链表中间的一个元素，需要从起点开始迭代列表直到找到所需的元素。<a id="more"></a></p>
-<h4 id="创建链表"><a href="#创建链表" class="headerlink" title="创建链表"></a>创建链表</h4><pre><code class="js">function LinkedList() {
-  var Node = function (element) {
-    this.element = element
-    this.next = null
-  }
-  var length = 0
-  var head = null
+<h4 id="创建链表">创建链表<a class="post-anchor" href="#创建链表"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LinkedList</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> Node = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;
+    <span class="hljs-keyword">this</span>.element = element
+    <span class="hljs-keyword">this</span>.next = <span class="hljs-literal">null</span>
+  &#125;
+  <span class="hljs-keyword">var</span> length = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">var</span> head = <span class="hljs-literal">null</span>
 
-  this.append = function (element) {    //向链表尾部添加元素
-    var node = new Node(element)
-    var current
-    if (head === null) {     //当链表为空的时候，直接插入
+  <span class="hljs-keyword">this</span>.append = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;    <span class="hljs-comment">//向链表尾部添加元素</span>
+    <span class="hljs-keyword">var</span> node = <span class="hljs-keyword">new</span> Node(element)
+    <span class="hljs-keyword">var</span> current
+    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) &#123;     <span class="hljs-comment">//当链表为空的时候，直接插入</span>
       head = node
-    } else {
+    &#125; <span class="hljs-keyword">else</span> &#123;
       current = head
-      while (current.next) {
-        current = current.next        //找到当前链表的最后一项
-      }
-      current.next = node       //最后一项的next指针指向node
-    }
-    length++     //长度加一
-  }
+      <span class="hljs-keyword">while</span> (current.next) &#123;
+        current = current.next        <span class="hljs-comment">//找到当前链表的最后一项</span>
+      &#125;
+      current.next = node       <span class="hljs-comment">//最后一项的next指针指向node</span>
+    &#125;
+    length++     <span class="hljs-comment">//长度加一</span>
+  &#125;
 
-  this.removeAt = function (position) {       //删除某一个位置的节点
-    if (position &gt; -1 &amp;&amp; position &lt; length) {   //判断是否越界
-      var current = head, previous, index = 0;
-      if (position === 0) {         //删除第一个节点
+  <span class="hljs-keyword">this</span>.removeAt = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position</span>) </span>&#123;       <span class="hljs-comment">//删除某一个位置的节点</span>
+    <span class="hljs-keyword">if</span> (position &gt; <span class="hljs-number">-1</span> &amp;&amp; position &lt; length) &#123;   <span class="hljs-comment">//判断是否越界</span>
+      <span class="hljs-keyword">var</span> current = head, previous, index = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;         <span class="hljs-comment">//删除第一个节点</span>
         head = current.next
-      } else {
-        while (index &lt; position) {    //迭代链表
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">while</span> (index &lt; position) &#123;    <span class="hljs-comment">//迭代链表</span>
           previous = current
           current = current.next
           index++
-        }
-        previous.next = current.next     //previous和current的后继节点连接，删除current
-      }
+        &#125;
+        previous.next = current.next     <span class="hljs-comment">//previous和current的后继节点连接，删除current</span>
+      &#125;
       length--
-      return current.element
-    } else {
-      return null
-    }
-  }
+      <span class="hljs-keyword">return</span> current.element
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
+    &#125;
+  &#125;
 
-  this.insert = function (position, element) {     //可以在任意位置插入一个元素
-    if (position &gt; -1 &amp;&amp; position &lt; length) {
-      var node = new Node(element), current = head, previous, index = 0;
-      if (position === 0) {          //判断插入位置是否为第一个
+  <span class="hljs-keyword">this</span>.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position, element</span>) </span>&#123;     <span class="hljs-comment">//可以在任意位置插入一个元素</span>
+    <span class="hljs-keyword">if</span> (position &gt; <span class="hljs-number">-1</span> &amp;&amp; position &lt; length) &#123;
+      <span class="hljs-keyword">var</span> node = <span class="hljs-keyword">new</span> Node(element), current = head, previous, index = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;          <span class="hljs-comment">//判断插入位置是否为第一个</span>
         node.next = current
         head = node
-      } else {
-        while (index &lt; position) {      //迭代链表
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">while</span> (index &lt; position) &#123;      <span class="hljs-comment">//迭代链表</span>
           previous = current
           current = current.next
           index++
-        }
+        &#125;
         previous.next = node
         node.next = current
-      }
+      &#125;
       length++
-      return true
-    } else {
-      return false
-    }
-  }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    &#125;
+  &#125;
 
-  this.toString = function () {        //链表按着字符串输出
-    var current = head
-    var string = &#39;&#39;
-    while (current) {        //迭代链表
+  <span class="hljs-keyword">this</span>.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;        <span class="hljs-comment">//链表按着字符串输出</span>
+    <span class="hljs-keyword">var</span> current = head
+    <span class="hljs-keyword">var</span> string = <span class="hljs-string">''</span>
+    <span class="hljs-keyword">while</span> (current) &#123;        <span class="hljs-comment">//迭代链表</span>
       string = current.element
       current = current.next
-    }
-    return string
-  }
+    &#125;
+    <span class="hljs-keyword">return</span> string
+  &#125;
 
-  this.indexOf = function (element) {     //查找该值是否在链表中存在
-    var current = head
-    var index = -1
-    while (current) {             //迭代链表
-      if (current.element === element) {     //找到，则返回当前索引
-        return index
-      }
+  <span class="hljs-keyword">this</span>.indexOf = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;     <span class="hljs-comment">//查找该值是否在链表中存在</span>
+    <span class="hljs-keyword">var</span> current = head
+    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>
+    <span class="hljs-keyword">while</span> (current) &#123;             <span class="hljs-comment">//迭代链表</span>
+      <span class="hljs-keyword">if</span> (current.element === element) &#123;     <span class="hljs-comment">//找到，则返回当前索引</span>
+        <span class="hljs-keyword">return</span> index
+      &#125;
       index++
       current = current.next
-    }
-    return -1
-  }
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
+  &#125;
 
-  this.remove = function (element) {    //删除某个值
-    var index = this.indexOf(element)         //查找到当前值的索引
-    return this.removeAt(index)          //按位置删除当前值
-  }
+  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;    <span class="hljs-comment">//删除某个值</span>
+    <span class="hljs-keyword">var</span> index = <span class="hljs-keyword">this</span>.indexOf(element)         <span class="hljs-comment">//查找到当前值的索引</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.removeAt(index)          <span class="hljs-comment">//按位置删除当前值</span>
+  &#125;
 
-  this.isEmpty = function () {      //判断当前链表是否为空
-    return length === 0
-  }
+  <span class="hljs-keyword">this</span>.isEmpty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//判断当前链表是否为空</span>
+    <span class="hljs-keyword">return</span> length === <span class="hljs-number">0</span>
+  &#125;
 
-  this.size = function () {       //判断当前链表的大小
-    return length
-  }
+  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;       <span class="hljs-comment">//判断当前链表的大小</span>
+    <span class="hljs-keyword">return</span> length
+  &#125;
 
-  this.getHead = function () {      //返回链表头部
-    return head
-  }
-}
-</code></pre>
-<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>双向链表和普通链表的区别在于，在链表中，一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素。</p>
+  <span class="hljs-keyword">this</span>.getHead = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//返回链表头部</span>
+    <span class="hljs-keyword">return</span> head
+  &#125;
+&#125;</code></pre>
+<h4 id="双向链表">双向链表<a class="post-anchor" href="#双向链表"></a></h4><p>双向链表和普通链表的区别在于，在链表中，一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素。</p>
 <p>双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节点的下一个或前一个元素。</p>
-<p>链表的实现：</p>
-<pre><code class="js">function DoublyLinkedList() {
-  var Node = function (element) {
-    this.element = element
-    this.prev = null       //前继节点
-    this.next = null       //后继节点
-  }
-  var length = 0
-  var head = null
-  var tail = null           //用来保存对列表最后一项的引用的tail属性
+<p>链表的实现：<br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DoublyLinkedList</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">var</span> Node = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;
+    <span class="hljs-keyword">this</span>.element = element
+    <span class="hljs-keyword">this</span>.prev = <span class="hljs-literal">null</span>       <span class="hljs-comment">//前继节点</span>
+    <span class="hljs-keyword">this</span>.next = <span class="hljs-literal">null</span>       <span class="hljs-comment">//后继节点</span>
+  &#125;
+  <span class="hljs-keyword">var</span> length = <span class="hljs-number">0</span>
+  <span class="hljs-keyword">var</span> head = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">var</span> tail = <span class="hljs-literal">null</span>           <span class="hljs-comment">//用来保存对列表最后一项的引用的tail属性</span>
 
-  this.insert = function (position, element) {       //插入节点
-    if (position &gt;= 0 &amp;&amp; position &lt;= length) {       //检查是否越界
-      var node = new Node(element)
-      var current = head, previous, index = 0
-      if (position === 0) {     //如果是在第一个位置插入
-        if (!head) {        //如果当前链表为空
+  <span class="hljs-keyword">this</span>.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position, element</span>) </span>&#123;       <span class="hljs-comment">//插入节点</span>
+    <span class="hljs-keyword">if</span> (position &gt;= <span class="hljs-number">0</span> &amp;&amp; position &lt;= length) &#123;       <span class="hljs-comment">//检查是否越界</span>
+      <span class="hljs-keyword">var</span> node = <span class="hljs-keyword">new</span> Node(element)
+      <span class="hljs-keyword">var</span> current = head, previous, index = <span class="hljs-number">0</span>
+      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;     <span class="hljs-comment">//如果是在第一个位置插入</span>
+        <span class="hljs-keyword">if</span> (!head) &#123;        <span class="hljs-comment">//如果当前链表为空</span>
           head = node
           tail = node
-        } else {
+        &#125; <span class="hljs-keyword">else</span> &#123;
           node.next = current
           current.prev = node
           head = node
-        }
-      } else if (position === length) {          //如果是最后一位
+        &#125;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (position === length) &#123;          <span class="hljs-comment">//如果是最后一位</span>
         current = tail
         current.next = node
         node.prev = current
         tail = node
-      } else {
-        while (index &lt; position) {     //链表迭代
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">while</span> (index &lt; position) &#123;     <span class="hljs-comment">//链表迭代</span>
           previous = current
           current = current.next
           index++
-        }
+        &#125;
         previous.next = node
         node.prev = previous
         node.next = current
         current.prev = node
-      }
+      &#125;
       length++
-      return true
-    } else {
-      return false
-    }
-  }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    &#125;
+  &#125;
 
-  this.removeAt = function (position) {          //删除任意位置的节点
-    if (position &gt;= 0 &amp;&amp; position &lt;= length) {    //检查是否越界
-      var current = head, previous, index = 0
-      if (position === 0) {             //删除第一位
+  <span class="hljs-keyword">this</span>.removeAt = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position</span>) </span>&#123;          <span class="hljs-comment">//删除任意位置的节点</span>
+    <span class="hljs-keyword">if</span> (position &gt;= <span class="hljs-number">0</span> &amp;&amp; position &lt;= length) &#123;    <span class="hljs-comment">//检查是否越界</span>
+      <span class="hljs-keyword">var</span> current = head, previous, index = <span class="hljs-number">0</span>
+      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;             <span class="hljs-comment">//删除第一位</span>
         head = current.next
-        if (length === 1) {
-          tail = null
-        } else {
-          head.prev = null
-        }
-      } else if (position === length - 1) {       //删除最后一位
+        <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) &#123;
+          tail = <span class="hljs-literal">null</span>
+        &#125; <span class="hljs-keyword">else</span> &#123;
+          head.prev = <span class="hljs-literal">null</span>
+        &#125;
+      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (position === length - <span class="hljs-number">1</span>) &#123;       <span class="hljs-comment">//删除最后一位</span>
         current = tail
         tail = current.prev
-        tail.next = null
-      } else {
-        while (index &lt; position) {
+        tail.next = <span class="hljs-literal">null</span>
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">while</span> (index &lt; position) &#123;
           previous = current
           current = current.next
           index++
-        }
+        &#125;
         previous.next = current.next
         current.next.prev = previous
-      }
+      &#125;
       length--
-      return true
-    } else {
-      return false
-    }
-  }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    &#125;
+  &#125;
 
-  //其他方法与单向链表相同
-}
-</code></pre>
+  <span class="hljs-comment">//其他方法与单向链表相同</span>
+&#125;</code></pre></p>
 <p>至此，链表的基本使用方法已经总结完毕。接下来会是集合的学习。👍</p>
 
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/03/22/数据结构之链表/">http://yoursite.com/2019/03/22/数据结构之链表/</a>
-                </div>
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
             </div>
             
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/03/23/数据结构之集合/">数据结构之集合</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/03/21/数据结构之栈和队列/">数据结构之栈、队列</a>
+        
+    </div>
+  </div>
 
-          
+  
 
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/03/22/数据结构之链表/">https://luckyfbb.github.io/2019/03/22/数据结构之链表/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
 
+  <div id="comment"></div>
+
+  
+  
 </article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/03/23/数据结构之集合/">  数据结构之集合</a>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
     </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/03/21/数据结构之栈和队列/"> 数据结构之栈、队列 </a>
-    </div>
-    
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Fri Mar 22 2019 09:29:32 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
-    </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
-    </div>
-</footer>
-
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

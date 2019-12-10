@@ -1,249 +1,357 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content>
+    <meta name="description" content>
+    
     <title>
-        
-            关于类的继承
-        
+      关于类的继承 - FBB
     </title>
-    <link rel="icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <link rel="stylesheet" href="/css/hljs.min.css">
-    <script src="/js/hljs.min.js"></script>  
-    <script src="/js/gitment.browser.js"></script>  
-</head>
-<body>
-    <header class="header" id="header">
-    <h1>
-        <a class="title" href="/">
-            FBB
-        </a>
-    </h1>
-    <h2>
-        <a class="motto">
-            think more, learn more !
-        </a>
-    </h2>
-    <nav class="navbar">
-        <ul class="menu">
-            
-            
-                <li class="menu-item">
-                    <a href="/" class="menu-item-link">
-                        Home
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="/archives/" class="menu-item-link">
-                        Archives
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://luckyfbb.github.io/resume/" class="menu-item-link">
-                        Resume
-                    </a>
-                </li>
-            
-                
-            
-                <li class="menu-item">
-                    <a href="https://github.com/LuckyFBB/" class="menu-item-link">
-                        Github
-                    </a>
-                </li>
-            
-                
-            
-                
-                
-        </ul>
-    </nav>
-</header>
-    <main class="main">
-        <article class="post">
-            <h1>
-                <a class="title" href="/2019/01/15/JS继承/"> 
-                    关于类的继承 
-                </a>
-            </h1>
-            <div class="meta">
-                <a class="date"> 
-                    <i class="fa fa-calendar" aria-hidden="true"></i>                    
-                    2019-01-15   
-                </a>
-                
-                <a class="category">
-                    <i class="fa fa-th" aria-hidden="true"></i>  
-                </a>
-               
-                <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li></ul>
-                
-                <a class="tag">
-                    <i class="fa fa-tags" aria-hidden="true"></i>  
-                </a>
-                
-                    <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JS/">JS</a></li></ul>
-            </div>
-<div class="toc">
-  <ol class="toc-list"><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#构造函数继承"><span class="toc-list-text">构造函数继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#原型链继承"><span class="toc-list-text">原型链继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承"><span class="toc-list-text">组合继承</span></a></li><li class="toc-list-item toc-list-level-4"><a class="toc-list-link" href="#组合继承优化-寄生"><span class="toc-list-text">组合继承优化(寄生)</span></a></li></ol>
-</div>
-            <div class="content">
-                <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。</p>
-<pre><code class="js">class Person(){}
-Person instanceof Function   //true
-</code></pre>
-<p>今天就逐步优化一下类继承的方式。<a id="more"></a></p>
-<h4 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this);    //可以向父类传递参数
-  this.name = &quot;Child&quot;;
-}
-new Child().say();    //not a function
-</code></pre>
-<p>特点: 用call()、apply()将父类构造函数引入子类函数</p>
-<p>缺点: 只继承了父类构造函数的属性，没有继承父类原型的属性</p>
-<h4 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;;
-  this.list = [1, 2, 3]
-}
-function Child() {
-  this.name = &quot;Child&quot;;
-}
-Child.prototype = new Parent();
-let c1 = new Child();
-let c2 = new Child();
-console.log(c1.list);   //[1,2,3]
-c2.list.push(5);
-console.log(c1.list);   //[1,2,3,5]
-</code></pre>
-<p>特点: 让新实例的原型等于父类的实例</p>
-<p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
-<h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一</p>
-<pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this)   //构造函数继承，第一次调用Parent()
-  this.name = &quot;child&quot;
-}
-Child.prototype = new Parent()   //原型链继承，第二次调用Parent()
-</code></pre>
-<p>特点: 结合使用构造函数和原型链的特点</p>
-<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><pre><code class="js">function Parent() {
-  this.name = &quot;Parent&quot;
-}
-Parent.prototype.say = function () {
-  console.log(this.name);
-};
-function Child() {
-  Parent.call(this)   //构造函数继承
-  this.name = &quot;child&quot;
-}
-Child.prototype = Object.create(Parent.prototype)   //寄生
-Child.prototype.constructor = Child
-new Child() instanceof Parent    //true
-new Child().constructor     //Child
-</code></pre>
-<p><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-
-            </div>
-          
-           
-            <div class="copyright">
-                <div class="name">
-                    <a>本文作者:</a>
-                    <a>LuckyFBB</a>
-                </div>
-                <div class="link">
-                    <a>本文链接:</a>
-                    <a class="permalink" href="http://yoursite.com/2019/01/15/JS继承/">http://yoursite.com/2019/01/15/JS继承/</a>
-                </div>
-            </div>
-            
-
-          
-
-
-</article>
-
-
-<div class="more">
-
-    <div class="prev">
-   <a href="/2019/01/15/vertical-align/">  line-height和vertical-align</a>
-    </div>
-
-<div></div>
-
-    <div class="next">
-    <a href="/2019/01/13/开博之言/"> 开博之言 </a>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数继承"><span class="toc-text">构造函数继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#原型链继承"><span class="toc-text">原型链继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组合继承"><span class="toc-text">组合继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组合继承优化-寄生"><span class="toc-text">组合继承优化(寄生)</span></a></li></ol>
     </div>
     
-</div>
-
-<div class="bdsharebuttonbox">
-<!-- <a href="#" class="bds_weixin fa fa-weixin" data-cmd="weixin" title="分享到微信" style="color:#1cbd8f">
-</a>
-<a href="#" class="bds_tsina fa fa-weibo" data-cmd="tsina" title="分享到新浪微博" style="color:#ff6363">
-</a>
-<a href="#" class="bds_twi fa fa-twitter" data-cmd="twi" title="分享到Twitter" style="color:#00A7EB">
-</a>
-<a href="#" class="bds_fbook fa fa-facebook" data-cmd="fbook" title="分享到Facebook" style="color:#00A7EB">
-</a>
-</div> -->
-<script>
-window._bd_share_config={
-    "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},
-    "share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='../../../../../static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-</script>
- 
-<!-- <div id="comments"></div>
-
-<script>
-    var gitment = new Gitment({
-    id: "Tue Jan 15 2019 11:10:48 GMT+0800",
-    owner: "LuckyFBB",
-    repo: "LuckyFBB.github.io",
-    oauth: {
-      client_id:"8d83609a651e972e308d",
-      client_secret: "37e40c89a47e957f654e86f71c5caaccad0774de",
-    }
-  })
-  gitment.render('comments')
-</script> -->
-    </div></main>
-    <a class="not-found">not found!</a>
-    <div class="search-items">
+    <div id="fixed-menu-wrap">
+      <span class="iconfont icon-sousuo search-box menu-reset"></span>
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
     </div>
-    <a href="#header" id="top" style="display:none">
-        <i class="fa fa-sort-asc fa-2x"></i>
-    </a>
-    <footer class="footer">
-    <div class="footer-copyright">©️2019 blog by LuckyFBB
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
     </div>
-</footer>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+        <a href="/about" class>
+          关于
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/toki.js"></script>  
-  <script>hljs.initHighlightingOnLoad();</script>
-</body>
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <a href="/about" class>
+            关于
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">关于类的继承</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2019/01/15</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/前端">前端</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/JS">JS</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。<br><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>()</span>&#123;&#125;
+Person <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Function</span>   <span class="hljs-comment">//true</span></code></pre></p>
+<p>今天就逐步优化一下类继承的方式。<a id="more"></a></p>
+<h4 id="构造函数继承">构造函数继承<a class="post-anchor" href="#构造函数继承"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>;
+&#125;
+Parent.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
+&#125;;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
+  Parent.call(<span class="hljs-keyword">this</span>);    <span class="hljs-comment">//可以向父类传递参数</span>
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Child"</span>;
+&#125;
+<span class="hljs-keyword">new</span> Child().say();    <span class="hljs-comment">//not a function</span></code></pre>
+<p>特点: 用call()、apply()将父类构造函数引入子类函数</p>
+<p>缺点: 只继承了父类构造函数的属性，没有继承父类原型的属性</p>
+<h4 id="原型链继承">原型链继承<a class="post-anchor" href="#原型链继承"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>;
+  <span class="hljs-keyword">this</span>.list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Child"</span>;
+&#125;
+Child.prototype = <span class="hljs-keyword">new</span> Parent();
+<span class="hljs-keyword">let</span> c1 = <span class="hljs-keyword">new</span> Child();
+<span class="hljs-keyword">let</span> c2 = <span class="hljs-keyword">new</span> Child();
+<span class="hljs-built_in">console</span>.log(c1.list);   <span class="hljs-comment">//[1,2,3]</span>
+c2.list.push(<span class="hljs-number">5</span>);
+<span class="hljs-built_in">console</span>.log(c1.list);   <span class="hljs-comment">//[1,2,3,5]</span></code></pre>
+<p>特点: 让新实例的原型等于父类的实例</p>
+<p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
+<h4 id="组合继承">组合继承<a class="post-anchor" href="#组合继承"></a></h4><p>常见的继承方式之一<br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>
+&#125;
+Parent.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
+&#125;;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
+  Parent.call(<span class="hljs-keyword">this</span>)   <span class="hljs-comment">//构造函数继承，第一次调用Parent()</span>
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"child"</span>
+&#125;
+Child.prototype = <span class="hljs-keyword">new</span> Parent()   <span class="hljs-comment">//原型链继承，第二次调用Parent()</span></code></pre></p>
+<p>特点: 结合使用构造函数和原型链的特点</p>
+<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><a href="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
+<h4 id="组合继承优化-寄生">组合继承优化(寄生)<a class="post-anchor" href="#组合继承优化-寄生"></a></h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>
+&#125;
+Parent.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
+&#125;;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
+  Parent.call(<span class="hljs-keyword">this</span>)   <span class="hljs-comment">//构造函数继承</span>
+  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"child"</span>
+&#125;
+Child.prototype = <span class="hljs-built_in">Object</span>.create(Parent.prototype)   <span class="hljs-comment">//寄生</span>
+Child.prototype.constructor = Child
+<span class="hljs-keyword">new</span> Child() <span class="hljs-keyword">instanceof</span> Parent    <span class="hljs-comment">//true</span>
+<span class="hljs-keyword">new</span> Child().constructor     <span class="hljs-comment">//Child</span></code></pre>
+<p><a href="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
+
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.png" target="_block" class="bg" style="background-image:url('/images/zhifubao.png')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.png" target="_block" class="bg" style="background-image:url('/images/weixin.png')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+          <a href="/2019/01/15/vertical-align/">line-height和vertical-align</a>
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2019/01/13/开博之言/">开博之言</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2019/01/15/JS继承/">https://luckyfbb.github.io/2019/01/15/JS继承/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2019
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
 </html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 
