@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#魔鬼属性float"><span class="toc-text">魔鬼属性float</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#天然克星clear"><span class="toc-text">天然克星clear</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BFC"><span class="toc-text">BFC</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#魔鬼属性-float"><span class="toc-text">魔鬼属性 float</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#天然克星-clear"><span class="toc-text">天然克星 clear</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BFC"><span class="toc-text">BFC</span></a></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -179,62 +179,55 @@
       <div>
       </div>
     </div>
-    <p>简单总结一下’破坏流’和’保护流’的CSS属性。<a id="more"></a></p>
-<h5 id="魔鬼属性float">魔鬼属性float<a class="post-anchor" href="#魔鬼属性float"></a></h5><ol>
-<li><p>float的本质与特性<br>浮动的本质是为了实现文字环绕效果<br>浮动的特性: </p>
+    <p>简单总结一下’破坏流’和’保护流’的 CSS 属性。<a id="more"></a></p>
+<h5 id="魔鬼属性-float">魔鬼属性 float<a class="post-anchor" href="#魔鬼属性-float"></a></h5><ol>
+<li><p>float 的本质与特性<br>浮动的本质是为了实现文字环绕效果<br>浮动的特性:</p>
 <ul>
 <li>包裹性</li>
 <li>块状化并格式上下文</li>
 <li>破坏文档流</li>
-<li>没有任何的margin合并</li>
+<li>没有任何的 margin 合并</li>
 </ul>
 </li>
-<li><p>float的作用机制<br>让父元素的高度塌陷</p>
+<li><p>float 的作用机制<br>让父元素的高度塌陷</p>
 </li>
 </ol>
-<h5 id="天然克星clear">天然克星clear<a class="post-anchor" href="#天然克星clear"></a></h5><ol>
-<li><p>clear属性<br>能够清除高度塌陷<br>元素盒子的边不能和前面的浮动元素相邻<br>只对块级元素有效</p>
-<pre><code class="hljs undefined">10个&lt;li&gt;元素排列
-li&#123;
-  width:20px;
-  height:20px;
-  margin:5px;
-  float:left;
-&#125;
-li:nth-of-type(3)&#123;
-  clear:both;
-&#125;
-会排成两行，第一个包含两个方块，剩余方块全在第二行。
-因为clear属性让自身不能和前面的浮动元素相邻。</code></pre>
-<p>属性值: </p>
-<ul>
-<li>none: 默认值，左右浮动来就来</li>
-<li>left: 左侧抗浮动</li>
-<li>right: 右侧抗浮动</li>
-<li>both: 两侧抗浮动</li>
-</ul>
-</li>
+<h5 id="天然克星-clear">天然克星 clear<a class="post-anchor" href="#天然克星-clear"></a></h5><ol>
+<li>clear 属性<br>能够清除高度塌陷<br>元素盒子的边不能和前面的浮动元素相邻<br>只对块级元素有效</li>
 </ol>
+<pre><code class="hljs css"><span class="hljs-comment">/* 10个&lt;li&gt;元素排列 */</span>
+<span class="hljs-selector-tag">li</span> &#123;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span>;
+  <span class="hljs-attribute">float</span>: left;
+&#125;
+<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-of-type(3)</span> &#123;
+  <span class="hljs-attribute">clear</span>: both;
+&#125;
+<span class="hljs-comment">/* 会排成两行，第一个包含两个方块，剩余方块全在第二行。 */</span>
+<span class="hljs-comment">/* 因为clear属性让自身不能和前面的浮动元素相邻。*/</span></code></pre>
+<p>属性值: - none: 默认值，左右浮动来就来 - left: 左侧抗浮动 - right: 右侧抗浮动 - both: 两侧抗浮动</p>
 <h5 id="BFC">BFC<a class="post-anchor" href="#BFC"></a></h5><ol>
 <li><p>定义<br>BFC(Block Formatting Context): 块级格式化上下文</p>
 </li>
-<li><p>特性: </p>
+<li><p>特性:</p>
 <ul>
-<li>内部的Box会在垂直方向，一个接一个地放置。</li>
-<li>Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠</li>
-<li>每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
-<li>BFC的区域不会与float box重叠。</li>
-<li>BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
-<li>计算BFC的高度时，浮动元素也参与计算</li>
+<li>内部的 Box 会在垂直方向，一个接一个地放置。</li>
+<li>Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠</li>
+<li>每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。</li>
+<li>BFC 的区域不会与 float box 重叠。</li>
+<li>BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。</li>
+<li>计算 BFC 的高度时，浮动元素也参与计算</li>
 </ul>
 </li>
 <li><p>触发规则:</p>
 <ul>
-<li>html根元素</li>
-<li>float不为none</li>
-<li>overflow为auto/scroll/hidden</li>
-<li>display为table-cell/table-caption/inline-block</li>
-<li>position不为relative/static</li>
+<li>html 根元素</li>
+<li>float 不为 none</li>
+<li>overflow 为 auto/scroll/hidden</li>
+<li>display 为 table-cell/table-caption/inline-block</li>
+<li>position 不为 relative/static</li>
 </ul>
 </li>
 </ol>

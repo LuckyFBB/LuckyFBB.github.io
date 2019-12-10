@@ -180,7 +180,7 @@
       </div>
     </div>
     <p>昨天出去面试，被面试官问到了深浅拷贝的问题，感觉回答不是特别完整，今天就来总结一下深浅拷贝的知识。</p>
-<p>JS有两种数据类型</p>
+<p>JS 有两种数据类型</p>
 <ul>
 <li>基本数据类型 string/number/boolean/undefined/null/symbol(ES6)</li>
 <li>引用数据类型 object/array/function<a id="more"></a>
@@ -189,51 +189,60 @@
 <p>基本数据类型储存在栈内存中，保存与复制都是<strong>数据本身</strong><br><a href="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-b9f8364417b948b7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
 <p>引用数据类型储存在堆内存中，保存与复制都是<strong>指向对象的指针</strong>，其实最后复制和原始对象都是指向同一个地址<br><a href="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-438bd5b9180cf762.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
 <h5 id="浅拷贝">浅拷贝<a class="post-anchor" href="#浅拷贝"></a></h5><p>对于基本数据类型来说，拷贝一份互不影响；而对于数组和对象来说，只会拷贝数组或者对象的引用，对新旧数组进行修改，两个数组都会发生变化。</p>
-<p>基础的数组方法能够实现浅拷贝，例如concat()、slice()；对象能够使用Object.assign()实现浅拷贝；两者同是都可以使用扩展运算符实现浅拷贝。<br><pre><code class="hljs undefined">如果是嵌套数组和对象，上述方法不可行
-let arr = [1, 2, 3, 4], arr1 = [1, 2, 3, [4, 5, 6]]
+<p>基础的数组方法能够实现浅拷贝，例如 concat()、slice()；对象能够使用 Object.assign()实现浅拷贝；两者同是都可以使用扩展运算符实现浅拷贝。</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 如果是嵌套数组和对象，上述方法不可行</span>
+<span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],
+  arr1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]];
 
-let copyarr = arr.slice(), copyarr1 = arr1.slice()
+<span class="hljs-keyword">let</span> copyarr = arr.slice(),
+  copyarr1 = arr1.slice();
 
-arr[1] = 5    //arr[1, 5, 3, 4], copyarr[1, 2, 3, 4]  
+arr[<span class="hljs-number">1</span>] = <span class="hljs-number">5</span>; <span class="hljs-comment">//arr[1, 5, 3, 4], copyarr[1, 2, 3, 4]</span>
 
-arr1[3][1] = 7   //arr1[1, 2, 3, [4, 7, 6]], copyarr1[1, 2, 3, [4, 7, 6]]
+arr1[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">7</span>; <span class="hljs-comment">//arr1[1, 2, 3, [4, 7, 6]], copyarr1[1, 2, 3, [4, 7, 6]]</span>
 
-let obj = &#123; a: 1, b: 2, c: 3 &#125;, obj1 = &#123; a: 1, b: 2, c: &#123; d: 3, e: 4 &#125; &#125;
+<span class="hljs-keyword">let</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">c</span>: <span class="hljs-number">3</span> &#125;,
+  obj1 = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">b</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">c</span>: &#123; <span class="hljs-attr">d</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">e</span>: <span class="hljs-number">4</span> &#125; &#125;;
 
-let copyobj = Object.assign(&#123;&#125;, obj), copyobj1 = Object.assign(&#123;&#125;, obj1)
+<span class="hljs-keyword">let</span> copyobj = <span class="hljs-built_in">Object</span>.assign(&#123;&#125;, obj),
+  copyobj1 = <span class="hljs-built_in">Object</span>.assign(&#123;&#125;, obj1);
 
-obj.b = 4   //obj&#123; a: 1, b: 4, c: 3 &#125;, copyobj&#123; a: 1, b: 2, c: 3 &#125;
+obj.b = <span class="hljs-number">4</span>; <span class="hljs-comment">//obj&#123; a: 1, b: 4, c: 3 &#125;, copyobj&#123; a: 1, b: 2, c: 3 &#125;</span>
 
-obj1.c.d = 6    //obj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;, copyobj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;</code></pre></p>
+obj1.c.d = <span class="hljs-number">6</span>; <span class="hljs-comment">//obj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;, copyobj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;</span></code></pre>
 <h5 id="深拷贝">深拷贝<a class="post-anchor" href="#深拷贝"></a></h5><p>指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</p>
 <ol>
-<li>可以使用JSON的两个函数方法实现深拷贝</li>
+<li>可以使用 JSON 的两个函数方法实现深拷贝</li>
 </ol>
-<pre><code class="hljs undefined">let arr = [&apos;old&apos;, 1, true, [&apos;old1&apos;, &apos;old2&apos;], &#123;old: 1&#125;]
+<pre><code class="hljs js"><span class="hljs-keyword">let</span> arr = [<span class="hljs-string">"old"</span>, <span class="hljs-number">1</span>, <span class="hljs-literal">true</span>, [<span class="hljs-string">"old1"</span>, <span class="hljs-string">"old2"</span>], &#123; <span class="hljs-attr">old</span>: <span class="hljs-number">1</span> &#125;];
 
-let new_arr = JSON.parse( JSON.stringify(arr) );
+<span class="hljs-keyword">let</span> new_arr = <span class="hljs-built_in">JSON</span>.parse(<span class="hljs-built_in">JSON</span>.stringify(arr));
 
-arr[3][1] = &apos;old4&apos;    //new_arr[&apos;old&apos;, 1, true, [&apos;old1&apos;, &apos;old2&apos;], &#123;old: 1&#125;]</code></pre>
-<p>但是缺点就是不能拷贝函数和undefined</p>
+arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <span class="hljs-string">"old4"</span>; <span class="hljs-comment">//new_arr['old', 1, true, ['old1', 'old2'], &#123;old: 1&#125;]</span></code></pre>
+<p>但是缺点就是不能拷贝函数和 undefined</p>
 <ol start="2">
 <li>深拷贝函数</li>
 </ol>
-<pre><code class="hljs undefined">function deepClone(obj) &#123;
-  function isObject(obj) &#123;   //判断是不是对象
-    return typeof obj !== null &amp;&amp; typeof obj === &apos;object&apos; || typeof obj === &apos;function&apos;
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deepClone</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">obj</span>) </span>&#123;
+    <span class="hljs-comment">//判断是不是对象</span>
+    <span class="hljs-keyword">return</span> (
+      (<span class="hljs-keyword">typeof</span> obj !== <span class="hljs-literal">null</span> &amp;&amp; <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">"object"</span>) ||
+      <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">"function"</span>
+    );
   &#125;
 
-  if (!isObject(obj)) &#123;
-    return;
+  <span class="hljs-keyword">if</span> (!isObject(obj)) &#123;
+    <span class="hljs-keyword">return</span>;
   &#125;
 
-  let newObj = Array.isArray(obj) ? [] : &#123;&#125;    //判断对象类型
+  <span class="hljs-keyword">let</span> newObj = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;; <span class="hljs-comment">//判断对象类型</span>
 
-  Object.keys(obj).forEach(key =&gt; &#123;
-    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]   //判断当前值是不是对象
-  &#125;)
+  <span class="hljs-built_in">Object</span>.keys(obj).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;
+    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]; <span class="hljs-comment">//判断当前值是不是对象</span>
+  &#125;);
 
-  return newObj
+  <span class="hljs-keyword">return</span> newObj;
 &#125;</code></pre>
 <p>以上就是深浅拷贝的知识。💪</p>
 

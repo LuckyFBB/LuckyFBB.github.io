@@ -189,9 +189,9 @@
 <li><p>写出下列代码结果</p>
 </li>
 </ol>
-<pre><code class="hljs undefined">let x= [1, 2]
-let &#123; ...y &#125; = x
-console.log(y)    //&#123;0: 1, 1: 2&#125;</code></pre>
+<pre><code class="hljs js"><span class="hljs-keyword">let</span> x= [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>]
+<span class="hljs-keyword">let</span> &#123; ...y &#125; = x
+<span class="hljs-built_in">console</span>.log(y)    <span class="hljs-comment">//&#123;0: 1, 1: 2&#125;</span></code></pre>
 <ol start="5">
 <li><p>什么情况下发生重绘/回流</p>
 </li>
@@ -200,19 +200,19 @@ console.log(y)    //&#123;0: 1, 1: 2&#125;</code></pre>
 <li><p>一道关于事件机制的输出问题。(setTimeout, promise, then)</p>
 </li>
 </ol>
-<pre><code class="hljs undefined">setTimeout(function () &#123;
-  console.log(1)
-&#125;, 0)
+<pre><code class="hljs js">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)
+&#125;, <span class="hljs-number">0</span>)
 
-new Promise(function (resolve) &#123;
-  console.log(2)
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)
   resolve()
-  console.log(3)
-&#125;).then(function () &#123;
-  console.log(4)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)
+&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>)
 &#125;)
 
-console.log(5)    //2 3 5 4 1</code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>)    <span class="hljs-comment">//2 3 5 4 1</span></code></pre>
 <ol start="8">
 <li>实现二分查找，已经算法复杂度。</li>
 </ol>

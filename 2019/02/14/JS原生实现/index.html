@@ -216,7 +216,7 @@
 apply func.apply(obj, [args1, args2]); <span class="hljs-comment">//传入的是数组参数    记法：apply是a开头为array</span>
 bind  func.bind(obj, args1, args2); <span class="hljs-comment">//返回的是函数，前两者为立即执行</span></code></pre>
 <p>思想</p>
-<pre><code class="hljs js">改变<span class="hljs-keyword">this</span>的指向，让bar()函数的<span class="hljs-keyword">this</span>指向foo对象
+<pre><code class="hljs js"><span class="hljs-comment">// 改变this的指向，让bar()函数的this指向foo对象</span>
 <span class="hljs-keyword">var</span> foo = &#123;
   <span class="hljs-attr">value</span>: <span class="hljs-number">100</span>
 &#125;
@@ -225,7 +225,7 @@ bind  func.bind(obj, args1, args2); <span class="hljs-comment">//返回的是函
 &#125;
 bar.apply(foo);
 
-等同与将bar函数作为foo对象属性进行调用，即为下列方式
+<span class="hljs-comment">//等同与将bar函数作为foo对象属性进行调用，即为下列方式</span>
 <span class="hljs-keyword">var</span> foo = &#123;
   <span class="hljs-attr">value</span>: <span class="hljs-number">100</span>
   <span class="hljs-attr">bar</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
@@ -233,10 +233,12 @@ bar.apply(foo);
   &#125;
 &#125;
 
-因此我们总结模拟思路如下：
-<span class="hljs-number">1.</span>将执行的函数作为对象属性
-<span class="hljs-number">2.</span>执行函数
-<span class="hljs-number">3.</span>将函数从对象中删除</code></pre>
+<span class="hljs-comment">/*
+ * 因此我们总结模拟思路如下：
+ * 1.将执行的函数作为对象属性
+ * 2.执行函数
+ * 3.将函数从对象中删除
+*/</span></code></pre>
 <ul>
 <li>call 的实现</li>
 </ul>
@@ -400,7 +402,8 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
 &#125;;</code></pre>
 <h4 id="数组去重">数组去重<a class="post-anchor" href="#数组去重"></a></h4><ul>
-<li><p>includes实现</p>
+<li>includes 实现</li>
+</ul>
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
   <span class="hljs-keyword">const</span> result = [];
@@ -411,8 +414,9 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   &#125;);
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
-</li>
-<li><p>reduce + sort实现</p>
+<ul>
+<li>reduce + sort 实现</li>
+</ul>
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
   <span class="hljs-keyword">return</span> arr
@@ -424,10 +428,11 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
       <span class="hljs-keyword">return</span> pre;
     &#125;, []);
 &#125;;</code></pre>
-</li>
-<li><p>对象实现<br>可以使用普通对象，或者使用ES6 Map</p>
+<ul>
+<li>对象实现<br>可以使用普通对象，或者使用 ES6 Map</li>
+</ul>
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();    <span class="hljs-comment">//只能存在一个key</span>
+  <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(); <span class="hljs-comment">//只能存在一个key</span>
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
     <span class="hljs-keyword">return</span> !map.has(item) &amp;&amp; map.set(item, <span class="hljs-number">1</span>);
   &#125;);
@@ -438,16 +443,13 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
     <span class="hljs-keyword">return</span> obj.hasOwnProperty(item) ? <span class="hljs-literal">false</span> : (obj[item] = <span class="hljs-literal">true</span>);
   &#125;);
-&#125;;
-<span class="hljs-string">``</span><span class="hljs-string">` 
-
-- Set数据结构
-`</span><span class="hljs-string">``</span>js
-<span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+&#125;;</code></pre>
+<ul>
+<li>Set 数据结构</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...this]));
 &#125;;</code></pre>
-</li>
-</ul>
 
 
   

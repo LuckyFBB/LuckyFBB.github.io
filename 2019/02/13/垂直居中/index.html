@@ -180,11 +180,11 @@
       </div>
     </div>
     <p>总结一下居中方法。<br><a href="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a><br><a id="more"></a></p>
-<h3 id="水平居中">水平居中<a class="post-anchor" href="#水平居中"></a></h3><h4 id="行内元素">行内元素<a class="post-anchor" href="#行内元素"></a></h4><p>  <strong>利用text-align可以实现在块级元素内部的行类元素居中。</strong>这个方法对inline、inline-block、inline-table和inline-flex元素水平居中都有效果<br>  <pre><code class="hljs undefined">.parent&#123;  //父容器上设置
-  text-align: cnter
+<h3 id="水平居中">水平居中<a class="post-anchor" href="#水平居中"></a></h3><h4 id="行内元素">行内元素<a class="post-anchor" href="#行内元素"></a></h4><p>  <strong>利用text-align可以实现在块级元素内部的行类元素居中。</strong>这个方法对inline、inline-block、inline-table和inline-flex元素水平居中都有效果<br>  <pre><code class="hljs css">.parent&#123;  //父容器上设置
+  text-align: center;
 &#125;</code></pre></p>
-<p>  如果块级元素内部包含着一个块级元素，<strong>可以将块级元素转化为行内块元素</strong>。在使用上述方法就能达到水平居中。<br>  <pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<p>  如果块级元素内部包含着一个块级元素，<strong>可以将块级元素转化为行内块元素</strong>。在使用上述方法就能达到水平居中。<br>  <pre><code class="hljs css">&lt;div class='parent'&gt;
+  &lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;
@@ -196,14 +196,14 @@
 &lt;/style&gt;</code></pre></p>
 <h4 id="块级元素">块级元素<a class="post-anchor" href="#块级元素"></a></h4><ol>
 <li><p>margin: 0 auto</p>
-<pre><code class="hljs undefined">.child&#123;
-  width: 100px;   /*确保该块级元素定宽*/
-  margin: 0 auto;
+<pre><code class="hljs css"><span class="hljs-selector-class">.child</span>&#123;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;   <span class="hljs-comment">/*确保该块级元素定宽*/</span>
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
 &#125;</code></pre>
 </li>
 <li><p>使用absolute + transform(如果父元素定宽，可以使用absolute + 负margin)<br>父元素相对定位，子元素绝对定位。往右移动子元素，移动距离为父容器的一半，然后左移子元素宽度的一半达到居中。</p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
+  &lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;
@@ -217,8 +217,8 @@
 &lt;/style&gt;</code></pre>
 </li>
 <li><p>使用flex + justify-content(<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">flex布局</a>)</p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
+  &lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;
@@ -230,7 +230,7 @@
 </ol>
 <h3 id="垂直居中">垂直居中<a class="post-anchor" href="#垂直居中"></a></h3><h4 id="行内元素-1">行内元素<a class="post-anchor" href="#行内元素-1"></a></h4><ol>
 <li><p>单行内联元素<br>height值和line-height值相等即可</p>
-<pre><code class="hljs undefined">&lt;div&gt;
+<pre><code class="hljs css">&lt;div&gt;
   &lt;span&gt;认真学习前端的人&lt;/span&gt;
 &lt;/div&gt;
 &lt;style&gt;
@@ -241,7 +241,7 @@
 &lt;/style&gt;</code></pre>
 </li>
 <li><p>多行内联元素<br>使用flex + justify-content + <strong>flex-deriction: column(主轴方向为竖直方向)</strong></p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
   &lt;p&gt;React 是一个用于构建用户界面的 JAVASCRIPT 库。
   React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）。
   React 起源于 Facebook 的内部项目，用来架设 Instagram 的网站，并于 2013 年 5 月开源。
@@ -251,7 +251,7 @@
   .parent&#123;
     height: 150px;
     display: flex;
-    flex-deriction: column;
+    flex-direction: column;
     justify-content: center;
   &#125;
 &lt;/style&gt;</code></pre>
@@ -259,8 +259,8 @@
 </ol>
 <h4 id="块级元素-1">块级元素<a class="post-anchor" href="#块级元素-1"></a></h4><ol>
 <li><p>使用absolute + transform(如果父元素定高，可以使用absolute + 负margin)<br>通过绝对定位元素距离顶部50%，借助CSS3中的transform属性向Y轴反向偏移50%的方法实现垂直居中。</p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
+  &lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;
@@ -274,8 +274,8 @@
 &lt;/style&gt;</code></pre>
 </li>
 <li><p>使用flex + align-items</p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-  &lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
+  &lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;
@@ -287,8 +287,8 @@
 </ol>
 <h3 id="水平垂直居中">水平垂直居中<a class="post-anchor" href="#水平垂直居中"></a></h3><ol>
 <li><p>使用absolute + transform<br>在未知元素的高宽的情况下实现元素的垂直居中。(已知宽高可以用负margin)</p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-&lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
+&lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;
@@ -303,8 +303,8 @@
 &lt;/style&gt;</code></pre>
 </li>
 <li><p>使用flex布局<br>在主轴和纵轴都设置对齐方式</p>
-<pre><code class="hljs undefined">&lt;div class=&apos;parent&apos;&gt;
-&lt;div class=&apos;child&apos;&gt;demo&lt;/div&gt;
+<pre><code class="hljs css">&lt;div class='parent'&gt;
+&lt;div class='child'&gt;demo&lt;/div&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .parent&#123;

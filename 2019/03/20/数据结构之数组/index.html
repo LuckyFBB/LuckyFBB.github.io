@@ -168,55 +168,57 @@
       <div>
       </div>
     </div>
-    <p>学习JavaScript数据结构与算法之数组篇章。前端小白简单的学习笔记。<a id="more"></a></p>
-<h4 id="数组的创建">数组的创建<a class="post-anchor" href="#数组的创建"></a></h4><pre><code class="hljs undefined">var array = new Array();     //声明并初始化一个数组
-var array = new Array(7);   //创建指定长度的数组
-var array = new Array(1, 2, 3, 4);    //直接将数组元素作为参数传递给它的构造器
+    <p>学习 JavaScript 数据结构与算法之数组篇章。前端小白简单的学习笔记。<a id="more"></a></p>
+<h4 id="数组的创建">数组的创建<a class="post-anchor" href="#数组的创建"></a></h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(); <span class="hljs-comment">//声明并初始化一个数组</span>
+<span class="hljs-keyword">var</span> array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">7</span>); <span class="hljs-comment">//创建指定长度的数组</span>
+<span class="hljs-keyword">var</span> array = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>); <span class="hljs-comment">//直接将数组元素作为参数传递给它的构造器</span>
 
-var array = [];    //方便快捷
+<span class="hljs-keyword">var</span> array = []; <span class="hljs-comment">//方便快捷</span>
 
-array.length    //数组中有多少元素</code></pre>
-<h4 id="添加和删除元素">添加和删除元素<a class="post-anchor" href="#添加和删除元素"></a></h4><pre><code class="hljs undefined">var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-number[number.length] = 5    //使用number.length属性添加元素
+array.length; <span class="hljs-comment">//数组中有多少元素</span></code></pre>
+<h4 id="添加和删除元素">添加和删除元素<a class="post-anchor" href="#添加和删除元素"></a></h4><pre><code class="hljs js"><span class="hljs-keyword">var</span> number = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>];
+number[number.length] = <span class="hljs-number">5</span>; <span class="hljs-comment">//使用number.length属性添加元素</span>
 
-number.push(6)     //使用push()方法，在末尾添加元素，返回数组长度
+number.push(<span class="hljs-number">6</span>); <span class="hljs-comment">//使用push()方法，在末尾添加元素，返回数组长度</span>
 
-number.unshift(6)     //使用shift()方法，在头部添加元素，返回数组长度
+number.unshift(<span class="hljs-number">6</span>); <span class="hljs-comment">//使用shift()方法，在头部添加元素，返回数组长度</span>
 
-number.pop()     //使用pop()方法，在末尾删除元素，返回删除值
+number.pop(); <span class="hljs-comment">//使用pop()方法，在末尾删除元素，返回删除值</span>
 
-number.shift()    //使用shift()方法，在首部删除元素，返回删除值
+number.shift(); <span class="hljs-comment">//使用shift()方法，在首部删除元素，返回删除值</span>
 
-number.splice(5, 0, 1, 2, 3)    //使用splice方法，第一个参数表示想要删除或插入的元素的索引值。第二个参数是删除元素的个数。第三个参数往后，就是要添加到数组里的值。如果第二个参数是0，表示插入元素。</code></pre>
+number.splice(<span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>); <span class="hljs-comment">//使用splice方法，第一个参数表示想要删除或插入的元素的索引值。第二个参数是删除元素的个数。第三个参数往后，就是要添加到数组里的值。如果第二个参数是0，表示插入元素。</span></code></pre>
 <h4 id="数组方法参考">数组方法参考<a class="post-anchor" href="#数组方法参考"></a></h4><ol>
-<li><p>数组合并</p>
-<pre><code class="hljs undefined">var array = [1, 2, 3]
-var number = array.concat(4)
-var number = array.concat([4, 5, 6])   //concat方法可以向一个数组传递数组、对象或是元素</code></pre>
-</li>
+<li>数组合并</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-keyword">var</span> number = array.concat(<span class="hljs-number">4</span>);
+<span class="hljs-keyword">var</span> number = array.concat([<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]); <span class="hljs-comment">//concat方法可以向一个数组传递数组、对象或是元素</span></code></pre>
+<ol start="2">
 <li><p>迭代器函数<br><a href="https://luckyfbb.github.io/blog.github.io/2019/03/07/JS%E8%BF%AD%E4%BB%A3%E5%87%BD%E6%95%B0/">迭代器函数的使用方法</a></p>
 </li>
 <li><p>搜索和排序</p>
-<ul>
-<li><p>搜索</p>
-<pre><code class="hljs undefined">//indexOf方法返回与参数匹配的第一个元素的索引，lastIndexOf返回与参数匹配的最后一个元素的索引
-var number = [1, 2, 3, 4, 5, 2]
-number.indexOf(2)    //1
-number.lastIndexOf(2)    //1
-number.indexOf(100)  //-1</code></pre>
-</li>
-<li><p>排序</p>
-<pre><code class="hljs undefined">var num = number.reverse()    //reverse方法，数组内元素就会反序，改变原数组
-var num = number.sort()       //sort方法，数组内元素排序，可接受函数作为参数自定义排序，改变原数组</code></pre>
-</li>
-</ul>
-</li>
-<li><p>输出数组为字符串</p>
-<pre><code class="hljs undefined">var number = [1, 2, 3, 4]
-number.toString()      //&quot;1,2,3,4&quot;，把数组里所有元素输出为一个字符
-number.join(&apos;-&apos;)       //&quot;1-2-3-4&quot;，用一个不同的分隔符（比如-）把元素隔开</code></pre>
 </li>
 </ol>
+<ul>
+<li>搜索</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-comment">//indexOf方法返回与参数匹配的第一个元素的索引，lastIndexOf返回与参数匹配的最后一个元素的索引</span>
+<span class="hljs-keyword">var</span> number = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">2</span>];
+number.indexOf(<span class="hljs-number">2</span>); <span class="hljs-comment">//1</span>
+number.lastIndexOf(<span class="hljs-number">2</span>); <span class="hljs-comment">//1</span>
+number.indexOf(<span class="hljs-number">100</span>); <span class="hljs-comment">//-1</span></code></pre>
+<ul>
+<li>排序</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> num = number.reverse(); <span class="hljs-comment">//reverse方法，数组内元素就会反序，改变原数组</span>
+<span class="hljs-keyword">var</span> num = number.sort(); <span class="hljs-comment">//sort方法，数组内元素排序，可接受函数作为参数自定义排序，改变原数组</span></code></pre>
+<ol start="4">
+<li>输出数组为字符串</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> number = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+number.toString(); <span class="hljs-comment">//"1,2,3,4"，把数组里所有元素输出为一个字符</span>
+number.join(<span class="hljs-string">"-"</span>); <span class="hljs-comment">//"1-2-3-4"，用一个不同的分隔符（比如-）把元素隔开</span></code></pre>
 <p>至此，数组的基本使用方法已经总结完毕。接下来会是栈和队列的学习。👍</p>
 
 
