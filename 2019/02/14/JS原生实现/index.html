@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#防抖-节流"><span class="toc-text">防抖 / 节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li></ol>
     </li></div>
     
     <div id="fixed-menu-wrap">
@@ -304,6 +304,40 @@ bar.apply(foo);
     &#125;
   &#125;);
   <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<h3 id="防抖-节流">防抖 / 节流<a class="post-anchor" href="#防抖-节流"></a></h3><p>在 resize/scroll/keypress/mousemove 等事件触发时，会不断调用回调函数。</p>
+<p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
+<p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息。</p>
+<ul>
+<li><p>防抖(debounce)<br>假设设置时间为 2000ms，如果触发事件的 2000ms 之内，你再次触发该事件，就会给新的事件添加新的计时器，之前的事件统统作废。只执行最后一次触发的事件。</p>
+<p>在某段时间内，不管你触发了多少次事件，我都只认最后一次。</p>
+</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">let</span> _this = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">let</span> args = <span class="hljs-built_in">arguments</span>;
+    clearTimeout(timer);
+    timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+      fn.apply(_this, args);
+    &#125;, delay);
+  &#125;;
+&#125;</code></pre>
+<ul>
+<li>节流()<br>在某段时间内，不管你触发了多少次事件，我都只认第一次，并在计时结束时给予响应。<br>假设设置的时间为 2000ms，再触发了事件的 2000ms 之内，你在多少触发该事件，都不会有任何作用，它只为第一个事件等待 2000ms。时间一到，它就会执行了。</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> pre = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">let</span> _this = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">let</span> args = <span class="hljs-built_in">arguments</span>;
+    <span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+    <span class="hljs-keyword">if</span> (now - pre &gt; delay) &#123;
+      fn.apply(_this, args);
+      pre = now;
+    &#125;
+  &#125;;
 &#125;</code></pre>
 <h3 id="jsonp-的实现">jsonp 的实现<a class="post-anchor" href="#jsonp-的实现"></a></h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonp</span>(<span class="hljs-params">url, data</span>) </span>&#123;

@@ -16,7 +16,7 @@
     <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
     
     <title>
-      JS手写实现题 - 路漫漫其修远兮
+      面经 - 路漫漫其修远兮
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
@@ -136,11 +136,11 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">JS手写实现题</div>
+      <div class="title">面经</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
-          <span>2019/12/10</span>
+          <span>2019/12/11</span>
         </span>
 
         
@@ -164,7 +164,7 @@
             <span>
                 
                   
-                    <a href="/tags/JS">JS</a>
+                    <a href="/tags/面经">面经</a>
                   
                 
                   
@@ -178,123 +178,37 @@
       <div>
       </div>
     </div>
-    <p>笔试面试期间会遇到一些采用 JS 实现的算法题。<br>在这里做一个归档，尽可能多的写出解决方案是我的初衷。</p>
+    <p>仅此记录一下，最近面试被问及的问题，简单的归纳一下。</p>
 <a id="more"></a>
-<ol>
-<li>函数组合运行</li>
-</ol>
-<pre><code class="hljs js"><span class="hljs-comment">/**
- * 说明：实现一个方法，可将多个函数方法按从左到右的方式组合运行。
- * 如`composeFunctions(fn1,fn2,fn3,fn4)`等价于`fn4(fn3(fn2(fn1))`。
- * 示例：
- *  const add = x =&gt; x + 1;
- *  const multiply = (x, y) =&gt; x * y;
- *  const multiplyAdd = composeFunctions(multiply, add);
- *  multiplyAdd(3, 4) // 返回 13
- */</span>
+<blockquote>
+<p>个推 2019.12.09</p>
+</blockquote>
+<ul>
+<li>函数式编程特点</li>
+<li>Hooks相对于Class组件的优势</li>
+<li>事件循环，微任务有哪些</li>
+<li>Promise A+规范</li>
+<li>Object.defineProperty和Proxy实现双向绑定的区别</li>
+<li>路由模式的实现</li>
+<li>Webpack的优化</li>
+<li>JS和CSS实现动画的优缺点</li>
+</ul>
+<blockquote>
+<p>道富 2019.12.11(电话)</p>
+</blockquote>
+<ul>
+<li>Object.defineProperty和Proxy实现双向绑定的区别</li>
+<li>AngularJS双向绑定</li>
+<li>React Hooks函数</li>
+<li>useMemo和useCallback的使用场景</li>
+<li>HTML语义化标签</li>
+<li>nth-child和nth-type-child区别</li>
+<li>字符串方法</li>
+<li>JS基本类型</li>
+<li>事件循环</li>
+<li>Promise A+规范</li>
+</ul>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">composeFunctions</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">const</span> args = [...arguments];
-  <span class="hljs-keyword">if</span> (args.length === <span class="hljs-number">1</span>) &#123;
-    <span class="hljs-comment">//如果只有一个函数，直接当前函数</span>
-    <span class="hljs-keyword">return</span> args[<span class="hljs-number">0</span>];
-  &#125;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-    <span class="hljs-comment">//否则返回一个新的函数</span>
-    <span class="hljs-keyword">const</span> args1 = [...arguments];
-    <span class="hljs-keyword">return</span> args.reduce(<span class="hljs-function">(<span class="hljs-params">pre, curr</span>) =&gt;</span> &#123;
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pre === <span class="hljs-string">"function"</span>) &#123;
-        <span class="hljs-comment">//如果是第一次执行，pre为function，之后为执行函数返回值</span>
-        <span class="hljs-keyword">return</span> curr(pre(...args1));
-      &#125;
-      <span class="hljs-keyword">return</span> curr(pre);
-    &#125;);
-  &#125;;
-&#125;</code></pre>
-<ol start="2">
-<li>扁平化</li>
-</ol>
-<pre><code class="hljs js"><span class="hljs-comment">/*
- * 说明：请实现 flatten(input) 函数，input 为一个 javascript 对象（Object 或者 Array），返回值为扁平化后的结果。
- * 示例：
- *   var input = &#123;
- *     a: 1,
- *     b: [ 1, 2, &#123; c: true &#125;, [ 3 ] ],
- *     d: &#123; e: 2, f: 3 &#125;,
- *     g: null,
- *   &#125;
- *   var output = flatten(input);
- *   output如下
- *   &#123;
- *     "a": 1,
- *     "b[0]": 1,
- *     "b[1]": 2,
- *     "b[2].c": true,
- *     "b[3][0]": 3,
- *     "d.e": 2,
- *     "d.f": 3,
- *     // "g": null,  值为null或者undefined，丢弃
- *  &#125;
- */</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">obj</span>) </span>&#123;
-  <span class="hljs-comment">//判断是不是对象</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(obj) === <span class="hljs-string">"[object Object]"</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArray</span>(<span class="hljs-params">obj</span>) </span>&#123;
-  <span class="hljs-comment">//判断是不是数组</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.isArray(obj);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isRemove</span>(<span class="hljs-params">obj</span>) </span>&#123;
-  <span class="hljs-comment">//判断是不是null或者undefined</span>
-  <span class="hljs-keyword">return</span> obj === <span class="hljs-literal">null</span> || obj === <span class="hljs-literal">undefined</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_flat</span>(<span class="hljs-params">prekey, input</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> result = &#123;&#125;;
-  <span class="hljs-keyword">if</span> (isObject(input)) &#123;
-    <span class="hljs-comment">//是对象</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
-      result = <span class="hljs-built_in">Object</span>.assign(result, _flat(prekey + <span class="hljs-string">"."</span> + key, input[key]));
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isArray(input)) &#123;
-    <span class="hljs-comment">//是数组</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
-      result = <span class="hljs-built_in">Object</span>.assign(
-        result,
-        _flat(prekey + <span class="hljs-string">"["</span> + key + <span class="hljs-string">"]"</span>, input[key])
-      );
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isRemove(input)) &#123;
-    <span class="hljs-comment">//不是null或者undefined</span>
-    result[prekey] = input;
-  &#125;
-  <span class="hljs-keyword">return</span> result;
-&#125;</code></pre>
-<ol start="3">
-<li>数组交错重排序</li>
-</ol>
-<pre><code class="hljs js"><span class="hljs-comment">/* 数组交错重排序
- * 说明：给定一个数组，按指定个数拆分多份，并对每一份进行升序排序，
- * 比如一个6个数据项的数组，指定个数为3，即把数组按 2 份排序
- * 示例：
- * const list = [4, 2, 5, 6, 3, 1];
- * // 按每 2 个一份分别进行升序排序
- * interlaceSort(list, 2); [2, 4, 5, 6, 1, 3]
- * interlaceSort(list, 3); [2, 4, 5, 1, 3, 6]
- * interlaceSort(list, 6); [1, 2, 3, 4, 5, 6]
-*/</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">interlaceSort</span>(<span class="hljs-params">list, count</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> result = [];
-  <span class="hljs-keyword">while</span> (list.length) &#123;
-    <span class="hljs-comment">//list.splice(0, count) 拿到count个数据，并且改变原数组</span>
-    result = result.concat(list.splice(<span class="hljs-number">0</span>, count).sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b));
-  &#125;
-  <span class="hljs-keyword">return</span> result;
-&#125;</code></pre>
 
   
     <div class="post-reward">
@@ -320,12 +234,12 @@
   <div class="post-guide">
     <div class="item left">
         
-          <a href="/2019/12/11/面经/">面经</a>
+          <a href="/2019/12/11/日常记录/">日常记录</a>
         
     </div>
     <div class="item right">
         
-          <a href="/2019/03/24/数据结构之字典和散列表/">数据结构之字典和散列表</a>
+          <a href="/2019/12/10/JS算法题/">JS手写实现题</a>
         
     </div>
   </div>
@@ -337,7 +251,7 @@
       本文作者：<a href="https://luckyfbb.github.io">FBB</a>
     </div>
     <div class="link">
-      永久链接：<a href="https://luckyfbb.github.io/2019/12/10/JS算法题/">https://luckyfbb.github.io/2019/12/10/JS算法题/</a>
+      永久链接：<a href="https://luckyfbb.github.io/2019/12/11/面经/">https://luckyfbb.github.io/2019/12/11/面经/</a>
     </div>
     <div class="declare">
       版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
