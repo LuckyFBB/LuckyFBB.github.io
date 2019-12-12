@@ -16,7 +16,7 @@
     <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
     
     <title>
-      JS原生实现过程和JS算法题 - 路漫漫其修远兮
+      JS原生实现过程 - 路漫漫其修远兮
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
@@ -141,7 +141,7 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">JS原生实现过程和JS算法题</div>
+      <div class="title">JS原生实现过程</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
@@ -215,7 +215,9 @@
 <h4 id="call-apply-bind-的实现">call / apply / bind 的实现<a class="post-anchor" href="#call-apply-bind-的实现"></a></h4><pre><code class="hljs js">call  func.call(obj, args1, args2); <span class="hljs-comment">//传入的是参数列表</span>
 apply func.apply(obj, [args1, args2]); <span class="hljs-comment">//传入的是数组参数    记法：apply是a开头为array</span>
 bind  func.bind(obj, args1, args2); <span class="hljs-comment">//返回的是函数，前两者为立即执行</span></code></pre>
-<p>思想</p>
+<ul>
+<li>中心思想</li>
+</ul>
 <pre><code class="hljs js"><span class="hljs-comment">// 改变this的指向，让bar()函数的this指向foo对象</span>
 <span class="hljs-keyword">var</span> foo = &#123;
   <span class="hljs-attr">value</span>: <span class="hljs-number">100</span>
