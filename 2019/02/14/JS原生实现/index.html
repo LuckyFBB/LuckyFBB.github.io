@@ -438,7 +438,36 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
 &#125;;</code></pre>
 <h4 id="数组去重">数组去重<a class="post-anchor" href="#数组去重"></a></h4><ul>
-<li>includes 实现</li>
+<li>双重循环(兼容性好)</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unique</span>(<span class="hljs-params">nums</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> result = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; result.length; j++) &#123;
+      <span class="hljs-keyword">if</span> (nums[i] === result[j]) &#123;
+        <span class="hljs-keyword">break</span>;
+      &#125;
+    &#125;
+    <span class="hljs-keyword">if</span> (j === result.length) &#123;
+      result.push(nums[i]);
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<ul>
+<li>indexOf(简化上一个方法的内部操作)</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unique</span>(<span class="hljs-params">nums</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> result = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;
+    <span class="hljs-keyword">if</span> (result.indexOf(nums[i]) === <span class="hljs-number">-1</span>) &#123;
+      result.push(nums[i]);
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<ul>
+<li>includes 实现(思路和上述方法一直，api 调用不同)</li>
 </ul>
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
@@ -451,7 +480,7 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
 <ul>
-<li>reduce + sort 实现</li>
+<li>reduce + sort 实现(先排序在去重)</li>
 </ul>
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
