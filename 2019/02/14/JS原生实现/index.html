@@ -26,11 +26,11 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#防抖-节流"><span class="toc-text">防抖 / 节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li></ol>
-    </li></div>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#防抖-节流"><span class="toc-text">防抖 / 节流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类型判断"><span class="toc-text">类型判断</span></a></li></ol>
+    </div>
     
     <div id="fixed-menu-wrap">
-      <span style="background:#fff"></span>
+      <span class="menu-reset" style="opacity: 0;"></span>
       <!-- <span class="iconfont icon-sousuo search-box menu-reset"></span> -->
       <span class="icon-toc menu-reset">Toc</span>
       <span class="iconfont icon-arrowup menu-reset"></span>
@@ -307,7 +307,7 @@ bar.apply(foo);
   &#125;);
   <span class="hljs-keyword">return</span> result;
 &#125;</code></pre>
-<h3 id="防抖-节流">防抖 / 节流<a class="post-anchor" href="#防抖-节流"></a></h3><p>在 resize/scroll/keypress/mousemove 等事件触发时，会不断调用回调函数。</p>
+<h4 id="防抖-节流">防抖 / 节流<a class="post-anchor" href="#防抖-节流"></a></h4><p>在 resize/scroll/keypress/mousemove 等事件触发时，会不断调用回调函数。</p>
 <p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
 <p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息。</p>
 <ul>
@@ -341,7 +341,7 @@ bar.apply(foo);
     &#125;
   &#125;;
 &#125;</code></pre>
-<h3 id="jsonp-的实现">jsonp 的实现<a class="post-anchor" href="#jsonp-的实现"></a></h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
+<h4 id="jsonp-的实现">jsonp 的实现<a class="post-anchor" href="#jsonp-的实现"></a></h4><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonp</span>(<span class="hljs-params">url, data</span>) </span>&#123;
   data = data || &#123;&#125;;
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resovle, reject</span>) =&gt;</span> &#123;
@@ -515,6 +515,40 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...this]));
 &#125;;</code></pre>
+<h4 id="类型判断">类型判断<a class="post-anchor" href="#类型判断"></a></h4><ul>
+<li><p>typeof(能够判断基本类型)<br>基本类型：number / string / null / undefined / boolean / symbol(ES6)<br>无法区分是哪种类型的对象</p>
+<pre><code class="hljs js"><span class="hljs-keyword">typeof</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">//"object"</span>
+<span class="hljs-keyword">typeof</span> &#123;&#125;; <span class="hljs-comment">//"object"</span>
+<span class="hljs-keyword">typeof</span> []; <span class="hljs-comment">//"object"</span>
+<span class="hljs-keyword">typeof</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;&#125;; <span class="hljs-comment">//"function"</span></code></pre>
+</li>
+<li><p>Object.prototype.toString()<br>Object.prototype.toString 会返回一个由 “[object “ 和 class 和 “]” 组成的字符串</p>
+<ol>
+<li>如果 this 值是 undefined，就返回 [object Undefined]</li>
+<li>如果 this 的值是 null，就返回 [object Null]</li>
+<li>让 O 成为 ToObject(this) 的结果</li>
+<li>让 class 成为 O 的内部属性 [[Class]] 的值</li>
+<li>最后返回由 “[object “ 和 class 和 “]” 三个部分组成的字符串</li>
+</ol>
+<p>常规 11 种数据类型：Boolean / Number / String / Function / Array / Date / RegExp / Object / Error / Null / Undefined</p>
+</li>
+<li><p>类型判断函数</p>
+</li>
+</ul>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">type</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-keyword">const</span> classTypeMap = &#123;&#125;;
+  <span class="hljs-string">"Boolean Number String Function Array Date RegExp Object Error"</span>
+    .split(<span class="hljs-string">" "</span>)
+    .forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+      classTypeMap[<span class="hljs-string">"[object "</span> + item + <span class="hljs-string">"]"</span>] = item.toLowerCase();
+    &#125;);
+  <span class="hljs-keyword">if</span> (obj === <span class="hljs-literal">null</span>) &#123;
+    <span class="hljs-keyword">return</span> obj + <span class="hljs-string">""</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">"object"</span> || <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">"function"</span>
+    ? classTypeMap[<span class="hljs-built_in">Object</span>.prototype.toString.call(obj)]
+    : <span class="hljs-keyword">typeof</span> obj;
+&#125;</code></pre>
 
 
   
