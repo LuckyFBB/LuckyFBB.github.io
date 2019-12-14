@@ -16,18 +16,13 @@
     <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
     
     <title>
-      line-height和vertical-align - 路漫漫其修远兮
+      JS手写实现题 - 路漫漫其修远兮
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
   </head>
   <body>
-    
-    <div id="post-toc" class="animated hiddenToc hide">
-      <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#幽灵空白节点"><span class="toc-text">幽灵空白节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内联元素基石line-height"><span class="toc-text">内联元素基石line-height</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vertical-align"><span class="toc-text">vertical-align</span></a></li></ol>
-    </div>
     
     <div id="fixed-menu-wrap">
       <span class="menu-reset" style="opacity: 0;"></span>
@@ -141,11 +136,11 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">line-height和vertical-align</div>
+      <div class="title">JS手写实现题</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
-          <span>2019/01/15</span>
+          <span>2019/12/10</span>
         </span>
 
         
@@ -169,7 +164,11 @@
             <span>
                 
                   
-                    <a href="/tags/CSS">CSS</a>
+                    <a href="/tags/JS">JS</a>
+                  
+                
+                  
+                    <a href="/tags/笔试">笔试</a>
                   
                 
             </span>
@@ -179,37 +178,123 @@
       <div>
       </div>
     </div>
-    <p>总结一下line-height和他的好朋友vertical-align。<a id="more"></a></p>
-<h4 id="幽灵空白节点">幽灵空白节点<a class="post-anchor" href="#幽灵空白节点"></a></h4><p>在HTML5文档声明中，内联元素的所有解析和渲染变现就如同每一个行框盒子之前都会有一个’空白节点’，这个’空白节点’没有宽度，永远透明。<br><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-color: red;"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display: inline-block;"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></p>
-<p>写下如下代码，就能看到红色背景的块。</p>
-<h4 id="内联元素基石line-height">内联元素基石line-height<a class="post-anchor" href="#内联元素基石line-height"></a></h4><ol>
-<li><p><strong>高度之本</strong><br>行距的作用明确阅读方向，行距分散在当前文字的上方和下方。第一行文字的上方也是有行距的，但是只有当前行距的一半，称为半行距。<br>行距 = line-height - font-size</p>
-</li>
-<li><p><strong>line-height实现垂直居中</strong><br>实际上line-height可以实现近似垂直居中。因为文字的垂直中线位置普遍比真正的‘行框盒子’要低，行距分散在文字的上下方，所以能够实现近似垂直居中。</p>
-</li>
-<li><p><strong>line-height的值</strong><br>line-height的默认值是normal，还支持数值/百分比/长度值。<br>normal值是和font-family密切相关的。<br>line-height最终的计算值都是和当前font-size相乘之后的结果。如果为2em，em表示就是当前font-size的值。<br>三者有所不同的地方在于，子元素所继承的值。如果是百分比或者长度值，所继承的就是计算后的最终值；如果是数值，所继承的就是这个值。</p>
-</li>
-</ol>
-<h4 id="vertical-align">vertical-align<a class="post-anchor" href="#vertical-align"></a></h4><ol>
-<li><p><strong>家族认识</strong><br>线类: baseline(默认值)/top/middle/bottom<br>文本类: text-top/text-bottom<br>上下标类: sub/super<br>数值百分比类: 20px/2em/20%。如果设置为正数，则是当前基线位置向上移动，反之向下。</p>
-</li>
-<li><p><strong>作用的前提</strong><br>只能用于用于内联元素以及display为table-cell的元素。块级元素不能使用。</p>
-</li>
-<li><p><strong>与line-height的关系</strong><br>如果是百分比的话，就是相对于line-height计算的。</p>
-</li>
-<li><p><strong>留白问题</strong><br>任意一个块级元素，里面若有图片，则块级元素的高度会比图片的高度高。<br><a href="https://upload-images.jianshu.io/upload_images/12814322-b3fecbaab58ea2a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-b3fecbaab58ea2a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="image.png"></a><br>在之前写上一个X给他加上北京，你会发现整个X的行高是22px(浏览器默认字体是16px)，意味着半行距有3px。而图片的基线是自身的下边缘。默认两者的基线要对齐，所以产生了留白，也就是留出了半行距的高度。<br><a href="https://upload-images.jianshu.io/upload_images/12814322-5def9051171be3f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-5def9051171be3f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400" alt="image.png"></a></p>
-</li>
-</ol>
-<p>解决方案  </p>
+    <p>笔试面试期间会遇到一些采用 JS 实现的算法题。<br>在这里做一个归档，尽可能多的写出解决方案是我的初衷。</p>
+<a id="more"></a>
 <ol>
-<li>图片块级化。块级化之后就不存在’空白节点’，’line-height’，’vertical-algin’</li>
-<li>容器line-height足够小。line-height足够小的时候，行距就足够短。</li>
-<li>容器font-size足够小</li>
-<li>图片设置其他的vertical-align属性值。因为默认是基线对齐，所以只要不使用默认的方式，就可以解决。</li>
+<li>函数组合运行</li>
 </ol>
+<pre><code class="hljs js"><span class="hljs-comment">/**
+ * 说明：实现一个方法，可将多个函数方法按从左到右的方式组合运行。
+ * 如`composeFunctions(fn1,fn2,fn3,fn4)`等价于`fn4(fn3(fn2(fn1))`。
+ * 示例：
+ *  const add = x =&gt; x + 1;
+ *  const multiply = (x, y) =&gt; x * y;
+ *  const multiplyAdd = composeFunctions(multiply, add);
+ *  multiplyAdd(3, 4) // 返回 13
+ */</span>
 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">composeFunctions</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> args = [...arguments];
+  <span class="hljs-keyword">if</span> (args.length === <span class="hljs-number">1</span>) &#123;
+    <span class="hljs-comment">//如果只有一个函数，直接当前函数</span>
+    <span class="hljs-keyword">return</span> args[<span class="hljs-number">0</span>];
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-comment">//否则返回一个新的函数</span>
+    <span class="hljs-keyword">const</span> args1 = [...arguments];
+    <span class="hljs-keyword">return</span> args.reduce(<span class="hljs-function">(<span class="hljs-params">pre, curr</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pre === <span class="hljs-string">"function"</span>) &#123;
+        <span class="hljs-comment">//如果是第一次执行，pre为function，之后为执行函数返回值</span>
+        <span class="hljs-keyword">return</span> curr(pre(...args1));
+      &#125;
+      <span class="hljs-keyword">return</span> curr(pre);
+    &#125;);
+  &#125;;
+&#125;</code></pre>
+<ol start="2">
+<li>扁平化</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-comment">/*
+ * 说明：请实现 flatten(input) 函数，input 为一个 javascript 对象（Object 或者 Array），返回值为扁平化后的结果。
+ * 示例：
+ *   var input = &#123;
+ *     a: 1,
+ *     b: [ 1, 2, &#123; c: true &#125;, [ 3 ] ],
+ *     d: &#123; e: 2, f: 3 &#125;,
+ *     g: null,
+ *   &#125;
+ *   var output = flatten(input);
+ *   output如下
+ *   &#123;
+ *     "a": 1,
+ *     "b[0]": 1,
+ *     "b[1]": 2,
+ *     "b[2].c": true,
+ *     "b[3][0]": 3,
+ *     "d.e": 2,
+ *     "d.f": 3,
+ *     // "g": null,  值为null或者undefined，丢弃
+ *  &#125;
+ */</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-comment">//判断是不是对象</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(obj) === <span class="hljs-string">"[object Object]"</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArray</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-comment">//判断是不是数组</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.isArray(obj);
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isRemove</span>(<span class="hljs-params">obj</span>) </span>&#123;
+  <span class="hljs-comment">//判断是不是null或者undefined</span>
+  <span class="hljs-keyword">return</span> obj === <span class="hljs-literal">null</span> || obj === <span class="hljs-literal">undefined</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_flat</span>(<span class="hljs-params">prekey, input</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> result = &#123;&#125;;
+  <span class="hljs-keyword">if</span> (isObject(input)) &#123;
+    <span class="hljs-comment">//是对象</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
+      result = <span class="hljs-built_in">Object</span>.assign(result, _flat(prekey + <span class="hljs-string">"."</span> + key, input[key]));
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isArray(input)) &#123;
+    <span class="hljs-comment">//是数组</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
+      result = <span class="hljs-built_in">Object</span>.assign(
+        result,
+        _flat(prekey + <span class="hljs-string">"["</span> + key + <span class="hljs-string">"]"</span>, input[key])
+      );
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isRemove(input)) &#123;
+    <span class="hljs-comment">//不是null或者undefined</span>
+    result[prekey] = input;
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
+<ol start="3">
+<li>数组交错重排序</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-comment">/* 数组交错重排序
+ * 说明：给定一个数组，按指定个数拆分多份，并对每一份进行升序排序，
+ * 比如一个6个数据项的数组，指定个数为3，即把数组按 2 份排序
+ * 示例：
+ * const list = [4, 2, 5, 6, 3, 1];
+ * // 按每 2 个一份分别进行升序排序
+ * interlaceSort(list, 2); [2, 4, 5, 6, 1, 3]
+ * interlaceSort(list, 3); [2, 4, 5, 1, 3, 6]
+ * interlaceSort(list, 6); [1, 2, 3, 4, 5, 6]
+*/</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">interlaceSort</span>(<span class="hljs-params">list, count</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> result = [];
+  <span class="hljs-keyword">while</span> (list.length) &#123;
+    <span class="hljs-comment">//list.splice(0, count) 拿到count个数据，并且改变原数组</span>
+    result = result.concat(list.splice(<span class="hljs-number">0</span>, count).sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b));
+  &#125;
+  <span class="hljs-keyword">return</span> result;
+&#125;</code></pre>
 
   
     <div class="post-reward">
@@ -235,12 +320,12 @@
   <div class="post-guide">
     <div class="item left">
         
-          <a href="/2019/01/26/JS高级教程/">JavaScript高级教程</a>
+          <a href="/2019/12/11/面经/">面经</a>
         
     </div>
     <div class="item right">
         
-          <a href="/2019/01/15/JS继承/">关于类的继承</a>
+          <a href="/2019/03/24/数据结构之字典和散列表/">数据结构之字典和散列表</a>
         
     </div>
   </div>
@@ -252,7 +337,7 @@
       本文作者：<a href="https://luckyfbb.github.io">FBB</a>
     </div>
     <div class="link">
-      永久链接：<a href="https://luckyfbb.github.io/2019/01/15/vertical-align/">https://luckyfbb.github.io/2019/01/15/vertical-align/</a>
+      永久链接：<a href="https://luckyfbb.github.io/2019/12/10/JS手写实现题/">https://luckyfbb.github.io/2019/12/10/JS手写实现题/</a>
     </div>
     <div class="declare">
       版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！

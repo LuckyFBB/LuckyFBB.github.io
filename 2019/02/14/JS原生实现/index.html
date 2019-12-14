@@ -327,10 +327,12 @@ bar.apply(foo);
   &#125;;
 &#125;</code></pre>
 <ul>
-<li>节流()<br>在某段时间内，不管你触发了多少次事件，我都只认第一次，并在计时结束时给予响应。<br>假设设置的时间为 2000ms，再触发了事件的 2000ms 之内，你在多少触发该事件，都不会有任何作用，它只为第一个事件等待 2000ms。时间一到，它就会执行了。</li>
-</ul>
+<li><p>节流()<br>在某段时间内，不管你触发了多少次事件，我都只认第一次，并在计时结束时给予响应。<br>假设设置的时间为 2000ms，再触发了事件的 2000ms 之内，你在多少触发该事件，都不会有任何作用，它只为第一个事件等待 2000ms。时间一到，它就会执行了。</p>
+<ol>
+<li><p>时间戳<br>设置触发事件时的时间戳，然后减去之前的时间戳，如果大于时间周期，则执行函数，更新时间戳。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> pre = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+  <span class="hljs-comment">//点击第一下就会立即执行</span>
+  <span class="hljs-keyword">let</span> pre = <span class="hljs-number">0</span>;
   <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-keyword">let</span> _this = <span class="hljs-keyword">this</span>;
     <span class="hljs-keyword">let</span> args = <span class="hljs-built_in">arguments</span>;
@@ -341,6 +343,31 @@ bar.apply(foo);
     &#125;
   &#125;;
 &#125;</code></pre>
+</li>
+<li><p>定时器<br>设置一个定时器，再次触发时，如果存在定时器就不会执行函数，知道定时器执行之后，清空定时器，才能够设置下一个定时器。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> timer;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">const</span> _this = <span class="hljs-keyword">this</span>;
+    <span class="hljs-keyword">const</span> args = [...arguments];
+    <span class="hljs-keyword">if</span> (!timer) &#123;
+      timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+        timer = <span class="hljs-literal">null</span>;
+        fn.apply(_this, args);
+      &#125;, delay);
+    &#125;
+  &#125;;
+&#125;</code></pre>
+</li>
+<li><p>两者比较</p>
+<ul>
+<li>时间戳方式，会立即执行第一个事件；定时器方式，会隔 n 秒后执行第一个事件。</li>
+<li>时间戳方式，停止触发后不会再执行事件；定时器方式，停止触发后会再一次执行事件。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 <h4 id="jsonp-的实现">jsonp 的实现<a class="post-anchor" href="#jsonp-的实现"></a></h4><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonp</span>(<span class="hljs-params">url, data</span>) </span>&#123;
   data = data || &#123;&#125;;

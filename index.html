@@ -212,7 +212,7 @@
           <span>19/12/11</span>
         </div>
         
-        <div class="excerpt post-wrap"><p>仅此记录一下，最近面试被问及的问题，简单的归纳一下。</p></div>
+        <div class="excerpt post-wrap"><p>仅此记录一下，面试被问及的问题，简单的归纳一下。</p></div>
         
         <div class="meta">
           <div class="l">
@@ -232,8 +232,6 @@
               <span class="iconfont icon-tag1"></span>
               <span class="desp">
                  
-                <a href="/tags/笔试">笔试</a>
-                  
                 <a href="/tags/面经">面经</a>
                  
               </span>
@@ -265,7 +263,7 @@
       
       <div class="describe">
         <div class="title">
-          <a href="/2019/12/10/JS算法题/">JS手写实现题</a>
+          <a href="/2019/12/10/JS手写实现题/">JS手写实现题</a>
         </div>
         <div class="date">
           <span class="iconfont icon-time-circle"></span>
@@ -300,16 +298,16 @@
             </div>
             
             <!-- <div class="warp">
-              <div class="share" data-url="/2019/12/10/JS算法题/">
+              <div class="share" data-url="/2019/12/10/JS手写实现题/">
                 <span class="iconfont icon-share"></span>
               </div>
-              <div class="desp share" data-url="/2019/12/10/JS算法题/">
+              <div class="desp share" data-url="/2019/12/10/JS手写实现题/">
                 <a href="#">分享</a>
               </div>
             </div> -->
           </div>
           <div class="r">
-            <a href="/2019/12/10/JS算法题/">查看更多~</a>
+            <a href="/2019/12/10/JS手写实现题/">查看更多~</a>
           </div>
         </div>
       </div>
@@ -612,66 +610,6 @@
       
       <div class="describe">
         <div class="title">
-          <a href="/2019/03/11/节流和防抖/">节流和防抖</a>
-        </div>
-        <div class="date">
-          <span class="iconfont icon-time-circle"></span>
-          <span>19/03/11</span>
-        </div>
-        
-        <div class="excerpt post-wrap"><p>在resize/scroll/keypress/mousemove等事件触发时，会不断调用回调函数。</p>
-<p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
-<p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息，最后使用setTimeout来控制事件的触发频率。<br></p></div>
-        
-        <div class="meta">
-          <div class="l">
-            <div class="warp">
-              
-              <span class="iconfont icon-folder"></span>
-              <span class="desp">
-                 
-                <a href="/categories/前端">前端</a>
-                 
-              </span>
-              
-            </div>
-
-            
-            <div class="warp">
-              <span class="iconfont icon-tag1"></span>
-              <span class="desp">
-                 
-                <a href="/tags/JS">JS</a>
-                 
-              </span>
-            </div>
-            
-            <!-- <div class="warp">
-              <div class="share" data-url="/2019/03/11/节流和防抖/">
-                <span class="iconfont icon-share"></span>
-              </div>
-              <div class="desp share" data-url="/2019/03/11/节流和防抖/">
-                <a href="#">分享</a>
-              </div>
-            </div> -->
-          </div>
-          <div class="r">
-            <a href="/2019/03/11/节流和防抖/">查看更多~</a>
-          </div>
-        </div>
-      </div>
-    </li>
-     
-
-    
-
-  <li class="item">
-
-      
-
-      
-      <div class="describe">
-        <div class="title">
           <a href="/2019/03/09/深浅拷贝/">深浅拷贝</a>
         </div>
         <div class="date">
@@ -723,12 +661,79 @@
         </div>
       </div>
     </li>
+     
+
+    
+
+  <li class="item">
+
+      
+
+      
+      <div class="describe">
+        <div class="title">
+          <a href="/2019/03/08/公司笔试/">艾耕公司笔试</a>
+        </div>
+        <div class="date">
+          <span class="iconfont icon-time-circle"></span>
+          <span>19/03/08</span>
+        </div>
+        
+        <div class="excerpt post-wrap"><p>今天去了艾耕公司面试，做了一套笔试，感觉题目比较经典，记录一下。</p>
+<ol>
+<li>下列语句分别输出什么？</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'01'</span>) + <span class="hljs-string">'0'</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'010'</span>))    <span class="hljs-comment">//1010</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-literal">true</span>)   <span class="hljs-comment">//false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> Aarry)   <span class="hljs-comment">//function</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'0'</span> == <span class="hljs-literal">false</span>)   <span class="hljs-comment">//true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>toString())   <span class="hljs-comment">//报错</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1.</span>.toString())   <span class="hljs-comment">//1</span></code></pre></div>
+        
+        <div class="meta">
+          <div class="l">
+            <div class="warp">
+              
+              <span class="iconfont icon-folder"></span>
+              <span class="desp">
+                 
+                <a href="/categories/前端">前端</a>
+                 
+              </span>
+              
+            </div>
+
+            
+            <div class="warp">
+              <span class="iconfont icon-tag1"></span>
+              <span class="desp">
+                 
+                <a href="/tags/笔试">笔试</a>
+                 
+              </span>
+            </div>
+            
+            <!-- <div class="warp">
+              <div class="share" data-url="/2019/03/08/公司笔试/">
+                <span class="iconfont icon-share"></span>
+              </div>
+              <div class="desp share" data-url="/2019/03/08/公司笔试/">
+                <a href="#">分享</a>
+              </div>
+            </div> -->
+          </div>
+          <div class="r">
+            <a href="/2019/03/08/公司笔试/">查看更多~</a>
+          </div>
+        </div>
+      </div>
+    </li>
     
   </ul>
 </div>
 
 <div class="paginator">
-  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a>
+  <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a>
 </div>
 
         <footer>

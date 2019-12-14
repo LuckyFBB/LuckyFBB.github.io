@@ -255,11 +255,15 @@
   font-size: 0.9rem;
   margin: 0.9rem 0;
   text-align: left;
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   color: #4d4d4c;
   border-radius: 0.2rem;
   background-color: #e3f2fd;
   border-left: 0.45rem solid #1e88e5;
+}
+.post-entry blockquote p,
+.post-wrap blockquote p {
+  margin: 0.3rem 0;
 }
 .post-entry blockquote footer,
 .post-wrap blockquote footer {
