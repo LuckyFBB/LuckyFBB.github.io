@@ -179,141 +179,150 @@
       <div>
       </div>
     </div>
-    <p>总结一下居中方法。<br><a href="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a><br><a id="more"></a></p>
-<h3 id="水平居中">水平居中<a class="post-anchor" href="#水平居中"></a></h3><h4 id="行内元素">行内元素<a class="post-anchor" href="#行内元素"></a></h4><p>  <strong>利用text-align可以实现在块级元素内部的行类元素居中。</strong>这个方法对inline、inline-block、inline-table和inline-flex元素水平居中都有效果<br>  <pre><code class="hljs css">.parent&#123;  //父容器上设置
-  text-align: center;
-&#125;</code></pre></p>
-<p>  如果块级元素内部包含着一个块级元素，<strong>可以将块级元素转化为行内块元素</strong>。在使用上述方法就能达到水平居中。<br>  <pre><code class="hljs css">&lt;div class='parent'&gt;
-  &lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    text-align: center;
+    <p>总结一下居中方法。</p>
+<a id="more"></a>
+<p><a href="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-caption="image.png" data-fancybox="images"><img src="https://upload-images.jianshu.io/upload_images/12814322-9c286b6ad56247e7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></a></p>
+<h3 id="水平居中">水平居中<a class="post-anchor" href="#水平居中"></a></h3><h4 id="行内元素">行内元素<a class="post-anchor" href="#行内元素"></a></h4><p><strong>利用 text-align 可以实现在块级元素内部的行类元素居中。</strong>这个方法对 inline、inline-block、inline-table 和 inline-flex 元素水平居中都有效果</p>
+<pre><code class="hljs css"><span class="hljs-selector-class">.parent</span> &#123;
+  <span class="hljs-comment">/* 父容器上设置 */</span>
+  <span class="hljs-attribute">text-align</span>: center;
+&#125;</code></pre>
+<p>如果块级元素内部包含着一个块级元素，<strong>可以将块级元素转化为行内块元素</strong>。在使用上述方法就能达到水平居中。</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">text-align</span>: center;
   &#125;
-  .child&#123;
-    display: inline-block;       /*改变子元素成为行内块元素*/
+  <span class="hljs-selector-class">.child</span> &#123;
+    <span class="hljs-attribute">display</span>: inline-block; <span class="hljs-comment">/*改变子元素成为行内块元素*/</span>
   &#125;
-&lt;/style&gt;</code></pre></p>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
 <h4 id="块级元素">块级元素<a class="post-anchor" href="#块级元素"></a></h4><ol>
-<li><p>margin: 0 auto</p>
-<pre><code class="hljs css"><span class="hljs-selector-class">.child</span>&#123;
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;   <span class="hljs-comment">/*确保该块级元素定宽*/</span>
+<li>margin: 0 auto</li>
+</ol>
+<pre><code class="hljs css"><span class="hljs-selector-class">.child</span> &#123;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>; <span class="hljs-comment">/*确保该块级元素定宽*/</span>
   <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
 &#125;</code></pre>
-</li>
-<li><p>使用absolute + transform(如果父元素定宽，可以使用absolute + 负margin)<br>父元素相对定位，子元素绝对定位。往右移动子元素，移动距离为父容器的一半，然后左移子元素宽度的一半达到居中。</p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-  &lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    position: relative;
-  &#125;
-  .child&#123;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%)
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
-<li><p>使用flex + justify-content(<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">flex布局</a>)</p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-  &lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    display: flex;    /*默认主轴为row*/
-    justify-content: cneter;
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
+<ol start="2">
+<li>使用 absolute + transform(如果父元素定宽，可以使用 absolute + 负 margin)<br>父元素相对定位，子元素绝对定位。往右移动子元素，移动距离为父容器的一半，然后左移子元素宽度的一半达到居中。</li>
 </ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">position</span>: relative;
+  &#125;
+  <span class="hljs-selector-class">.child</span> &#123;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateX</span>(-50%);
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<ol start="3">
+<li>使用 flex + justify-content(<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">flex 布局</a>)</li>
+</ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">display</span>: flex; <span class="hljs-comment">/*默认主轴为row*/</span>
+    <span class="hljs-attribute">justify-content</span>: cneter;
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
 <h3 id="垂直居中">垂直居中<a class="post-anchor" href="#垂直居中"></a></h3><h4 id="行内元素-1">行内元素<a class="post-anchor" href="#行内元素-1"></a></h4><ol>
-<li><p>单行内联元素<br>height值和line-height值相等即可</p>
-<pre><code class="hljs css">&lt;div&gt;
-  &lt;span&gt;认真学习前端的人&lt;/span&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  div&#123;
-    height: 100px;
-    line-height: 100px;
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
-<li><p>多行内联元素<br>使用flex + justify-content + <strong>flex-deriction: column(主轴方向为竖直方向)</strong></p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-  &lt;p&gt;React 是一个用于构建用户界面的 JAVASCRIPT 库。
-  React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）。
-  React 起源于 Facebook 的内部项目，用来架设 Instagram 的网站，并于 2013 年 5 月开源。
-  React 拥有较高的性能，代码逻辑非常简单，越来越多的人已开始关注和使用它。&lt;/p&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
+<li>单行内联元素<br>height 值和 line-height 值相等即可</li>
 </ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>认真学习前端的人<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-tag">div</span> &#123;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">100px</span>;
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<ol start="2">
+<li>多行内联元素<br>使用 flex + justify-content + <strong>flex-deriction: column(主轴方向为竖直方向)</strong></li>
+</ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    React 是一个用于构建用户界面的 JAVASCRIPT 库。
+    React主要用于构建UI，很多人认为 React 是 MVC 中的 V（视图）。 React 起源于
+    Facebook 的内部项目，用来架设 Instagram 的网站，并于 2013 年 5 月开源。
+    React 拥有较高的性能，代码逻辑非常简单，越来越多的人已开始关注和使用它。
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">150px</span>;
+    <span class="hljs-attribute">display</span>: flex;
+    <span class="hljs-attribute">flex-direction</span>: column;
+    <span class="hljs-attribute">justify-content</span>: center;
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
 <h4 id="块级元素-1">块级元素<a class="post-anchor" href="#块级元素-1"></a></h4><ol>
-<li><p>使用absolute + transform(如果父元素定高，可以使用absolute + 负margin)<br>通过绝对定位元素距离顶部50%，借助CSS3中的transform属性向Y轴反向偏移50%的方法实现垂直居中。</p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-  &lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    position: relative;
-  &#125;
-  .child&#123;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%)
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
-<li><p>使用flex + align-items</p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-  &lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    display: flex;    /*默认主轴为row*/
-    align-items: cneter;    /*交叉轴*/
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
+<li>使用 absolute + transform(如果父元素定高，可以使用 absolute + 负 margin)<br>通过绝对定位元素距离顶部 50%，借助 CSS3 中的 transform 属性向 Y 轴反向偏移 50%的方法实现垂直居中。</li>
 </ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">position</span>: relative;
+  &#125;
+  <span class="hljs-selector-class">.child</span> &#123;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translateY</span>(-50%);
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<ol start="2">
+<li>使用 flex + align-items</li>
+</ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">display</span>: flex; <span class="hljs-comment">/*默认主轴为row*/</span>
+    <span class="hljs-attribute">align-items</span>: cneter; <span class="hljs-comment">/*交叉轴*/</span>
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
 <h3 id="水平垂直居中">水平垂直居中<a class="post-anchor" href="#水平垂直居中"></a></h3><ol>
-<li><p>使用absolute + transform<br>在未知元素的高宽的情况下实现元素的垂直居中。(已知宽高可以用负margin)</p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-&lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    position: relative;
-  &#125;
-  .child&#123;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%)
-  &#125;
-&lt;/style&gt;</code></pre>
-</li>
-<li><p>使用flex布局<br>在主轴和纵轴都设置对齐方式</p>
-<pre><code class="hljs css">&lt;div class='parent'&gt;
-&lt;div class='child'&gt;demo&lt;/div&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .parent&#123;
-    display: flex;    /*默认主轴为row*/
-    align-items: cneter;    /*交叉轴*/
-    justify-content: center;   /*主轴*/
-  &#125;
-&lt;/style&gt;</code></pre></li>
+<li>使用 absolute + transform<br>在未知元素的高宽的情况下实现元素的垂直居中。(已知宽高可以用负 margin)</li>
 </ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">position</span>: relative;
+  &#125;
+  <span class="hljs-selector-class">.child</span> &#123;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">left</span>: <span class="hljs-number">50%</span>;
+    <span class="hljs-attribute">top</span>: <span class="hljs-number">50%</span>;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">translate</span>(-50%, -50%);
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<ol start="2">
+<li>使用 flex 布局<br>在主轴和纵轴都设置对齐方式</li>
+</ol>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"parent"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"child"</span>&gt;</span>demo<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+  <span class="hljs-selector-class">.parent</span> &#123;
+    <span class="hljs-attribute">display</span>: flex; <span class="hljs-comment">/*默认主轴为row*/</span>
+    <span class="hljs-attribute">align-items</span>: cneter; <span class="hljs-comment">/*交叉轴*/</span>
+    <span class="hljs-attribute">justify-content</span>: center; <span class="hljs-comment">/*主轴*/</span>
+  &#125;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
 
 
   
@@ -371,7 +380,7 @@
 </article>
         <footer>
           <div class="copyright">
-            ©2019
+            ©2020
             <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
             <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
           </div>
