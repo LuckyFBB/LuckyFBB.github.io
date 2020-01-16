@@ -16,13 +16,18 @@
     <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
     
     <title>
-      分类 - 路漫漫其修远兮
+      你不知道的JS---this - 路漫漫其修远兮
     </title>
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/style/style.css">
   </head>
   <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用位置"><span class="toc-text">调用位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#绑定规则"><span class="toc-text">绑定规则</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#默认绑定"><span class="toc-text">默认绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#隐式绑定"><span class="toc-text">隐式绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#显式绑定"><span class="toc-text">显式绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#new-绑定"><span class="toc-text">new 绑定</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优先级"><span class="toc-text">优先级</span></a></li></ol>
+    </div>
     
     <div id="fixed-menu-wrap">
       <span class="menu-reset" style="opacity: 0;"></span>
@@ -62,7 +67,7 @@
           归档
         </a>
         
-        <a href="/categories" class="current">
+        <a href="/categories" class>
           分类
         </a>
         
@@ -108,7 +113,7 @@
             归档
           </a>
           
-          <a href="/categories" class="current">
+          <a href="/categories" class>
             分类
           </a>
           
@@ -133,51 +138,102 @@
     </div>
     <div id="container">
       <div class="main animated bounceInRight delay-0.7s">
-        <div id="archives">
-     
-        <div class="title">
-            分类 - 前端
-        </div>
-    
-
-
-
-
-    
-    
-    <section class="wrap">
-        <div class="meta">
-            <a href="/archives/2019">
-                2019
-            </a>
-        </div>
-        <div class="year">
-            
-            <article class="item">
-            <a href="/2019/01/15/vertical-align/" title="line-height和vertical-align">
-                <span>2019/01/15</span>
-                <span>line-height和vertical-align</span>
-            </a>
-            </article>
-            
-
-
-            <article class="item">
-            <a href="/2019/01/15/JS继承/" title="关于类的继承">
-                <span>2019/01/15</span>
-                <span>关于类的继承</span>
-            </a>
-            </article>
-            
-    
-        </div>
-    </section>
+        <article class="post-entry">
+    <div class="header">
       
-<div class="paginator">
-    <a class="page-number" href="/categories/前端/">1</a><span class="page-number current">2</span>
-</div>
-</div>
+      <div class="title">你不知道的JS---this</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2020/01/16</span>
+        </span>
 
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/前端">前端</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/JS">JS</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。<br>(等待填坑~~~)</p>
+<a id="more"></a>
+<h4 id="调用位置">调用位置<a class="post-anchor" href="#调用位置"></a></h4><h4 id="绑定规则">绑定规则<a class="post-anchor" href="#绑定规则"></a></h4><h5 id="默认绑定">默认绑定<a class="post-anchor" href="#默认绑定"></a></h5><h5 id="隐式绑定">隐式绑定<a class="post-anchor" href="#隐式绑定"></a></h5><h5 id="显式绑定">显式绑定<a class="post-anchor" href="#显式绑定"></a></h5><h5 id="new-绑定">new 绑定<a class="post-anchor" href="#new-绑定"></a></h5><h4 id="优先级">优先级<a class="post-anchor" href="#优先级"></a></h4>
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.jpg" target="_block" class="bg" style="background-image:url('/images/zhifubao.jpg')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.jpg" target="_block" class="bg" style="background-image:url('/images/weixin.jpg')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2020/01/04/2020/">你好，2020</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/">https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
         <footer>
           <div class="copyright">
             ©2020
