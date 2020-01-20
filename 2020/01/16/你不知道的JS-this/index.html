@@ -181,7 +181,38 @@
     </div>
     <p>最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。<br>(等待填坑~~~)</p>
 <a id="more"></a>
-<h4 id="调用位置">调用位置<a class="post-anchor" href="#调用位置"></a></h4><h4 id="绑定规则">绑定规则<a class="post-anchor" href="#绑定规则"></a></h4><h5 id="默认绑定">默认绑定<a class="post-anchor" href="#默认绑定"></a></h5><h5 id="隐式绑定">隐式绑定<a class="post-anchor" href="#隐式绑定"></a></h5><h5 id="显式绑定">显式绑定<a class="post-anchor" href="#显式绑定"></a></h5><h5 id="new-绑定">new 绑定<a class="post-anchor" href="#new-绑定"></a></h5><h4 id="优先级">优先级<a class="post-anchor" href="#优先级"></a></h4>
+<h4 id="调用位置">调用位置<a class="post-anchor" href="#调用位置"></a></h4><p>每个函数的 this 是在调用时被绑定的，完全取决于函数的调用位置</p>
+<h4 id="绑定规则">绑定规则<a class="post-anchor" href="#绑定规则"></a></h4><h5 id="默认绑定">默认绑定<a class="post-anchor" href="#默认绑定"></a></h5><p>常用的函数调用类型：独立函数调用，this 指向全局对象。这条规则可以看作是无法应用其他规则时的默认规则。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
+&#125;
+<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
+foo(); <span class="hljs-comment">//2</span>
+
+<span class="hljs-comment">//如果在严格模式(strict mode)，那么全局对象将无法使用默认绑定，由此this会绑定到undefined上。</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-string">"use strict"</span>;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
+&#125;
+<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
+foo(); <span class="hljs-comment">// TypeError: this is undefied</span></code></pre>
+<h5 id="隐式绑定">隐式绑定<a class="post-anchor" href="#隐式绑定"></a></h5><p>绑定规则：调用位置是否具有上下文对象。</p>
+<p>当引用拥有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象中。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
+&#125;
+
+<span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">foo</span>: foo &#125;;
+obj.foo(); <span class="hljs-comment">//2，使用obj上下文来引用函数。</span></code></pre>
+<p>对象属性引用链中只有最顶层或者为最后一层会影响调用位置。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
+&#125;
+
+<span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">foo</span>: foo &#125;;
+<span class="hljs-keyword">var</span> obj1 = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">12</span>, <span class="hljs-attr">obj</span>: obj &#125;;
+obj1.obj.foo();</code></pre>
+<h5 id="显式绑定">显式绑定<a class="post-anchor" href="#显式绑定"></a></h5><h5 id="new-绑定">new 绑定<a class="post-anchor" href="#new-绑定"></a></h5><h4 id="优先级">优先级<a class="post-anchor" href="#优先级"></a></h4>
 
   
     <div class="post-reward">
