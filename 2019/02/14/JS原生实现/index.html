@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#call"><span class="toc-text">call</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apply"><span class="toc-text">apply</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bind"><span class="toc-text">bind</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防抖-节流"><span class="toc-text">防抖 / 节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断"><span class="toc-text">类型判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深浅拷贝"><span class="toc-text">深浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#call"><span class="toc-text">call</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apply"><span class="toc-text">apply</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bind"><span class="toc-text">bind</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防抖-节流"><span class="toc-text">防抖 / 节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断"><span class="toc-text">类型判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深浅拷贝"><span class="toc-text">深浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-isNaN"><span class="toc-text">Number.isNaN()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-is"><span class="toc-text">Object.is(..)</span></a></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -270,7 +270,7 @@ bar.apply(foo);
   <span class="hljs-keyword">delete</span> ctx.func;
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
-<h4 id="bind">bind<a class="post-anchor" href="#bind"></a></h4><p>  相对于前两个，这个函数返回的函数，并不是立即执行。</p>
+<h4 id="bind">bind<a class="post-anchor" href="#bind"></a></h4><p>相对于前两个，这个函数返回的函数，并不是立即执行。</p>
 <pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myBind = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
@@ -669,6 +669,26 @@ arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <s
     newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]; <span class="hljs-comment">//判断当前值是不是对象</span>
   &#125;);
   <span class="hljs-keyword">return</span> newObj;
+&#125;</code></pre>
+<h3 id="Number-isNaN">Number.isNaN()<a class="post-anchor" href="#Number-isNaN"></a></h3><p>ES6 中判断 NaN 的函数。</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNaN</span>(<span class="hljs-params">n</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> n === <span class="hljs-string">"number"</span> &amp;&amp; <span class="hljs-built_in">window</span>.isNaN(n);
+&#125;</code></pre>
+<p>还可以使用 NaN 不等于自身的这个特点</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNaN</span>(<span class="hljs-params">n</span>) </span>&#123;
+  <span class="hljs-keyword">return</span> n !== n;
+&#125;</code></pre>
+<h3 id="Object-is">Object.is(..)<a class="post-anchor" href="#Object-is"></a></h3><p>ES6 中加入了这样一个方法来判断两个值是否绝对相等。<br>当然在能够使用==或者===的时候，就尽量不要使用Object.is(..)</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">is</span>(<span class="hljs-params">v1, v2</span>) </span>&#123;
+  <span class="hljs-comment">//判断是否是-0</span>
+  <span class="hljs-keyword">if</span> (v1 === <span class="hljs-number">0</span> &amp;&amp; v2 === <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / v1 === <span class="hljs-number">1</span> / v2;
+  &#125;
+  <span class="hljs-comment">//判断是否为NaN</span>
+  <span class="hljs-keyword">if</span> (v1 !== v1) &#123;
+    <span class="hljs-keyword">return</span> v2 !== v2;
+  &#125;
+  <span class="hljs-keyword">return</span> v1 === v2;
 &#125;</code></pre>
 
 
