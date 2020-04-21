@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#树"><span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#树的分类"><span class="toc-text">树的分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二叉树"><span class="toc-text">二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于递归"><span class="toc-text">关于递归</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#什么是递归"><span class="toc-text">什么是递归</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#什么情况下采用递归"><span class="toc-text">什么情况下采用递归</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#递归的解题模板"><span class="toc-text">递归的解题模板</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解锁二叉树"><span class="toc-text">解锁二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉树的遍历"><span class="toc-text">二叉树的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前序遍历"><span class="toc-text">前序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中序遍历"><span class="toc-text">中序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#后序遍历"><span class="toc-text">后序遍历</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图"><span class="toc-text">图</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#树"><span class="toc-text">树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#树的分类"><span class="toc-text">树的分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二叉树"><span class="toc-text">二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于递归"><span class="toc-text">关于递归</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#什么是递归"><span class="toc-text">什么是递归</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#什么情况下采用递归"><span class="toc-text">什么情况下采用递归</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#递归的解题模板"><span class="toc-text">递归的解题模板</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解锁二叉树"><span class="toc-text">解锁二叉树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉树的遍历"><span class="toc-text">二叉树的遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#前序遍历"><span class="toc-text">前序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#中序遍历"><span class="toc-text">中序遍历</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#后序遍历"><span class="toc-text">后序遍历</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二叉查找树"><span class="toc-text">二叉查找树</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图"><span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DFS"><span class="toc-text">DFS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BFS"><span class="toc-text">BFS</span></a></li></ol></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -259,7 +259,19 @@
   visitLoop(root);
   <span class="hljs-keyword">return</span> output;
 &#125;</code></pre>
-<h3 id="图">图<a class="post-anchor" href="#图"></a></h3><p>参考链接：</p>
+<h4 id="二叉查找树">二叉查找树<a class="post-anchor" href="#二叉查找树"></a></h4><p>二叉查找树(BST:Binary Search Tree)是一种特殊的二叉树，对于任意一个节点 n，</p>
+<ul>
+<li>其左子树(left subtree)下的每个后代节点（descendant node）的值都小于节点 n 的值；</li>
+<li>其右子树(right subtree)下的每个后代节点的值都大于节点 n 的值。</li>
+</ul>
+<div style="margin: auto"><a href="/image/tree/binary_search_tree.png" data-caption="普通二叉树" data-fancybox="images"><img src="/image/tree/binary_search_tree.png" alt="普通二叉树"></a></div>
+
+<h3 id="图">图<a class="post-anchor" href="#图"></a></h3><p>图是由若干给定的点及连接两点的线所构成的图形，这种图形通常用来描述某些事物之间的某种特定关系，用点代表事物，用连接两点的线表示相应两个事物间具有这种关系。</p>
+<p><div style="margin: auto"><a href="/image/tree/gragh.png" data-caption="普通二叉树" data-fancybox="images"><img src="/image/tree/gragh.png" alt="普通二叉树"></a></div><br>这个图有6个点，8条边，其中有一条是自己连接自己的。</p>
+<p>其实树也可以看作是图，只是相对来说比较特殊而已。</p>
+<h4 id="DFS">DFS<a class="post-anchor" href="#DFS"></a></h4><p>DFS(Depth-First Search)，深度搜索优先</p>
+<h4 id="BFS">BFS<a class="post-anchor" href="#BFS"></a></h4><p>BFS(Breadth-First Search)，广度搜索优先</p>
+<p>参考链接：</p>
 <ol>
 <li><a href="https://juejin.im/post/5e6209b8e51d45270531933e#heading-4" target="_blank" rel="noopener">参考 1</a></li>
 </ol>
