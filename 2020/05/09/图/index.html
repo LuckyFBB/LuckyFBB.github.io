@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#图"><span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#存储方法"><span class="toc-text">存储方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#邻接矩阵存储方法"><span class="toc-text">邻接矩阵存储方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#邻接表存储方法"><span class="toc-text">邻接表存储方法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深度搜索优先"><span class="toc-text">深度搜索优先</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#广度搜索优先"><span class="toc-text">广度搜索优先</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#图"><span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#存储方法"><span class="toc-text">存储方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#邻接矩阵存储方法"><span class="toc-text">邻接矩阵存储方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#邻接表存储方法"><span class="toc-text">邻接表存储方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建图"><span class="toc-text">构建图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#搜索算法"><span class="toc-text">搜索算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#广度优先搜索"><span class="toc-text">广度优先搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深度优先搜索"><span class="toc-text">深度优先搜索</span></a></li></ol></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -185,10 +185,130 @@
 
 <p>虽然这种存储方式简单、直观，但是比较浪费存储空间。尤其是对于无向图来说，A[i][j]为 1 的话，那么 A[j][i]也为 1。实际上，只需要存储一个就行了，等用于浪费了一般的存储空间。</p>
 <h5 id="邻接表存储方法">邻接表存储方法<a class="post-anchor" href="#邻接表存储方法"></a></h5><p>在表示上，邻接表看起来有点像散列表。每个顶点，都对应了一条链表，链表中存储的是这个顶点与相连接的其他顶点。</p>
-<div style="margin: auto;width:500px;"><a href="/image/graph/list.png" data-caption="无向图" data-fancybox="images"><img src="/image/graph/list.png" alt="无向图"></a></div>
+<div style="margin: auto;width:500px;"><a href="/image/graph/list.png" data-caption="邻接表" data-fancybox="images"><img src="/image/graph/list.png" alt="邻接表"></a></div>
 
-<h4 id="深度搜索优先">深度搜索优先<a class="post-anchor" href="#深度搜索优先"></a></h4><p>DFS(Depth-First Search)，深度搜索优先</p>
-<h4 id="广度搜索优先">广度搜索优先<a class="post-anchor" href="#广度搜索优先"></a></h4><p>BFS(Breadth-First Search)，广度搜索优先</p>
+<h3 id="构建图">构建图<a class="post-anchor" href="#构建图"></a></h3><p>上面有介绍到，图有好几种存储方法，我在这次的代码实现中采用的是邻接表的方式。采用的图为无向图作为示例。</p>
+<p>图的构建，可以分成添加顶点和添加边两个步骤。<br>当我们添加完了顶点之后，需要为每个顶点创建一个字典类(Map)来存储与当前节点相连接的顶点。</p>
+<pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Graph</span> </span>&#123;
+  <span class="hljs-keyword">constructor</span>(vertices = []) &#123;
+    <span class="hljs-keyword">this</span>.vertices = vertices; <span class="hljs-comment">//用来存储顶点</span>
+    <span class="hljs-keyword">this</span>.adjList = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(); <span class="hljs-comment">//用来存储边</span>
+    <span class="hljs-keyword">this</span>.vertices.length &amp;&amp; <span class="hljs-keyword">this</span>.__buildGraph(); <span class="hljs-comment">//如果直接传入顶点数组的话，添加每个顶点的边集合</span>
+  &#125;
+
+  <span class="hljs-comment">//添加顶点</span>
+  addVertex(v) &#123;
+    <span class="hljs-keyword">this</span>.vertices.push(v);
+    <span class="hljs-keyword">this</span>.adjList.set(v, []);
+  &#125;
+
+  <span class="hljs-comment">//添加边</span>
+  addEdge(v, w) &#123;
+    <span class="hljs-keyword">this</span>.adjList.get(v).push(w);
+    <span class="hljs-keyword">this</span>.adjList.get(w).push(v);
+  &#125;
+
+  <span class="hljs-comment">//如果传入了参数，构建成图</span>
+  __buildGraph() &#123;
+    <span class="hljs-keyword">this</span>.vertices.forEach(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> <span class="hljs-keyword">this</span>.adjList.set(item, []));
+  &#125;
+
+  <span class="hljs-comment">//example</span>
+  <span class="hljs-keyword">let</span> graph =<span class="hljs-keyword">new</span> Graph([<span class="hljs-string">'A'</span>,<span class="hljs-string">'B'</span>,<span class="hljs-string">'C'</span>,<span class="hljs-string">'D'</span>,<span class="hljs-string">'E'</span>,<span class="hljs-string">'F'</span>,<span class="hljs-string">'G'</span>,<span class="hljs-string">'H'</span>]);
+  <span class="hljs-comment">//逐一加入边</span>
+  graph.addEdge(<span class="hljs-string">"A"</span>, <span class="hljs-string">"B"</span>);
+  graph.addEdge(<span class="hljs-string">"A"</span>, <span class="hljs-string">"C"</span>);
+  graph.addEdge(<span class="hljs-string">"B"</span>, <span class="hljs-string">"D"</span>);
+  graph.addEdge(<span class="hljs-string">"B"</span>, <span class="hljs-string">"E"</span>);
+  graph.addEdge(<span class="hljs-string">"E"</span>, <span class="hljs-string">"F"</span>);
+  graph.addEdge(<span class="hljs-string">"C"</span>, <span class="hljs-string">"G"</span>);
+  graph.addEdge(<span class="hljs-string">"G"</span>, <span class="hljs-string">"H"</span>);
+&#125;</code></pre>
+<p>这一段代码就已经将图类创建好了，如图：</p>
+<div style="margin: auto;width:500px;"><a href="/image/graph/search.png" data-caption="邻接表" data-fancybox="images"><img src="/image/graph/search.png" alt="邻接表"></a></div>
+
+<p>为了直观的将邻接表展示出来，我们为 Graph 添加 toString 方法，能够展示出与每个顶点连接的其他的顶点。</p>
+<pre><code class="hljs js">toString() &#123;
+  <span class="hljs-keyword">let</span> s = <span class="hljs-string">""</span>;
+  <span class="hljs-keyword">this</span>.vertices.forEach(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;
+    s += <span class="hljs-string">`<span class="hljs-subst">$&#123;item&#125;</span>-&gt;`</span>;
+    <span class="hljs-keyword">let</span> neighbors = <span class="hljs-keyword">this</span>.adjList.get(item);
+    neighbors.forEach(<span class="hljs-function">(<span class="hljs-params">neighbor</span>) =&gt;</span> &#123;
+      s += <span class="hljs-string">`<span class="hljs-subst">$&#123;neighbor&#125;</span> `</span>;
+    &#125;);
+    s += <span class="hljs-string">"\n"</span>;
+  &#125;);
+  <span class="hljs-keyword">return</span> s;
+&#125;</code></pre>
+<p>当对上图执行这个方法之后，打印出这样的字符串。</p>
+<pre><code class="hljs undefined">A-&gt;B C
+B-&gt;A D E
+C-&gt;A G
+D-&gt;B
+E-&gt;B F
+F-&gt;E
+G-&gt;C H
+H-&gt;G</code></pre>
+<h3 id="搜索算法">搜索算法<a class="post-anchor" href="#搜索算法"></a></h3><p>接下来的搜索算法将以上图作为示例。</p>
+<p>在本次实现搜索算法的时候，我们为每个节点添加三种状态：</p>
+<ol>
+<li>白色：尚未被访问</li>
+<li>灰色：被访问但是未被探索</li>
+<li>黑色：被访问切被探索</li>
+</ol>
+<p>因为我们为节点添加了三种状态，所以在执行算法之前，我们需要对每个顶点进行初始化，添加 initializeColor 函数。全部初始化为白色，未访问状态。</p>
+<pre><code class="hljs js">__initializeColor() &#123;
+  <span class="hljs-keyword">const</span> color = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">this</span>.vertices.length; i++) &#123;
+    color[<span class="hljs-keyword">this</span>.vertices[i]] = <span class="hljs-string">"white"</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> color;
+&#125;</code></pre>
+<h4 id="广度优先搜索">广度优先搜索<a class="post-anchor" href="#广度优先搜索"></a></h4><p>广度优先搜索(Breadth-First Search)，简称 BFS。简单来说，就是层层推进的搜索策略。</p>
+<p>需要借助<strong>队列(queue)</strong>，先访问顶点并入队，接着它的邻接顶点，如果邻接顶点之前尚未被访问过，就分别入队，然后再分别访问邻接顶点的邻接顶点，一层层的递进，直到当前队列为空。</p>
+<p>针对于上图，以’A’做为第一个访问顶点，它的访问顺序就是下图所展示的：</p>
+<div style="margin: auto;width:500px;"><a href="/image/graph/bfs.png" data-caption="示意图" data-fancybox="images"><img src="/image/graph/bfs.png" alt="示意图"></a></div>
+
+<p>代码实现：</p>
+<pre><code class="hljs js">bfs(v, cb) &#123;
+  <span class="hljs-keyword">const</span> color = <span class="hljs-keyword">this</span>.__initializeColor();
+  <span class="hljs-keyword">const</span> queue = [];
+  queue.push(v);
+  <span class="hljs-keyword">while</span> (queue.length) &#123;
+    <span class="hljs-keyword">const</span> curr = queue.shift(); <span class="hljs-comment">//获取到当前的节点</span>
+    color[curr] = <span class="hljs-string">"grey"</span>; <span class="hljs-comment">//当前节点被访问，设置为grey</span>
+    <span class="hljs-keyword">const</span> neighbors = <span class="hljs-keyword">this</span>.adjList.get(curr); <span class="hljs-comment">//拿到当前节点的所有边</span>
+    neighbors.forEach(<span class="hljs-function">(<span class="hljs-params">neighbor</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (color[neighbor] === <span class="hljs-string">"white"</span>) &#123;
+        <span class="hljs-comment">//如果探索到的子节点是尚未被访问过，就变为grey并且加入队列</span>
+        color[neighbor] = <span class="hljs-string">"grey"</span>;
+        queue.push(neighbor);
+      &#125;
+    &#125;);
+    color[curr] = <span class="hljs-string">"black"</span>; <span class="hljs-comment">//节点完成搜索和探索的过程，直接变黑</span>
+    cb &amp;&amp; cb(curr); <span class="hljs-comment">//如果有callback，就对当前节点执行callback</span>
+  &#125;
+&#125;</code></pre>
+<h4 id="深度优先搜索">深度优先搜索<a class="post-anchor" href="#深度优先搜索"></a></h4><p>深度优先搜索(Depth-First Search)，简称 DFS。</p>
+<p>简单来说，就是一条路走到无路可走了，然后回退到上一个岔路口，选择另一条路继续走，直到找到出口。</p>
+<p>针对于上图，以’A’做为第一个访问顶点，它的访问顺序就是下图所展示的：</p>
+<div style="margin: auto;width:500px;"><a href="/image/graph/dfs.png" data-caption="示意图" data-fancybox="images"><img src="/image/graph/dfs.png" alt="示意图"></a></div>
+
+<p>代码实现：</p>
+<pre><code class="hljs js">dfs(v, cb) &#123;
+  <span class="hljs-keyword">const</span> color = <span class="hljs-keyword">this</span>.__initializeColor();
+  <span class="hljs-keyword">this</span>.__dfsVisit(v, color, cb);
+&#125;
+
+__dfsVisit(v, color, cb) &#123;
+  color[v] = <span class="hljs-string">"grey"</span>;
+  cb &amp;&amp; cb(v);
+  <span class="hljs-keyword">const</span> neighbors = <span class="hljs-keyword">this</span>.adjList.get(v);
+  neighbors.forEach(<span class="hljs-function">(<span class="hljs-params">neighbor</span>) =&gt;</span> &#123;
+    color[neighbor] === <span class="hljs-string">"white"</span> &amp;&amp; <span class="hljs-keyword">this</span>.__dfsVisit(neighbor, color, cb);
+  &#125;);
+  color[v] = <span class="hljs-string">"black"</span>;
+&#125;</code></pre>
 
 
   
