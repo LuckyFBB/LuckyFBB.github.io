@@ -182,7 +182,7 @@
 <p>还有一种图，叫做<strong>带权图</strong>，在带权图中每条边都有一个权重。</p>
 <div style="margin: auto;width:500px;"><a href="/image/graph/three.png" data-caption="无向图" data-fancybox="images"><img src="/image/graph/three.png" alt="无向图"></a></div>
 
-<h4 id="存储方法">存储方法<a class="post-anchor" href="#存储方法"></a></h4><h5 id="邻接矩阵存储方法">邻接矩阵存储方法<a class="post-anchor" href="#邻接矩阵存储方法"></a></h5><p>图的最直观一种存储方式就是邻接矩阵。<br>邻接矩阵的底层是一个二维数据。对于无向图来说，如果顶点 i 和顶点 j 之间有边，就把 A[i][j]和 A[j][i]标记为 1；对于有向图来说，如果顶点 i 到顶点 j 之间，有一条箭头从顶点 i 指向顶点 j 的边，就把 A[i][j]标记为 1；对于带权图来说，数组中对应的存储相应的权重。</p>
+<h4 id="存储方法">存储方法<a class="post-anchor" href="#存储方法"></a></h4><h5 id="邻接矩阵存储方法">邻接矩阵存储方法<a class="post-anchor" href="#邻接矩阵存储方法"></a></h5><p>图的最直观一种存储方式就是邻接矩阵。<br>邻接矩阵的底层是一个二维数组。对于无向图来说，如果顶点 i 和顶点 j 之间有边，就把 A[i][j]和 A[j][i]标记为 1；对于有向图来说，如果顶点 i 到顶点 j 之间，有一条箭头从顶点 i 指向顶点 j 的边，就把 A[i][j]标记为 1；对于带权图来说，数组中对应的存储相应的权重。</p>
 <div style="margin: auto;width:500px;"><a href="/image/graph/array.png" data-caption="无向图" data-fancybox="images"><img src="/image/graph/array.png" alt="无向图"></a></div>
 
 <p>虽然这种存储方式简单、直观，但是比较浪费存储空间。尤其是对于无向图来说，A[i][j]为 1 的话，那么 A[j][i]也为 1。实际上，只需要存储一个就行了，等用于浪费了一般的存储空间。</p>
