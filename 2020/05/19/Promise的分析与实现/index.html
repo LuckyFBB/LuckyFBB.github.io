@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-Promise"><span class="toc-text">关于 Promise</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-Promise-A"><span class="toc-text">关于 Promise A+</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于-Promise-A-的代码实现"><span class="toc-text">基于 Promise A+的代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#resolve-reject-实现"><span class="toc-text">resolve/reject 实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#then-方法实现"><span class="toc-text">then 方法实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#resolvePromise"><span class="toc-text">resolvePromise</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-Promise"><span class="toc-text">关于 Promise</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于-Promise-A"><span class="toc-text">关于 Promise A+</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基于-Promise-A-的代码实现"><span class="toc-text">基于 Promise A+的代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数"><span class="toc-text">构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#resolve-reject-实现"><span class="toc-text">resolve/reject 实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#then-方法实现"><span class="toc-text">then 方法实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#resolvePromise"><span class="toc-text">resolvePromise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码测试"><span class="toc-text">代码测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -431,6 +431,25 @@ promise.then(<span class="hljs-function"><span class="hljs-keyword">function</sp
   &#125;
   <span class="hljs-comment">//省略</span>
 &#125;;</code></pre>
+<h4 id="代码测试">代码测试<a class="post-anchor" href="#代码测试"></a></h4><p>以上已经将 Promise 实现完成，Promise A+规范有一个标准的测试工具<a href="https://github.com/promises-aplus/promises-tests" target="_blank" rel="noopener">promises-aplus-tests</a>，接下来对实现的 MyPromise 进行测试。首先需要将 promises-aplus-tests 安装到本地(这里暂不复述)。然后需要定义一个静态方法 deferred，官方的定义为：</p>
+<pre><code class="hljs undefined">deferred: 返回一个包含&#123; promise, resolve, reject &#125;的对象
+​promise 是一个处于pending状态的promise
+​resolve(value) 用value解决上面那个promise
+​reject(reason) 用reason拒绝上面那个promise</code></pre>
+<p>代码实现：</p>
+<pre><code class="hljs js">MyPromise.deferred = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">const</span> defer = &#123;&#125;;
+  defer.promise = <span class="hljs-keyword">new</span> MyPromise(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+    defer.resolve = resolve;
+    defer.reject = reject;
+  &#125;);
+  <span class="hljs-keyword">return</span> defer;
+&#125;;
+
+<span class="hljs-keyword">try</span> &#123;
+  <span class="hljs-built_in">module</span>.exports = MyPromise;
+&#125; <span class="hljs-keyword">catch</span> (e) &#123;&#125;</code></pre>
+<h4 id="总结">总结<a class="post-anchor" href="#总结"></a></h4><p>跟着上文实现的 MyPromise 已经通过了所有的测试用例，<a href="https://gitee.com/LuckyFBB/JavaScript-Demo/blob/master/Promise/promise.js" target="_blank" rel="noopener">点击查看详细代码</a>。<br>经过这个实现，对 Promsie 的原理有了更加深入的了解，但是还有一些 Promise 的 API 未能实现，会在接下来的时间中逐步更新。</p>
 
 
   
