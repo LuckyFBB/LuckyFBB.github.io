@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+      <script>
+  var _hmt = _hmt || []
+  ;(function() {
+    var hm = document.createElement('script')
+    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
+    var s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(hm, s)
+  })()
+</script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="LuckyFBB, 前端, 博客, 基础总结, JavaScript, FBB">
+    <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
+    
+    <title>
+      ES6系列的模拟实现 - 路漫漫其修远兮
+    </title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/style/style.css">
+  </head>
+  <body>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Iterator"><span class="toc-text">Iterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for…of"><span class="toc-text">for…of</span></a></li></ol>
+    </div>
+    
+    <div id="fixed-menu-wrap">
+      <span class="menu-reset" style="opacity: 0;"></span>
+      <!-- <span class="iconfont icon-sousuo search-box menu-reset"></span> -->
+      <span class="icon-toc menu-reset">Toc</span>
+      <span class="iconfont icon-arrowup menu-reset"></span>
+    </div>
+    <div id="fixed-menu">
+      <span class="iconfont icon-menu-"></span>
+    </div>
+    <div id="progress">
+      <div class="line"></div>
+    </div>
+    <div id="search-shade" class="animated hiddenSearch hide">
+      <div class="input-wrap">
+        <span class="iconfont icon-sousuo search-box"></span>
+        <input type="text" placeholder="Search">
+        <span class="iconfont icon-close"></span>
+      </div>
+      <div class="search-result">
+        <div class="meta">
+          <span><b id="result-count">0</b> results found</span>
+          <img src="/images/logo.jpg">
+        </div>
+        <ul id="result-box"></ul>
+      </div>
+    </div>
+    <div id="menu-mask" class="animated hideMenuMask hide">
+      <span class="iconfont icon-close"></span>
+      <div class="nav">
+        
+        <a href="/" class>
+          首页
+        </a>
+        
+        <a href="/archives" class>
+          归档
+        </a>
+        
+        <a href="/categories" class>
+          分类
+        </a>
+        
+        <a href="/tags" class>
+          标签
+        </a>
+        
+      </div>
+    </div>
+    <div id="header">
+      <div class="intro">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <div class="author">FBB</div>
+      </div>
+      <div class="nav">
+        <span class="iconfont icon-menu menu-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+    </div>
+    <div id="side" class="animated bounceInLeft">
+      <div class="shrink">
+        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        <span class="iconfont icon-menu toggle-icon"></span>
+        <!-- <a href="#" class="search-box">
+          <span class="iconfont icon-sousuo"></span>
+        </a> -->
+      </div>
+      <div class="magnify">
+        <div class="about">
+          <div class="author">FBB</div>
+          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
+        </div>
+
+        <div class="nav">
+          
+          <a href="/" class>
+            首页
+          </a>
+          
+          <a href="/archives" class>
+            归档
+          </a>
+          
+          <a href="/categories" class>
+            分类
+          </a>
+          
+          <a href="/tags" class>
+            标签
+          </a>
+          
+          <!-- <a href="#" class="search-box">
+            <span class="iconfont icon-sousuo"></span>
+          </a> -->
+        </div>
+        <div class="bottom">
+          <div class="follow">
+            
+            <a href="https://github.com/LuckyFBB/" target="_block">
+              <span class="iconfont icon-github"></span>
+            </a>
+             
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="container">
+      <div class="main animated bounceInRight delay-0.7s">
+        <article class="post-entry">
+    <div class="header">
+      
+      <div class="title">ES6系列的模拟实现</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
+          <span>2020/06/04</span>
+        </span>
+
+        
+
+         
+        <span class="item">
+          <span class="iconfont icon-folder"></span>
+          <span>
+              
+                
+                  <a href="/categories/前端">前端</a>
+                
+              
+          </span>
+        </span>
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/ES6">ES6</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <p>一直以来都是在使用 ES6 的部分语法，很多都是限于 API 的使用，在之前已经模拟了 Promise 的实现，当然 ES6 中还有值得深入理解的使用方法。会陆续更新这篇博客，深入理解 ES6 系列的实现。</p>
+<a id="more"></a>
+<h4 id="Iterator"><a href="https://es6.ruanyifeng.com/#docs/iterator" target="_blank" rel="noopener">Iterator</a><a class="post-anchor" href="#Iterator"></a></h4><p>简单来说，它是一种接口，为各种不同的数据结构提供统一的访问机制。<br>它会创建一个指针对象，然后通过调用 next 方法可以改变指针指向数据结构的成员，每一次调用 next 方法都会返回包含<strong>value</strong>和<strong>done</strong>两个属性值的对象。</p>
+<p>实现代码如下：</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createIterator</span>(<span class="hljs-params">items</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>;
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addIterator</span>(<span class="hljs-params">items</span>) </span>&#123;
+    <span class="hljs-keyword">return</span> &#123;
+      next() &#123;
+        <span class="hljs-keyword">return</span> i &gt;= items.length
+          ? &#123; <span class="hljs-attr">done</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">vlaue</span>: <span class="hljs-literal">undefined</span> &#125;
+          : &#123; <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: items[i++] &#125;;
+      &#125;,
+    &#125;;
+  &#125;
+  <span class="hljs-keyword">var</span> iterator = addIterator(items);
+  iterator[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-keyword">return</span> addIterator(items);
+  &#125;;
+  <span class="hljs-keyword">return</span> iterator;
+&#125;</code></pre>
+<h4 id="for…of">for…of<a class="post-anchor" href="#for…of"></a></h4><p>如果我们使用 for…of 遍历对象，那么该对象必须拥有 Symbol.iterator 属性，否则会报错。<br>一个数据结构只要有 Symbol.interator 这个属性，就被视为具有 iterator 接口，就可以使用 for…of 遍历内部成员。for…of 内部就是调用数据结构的 Symbol.iterator 方法。<br>实现代码如下：</p>
+<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ForOf</span>(<span class="hljs-params">obj, cb</span>) </span>&#123;
+  <span class="hljs-keyword">var</span> result, iterable;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj[<span class="hljs-built_in">Symbol</span>.iterator] !== <span class="hljs-string">"function"</span>) &#123;
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"not iterable"</span>);
+  &#125;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> cb !== <span class="hljs-string">"function"</span>) &#123;
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"cb must be callable"</span>);
+  &#125;
+  iterable = obj[<span class="hljs-built_in">Symbol</span>.iterator]();
+  result = iterable.next();
+  <span class="hljs-keyword">while</span> (!result.done) &#123;
+    cb(result.value);
+    result = iterable.next();
+  &#125;
+&#125;</code></pre>
+<p>结合目前实现的 createIterator 和 ForOf，举一个小例子。</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> obj = &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"FBB"</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">23</span>,
+  <span class="hljs-attr">major</span>: <span class="hljs-string">"software"</span>,
+&#125;;
+
+obj[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">return</span> createIterator([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+&#125;;
+
+ForOf(obj, <span class="hljs-built_in">console</span>.log); <span class="hljs-comment">//1, 2, 3, 4</span></code></pre>
+
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.jpg" target="_block" class="bg" style="background-image:url('/images/zhifubao.jpg')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.jpg" target="_block" class="bg" style="background-image:url('/images/weixin.jpg')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2020/05/19/Promise的分析与实现/">Promise的分析与实现</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="https://luckyfbb.github.io/2020/06/04/ES6系列的模拟实现/">https://luckyfbb.github.io/2020/06/04/ES6系列的模拟实现/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
+        <footer>
+          <div class="copyright">
+            ©2020
+            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
+            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
+          </div>
+          
+        </footer>
+      </div>
+    </div>
+  </body>
+  
+</html>
+<script type="text/javascript">
+                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
+                </script> <script type="text/javascript">window.addEventListener('load', function() {
+    
+    window.loadJs = function(d, m, a) {
+      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
+      var b = document.createElement('script')
+      b.defer = true
+      b.setAttribute('type', 'text/javascript')
+      b.setAttribute('charset', 'UTF-8')
+      b.setAttribute('async', 'true')
+      b.setAttribute('src', d)
+      m && b.setAttribute('data-main', '/scripts/app-built')
+      if (typeof a === 'function') {
+        if (window.attachEvent) {
+          b.onreadystatechange = function() {
+            var e = b.readyState
+            if (e === 'loaded' || e === 'complete') {
+              b.onreadystatechange = null
+              a()
+            }
+          }
+        } else {
+          b.onload = a
+        }
+      }
+      c.appendChild(b)
+    }
+    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
+  })</script> <script type="text/javascript">
+                  ;(function() {
+                    var bp = document.createElement('script')
+                    var curProtocol = window.location.protocol.split(':')[0]
+                    if (curProtocol === 'https') {
+                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
+                    } else {
+                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
+                    }
+                    var s = document.getElementsByTagName('script')[0]
+                    s.parentNode.insertBefore(bp, s)
+                  })()
+                </script> 

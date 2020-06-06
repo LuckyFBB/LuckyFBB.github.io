@@ -241,7 +241,7 @@ bar.apply(foo);
  * 2.执行函数
  * 3.将函数从对象中删除
 */</span></code></pre>
-<h4 id="call">call<a class="post-anchor" href="#call"></a></h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myCall = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
+<h4 id="call">call<a class="post-anchor" href="#call"></a></h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myCall = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-comment">//使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用</span>
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-comment">//判断调用是否为函数</span>
@@ -254,7 +254,7 @@ bar.apply(foo);
   <span class="hljs-keyword">delete</span> ctx.func; <span class="hljs-comment">//删除函数</span>
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
-<h4 id="apply">apply<a class="post-anchor" href="#apply"></a></h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myApply = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
+<h4 id="apply">apply<a class="post-anchor" href="#apply"></a></h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myApply = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
   &#125;
@@ -271,7 +271,7 @@ bar.apply(foo);
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
 <h4 id="bind">bind<a class="post-anchor" href="#bind"></a></h4><p>相对于前两个，这个函数返回的函数，并不是立即执行。</p>
-<pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myBind = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;
+<pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myBind = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
   &#125;
@@ -289,7 +289,7 @@ bar.apply(foo);
 <pre><code class="hljs js"><span class="hljs-comment">// 判断当前数据是否为数组，是则递归</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flatten</span>(<span class="hljs-params">nums</span>) </span>&#123;
   <span class="hljs-keyword">let</span> result = [];
-  nums.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+  nums.forEach(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;
     <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(item)) &#123;
       result = result.concat(flatten(item));
     &#125; <span class="hljs-keyword">else</span> &#123;
@@ -306,7 +306,7 @@ bar.apply(foo);
   <span class="hljs-keyword">return</span> nums
     .toString()
     .split(<span class="hljs-string">","</span>)
-    .map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> +item);
+    .map(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> +item);
 &#125;</code></pre>
 <ul>
 <li>reduce</li>
@@ -322,7 +322,7 @@ bar.apply(foo);
 </ul>
 <pre><code class="hljs js"><span class="hljs-comment">// 扩展运算符可以平铺开一层数组，如果一直存在数组的话，一直采用...平铺数组，直至没有数组</span>
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flatten</span>(<span class="hljs-params">nums</span>) </span>&#123;
-  <span class="hljs-keyword">while</span> (nums.some(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> <span class="hljs-built_in">Array</span>.isArray(item))) &#123;
+  <span class="hljs-keyword">while</span> (nums.some(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> <span class="hljs-built_in">Array</span>.isArray(item))) &#123;
     nums = [].concat(...nums);
   &#125;
   <span class="hljs-keyword">return</span> nums;
@@ -335,10 +335,10 @@ bar.apply(foo);
 &#125;
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flatten</span>(<span class="hljs-params">arr</span>) </span>&#123;
   <span class="hljs-keyword">var</span> result = [];
-  <span class="hljs-keyword">var</span> deep = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] === <span class="hljs-literal">undefined</span> ? <span class="hljs-number">1</span> : <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>]; <span class="hljs-comment">//判断是否传入展平  层级</span>
-  arr.forEach(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">var</span> deep = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] || <span class="hljs-number">1</span>; <span class="hljs-comment">//判断是否传入展平  层级</span>
+  arr.forEach(<span class="hljs-function">(<span class="hljs-params">element</span>) =&gt;</span> &#123;
     <span class="hljs-keyword">if</span> (isArray(element) &amp;&amp; deep &gt;= <span class="hljs-number">1</span>) &#123;
-      result = result.concat(myFlat(element, deep - <span class="hljs-number">1</span>));
+      result = result.concat(flatten(element, deep - <span class="hljs-number">1</span>));
     &#125; <span class="hljs-keyword">else</span> &#123;
       result.push(element);
     &#125;
@@ -355,11 +355,11 @@ bar.apply(foo);
 </ul>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
   <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span>;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-keyword">let</span> _this = <span class="hljs-keyword">this</span>;
     <span class="hljs-keyword">let</span> args = <span class="hljs-built_in">arguments</span>;
     clearTimeout(timer);
-    timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
       fn.apply(_this, args);
     &#125;, delay);
   &#125;;
@@ -373,7 +373,7 @@ bar.apply(foo);
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
   <span class="hljs-comment">//点击第一下就会立即执行</span>
   <span class="hljs-keyword">let</span> pre = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-keyword">let</span> _this = <span class="hljs-keyword">this</span>;
     <span class="hljs-keyword">let</span> args = <span class="hljs-built_in">arguments</span>;
     <span class="hljs-keyword">let</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
@@ -388,11 +388,11 @@ bar.apply(foo);
 </ol>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">throttle</span>(<span class="hljs-params">fn, delay</span>) </span>&#123;
   <span class="hljs-keyword">let</span> timer;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-keyword">const</span> _this = <span class="hljs-keyword">this</span>;
     <span class="hljs-keyword">const</span> args = [...arguments];
     <span class="hljs-keyword">if</span> (!timer) &#123;
-      timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+      timer = setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
         timer = <span class="hljs-literal">null</span>;
         fn.apply(_this, args);
       &#125;, delay);
@@ -417,7 +417,7 @@ bar.apply(foo);
     <span class="hljs-keyword">const</span> src = <span class="hljs-string">`<span class="hljs-subst">$&#123;url&#125;</span>?<span class="hljs-subst">$&#123;dataToUrl(data)&#125;</span>`</span>;
     script.src = src;
     head.append(script);
-    <span class="hljs-built_in">window</span>[ncbFn] = <span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+    <span class="hljs-built_in">window</span>[ncbFn] = <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
       resovle(res);
       head.removeChild(script);
       <span class="hljs-built_in">window</span>[cbFn] = <span class="hljs-literal">null</span>;
@@ -435,8 +435,8 @@ bar.apply(foo);
 &#125;
 
 jsonp(<span class="hljs-string">"http://jsonplaceholder.typicode.com/comments"</span>, &#123;
-  <span class="hljs-attr">postId</span>: <span class="hljs-number">1</span>
-&#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+  <span class="hljs-attr">postId</span>: <span class="hljs-number">1</span>,
+&#125;).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
   <span class="hljs-built_in">console</span>.log(res);
 &#125;);</code></pre>
 <h3 id="函数柯里化">函数柯里化<a class="post-anchor" href="#函数柯里化"></a></h3><p>当某个函数一次需要接受多个参数时，可以使用柯里化来使得当前函数一次性接受少一点的参数。</p>
@@ -447,7 +447,7 @@ jsonp(<span class="hljs-string">"http://jsonplaceholder.typicode.com/comments"</
     <span class="hljs-comment">//当传入参数的数量&gt;=函数参数数量时，执行函数</span>
     <span class="hljs-keyword">return</span> fn(...args);
   &#125;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
     <span class="hljs-comment">//返回一个函数，等待传入其他参数</span>
     <span class="hljs-keyword">const</span> args1 = [...arguments];
     <span class="hljs-keyword">return</span> carry(fn, ...args, ...args1);
@@ -480,12 +480,12 @@ carryAdd(<span class="hljs-number">1</span>)()(<span class="hljs-number">2</span
   &#125;, <span class="hljs-number">0</span>);
 &#125;
 
-_LazyMan.prototype.next = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+_LazyMan.prototype.next = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> fn = <span class="hljs-keyword">this</span>.queue.shift();
   fn &amp;&amp; fn();
 &#125;;
 
-_LazyMan.prototype.eat = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">food</span>) </span>&#123;
+_LazyMan.prototype.eat = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">food</span>) </span>&#123;
   <span class="hljs-keyword">this</span>.queue.push(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
     <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">" eat "</span> + food);
     <span class="hljs-keyword">this</span>.next();
@@ -493,7 +493,7 @@ _LazyMan.prototype.eat = <span class="hljs-function"><span class="hljs-keyword">
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
 &#125;;
 
-_LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">time</span>) </span>&#123;
+_LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">time</span>) </span>&#123;
   <span class="hljs-keyword">this</span>.queue.push(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
     setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
       <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name + <span class="hljs-string">" sleep "</span> + time + <span class="hljs-string">"s"</span>);
@@ -534,10 +534,10 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
 <ul>
 <li>includes 实现(思路和上述方法一直，api 调用不同)</li>
 </ul>
-<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
   <span class="hljs-keyword">const</span> result = [];
-  arr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+  arr.forEach(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;
     <span class="hljs-keyword">if</span> (!result.includes(item)) &#123;
       result.push(item);
     &#125;
@@ -547,7 +547,7 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
 <ul>
 <li>reduce + sort 实现(先排序在去重)</li>
 </ul>
-<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> arr = <span class="hljs-keyword">this</span>;
   <span class="hljs-keyword">return</span> arr
     .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b)
@@ -561,23 +561,23 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
 <ul>
 <li>对象实现<br>可以使用普通对象，或者使用 ES6 Map</li>
 </ul>
-<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>(); <span class="hljs-comment">//只能存在一个key</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;
     <span class="hljs-keyword">return</span> !map.has(item) &amp;&amp; map.set(item, <span class="hljs-number">1</span>);
   &#125;);
 &#125;;
 
-<span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+<span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">const</span> obj = &#123;&#125;;
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.filter(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;
     <span class="hljs-keyword">return</span> obj.hasOwnProperty(item) ? <span class="hljs-literal">false</span> : (obj[item] = <span class="hljs-literal">true</span>);
   &#125;);
 &#125;;</code></pre>
 <ul>
 <li>Set 数据结构</li>
 </ul>
-<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+<pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...this]));
 &#125;;</code></pre>
 <h3 id="类型判断">类型判断<a class="post-anchor" href="#类型判断"></a></h3><ul>
@@ -605,7 +605,7 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   <span class="hljs-keyword">const</span> classTypeMap = &#123;&#125;;
   <span class="hljs-string">"Boolean Number String Function Array Date RegExp Object Error"</span>
     .split(<span class="hljs-string">" "</span>)
-    .forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+    .forEach(<span class="hljs-function">(<span class="hljs-params">item</span>) =&gt;</span> &#123;
       classTypeMap[<span class="hljs-string">"[object "</span> + item + <span class="hljs-string">"]"</span>] = item.toLowerCase();
     &#125;);
   <span class="hljs-keyword">if</span> (obj === <span class="hljs-literal">null</span>) &#123;
@@ -665,7 +665,7 @@ arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <s
     <span class="hljs-keyword">return</span>;
   &#125;
   <span class="hljs-keyword">let</span> newObj = <span class="hljs-built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;; <span class="hljs-comment">//判断对象类型</span>
-  <span class="hljs-built_in">Object</span>.keys(obj).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;
+  <span class="hljs-built_in">Object</span>.keys(obj).forEach(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> &#123;
     newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]; <span class="hljs-comment">//判断当前值是不是对象</span>
   &#125;);
   <span class="hljs-keyword">return</span> newObj;
@@ -678,7 +678,7 @@ arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <s
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNaN</span>(<span class="hljs-params">n</span>) </span>&#123;
   <span class="hljs-keyword">return</span> n !== n;
 &#125;</code></pre>
-<h3 id="Object-is">Object.is(..)<a class="post-anchor" href="#Object-is"></a></h3><p>ES6 中加入了这样一个方法来判断两个值是否绝对相等。<br>当然在能够使用==或者===的时候，就尽量不要使用Object.is(..)</p>
+<h3 id="Object-is">Object.is(..)<a class="post-anchor" href="#Object-is"></a></h3><p>ES6 中加入了这样一个方法来判断两个值是否绝对相等。<br>当然在能够使用==或者===的时候，就尽量不要使用 Object.is(..)</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">is</span>(<span class="hljs-params">v1, v2</span>) </span>&#123;
   <span class="hljs-comment">//判断是否是-0</span>
   <span class="hljs-keyword">if</span> (v1 === <span class="hljs-number">0</span> &amp;&amp; v2 === <span class="hljs-number">0</span>) &#123;
