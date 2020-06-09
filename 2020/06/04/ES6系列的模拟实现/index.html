@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Iterator"><span class="toc-text">Iterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for…of"><span class="toc-text">for…of</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Iterator"><span class="toc-text">Iterator</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#for…of"><span class="toc-text">for…of</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Set"><span class="toc-text">Set</span></a></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -200,7 +200,7 @@
   &#125;;
   <span class="hljs-keyword">return</span> iterator;
 &#125;</code></pre>
-<h4 id="for…of">for…of<a class="post-anchor" href="#for…of"></a></h4><p>如果我们使用 for…of 遍历对象，那么该对象必须拥有 Symbol.iterator 属性，否则会报错。<br>一个数据结构只要有 Symbol.interator 这个属性，就被视为具有 iterator 接口，就可以使用 for…of 遍历内部成员。for…of 内部就是调用数据结构的 Symbol.iterator 方法。<br>实现代码如下：</p>
+<h4 id="for…of"><a href="https://es6.ruanyifeng.com/#docs/iterator#for---of-%E5%BE%AA%E7%8E%AF" target="_blank" rel="noopener">for…of</a><a class="post-anchor" href="#for…of"></a></h4><p>如果我们使用 for…of 遍历对象，那么该对象必须拥有 Symbol.iterator 属性，否则会报错。<br>一个数据结构只要有 Symbol.interator 这个属性，就被视为具有 iterator 接口，就可以使用 for…of 遍历内部成员。for…of 内部就是调用数据结构的 Symbol.iterator 方法。<br>实现代码如下：</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ForOf</span>(<span class="hljs-params">obj, cb</span>) </span>&#123;
   <span class="hljs-keyword">var</span> result, iterable;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj[<span class="hljs-built_in">Symbol</span>.iterator] !== <span class="hljs-string">"function"</span>) &#123;
@@ -228,6 +228,27 @@ obj[<span class="hljs-built_in">Symbol</span>.iterator] = <span class="hljs-func
 &#125;;
 
 ForOf(obj, <span class="hljs-built_in">console</span>.log); <span class="hljs-comment">//1, 2, 3, 4</span></code></pre>
+<h4 id="Set"><a href="https://es6.ruanyifeng.com/#docs/set-map#Set" target="_blank" rel="noopener">Set</a><a class="post-anchor" href="#Set"></a></h4><p>ES6 提供了新的数据结构 Set。</p>
+<p>它类似于数组，但是成员的值都是唯一的，没有重复的值。<br>操作方法：</p>
+<ul>
+<li>Set.prototype.add(value)：添加某个值，返回 Set 结构本身。</li>
+<li>Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。</li>
+<li>Set.prototype.has(value)：返回一个布尔值，表示该值是否为 Set 的成员。</li>
+<li>Set.prototype.clear()：清除所有成员，没有返回值。</li>
+</ul>
+<p>属性:</p>
+<ul>
+<li>Set.prototype.constructor：构造函数，默认就是 Set 函数。</li>
+<li>Set.prototype.size：返回 Set 实例的成员总数。</li>
+</ul>
+<p>遍历属性：</p>
+<ul>
+<li>Set.prototype.keys()：返回键名的遍历器</li>
+<li>Set.prototype.values()：返回键值的遍历器</li>
+<li>Set.prototype.entries()：返回键值对的遍历器</li>
+<li>Set.prototype.forEach()：使用回调函数遍历每个成员</li>
+</ul>
+<p><a href="https://gitee.com/LuckyFBB/JavaScript-Demo/blob/master/set/index.js" target="_blank" rel="noopener">Set 的源码实现</a></p>
 
 
   
