@@ -26,7 +26,7 @@
     
     <div id="post-toc" class="animated hiddenToc hide">
       <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么叫垃圾数据"><span class="toc-text">什么叫垃圾数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不同的回收策略"><span class="toc-text">不同的回收策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#栈内存中的数据回收"><span class="toc-text">栈内存中的数据回收</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆内存中的数据回收"><span class="toc-text">堆内存中的数据回收</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代际假说和分代收集"><span class="toc-text">代际假说和分代收集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#垃圾回收器的工作流程"><span class="toc-text">垃圾回收器的工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#副垃圾回收器"><span class="toc-text">副垃圾回收器</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#主垃圾回收器"><span class="toc-text">主垃圾回收器</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#什么叫垃圾数据"><span class="toc-text">什么叫垃圾数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不同的回收策略"><span class="toc-text">不同的回收策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#栈内存中的数据回收"><span class="toc-text">栈内存中的数据回收</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆内存中的数据回收"><span class="toc-text">堆内存中的数据回收</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代际假说和分代收集"><span class="toc-text">代际假说和分代收集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#垃圾回收器的工作流程"><span class="toc-text">垃圾回收器的工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#副垃圾回收器"><span class="toc-text">副垃圾回收器</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#主垃圾回收器"><span class="toc-text">主垃圾回收器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     </div>
     
     <div id="fixed-menu-wrap">
@@ -227,7 +227,21 @@ foo();</code></pre>
 <p>完成复制之后，对象区域和空闲区域就进行了角色互换，原本的空闲区域变成了对象区域，对象区域变成了空闲区域。经过这一系列操作之后，就完成了垃圾对象的回收清理，<strong>同时两个区域互换的操作让新生代无限重复使用下去</strong>。</p>
 <p>在上文中，我们提到新生代的空间都比较小。从它的垃圾清理操作中可以看出来，因为会有复制操作，需要时间成本，如果空间设置得太大，那么每次清理都会花大量的时间，所以，为了执行效率，新生代得空间都设置得比较小。</p>
 <p>因为新生代的内存不大，所以存活的对象很容易装满整个区域。为了解决这个问题，JavaScript 引擎采用了<strong>对象晋升策略</strong>，经过两次垃圾清理依旧存活的对象，就会被移到老生区。</p>
-<h6 id="主垃圾回收器"><a href="#主垃圾回收器" class="headerlink" title="主垃圾回收器"></a>主垃圾回收器</h6>
+<h6 id="主垃圾回收器"><a href="#主垃圾回收器" class="headerlink" title="主垃圾回收器"></a>主垃圾回收器</h6><p>主垃圾回收器主要是负责老生代中的垃圾回收。除了上文提到的晋升对象，一些内存大的对象会直接被分配到老生代。所以在老生代中存储的对象具有两个特点：</p>
+<ul>
+<li>对象占用空间大</li>
+<li>对象存活时间长</li>
+</ul>
+<p>因为老生代的对象都比较大，所以不能够使用 Scavenge 算法，花费的时间比较多，会导致效率不高。在老生代中主要采取<strong>Mark-Sweep(标记-清除)</strong>的算法进行垃圾清理。</p>
+<p>Mark-Sweep 就是标记清除的意思，它被分为标记和清除两个阶段。<br>第一步是标记阶段。标记阶段是从一组元素开始，递归遍历这组根元素，在这个阶段能够到达的元素标记为活动对象，没有达到的元素可以断定为垃圾数据。<br>第二部是清除阶段。清除没有被标记为活动对象。</p>
+<p>Mark-Sweep 最大的问题就是清楚完垃圾数据之后，就是会产生大量的内存碎片。上文也提到过如果内存碎片过多，会导致大对象无法分配内存。</p>
+<p>由于上段提到的问题，又产生了新的算法<strong>Mark-Compact(标记-整理)</strong>，它是在 Mark-Sweep 的基础上演变而来的。Mark-Compact 在标记完存活对象以后，会将活着的对象向内存空间的一端移动，移动完成后，直接清理掉边界外的所有内存。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>在本文中，介绍了 JavaScript 的垃圾回收，将它分为了栈和堆来分别分析。</p>
+<p>对于栈内存中的数据，JavaScript 引擎会采用下移 ESP 指针来销毁保存在栈中的内存。</p>
+<p>对于堆内存来说，我们主要采用垃圾回收器，其中又分为副垃圾回收器和主垃圾回收器。</p>
+<p>新生代主要使用副垃圾回收器，采用 Scavenge 算法；老生代主要使用主垃圾回收器，采用 Mark-Sweep 和 Mark-Compact 算法。</p>
+<p>以上就是本文的全部内容，感谢阅读。</p>
+
 
   
     <div class="post-reward">
