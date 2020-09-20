@@ -56,10 +56,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.jpg?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.jpg?v=5.1.4">
 
 
   <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
@@ -100,7 +100,7 @@
     root: '/',
     scheme: 'Pisces',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -260,10 +260,10 @@
         
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-                目前共计 8 个标签
+                目前共计 9 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/CSS/" style="font-size: 24px; color: #4f4f4f">CSS</a> <a href="/tags/JS/" style="font-size: 30px; color: #111">JS</a> <a href="/tags/Webpack/" style="font-size: 12px; color: #ccc">Webpack</a> <a href="/tags/其他/" style="font-size: 18px; color: #8e8e8e">其他</a> <a href="/tags/笔试/" style="font-size: 18px; color: #8e8e8e">笔试</a> <a href="/tags/算法/" style="font-size: 12px; color: #ccc">算法</a> <a href="/tags/面经/" style="font-size: 12px; color: #ccc">面经</a>
+              <a href="/tags/CSS/" style="font-size: 24px; color: #4f4f4f">CSS</a> <a href="/tags/JS/" style="font-size: 30px; color: #111">JS</a> <a href="/tags/Webpack/" style="font-size: 12px; color: #ccc">Webpack</a> <a href="/tags/二叉树/" style="font-size: 12px; color: #ccc">二叉树</a> <a href="/tags/其他/" style="font-size: 18px; color: #8e8e8e">其他</a> <a href="/tags/笔试/" style="font-size: 18px; color: #8e8e8e">笔试</a> <a href="/tags/算法/" style="font-size: 12px; color: #ccc">算法</a> <a href="/tags/面经/" style="font-size: 12px; color: #ccc">面经</a>
             </div>
           </div>
         
@@ -308,6 +308,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="LuckyFBB">
+            
               <p class="site-author-name" itemprop="name">LuckyFBB</p>
               <p class="site-description motion-element" itemprop="description">时间久了，问题也多了</p>
           </div>
@@ -319,7 +321,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -341,7 +343,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -392,7 +394,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.2k</span>
+    <span title="Site words total count">29k</span>
   
 </div>
 
@@ -425,6 +427,8 @@
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
