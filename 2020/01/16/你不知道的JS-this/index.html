@@ -365,67 +365,16 @@
 <a id="more"></a>
 <h4 id="调用位置"><a href="#调用位置" class="headerlink" title="调用位置"></a>调用位置</h4><p>每个函数的 this 是在调用时被绑定的，完全取决于函数的调用位置</p>
 <h4 id="绑定规则"><a href="#绑定规则" class="headerlink" title="绑定规则"></a>绑定规则</h4><h5 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h5><p>常用的函数调用类型：独立函数调用，this 指向全局对象。这条规则可以看作是无法应用其他规则时的默认规则。</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
-&#125;
-<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
-foo(); <span class="hljs-comment">//2</span>
-
-<span class="hljs-comment">//如果在严格模式(strict mode)，那么全局对象将无法使用默认绑定，由此this会绑定到undefined上。</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-string">"use strict"</span>;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
-&#125;
-<span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
-foo(); <span class="hljs-comment">// TypeError: this is undefied</span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">foo(); <span class="comment">//2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果在严格模式(strict mode)，那么全局对象将无法使用默认绑定，由此this会绑定到undefined上。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">  "use strict"</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">foo(); <span class="comment">// TypeError: this is undefied</span></span><br></pre></td></tr></table></figure>
 <h5 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h5><p>绑定规则：调用位置是否具有上下文对象。</p>
 <p>当引用拥有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象中。</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
-&#125;
-
-<span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">foo</span>: foo &#125;;
-obj.foo(); <span class="hljs-comment">//2，使用obj上下文来引用函数。</span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">2</span>, <span class="attr">foo</span>: foo &#125;;</span><br><span class="line">obj.foo(); <span class="comment">//2，使用obj上下文来引用函数。</span></span><br></pre></td></tr></table></figure>
 <p>对象属性引用链中只有最顶层或者为最后一层会影响调用位置。</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
-&#125;
-
-<span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">foo</span>: foo &#125;;
-<span class="hljs-keyword">var</span> obj1 = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">12</span>, <span class="hljs-attr">obj</span>: obj &#125;;
-obj1.obj.foo();</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">2</span>, <span class="attr">foo</span>: foo &#125;;</span><br><span class="line"><span class="keyword">var</span> obj1 = &#123; <span class="attr">a</span>: <span class="number">12</span>, <span class="attr">obj</span>: obj &#125;;</span><br><span class="line">obj1.obj.foo();</span><br></pre></td></tr></table></figure>
 <h6 id="隐式丢失"><a href="#隐式丢失" class="headerlink" title="隐式丢失"></a>隐式丢失</h6><p>常见的 this 绑定问题就是隐式绑定的函数会丢失绑定对象，会应用默认绑定，把 this 绑定到全局对象或者 undefined 上，这也取决于是否为严格模式。</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
-&#125;
-
-<span class="hljs-keyword">var</span> obj = &#123;
-  <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">foo</span>: foo
-&#125;;
-
-<span class="hljs-keyword">var</span> bar = obj.foo;
-<span class="hljs-keyword">var</span> a = <span class="hljs-string">"oops, global"</span>;
-bar();
-<span class="hljs-comment">// bar是obj.foo函数的引用，实际上引用的是foo函数本身</span>
-<span class="hljs-comment">// 所以此时bar函数是不带任何修饰的函数调用，因此为默认绑定</span></code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a: <span class="number">2</span>,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar = obj.foo;</span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"oops, global"</span>;</span><br><span class="line">bar();</span><br><span class="line"><span class="comment">// bar是obj.foo函数的引用，实际上引用的是foo函数本身</span></span><br><span class="line"><span class="comment">// 所以此时bar函数是不带任何修饰的函数调用，因此为默认绑定</span></span><br></pre></td></tr></table></figure>
 <p>当函数作为回调函数传入。</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doFoo</span>(<span class="hljs-params">fn</span>) </span>&#123;
-  <span class="hljs-comment">// fn其实引用的就是foo</span>
-  fn(); <span class="hljs-comment">//foo的调用位置</span>
-&#125;
-
-<span class="hljs-keyword">var</span> obj = &#123;
-  <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">foo</span>: foo
-&#125;;
-
-<span class="hljs-keyword">var</span> a = <span class="hljs-string">"oops, global"</span>;
-doFoo(obj.foo);</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doFoo</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// fn其实引用的就是foo</span></span><br><span class="line">  fn(); <span class="comment">//foo的调用位置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  a: <span class="number">2</span>,</span><br><span class="line">  foo: foo</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">"oops, global"</span>;</span><br><span class="line">doFoo(obj.foo);</span><br></pre></td></tr></table></figure>
 <h5 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h5><p>当不想在对象内部包含一个函数的属性时，可以使用 apply()或者 call()函数。它们的第一个参数都是对象，它们会把这个函数绑定到第一个对象参数上，在函数调用时 this 指向这个对象。<br>apply/call 只是参数调用方式不一样(<a href="https://luckyfbb.github.io/2019/02/14/JS%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/#call-apply-bind-%E7%9A%84%E5%AE%9E%E7%8E%B0">两者的原生实现</a>)。</p>
 <h5 id="new-绑定"><a href="#new-绑定" class="headerlink" title="new 绑定"></a>new 绑定</h5><p>使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作(<a href="https://luckyfbb.github.io/2019/02/14/JS%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/#new-%E6%93%8D%E4%BD%9C%E7%AC%A6">代码实现</a>)</p>
 <ol>
@@ -560,7 +509,7 @@ doFoo(obj.foo);</code></pre>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -649,7 +598,7 @@ doFoo(obj.foo);</code></pre>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

@@ -405,18 +405,9 @@
 <li>拿到当前节点左树的引用</li>
 <li>拿到当前节点右树的引用</li>
 </ul>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">NodeTree</span>(<span class="hljs-params">val</span>) </span>&#123;
-  <span class="hljs-keyword">this</span>.val = val;
-  <span class="hljs-keyword">this</span>.left = <span class="hljs-keyword">this</span>.right = <span class="hljs-literal">null</span>;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">NodeTree</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.val = val;</span><br><span class="line">  <span class="keyword">this</span>.left = <span class="keyword">this</span>.right = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对于大部分的树而言，都可以抽象成为下面的代码</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">traverse</span>(<span class="hljs-params">root</span>) </span>&#123;
-  <span class="hljs-comment">// 对于当前节点需要做什么</span>
-
-  <span class="hljs-comment">//对于左右子树进行同样的处理</span>
-  traverse(root.left);
-  traverse(root.right);
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">traverse</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 对于当前节点需要做什么</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">//对于左右子树进行同样的处理</span></span><br><span class="line">  traverse(root.left);</span><br><span class="line">  traverse(root.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="二叉树的存储方式"><a href="#二叉树的存储方式" class="headerlink" title="二叉树的存储方式"></a>二叉树的存储方式</h4><h5 id="链式存储法"><a href="#链式存储法" class="headerlink" title="链式存储法"></a>链式存储法</h5><p>这是一种基于指针或者引用的二叉链式存储法。这是一种常用的方式。<br>每个节点有三个字段，其中一个存储数据，另外两个是指向左右子节点的指针。</p>
 <div style="margin: auto"><img src="/image/tree/tree_linked.png" alt="普通二叉树"></div>
 
@@ -426,53 +417,13 @@
 <p>所以某棵二叉树是一棵完全二叉树的时候，用数组存储是最节省内存的一种方式。</p>
 <h4 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h4><p>二叉树有三种遍历方式，分别为前序/中序/后序。<br>接下来，我们均采用递归算法实现遍历。</p>
 <h5 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h5><p>前序遍历：根左右</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">preOrder</span>(<span class="hljs-params">root</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> output = [];
-  <span class="hljs-keyword">const</span> visitLoop = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> &#123;
-    <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">return</span> output;
-    output.push(node.val);
-    visitLoop(node.left);
-    visitLoop(node.right);
-  &#125;;
-  visitLoop(root);
-  <span class="hljs-keyword">return</span> output;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preOrder</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> output = [];</span><br><span class="line">  <span class="keyword">const</span> visitLoop = <span class="function">(<span class="params">node</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!node) <span class="keyword">return</span> output;</span><br><span class="line">    output.push(node.val);</span><br><span class="line">    visitLoop(node.left);</span><br><span class="line">    visitLoop(node.right);</span><br><span class="line">  &#125;;</span><br><span class="line">  visitLoop(root);</span><br><span class="line">  <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h5><p>中序遍历：左根右</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inOrder</span>(<span class="hljs-params">root</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> output = [];
-  <span class="hljs-keyword">const</span> visitLoop = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> &#123;
-    <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">return</span> output;
-    visitLoop(node.left);
-    output.push(node.val);
-    visitLoop(node.right);
-  &#125;;
-  visitLoop(root);
-  <span class="hljs-keyword">return</span> output;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inOrder</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> output = [];</span><br><span class="line">  <span class="keyword">const</span> visitLoop = <span class="function">(<span class="params">node</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!node) <span class="keyword">return</span> output;</span><br><span class="line">    visitLoop(node.left);</span><br><span class="line">    output.push(node.val);</span><br><span class="line">    visitLoop(node.right);</span><br><span class="line">  &#125;;</span><br><span class="line">  visitLoop(root);</span><br><span class="line">  <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h5><p>后序遍历：左右根</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postOrder</span>(<span class="hljs-params">root</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> output = [];
-  <span class="hljs-keyword">const</span> visitLoop = <span class="hljs-function">(<span class="hljs-params">node</span>) =&gt;</span> &#123;
-    <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">return</span> output;
-    visitLoop(node.left);
-    visitLoop(node.right);
-    output.push(node.val);
-  &#125;;
-  visitLoop(root);
-  <span class="hljs-keyword">return</span> output;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">postOrder</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> output = [];</span><br><span class="line">  <span class="keyword">const</span> visitLoop = <span class="function">(<span class="params">node</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!node) <span class="keyword">return</span> output;</span><br><span class="line">    visitLoop(node.left);</span><br><span class="line">    visitLoop(node.right);</span><br><span class="line">    output.push(node.val);</span><br><span class="line">  &#125;;</span><br><span class="line">  visitLoop(root);</span><br><span class="line">  <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h5><p>层次遍历，从上到下，按层级输出</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">levelOrder</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">let</span> result = [];
-  <span class="hljs-keyword">const</span> traverse = <span class="hljs-function">(<span class="hljs-params">node, depth</span>) =&gt;</span> &#123;
-    <span class="hljs-keyword">if</span> (!node) <span class="hljs-keyword">return</span>;
-    result[depth] ? result[depth].push(node.key) : (result[depth] = [node.key]);
-    node.left &amp;&amp; traverse(node.left, depth + <span class="hljs-number">1</span>);
-    node.right &amp;&amp; traverse(node.right, depth + <span class="hljs-number">1</span>);
-  &#125;;
-  traverse(root, <span class="hljs-number">0</span>);
-  <span class="hljs-keyword">return</span> result;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">levelOrder</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">const</span> traverse = <span class="function">(<span class="params">node, depth</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!node) <span class="keyword">return</span>;</span><br><span class="line">    result[depth] ? result[depth].push(node.key) : (result[depth] = [node.key]);</span><br><span class="line">    node.left &amp;&amp; traverse(node.left, depth + <span class="number">1</span>);</span><br><span class="line">    node.right &amp;&amp; traverse(node.right, depth + <span class="number">1</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">  traverse(root, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><p>二叉查找树(BST:Binary Search Tree)是一种特殊的二叉树，对于任意一个节点 n，</p>
 <ul>
 <li>其左子树(left subtree)下的每个后代节点（descendant node）的值都小于节点 n 的值；</li>
@@ -480,108 +431,11 @@
 </ul>
 <div style="margin: auto"><img src="/image/tree/binary_search_tree.png" alt="普通二叉树"></div>
 
-<h4 id="二叉查找树的构建"><a href="#二叉查找树的构建" class="headerlink" title="二叉查找树的构建"></a>二叉查找树的构建</h4><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreeNode</span> </span>&#123;
-  <span class="hljs-keyword">constructor</span>(key) &#123;
-    <span class="hljs-keyword">this</span>.key = key;
-    <span class="hljs-keyword">this</span>.right = <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">this</span>.left = <span class="hljs-literal">null</span>;
-  &#125;
-&#125;
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BST</span> </span>&#123;
-  <span class="hljs-keyword">constructor</span>() &#123;
-    <span class="hljs-keyword">this</span>.root = <span class="hljs-literal">null</span>;
-  &#125;
-  <span class="hljs-comment">//...一些类方法</span>
-&#125;</code></pre>
-<h4 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h4><pre><code class="hljs js">insertNode(key) &#123;
-  <span class="hljs-keyword">this</span>.root
-    ? <span class="hljs-keyword">this</span>._insertNode(<span class="hljs-keyword">this</span>.root, key)
-    : (<span class="hljs-keyword">this</span>.root = <span class="hljs-keyword">new</span> TreeNode(key));
-&#125;
-_insertNode(node, key) &#123;
-  <span class="hljs-keyword">if</span> (node.key &gt; key) &#123;
-    <span class="hljs-comment">//插入左子树</span>
-    node.left
-      ? <span class="hljs-keyword">this</span>._insertNode(node.left, key)
-      : (node.left = <span class="hljs-keyword">new</span> TreeNode(key));
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    node.right
-      ? <span class="hljs-keyword">this</span>._insertNode(node.right, key)
-      : (node.right = <span class="hljs-keyword">new</span> TreeNode(key));
-  &#125;
-&#125;</code></pre>
-<h4 id="获取最大-最小节点"><a href="#获取最大-最小节点" class="headerlink" title="获取最大/最小节点"></a>获取最大/最小节点</h4><pre><code class="hljs js">getMinNode() &#123;
-  <span class="hljs-comment">//寻找最小值，沿着左子树一直寻找</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._getMinNode(<span class="hljs-keyword">this</span>.root);
-&#125;
-_getMinNode(node) &#123;
-  <span class="hljs-keyword">let</span> current = node;
-  <span class="hljs-keyword">while</span> (current !== <span class="hljs-literal">null</span> &amp;&amp; current.left !== <span class="hljs-literal">null</span>) &#123;
-    current = current.left;
-  &#125;
-  <span class="hljs-keyword">return</span> current;
-&#125;
-getMaxNode() &#123;
-  <span class="hljs-comment">//寻找最大值，沿着右子树一直寻找</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._getMaxNode(<span class="hljs-keyword">this</span>.root);
-&#125;
-_getMaxNode(node) &#123;
-  <span class="hljs-keyword">let</span> current = node;
-  <span class="hljs-keyword">while</span> (current !== <span class="hljs-literal">null</span> &amp;&amp; current.right !== <span class="hljs-literal">null</span>) &#123;
-    current = current.right;
-  &#125;
-  <span class="hljs-keyword">return</span> current;
-&#125;</code></pre>
-<h4 id="查找节点"><a href="#查找节点" class="headerlink" title="查找节点"></a>查找节点</h4><pre><code class="hljs js">searchNode(key) &#123;
-  <span class="hljs-comment">//查找是否存在某个值</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._searchNode(<span class="hljs-keyword">this</span>.root, key);
-&#125;
-_searchNode(node, key) &#123;
-  <span class="hljs-keyword">if</span> (node === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-  <span class="hljs-keyword">if</span> (node.key &gt; key) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._searchNode(node.left, key);
-  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.key &lt; key) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._searchNode(node.right, key);
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-  &#125;
-&#125;</code></pre>
-<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><pre><code class="hljs js">remove(key) &#123;
-  <span class="hljs-comment">//删除某个节点</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._remove(<span class="hljs-keyword">this</span>.root, key);
-&#125;
-_remove(node, key) &#123;
-  <span class="hljs-keyword">if</span> (node === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
-  <span class="hljs-keyword">if</span> (node.key &gt; key) &#123;
-    <span class="hljs-comment">//如果 key 大于当前节点，沿着左子树寻找</span>
-    node.left = <span class="hljs-keyword">this</span>._remove(node.left, key);
-    <span class="hljs-keyword">return</span> node;
-  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.key &lt; key) &#123;
-    node.right = <span class="hljs-keyword">this</span>._remove(node.right, key);
-    <span class="hljs-keyword">return</span> node;
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    <span class="hljs-comment">//找到当前删除的 key 值</span>
-    <span class="hljs-keyword">if</span> (node.left === <span class="hljs-literal">null</span> &amp;&amp; node.right === <span class="hljs-literal">null</span>) &#123;
-      <span class="hljs-comment">//需要删除得节点为叶子节点</span>
-      node = <span class="hljs-literal">null</span>;
-      <span class="hljs-keyword">return</span> node;
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.left === <span class="hljs-literal">null</span>) &#123;
-      <span class="hljs-comment">//左节点为空</span>
-      node = node.right;
-      <span class="hljs-keyword">return</span> node;
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (node.right === <span class="hljs-literal">null</span>) &#123;
-      <span class="hljs-comment">//右节点为空</span>
-      node = node.left;
-      <span class="hljs-keyword">return</span> node;
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-comment">//左右节点都存在</span>
-      <span class="hljs-keyword">const</span> minNode = <span class="hljs-keyword">this</span>._getMinNode(node.right); <span class="hljs-comment">//找到右子树的最小节点，或者是左子树的最大节点</span>
-      node.key = minNode.key;
-      node.right = <span class="hljs-keyword">this</span>._remove(node.right, minNode.key); <span class="hljs-comment">//把右子树的 minNode 删除</span>
-      <span class="hljs-keyword">return</span> node;
-    &#125;
-  &#125;
-&#125;</code></pre>
+<h4 id="二叉查找树的构建"><a href="#二叉查找树的构建" class="headerlink" title="二叉查找树的构建"></a>二叉查找树的构建</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(key) &#123;</span><br><span class="line">    <span class="keyword">this</span>.key = key;</span><br><span class="line">    <span class="keyword">this</span>.right = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">this</span>.left = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BST</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">this</span>.root = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...一些类方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">insertNode(key) &#123;</span><br><span class="line">  <span class="keyword">this</span>.root</span><br><span class="line">    ? <span class="keyword">this</span>._insertNode(<span class="keyword">this</span>.root, key)</span><br><span class="line">    : (<span class="keyword">this</span>.root = <span class="keyword">new</span> TreeNode(key));</span><br><span class="line">&#125;</span><br><span class="line">_insertNode(node, key) &#123;</span><br><span class="line">  <span class="keyword">if</span> (node.key &gt; key) &#123;</span><br><span class="line">    <span class="comment">//插入左子树</span></span><br><span class="line">    node.left</span><br><span class="line">      ? <span class="keyword">this</span>._insertNode(node.left, key)</span><br><span class="line">      : (node.left = <span class="keyword">new</span> TreeNode(key));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    node.right</span><br><span class="line">      ? <span class="keyword">this</span>._insertNode(node.right, key)</span><br><span class="line">      : (node.right = <span class="keyword">new</span> TreeNode(key));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="获取最大-最小节点"><a href="#获取最大-最小节点" class="headerlink" title="获取最大/最小节点"></a>获取最大/最小节点</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">getMinNode() &#123;</span><br><span class="line">  <span class="comment">//寻找最小值，沿着左子树一直寻找</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>._getMinNode(<span class="keyword">this</span>.root);</span><br><span class="line">&#125;</span><br><span class="line">_getMinNode(node) &#123;</span><br><span class="line">  <span class="keyword">let</span> current = node;</span><br><span class="line">  <span class="keyword">while</span> (current !== <span class="literal">null</span> &amp;&amp; current.left !== <span class="literal">null</span>) &#123;</span><br><span class="line">    current = current.left;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> current;</span><br><span class="line">&#125;</span><br><span class="line">getMaxNode() &#123;</span><br><span class="line">  <span class="comment">//寻找最大值，沿着右子树一直寻找</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>._getMaxNode(<span class="keyword">this</span>.root);</span><br><span class="line">&#125;</span><br><span class="line">_getMaxNode(node) &#123;</span><br><span class="line">  <span class="keyword">let</span> current = node;</span><br><span class="line">  <span class="keyword">while</span> (current !== <span class="literal">null</span> &amp;&amp; current.right !== <span class="literal">null</span>) &#123;</span><br><span class="line">    current = current.right;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> current;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="查找节点"><a href="#查找节点" class="headerlink" title="查找节点"></a>查找节点</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">searchNode(key) &#123;</span><br><span class="line">  <span class="comment">//查找是否存在某个值</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>._searchNode(<span class="keyword">this</span>.root, key);</span><br><span class="line">&#125;</span><br><span class="line">_searchNode(node, key) &#123;</span><br><span class="line">  <span class="keyword">if</span> (node === <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (node.key &gt; key) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._searchNode(node.left, key);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.key &lt; key) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._searchNode(node.right, key);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">remove(key) &#123;</span><br><span class="line">  <span class="comment">//删除某个节点</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>._remove(<span class="keyword">this</span>.root, key);</span><br><span class="line">&#125;</span><br><span class="line">_remove(node, key) &#123;</span><br><span class="line">  <span class="keyword">if</span> (node === <span class="literal">null</span>) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (node.key &gt; key) &#123;</span><br><span class="line">    <span class="comment">//如果 key 大于当前节点，沿着左子树寻找</span></span><br><span class="line">    node.left = <span class="keyword">this</span>._remove(node.left, key);</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.key &lt; key) &#123;</span><br><span class="line">    node.right = <span class="keyword">this</span>._remove(node.right, key);</span><br><span class="line">    <span class="keyword">return</span> node;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">//找到当前删除的 key 值</span></span><br><span class="line">    <span class="keyword">if</span> (node.left === <span class="literal">null</span> &amp;&amp; node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">//需要删除得节点为叶子节点</span></span><br><span class="line">      node = <span class="literal">null</span>;</span><br><span class="line">      <span class="keyword">return</span> node;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.left === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">//左节点为空</span></span><br><span class="line">      node = node.right;</span><br><span class="line">      <span class="keyword">return</span> node;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (node.right === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">//右节点为空</span></span><br><span class="line">      node = node.left;</span><br><span class="line">      <span class="keyword">return</span> node;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//左右节点都存在</span></span><br><span class="line">      <span class="keyword">const</span> minNode = <span class="keyword">this</span>._getMinNode(node.right); <span class="comment">//找到右子树的最小节点，或者是左子树的最大节点</span></span><br><span class="line">      node.key = minNode.key;</span><br><span class="line">      node.right = <span class="keyword">this</span>._remove(node.right, minNode.key); <span class="comment">//把右子树的 minNode 删除</span></span><br><span class="line">      <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>参考链接：</p>
 <ol>
 <li><a href="https://juejin.im/post/5e6209b8e51d45270531933e#heading-4" target="_blank" rel="noopener">参考 1</a></li>
@@ -699,7 +553,7 @@ _remove(node, key) &#123;
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -788,7 +642,7 @@ _remove(node, key) &#123;
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

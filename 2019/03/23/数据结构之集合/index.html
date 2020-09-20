@@ -364,90 +364,7 @@
         <p>学习JavaScript数据结构与算法之集合篇章。前端小白简单的学习笔记。</p>
 <p>集合是由一组无序且唯一（即不能重复）的项组成的。</p>
 <p>可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。<a id="more"></a></p>
-<h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Set</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">var</span> items = &#123;&#125;
-
-  <span class="hljs-keyword">this</span>.has = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;        <span class="hljs-comment">//判断该值是否在集合中，在则返回true，否则返回false</span>
-    <span class="hljs-keyword">return</span> items.hasOwnProperty(value)
-  &#125;
-
-  <span class="hljs-keyword">this</span>.add = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;         <span class="hljs-comment">//向集合中添加元素</span>
-    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.has(value)) &#123;     <span class="hljs-comment">//判断该值是否在集合中</span>
-      items[value] = value
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-  &#125;
-
-  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) </span>&#123;        <span class="hljs-comment">//删除某个值</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.has(value)) &#123;             <span class="hljs-comment">//判断集合中是否有这个值</span>
-      <span class="hljs-keyword">delete</span> items[value]
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-  &#125;
-
-  <span class="hljs-keyword">this</span>.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;            <span class="hljs-comment">//清空集合</span>
-    items = &#123;&#125;
-  &#125;
-
-  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(items).length
-  &#125;
-
-  <span class="hljs-keyword">this</span>.values = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;              <span class="hljs-comment">//返回当前集合的元素</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(items)
-  &#125;
-
-  <span class="hljs-keyword">this</span>.union = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;         <span class="hljs-comment">//求两个集合的并集</span>
-    <span class="hljs-keyword">var</span> unionSet = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()                 <span class="hljs-comment">//新建集合</span>
-    <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values()
-    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-      unionSet.add(item)
-    &#125;)
-    values = otherSet.values()
-    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-      unionSet.add(item)
-    &#125;)
-    <span class="hljs-keyword">return</span> unionSet
-  &#125;
-
-  <span class="hljs-keyword">this</span>.intersection = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;       <span class="hljs-comment">//求两个集合的交集</span>
-    <span class="hljs-keyword">var</span> intersectionSet = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()
-    <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values()
-    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-      <span class="hljs-keyword">if</span> (otherSet.has(item)) &#123;
-        intersectionSet.add(item)
-      &#125;
-    &#125;)
-    <span class="hljs-keyword">return</span> intersectionSet
-  &#125;
-
-  <span class="hljs-keyword">this</span>.difference = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;         <span class="hljs-comment">//求两个集合的差集</span>
-    <span class="hljs-keyword">var</span> differenceSet = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>()
-    <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values()
-    values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-      <span class="hljs-keyword">if</span> (!otherSet.has(item)) &#123;
-        differenceSet.add(item)
-      &#125;
-    &#125;)
-    <span class="hljs-keyword">return</span> differenceSet
-  &#125;
-
-  <span class="hljs-keyword">this</span>.subSet = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">otherSet</span>) </span>&#123;               <span class="hljs-comment">//求当前集合是否是另一个集合的子集</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.size() &gt; otherSet.size()) &#123;
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-keyword">var</span> values = <span class="hljs-keyword">this</span>.values
-      values.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-        <span class="hljs-keyword">if</span> (!otherSet.has(item)) &#123;
-          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-        &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-      &#125;)
-    &#125;
-  &#125;
-&#125;</code></pre>
+<h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Set</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> items = &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.has = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;        <span class="comment">//判断该值是否在集合中，在则返回true，否则返回false</span></span><br><span class="line">    <span class="keyword">return</span> items.hasOwnProperty(value)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;         <span class="comment">//向集合中添加元素</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.has(value)) &#123;     <span class="comment">//判断该值是否在集合中</span></span><br><span class="line">      items[value] = value</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;        <span class="comment">//删除某个值</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.has(value)) &#123;             <span class="comment">//判断集合中是否有这个值</span></span><br><span class="line">      <span class="keyword">delete</span> items[value]</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.clear = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;            <span class="comment">//清空集合</span></span><br><span class="line">    items = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.keys(items).length</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.values = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;              <span class="comment">//返回当前集合的元素</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.keys(items)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.union = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;         <span class="comment">//求两个集合的并集</span></span><br><span class="line">    <span class="keyword">var</span> unionSet = <span class="keyword">new</span> <span class="built_in">Set</span>()                 <span class="comment">//新建集合</span></span><br><span class="line">    <span class="keyword">var</span> values = <span class="keyword">this</span>.values()</span><br><span class="line">    values.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">      unionSet.add(item)</span><br><span class="line">    &#125;)</span><br><span class="line">    values = otherSet.values()</span><br><span class="line">    values.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">      unionSet.add(item)</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> unionSet</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.intersection = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;       <span class="comment">//求两个集合的交集</span></span><br><span class="line">    <span class="keyword">var</span> intersectionSet = <span class="keyword">new</span> <span class="built_in">Set</span>()</span><br><span class="line">    <span class="keyword">var</span> values = <span class="keyword">this</span>.values()</span><br><span class="line">    values.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (otherSet.has(item)) &#123;</span><br><span class="line">        intersectionSet.add(item)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> intersectionSet</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.difference = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;         <span class="comment">//求两个集合的差集</span></span><br><span class="line">    <span class="keyword">var</span> differenceSet = <span class="keyword">new</span> <span class="built_in">Set</span>()</span><br><span class="line">    <span class="keyword">var</span> values = <span class="keyword">this</span>.values()</span><br><span class="line">    values.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!otherSet.has(item)) &#123;</span><br><span class="line">        differenceSet.add(item)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> differenceSet</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.subSet = <span class="function"><span class="keyword">function</span> (<span class="params">otherSet</span>) </span>&#123;               <span class="comment">//求当前集合是否是另一个集合的子集</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.size() &gt; otherSet.size()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">var</span> values = <span class="keyword">this</span>.values</span><br><span class="line">      values.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!otherSet.has(item)) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>至此，集合的基本使用方法已经总结完毕。顺序性数据结构的学习已经结束了。接下来是散列和字典的学习，两种非序列性的数据结构。👍</p>
 
       
@@ -562,7 +479,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -651,7 +568,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

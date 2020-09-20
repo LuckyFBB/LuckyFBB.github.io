@@ -486,7 +486,7 @@ pre,
   overflow: auto;
   margin: 20px 0;
   padding: 0;
-  font-size: 13px;
+  font-size: 15px;
   color: #c5c8c6;
   background: #1d1f21;
   line-height: 1.6;
@@ -501,7 +501,7 @@ code {
   color: #555;
   background: #eee;
   border-radius: 3px;
-  font-size: 13px;
+  font-size: 15px;
 }
 pre {
   padding: 10px;
@@ -1135,7 +1135,7 @@ pre .javascript .function {
 }
 .site-subtitle {
   margin-top: 10px;
-  font-size: 13px;
+  font-size: 16px;
   color: #ddd;
 }
 .use-motion .brand {
@@ -1201,7 +1201,7 @@ pre .javascript .function {
 }
 .menu .menu-item a {
   display: block;
-  font-size: 13px;
+  font-size: 16px;
   line-height: inherit;
   border-bottom: 1px solid transparent;
   transition-property: border-color;
@@ -1499,7 +1499,7 @@ pre .javascript .function {
   margin: 3px 0 60px 0;
   color: #999;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
 }
 .posts-expand .post-meta .post-category-list {
@@ -1577,7 +1577,7 @@ pre .javascript .function {
   position: relative;
   display: block;
   line-height: 25px;
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
   border-bottom: none;
 }
@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff2aff;
+  background: #03cb95;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -1857,7 +1857,7 @@ pre .javascript .function {
   display: inline-block;
   cursor: pointer;
   border-bottom: 1px solid transparent;
-  font-size: 14px;
+  font-size: 16px;
   color: #555;
 }
 .sidebar-nav li:hover {
@@ -1897,7 +1897,7 @@ pre .javascript .function {
   padding: 0 2px 5px 10px;
   text-align: left;
   list-style: none;
-  font-size: 14px;
+  font-size: 16px;
 }
 .post-toc ol > ol {
   padding-left: 0;

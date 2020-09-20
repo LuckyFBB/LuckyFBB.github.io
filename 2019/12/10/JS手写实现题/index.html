@@ -366,118 +366,15 @@
 <ol>
 <li>函数组合运行</li>
 </ol>
-<pre><code class="hljs js"><span class="hljs-comment">/**
- * 说明：实现一个方法，可将多个函数方法按从左到右的方式组合运行。
- * 如`composeFunctions(fn1,fn2,fn3,fn4)`等价于`fn4(fn3(fn2(fn1))`。
- * 示例：
- *  const add = x =&gt; x + 1;
- *  const multiply = (x, y) =&gt; x * y;
- *  const multiplyAdd = composeFunctions(multiply, add);
- *  multiplyAdd(3, 4) // 返回 13
- */</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">composeFunctions</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">const</span> args = [...arguments];
-  <span class="hljs-keyword">if</span> (args.length === <span class="hljs-number">1</span>) &#123;
-    <span class="hljs-comment">//如果只有一个函数，直接当前函数</span>
-    <span class="hljs-keyword">return</span> args[<span class="hljs-number">0</span>];
-  &#125;
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-    <span class="hljs-comment">//否则返回一个新的函数</span>
-    <span class="hljs-keyword">const</span> args1 = [...arguments];
-    <span class="hljs-keyword">return</span> args.reduce(<span class="hljs-function">(<span class="hljs-params">pre, curr</span>) =&gt;</span> &#123;
-      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> pre === <span class="hljs-string">"function"</span>) &#123;
-        <span class="hljs-comment">//如果是第一次执行，pre为function，之后为执行函数返回值</span>
-        <span class="hljs-keyword">return</span> curr(pre(...args1));
-      &#125;
-      <span class="hljs-keyword">return</span> curr(pre);
-    &#125;);
-  &#125;;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 说明：实现一个方法，可将多个函数方法按从左到右的方式组合运行。</span></span><br><span class="line"><span class="comment"> * 如`composeFunctions(fn1,fn2,fn3,fn4)`等价于`fn4(fn3(fn2(fn1))`。</span></span><br><span class="line"><span class="comment"> * 示例：</span></span><br><span class="line"><span class="comment"> *  const add = x =&gt; x + 1;</span></span><br><span class="line"><span class="comment"> *  const multiply = (x, y) =&gt; x * y;</span></span><br><span class="line"><span class="comment"> *  const multiplyAdd = composeFunctions(multiply, add);</span></span><br><span class="line"><span class="comment"> *  multiplyAdd(3, 4) // 返回 13</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">composeFunctions</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> args = [...arguments];</span><br><span class="line">  <span class="keyword">if</span> (args.length === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">//如果只有一个函数，直接当前函数</span></span><br><span class="line">    <span class="keyword">return</span> args[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//否则返回一个新的函数</span></span><br><span class="line">    <span class="keyword">const</span> args1 = [...arguments];</span><br><span class="line">    <span class="keyword">return</span> args.reduce(<span class="function">(<span class="params">pre, curr</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> pre === <span class="string">"function"</span>) &#123;</span><br><span class="line">        <span class="comment">//如果是第一次执行，pre为function，之后为执行函数返回值</span></span><br><span class="line">        <span class="keyword">return</span> curr(pre(...args1));</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> curr(pre);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>扁平化</li>
 </ol>
-<pre><code class="hljs js"><span class="hljs-comment">/*
- * 说明：请实现 flatten(input) 函数，input 为一个 javascript 对象（Object 或者 Array），返回值为扁平化后的结果。
- * 示例：
- *   var input = &#123;
- *     a: 1,
- *     b: [ 1, 2, &#123; c: true &#125;, [ 3 ] ],
- *     d: &#123; e: 2, f: 3 &#125;,
- *     g: null,
- *   &#125;
- *   var output = flatten(input);
- *   output如下
- *   &#123;
- *     "a": 1,
- *     "b[0]": 1,
- *     "b[1]": 2,
- *     "b[2].c": true,
- *     "b[3][0]": 3,
- *     "d.e": 2,
- *     "d.f": 3,
- *     // "g": null,  值为null或者undefined，丢弃
- *  &#125;
- */</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params">obj</span>) </span>&#123;
-  <span class="hljs-comment">//判断是不是对象</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.toString.call(obj) === <span class="hljs-string">"[object Object]"</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArray</span>(<span class="hljs-params">obj</span>) </span>&#123;
-  <span class="hljs-comment">//判断是不是数组</span>
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.isArray(obj);
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isRemove</span>(<span class="hljs-params">obj</span>) </span>&#123;
-  <span class="hljs-comment">//判断是不是null或者undefined</span>
-  <span class="hljs-keyword">return</span> obj === <span class="hljs-literal">null</span> || obj === <span class="hljs-literal">undefined</span>;
-&#125;
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_flat</span>(<span class="hljs-params">prekey, input</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> result = &#123;&#125;;
-  <span class="hljs-keyword">if</span> (isObject(input)) &#123;
-    <span class="hljs-comment">//是对象</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
-      result = <span class="hljs-built_in">Object</span>.assign(result, _flat(prekey + <span class="hljs-string">"."</span> + key, input[key]));
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (isArray(input)) &#123;
-    <span class="hljs-comment">//是数组</span>
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> input) &#123;
-      result = <span class="hljs-built_in">Object</span>.assign(
-        result,
-        _flat(prekey + <span class="hljs-string">"["</span> + key + <span class="hljs-string">"]"</span>, input[key])
-      );
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isRemove(input)) &#123;
-    <span class="hljs-comment">//不是null或者undefined</span>
-    result[prekey] = input;
-  &#125;
-  <span class="hljs-keyword">return</span> result;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 说明：请实现 flatten(input) 函数，input 为一个 javascript 对象（Object 或者 Array），返回值为扁平化后的结果。</span></span><br><span class="line"><span class="comment"> * 示例：</span></span><br><span class="line"><span class="comment"> *   var input = &#123;</span></span><br><span class="line"><span class="comment"> *     a: 1,</span></span><br><span class="line"><span class="comment"> *     b: [ 1, 2, &#123; c: true &#125;, [ 3 ] ],</span></span><br><span class="line"><span class="comment"> *     d: &#123; e: 2, f: 3 &#125;,</span></span><br><span class="line"><span class="comment"> *     g: null,</span></span><br><span class="line"><span class="comment"> *   &#125;</span></span><br><span class="line"><span class="comment"> *   var output = flatten(input);</span></span><br><span class="line"><span class="comment"> *   output如下</span></span><br><span class="line"><span class="comment"> *   &#123;</span></span><br><span class="line"><span class="comment"> *     "a": 1,</span></span><br><span class="line"><span class="comment"> *     "b[0]": 1,</span></span><br><span class="line"><span class="comment"> *     "b[1]": 2,</span></span><br><span class="line"><span class="comment"> *     "b[2].c": true,</span></span><br><span class="line"><span class="comment"> *     "b[3][0]": 3,</span></span><br><span class="line"><span class="comment"> *     "d.e": 2,</span></span><br><span class="line"><span class="comment"> *     "d.f": 3,</span></span><br><span class="line"><span class="comment"> *     // "g": null,  值为null或者undefined，丢弃</span></span><br><span class="line"><span class="comment"> *  &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//判断是不是对象</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj) === <span class="string">"[object Object]"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//判断是不是数组</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isRemove</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//判断是不是null或者undefined</span></span><br><span class="line">  <span class="keyword">return</span> obj === <span class="literal">null</span> || obj === <span class="literal">undefined</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_flat</span>(<span class="params">prekey, input</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = &#123;&#125;;</span><br><span class="line">  <span class="keyword">if</span> (isObject(input)) &#123;</span><br><span class="line">    <span class="comment">//是对象</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> input) &#123;</span><br><span class="line">      result = <span class="built_in">Object</span>.assign(result, _flat(prekey + <span class="string">"."</span> + key, input[key]));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isArray(input)) &#123;</span><br><span class="line">    <span class="comment">//是数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> input) &#123;</span><br><span class="line">      result = <span class="built_in">Object</span>.assign(</span><br><span class="line">        result,</span><br><span class="line">        _flat(prekey + <span class="string">"["</span> + key + <span class="string">"]"</span>, input[key])</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!isRemove(input)) &#123;</span><br><span class="line">    <span class="comment">//不是null或者undefined</span></span><br><span class="line">    result[prekey] = input;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="3">
 <li>数组交错重排序</li>
 </ol>
-<pre><code class="hljs js"><span class="hljs-comment">/* 数组交错重排序
- * 说明：给定一个数组，按指定个数拆分多份，并对每一份进行升序排序，
- * 比如一个6个数据项的数组，指定个数为3，即把数组按 2 份排序
- * 示例：
- * const list = [4, 2, 5, 6, 3, 1];
- * // 按每 2 个一份分别进行升序排序
- * interlaceSort(list, 2); [2, 4, 5, 6, 1, 3]
- * interlaceSort(list, 3); [2, 4, 5, 1, 3, 6]
- * interlaceSort(list, 6); [1, 2, 3, 4, 5, 6]
-*/</span>
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">interlaceSort</span>(<span class="hljs-params">list, count</span>) </span>&#123;
-  <span class="hljs-keyword">let</span> result = [];
-  <span class="hljs-keyword">while</span> (list.length) &#123;
-    <span class="hljs-comment">//list.splice(0, count) 拿到count个数据，并且改变原数组</span>
-    result = result.concat(list.splice(<span class="hljs-number">0</span>, count).sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a - b));
-  &#125;
-  <span class="hljs-keyword">return</span> result;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 数组交错重排序</span></span><br><span class="line"><span class="comment"> * 说明：给定一个数组，按指定个数拆分多份，并对每一份进行升序排序，</span></span><br><span class="line"><span class="comment"> * 比如一个6个数据项的数组，指定个数为3，即把数组按 2 份排序</span></span><br><span class="line"><span class="comment"> * 示例：</span></span><br><span class="line"><span class="comment"> * const list = [4, 2, 5, 6, 3, 1];</span></span><br><span class="line"><span class="comment"> * // 按每 2 个一份分别进行升序排序</span></span><br><span class="line"><span class="comment"> * interlaceSort(list, 2); [2, 4, 5, 6, 1, 3]</span></span><br><span class="line"><span class="comment"> * interlaceSort(list, 3); [2, 4, 5, 1, 3, 6]</span></span><br><span class="line"><span class="comment"> * interlaceSort(list, 6); [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">interlaceSort</span>(<span class="params">list, count</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">while</span> (list.length) &#123;</span><br><span class="line">    <span class="comment">//list.splice(0, count) 拿到count个数据，并且改变原数组</span></span><br><span class="line">    result = result.concat(list.splice(<span class="number">0</span>, count).sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -589,7 +486,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +559,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

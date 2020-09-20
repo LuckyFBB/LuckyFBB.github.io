@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://luckyfbb.github.io/image/V8/showName.png">
 <meta property="og:image" content="https://luckyfbb.github.io/image/V8/heap.png">
 <meta property="og:image" content="https://luckyfbb.github.io/image/V8/Scavenge.png">
-<meta property="og:updated_time" content="2020-07-06T07:23:15.735Z">
+<meta property="og:updated_time" content="2020-09-20T08:44:34.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="V8的垃圾回收机制">
 <meta name="twitter:description" content="现在开始实施垃圾分类，每个垃圾都应该扔到正确的回收桶。JS 中的不同的数据类型，也有不一样的回收机制。">
@@ -291,8 +291,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-07-06T15:23:15+08:00">
-                2020-07-06
+              <time title="更新于" itemprop="dateModified" datetime="2020-09-20T16:44:34+08:00">
+                2020-09-20
               </time>
             
           </span>
@@ -369,24 +369,11 @@
         <p>现在开始实施垃圾分类，每个垃圾都应该扔到正确的回收桶。JS 中的不同的数据类型，也有不一样的回收机制。</p>
 <a id="more"></a>
 <p>首先，我们需要明确在 JS 中，有两种数据类型，基本数据类型和引用数据类型，两种类型在内存中的存储方式也是不一样的。基本数据类型是存储在<strong>栈内存</strong>中的，引用数据类型是存储在<strong>堆内存</strong>中的。所以针对于这两种数据有不同的回收机制。</p>
-<h4 id="什么叫垃圾数据"><a href="#什么叫垃圾数据" class="headerlink" title="什么叫垃圾数据"></a>什么叫垃圾数据</h4><p>有些数据被使用之后，就不再被需要了，我们把这种数据称之为垃圾数据。<br>如果这些数据一直保存在内存之中，内存会越来越多，直到内存爆满。所以时常需要对垃圾数据进行回收，释放内存。</p>
-<h4 id="不同的回收策略"><a href="#不同的回收策略" class="headerlink" title="不同的回收策略"></a>不同的回收策略</h4><p>一般的情况下，垃圾回收策略分为<strong>手动回收</strong>和<strong>自动回收</strong>。</p>
+<h1 id="什么叫垃圾数据"><a href="#什么叫垃圾数据" class="headerlink" title="什么叫垃圾数据"></a>什么叫垃圾数据</h1><p>有些数据被使用之后，就不再被需要了，我们把这种数据称之为垃圾数据。<br>如果这些数据一直保存在内存之中，内存会越来越多，直到内存爆满。所以时常需要对垃圾数据进行回收，释放内存。</p>
+<h1 id="不同的回收策略"><a href="#不同的回收策略" class="headerlink" title="不同的回收策略"></a>不同的回收策略</h1><p>一般的情况下，垃圾回收策略分为<strong>手动回收</strong>和<strong>自动回收</strong>。</p>
 <p>在 C/C++中就是采用的手动回收，当你使用这个数据使用 malloc 函数去手动分配，在用完之后，还要时刻记得用 free 函数去清理释放。<br>但是在 JavaScript/Java/Python 等语言中，产生的垃圾数据都是由<strong>垃圾回收器</strong>来释放的。</p>
-<h4 id="栈内存中的数据回收"><a href="#栈内存中的数据回收" class="headerlink" title="栈内存中的数据回收"></a>栈内存中的数据回收</h4><p>接下来的解释中，将通过下列代码进行分析。</p>
-<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">var</span> age = <span class="hljs-number">21</span>;
-  <span class="hljs-keyword">var</span> info = &#123;
-    <span class="hljs-attr">name</span>: <span class="hljs-string">"FBB"</span>,
-  &#125;;
-  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showName</span>(<span class="hljs-params"></span>) </span>&#123;
-    <span class="hljs-keyword">var</span> sex = <span class="hljs-string">"famale"</span>;
-    <span class="hljs-keyword">var</span> info1 = &#123;
-      <span class="hljs-attr">name</span>: <span class="hljs-string">"LuckyFBB"</span>,
-    &#125;;
-  &#125;
-  showName();
-&#125;
-foo();</code></pre>
+<h1 id="栈内存中的数据回收"><a href="#栈内存中的数据回收" class="headerlink" title="栈内存中的数据回收"></a>栈内存中的数据回收</h1><p>接下来的解释中，将通过下列代码进行分析。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> age = <span class="number">21</span>;</span><br><span class="line">  <span class="keyword">var</span> info = &#123;</span><br><span class="line">    name: <span class="string">"FBB"</span>,</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">showName</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sex = <span class="string">"famale"</span>;</span><br><span class="line">    <span class="keyword">var</span> info1 = &#123;</span><br><span class="line">      name: <span class="string">"LuckyFBB"</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  showName();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
 <p>首先我们先分析一下，代码执行到 var info1 这句声明时的栈内存和堆内存。</p>
 <div style="margin: auto"><img src="/image/V8/stack.png" alt="普通二叉树"></div>
 
@@ -397,10 +384,10 @@ foo();</code></pre>
 
 <p>ESP 已经下移到 foo 函数的执行上下文中，虽然 showName 的执行上下文还是保存在栈内存中，但是已经是无效内存了，没有办法再次访问了。</p>
 <p>当一个函数执行结束之后，JavaScript 引擎会通过下移 ESP 来销毁保存在栈内存的执行上下文。</p>
-<h4 id="堆内存中的数据回收"><a href="#堆内存中的数据回收" class="headerlink" title="堆内存中的数据回收"></a>堆内存中的数据回收</h4><p>如下图，当 foo 函数执行完毕之后，ESP 指向了全局执行上下文，foo 和 showName 的函数执行上下文就处于无效状态，不过存储在堆内存的两个对象仍然占据着空间。要回收堆中的垃圾数据，就需要用到<strong>JavaScript 的垃圾回收器</strong>。</p>
+<h1 id="堆内存中的数据回收"><a href="#堆内存中的数据回收" class="headerlink" title="堆内存中的数据回收"></a>堆内存中的数据回收</h1><p>如下图，当 foo 函数执行完毕之后，ESP 指向了全局执行上下文，foo 和 showName 的函数执行上下文就处于无效状态，不过存储在堆内存的两个对象仍然占据着空间。要回收堆中的垃圾数据，就需要用到<strong>JavaScript 的垃圾回收器</strong>。</p>
 <div style="margin: auto"><img src="/image/V8/heap.png" alt="普通二叉树"></div>
 
-<h5 id="代际假说和分代收集"><a href="#代际假说和分代收集" class="headerlink" title="代际假说和分代收集"></a>代际假说和分代收集</h5><p><strong>代际假说</strong>有下面两个特点：</p>
+<h2 id="代际假说和分代收集"><a href="#代际假说和分代收集" class="headerlink" title="代际假说和分代收集"></a>代际假说和分代收集</h2><p><strong>代际假说</strong>有下面两个特点：</p>
 <ul>
 <li>大部分对象在内存中的时间很短，很多对象一旦分配内存就变得不可访问</li>
 <li>不死的对象，会活的更久</li>
@@ -411,13 +398,13 @@ foo();</code></pre>
 <li>副垃圾回收器，主要是负责新生代的垃圾回收</li>
 <li>主垃圾回收器，主要是负责老生代的垃圾回收</li>
 </ul>
-<h5 id="垃圾回收器的工作流程"><a href="#垃圾回收器的工作流程" class="headerlink" title="垃圾回收器的工作流程"></a>垃圾回收器的工作流程</h5><p>在上文中，我们提到 V8 会把堆分成两个区域(新生代和老生代)，虽然他们两个使用的不痛的垃圾回收器，但是不管是什么类型的垃圾回收器，它们都有一套共同的执行流程。</p>
+<h2 id="垃圾回收器的工作流程"><a href="#垃圾回收器的工作流程" class="headerlink" title="垃圾回收器的工作流程"></a>垃圾回收器的工作流程</h2><p>在上文中，我们提到 V8 会把堆分成两个区域(新生代和老生代)，虽然他们两个使用的不痛的垃圾回收器，但是不管是什么类型的垃圾回收器，它们都有一套共同的执行流程。</p>
 <ol>
 <li>标记空间中的活动与非活动对象。活动对象是还在使用的对象，非活动对象就是可以被回收的对象。</li>
 <li>回收非活动对象所占据的内存。其实是在所有标记完成之后，统一清理内存中的非活动对象。</li>
 <li>内存整理。频繁的回收对象之后，内存中会有大量的不连续空间，一般把这些不连续的内存空间成为<strong>内存碎片</strong>。如果当内存中出现了大量的内存碎片，当需要较大连续的内存时，就会出现内存不足的现象，所以需要整理内存。(这一步并不是必选，副垃圾回收器就不需要)</li>
 </ol>
-<h6 id="副垃圾回收器"><a href="#副垃圾回收器" class="headerlink" title="副垃圾回收器"></a>副垃圾回收器</h6><p>上文提到副垃圾回收器主要是负责新生区的垃圾回收，小内存的对象会被分配到新生区，虽然该区域不大，但是垃圾回收比较频繁。</p>
+<h3 id="副垃圾回收器"><a href="#副垃圾回收器" class="headerlink" title="副垃圾回收器"></a>副垃圾回收器</h3><p>上文提到副垃圾回收器主要是负责新生区的垃圾回收，小内存的对象会被分配到新生区，虽然该区域不大，但是垃圾回收比较频繁。</p>
 <p>新生代中使用<strong>Scavenge</strong>算法来处理。所谓的 Scavenge 算法，就是把新生代空间对半划分为两个区域，一半是对象区域，一半是空闲区域。</p>
 <div style="margin: auto"><img src="/image/V8/Scavenge.png" alt="普通二叉树"></div>
 
@@ -425,7 +412,7 @@ foo();</code></pre>
 <p>完成复制之后，对象区域和空闲区域就进行了角色互换，原本的空闲区域变成了对象区域，对象区域变成了空闲区域。经过这一系列操作之后，就完成了垃圾对象的回收清理，<strong>同时两个区域互换的操作让新生代无限重复使用下去</strong>。</p>
 <p>在上文中，我们提到新生代的空间都比较小。从它的垃圾清理操作中可以看出来，因为会有复制操作，需要时间成本，如果空间设置得太大，那么每次清理都会花大量的时间，所以，为了执行效率，新生代得空间都设置得比较小。</p>
 <p>因为新生代的内存不大，所以存活的对象很容易装满整个区域。为了解决这个问题，JavaScript 引擎采用了<strong>对象晋升策略</strong>，经过两次垃圾清理依旧存活的对象，就会被移到老生区。</p>
-<h6 id="主垃圾回收器"><a href="#主垃圾回收器" class="headerlink" title="主垃圾回收器"></a>主垃圾回收器</h6><p>主垃圾回收器主要是负责老生代中的垃圾回收。除了上文提到的晋升对象，一些内存大的对象会直接被分配到老生代。所以在老生代中存储的对象具有两个特点：</p>
+<h3 id="主垃圾回收器"><a href="#主垃圾回收器" class="headerlink" title="主垃圾回收器"></a>主垃圾回收器</h3><p>主垃圾回收器主要是负责老生代中的垃圾回收。除了上文提到的晋升对象，一些内存大的对象会直接被分配到老生代。所以在老生代中存储的对象具有两个特点：</p>
 <ul>
 <li>对象占用空间大</li>
 <li>对象存活时间长</li>
@@ -434,7 +421,7 @@ foo();</code></pre>
 <p>Mark-Sweep 就是标记清除的意思，它被分为标记和清除两个阶段。<br>第一步是标记阶段。标记阶段是从一组元素开始，递归遍历这组根元素，在这个阶段能够到达的元素标记为活动对象，没有达到的元素可以断定为垃圾数据。<br>第二部是清除阶段。清除没有被标记为活动对象。</p>
 <p>Mark-Sweep 最大的问题就是清楚完垃圾数据之后，就是会产生大量的内存碎片。上文也提到过如果内存碎片过多，会导致大对象无法分配内存。</p>
 <p>由于上段提到的问题，又产生了新的算法<strong>Mark-Compact(标记-整理)</strong>，它是在 Mark-Sweep 的基础上演变而来的。Mark-Compact 在标记完存活对象以后，会将活着的对象向内存空间的一端移动，移动完成后，直接清理掉边界外的所有内存。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>在本文中，介绍了 JavaScript 的垃圾回收，将它分为了栈和堆来分别分析。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在本文中，介绍了 JavaScript 的垃圾回收，将它分为了栈和堆来分别分析。</p>
 <p>对于栈内存中的数据，JavaScript 引擎会采用下移 ESP 指针来销毁保存在栈中的内存。</p>
 <p>对于堆内存来说，我们主要采用垃圾回收器，其中又分为副垃圾回收器和主垃圾回收器。</p>
 <p>新生代主要使用副垃圾回收器，采用 Scavenge 算法；老生代主要使用主垃圾回收器，采用 Mark-Sweep 和 Mark-Compact 算法。</p>
@@ -463,8 +450,8 @@ foo();</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/06/04/ES6系列的模拟实现/" rel="next" title="ES6系列的模拟实现">
-                <i class="fa fa-chevron-left"></i> ES6系列的模拟实现
+              <a href="/2020/05/19/Promise的分析与实现/" rel="next" title="Promise的分析与实现">
+                <i class="fa fa-chevron-left"></i> Promise的分析与实现
               </a>
             
           </div>
@@ -552,7 +539,7 @@ foo();</code></pre>
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -607,7 +594,7 @@ foo();</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么叫垃圾数据"><span class="nav-number">1.</span> <span class="nav-text">什么叫垃圾数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同的回收策略"><span class="nav-number">2.</span> <span class="nav-text">不同的回收策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈内存中的数据回收"><span class="nav-number">3.</span> <span class="nav-text">栈内存中的数据回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#堆内存中的数据回收"><span class="nav-number">4.</span> <span class="nav-text">堆内存中的数据回收</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代际假说和分代收集"><span class="nav-number">4.1.</span> <span class="nav-text">代际假说和分代收集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#垃圾回收器的工作流程"><span class="nav-number">4.2.</span> <span class="nav-text">垃圾回收器的工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#副垃圾回收器"><span class="nav-number">4.2.1.</span> <span class="nav-text">副垃圾回收器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#主垃圾回收器"><span class="nav-number">4.2.2.</span> <span class="nav-text">主垃圾回收器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么叫垃圾数据"><span class="nav-number">1.</span> <span class="nav-text">什么叫垃圾数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不同的回收策略"><span class="nav-number">2.</span> <span class="nav-text">不同的回收策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#栈内存中的数据回收"><span class="nav-number">3.</span> <span class="nav-text">栈内存中的数据回收</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆内存中的数据回收"><span class="nav-number">4.</span> <span class="nav-text">堆内存中的数据回收</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代际假说和分代收集"><span class="nav-number">4.1.</span> <span class="nav-text">代际假说和分代收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收器的工作流程"><span class="nav-number">4.2.</span> <span class="nav-text">垃圾回收器的工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#副垃圾回收器"><span class="nav-number">4.2.1.</span> <span class="nav-text">副垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主垃圾回收器"><span class="nav-number">4.2.2.</span> <span class="nav-text">主垃圾回收器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -641,7 +628,7 @@ foo();</code></pre>
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

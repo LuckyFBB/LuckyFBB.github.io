@@ -377,18 +377,7 @@
 <h5 id="天然克星-clear"><a href="#天然克星-clear" class="headerlink" title="天然克星 clear"></a>天然克星 clear</h5><ol>
 <li>clear 属性<br>能够清除高度塌陷<br>元素盒子的边不能和前面的浮动元素相邻<br>只对块级元素有效</li>
 </ol>
-<pre><code class="hljs css"><span class="hljs-comment">/* 10个&lt;li&gt;元素排列 */</span>
-<span class="hljs-selector-tag">li</span> &#123;
-  <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
-  <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
-  <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span>;
-  <span class="hljs-attribute">float</span>: left;
-&#125;
-<span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:nth-of-type(3)</span> &#123;
-  <span class="hljs-attribute">clear</span>: both;
-&#125;
-<span class="hljs-comment">/* 会排成两行，第一个包含两个方块，剩余方块全在第二行。 */</span>
-<span class="hljs-comment">/* 因为clear属性让自身不能和前面的浮动元素相邻。*/</span></code></pre>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 10个&lt;li&gt;元素排列 */</span></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-of-type(3)</span> &#123;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 会排成两行，第一个包含两个方块，剩余方块全在第二行。 */</span></span><br><span class="line"><span class="comment">/* 因为clear属性让自身不能和前面的浮动元素相邻。*/</span></span><br></pre></td></tr></table></figure>
 <p>属性值: - none: 默认值，左右浮动来就来 - left: 左侧抗浮动 - right: 右侧抗浮动 - both: 两侧抗浮动</p>
 <h5 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h5><ol>
 <li><p>定义<br>BFC(Block Formatting Context): 块级格式化上下文</p>
@@ -533,7 +522,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -622,7 +611,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

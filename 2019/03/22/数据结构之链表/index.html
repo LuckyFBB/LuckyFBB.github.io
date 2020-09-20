@@ -364,191 +364,10 @@
         <p>学习JavaScript数据结构与算法之链表篇章。前端小白简单的学习笔记。</p>
 <p>链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。</p>
 <p>链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何位置的任何元素，而要想访问链表中间的一个元素，需要从起点开始迭代列表直到找到所需的元素。<a id="more"></a></p>
-<h4 id="创建链表"><a href="#创建链表" class="headerlink" title="创建链表"></a>创建链表</h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LinkedList</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">var</span> Node = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;
-    <span class="hljs-keyword">this</span>.element = element
-    <span class="hljs-keyword">this</span>.next = <span class="hljs-literal">null</span>
-  &#125;
-  <span class="hljs-keyword">var</span> length = <span class="hljs-number">0</span>
-  <span class="hljs-keyword">var</span> head = <span class="hljs-literal">null</span>
-
-  <span class="hljs-keyword">this</span>.append = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;    <span class="hljs-comment">//向链表尾部添加元素</span>
-    <span class="hljs-keyword">var</span> node = <span class="hljs-keyword">new</span> Node(element)
-    <span class="hljs-keyword">var</span> current
-    <span class="hljs-keyword">if</span> (head === <span class="hljs-literal">null</span>) &#123;     <span class="hljs-comment">//当链表为空的时候，直接插入</span>
-      head = node
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      current = head
-      <span class="hljs-keyword">while</span> (current.next) &#123;
-        current = current.next        <span class="hljs-comment">//找到当前链表的最后一项</span>
-      &#125;
-      current.next = node       <span class="hljs-comment">//最后一项的next指针指向node</span>
-    &#125;
-    length++     <span class="hljs-comment">//长度加一</span>
-  &#125;
-
-  <span class="hljs-keyword">this</span>.removeAt = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position</span>) </span>&#123;       <span class="hljs-comment">//删除某一个位置的节点</span>
-    <span class="hljs-keyword">if</span> (position &gt; <span class="hljs-number">-1</span> &amp;&amp; position &lt; length) &#123;   <span class="hljs-comment">//判断是否越界</span>
-      <span class="hljs-keyword">var</span> current = head, previous, index = <span class="hljs-number">0</span>;
-      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;         <span class="hljs-comment">//删除第一个节点</span>
-        head = current.next
-      &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">while</span> (index &lt; position) &#123;    <span class="hljs-comment">//迭代链表</span>
-          previous = current
-          current = current.next
-          index++
-        &#125;
-        previous.next = current.next     <span class="hljs-comment">//previous和current的后继节点连接，删除current</span>
-      &#125;
-      length--
-      <span class="hljs-keyword">return</span> current.element
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>
-    &#125;
-  &#125;
-
-  <span class="hljs-keyword">this</span>.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position, element</span>) </span>&#123;     <span class="hljs-comment">//可以在任意位置插入一个元素</span>
-    <span class="hljs-keyword">if</span> (position &gt; <span class="hljs-number">-1</span> &amp;&amp; position &lt; length) &#123;
-      <span class="hljs-keyword">var</span> node = <span class="hljs-keyword">new</span> Node(element), current = head, previous, index = <span class="hljs-number">0</span>;
-      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;          <span class="hljs-comment">//判断插入位置是否为第一个</span>
-        node.next = current
-        head = node
-      &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">while</span> (index &lt; position) &#123;      <span class="hljs-comment">//迭代链表</span>
-          previous = current
-          current = current.next
-          index++
-        &#125;
-        previous.next = node
-        node.next = current
-      &#125;
-      length++
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-    &#125;
-  &#125;
-
-  <span class="hljs-keyword">this</span>.toString = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;        <span class="hljs-comment">//链表按着字符串输出</span>
-    <span class="hljs-keyword">var</span> current = head
-    <span class="hljs-keyword">var</span> string = <span class="hljs-string">''</span>
-    <span class="hljs-keyword">while</span> (current) &#123;        <span class="hljs-comment">//迭代链表</span>
-      string = current.element
-      current = current.next
-    &#125;
-    <span class="hljs-keyword">return</span> string
-  &#125;
-
-  <span class="hljs-keyword">this</span>.indexOf = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;     <span class="hljs-comment">//查找该值是否在链表中存在</span>
-    <span class="hljs-keyword">var</span> current = head
-    <span class="hljs-keyword">var</span> index = <span class="hljs-number">-1</span>
-    <span class="hljs-keyword">while</span> (current) &#123;             <span class="hljs-comment">//迭代链表</span>
-      <span class="hljs-keyword">if</span> (current.element === element) &#123;     <span class="hljs-comment">//找到，则返回当前索引</span>
-        <span class="hljs-keyword">return</span> index
-      &#125;
-      index++
-      current = current.next
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>
-  &#125;
-
-  <span class="hljs-keyword">this</span>.remove = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;    <span class="hljs-comment">//删除某个值</span>
-    <span class="hljs-keyword">var</span> index = <span class="hljs-keyword">this</span>.indexOf(element)         <span class="hljs-comment">//查找到当前值的索引</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.removeAt(index)          <span class="hljs-comment">//按位置删除当前值</span>
-  &#125;
-
-  <span class="hljs-keyword">this</span>.isEmpty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//判断当前链表是否为空</span>
-    <span class="hljs-keyword">return</span> length === <span class="hljs-number">0</span>
-  &#125;
-
-  <span class="hljs-keyword">this</span>.size = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;       <span class="hljs-comment">//判断当前链表的大小</span>
-    <span class="hljs-keyword">return</span> length
-  &#125;
-
-  <span class="hljs-keyword">this</span>.getHead = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;      <span class="hljs-comment">//返回链表头部</span>
-    <span class="hljs-keyword">return</span> head
-  &#125;
-&#125;</code></pre>
+<h4 id="创建链表"><a href="#创建链表" class="headerlink" title="创建链表"></a>创建链表</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LinkedList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.element = element</span><br><span class="line">    <span class="keyword">this</span>.next = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> length = <span class="number">0</span></span><br><span class="line">  <span class="keyword">var</span> head = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.append = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;    <span class="comment">//向链表尾部添加元素</span></span><br><span class="line">    <span class="keyword">var</span> node = <span class="keyword">new</span> Node(element)</span><br><span class="line">    <span class="keyword">var</span> current</span><br><span class="line">    <span class="keyword">if</span> (head === <span class="literal">null</span>) &#123;     <span class="comment">//当链表为空的时候，直接插入</span></span><br><span class="line">      head = node</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      current = head</span><br><span class="line">      <span class="keyword">while</span> (current.next) &#123;</span><br><span class="line">        current = current.next        <span class="comment">//找到当前链表的最后一项</span></span><br><span class="line">      &#125;</span><br><span class="line">      current.next = node       <span class="comment">//最后一项的next指针指向node</span></span><br><span class="line">    &#125;</span><br><span class="line">    length++     <span class="comment">//长度加一</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.removeAt = <span class="function"><span class="keyword">function</span> (<span class="params">position</span>) </span>&#123;       <span class="comment">//删除某一个位置的节点</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt; <span class="number">-1</span> &amp;&amp; position &lt; length) &#123;   <span class="comment">//判断是否越界</span></span><br><span class="line">      <span class="keyword">var</span> current = head, previous, index = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span> (position === <span class="number">0</span>) &#123;         <span class="comment">//删除第一个节点</span></span><br><span class="line">        head = current.next</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; position) &#123;    <span class="comment">//迭代链表</span></span><br><span class="line">          previous = current</span><br><span class="line">          current = current.next</span><br><span class="line">          index++</span><br><span class="line">        &#125;</span><br><span class="line">        previous.next = current.next     <span class="comment">//previous和current的后继节点连接，删除current</span></span><br><span class="line">      &#125;</span><br><span class="line">      length--</span><br><span class="line">      <span class="keyword">return</span> current.element</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span> (<span class="params">position, element</span>) </span>&#123;     <span class="comment">//可以在任意位置插入一个元素</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt; <span class="number">-1</span> &amp;&amp; position &lt; length) &#123;</span><br><span class="line">      <span class="keyword">var</span> node = <span class="keyword">new</span> Node(element), current = head, previous, index = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">if</span> (position === <span class="number">0</span>) &#123;          <span class="comment">//判断插入位置是否为第一个</span></span><br><span class="line">        node.next = current</span><br><span class="line">        head = node</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; position) &#123;      <span class="comment">//迭代链表</span></span><br><span class="line">          previous = current</span><br><span class="line">          current = current.next</span><br><span class="line">          index++</span><br><span class="line">        &#125;</span><br><span class="line">        previous.next = node</span><br><span class="line">        node.next = current</span><br><span class="line">      &#125;</span><br><span class="line">      length++</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.toString = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;        <span class="comment">//链表按着字符串输出</span></span><br><span class="line">    <span class="keyword">var</span> current = head</span><br><span class="line">    <span class="keyword">var</span> string = <span class="string">''</span></span><br><span class="line">    <span class="keyword">while</span> (current) &#123;        <span class="comment">//迭代链表</span></span><br><span class="line">      string = current.element</span><br><span class="line">      current = current.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> string</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.indexOf = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;     <span class="comment">//查找该值是否在链表中存在</span></span><br><span class="line">    <span class="keyword">var</span> current = head</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">-1</span></span><br><span class="line">    <span class="keyword">while</span> (current) &#123;             <span class="comment">//迭代链表</span></span><br><span class="line">      <span class="keyword">if</span> (current.element === element) &#123;     <span class="comment">//找到，则返回当前索引</span></span><br><span class="line">        <span class="keyword">return</span> index</span><br><span class="line">      &#125;</span><br><span class="line">      index++</span><br><span class="line">      current = current.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.remove = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;    <span class="comment">//删除某个值</span></span><br><span class="line">    <span class="keyword">var</span> index = <span class="keyword">this</span>.indexOf(element)         <span class="comment">//查找到当前值的索引</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.removeAt(index)          <span class="comment">//按位置删除当前值</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.isEmpty = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;      <span class="comment">//判断当前链表是否为空</span></span><br><span class="line">    <span class="keyword">return</span> length === <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.size = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;       <span class="comment">//判断当前链表的大小</span></span><br><span class="line">    <span class="keyword">return</span> length</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.getHead = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;      <span class="comment">//返回链表头部</span></span><br><span class="line">    <span class="keyword">return</span> head</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>双向链表和普通链表的区别在于，在链表中，一个节点只有链向下一个节点的链接，而在双向链表中，链接是双向的：一个链向下一个元素，另一个链向前一个元素。</p>
 <p>双向链表提供了两种迭代列表的方法：从头到尾，或者反过来。我们也可以访问一个特定节点的下一个或前一个元素。</p>
-<p>链表的实现：<br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DoublyLinkedList</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">var</span> Node = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">element</span>) </span>&#123;
-    <span class="hljs-keyword">this</span>.element = element
-    <span class="hljs-keyword">this</span>.prev = <span class="hljs-literal">null</span>       <span class="hljs-comment">//前继节点</span>
-    <span class="hljs-keyword">this</span>.next = <span class="hljs-literal">null</span>       <span class="hljs-comment">//后继节点</span>
-  &#125;
-  <span class="hljs-keyword">var</span> length = <span class="hljs-number">0</span>
-  <span class="hljs-keyword">var</span> head = <span class="hljs-literal">null</span>
-  <span class="hljs-keyword">var</span> tail = <span class="hljs-literal">null</span>           <span class="hljs-comment">//用来保存对列表最后一项的引用的tail属性</span>
-
-  <span class="hljs-keyword">this</span>.insert = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position, element</span>) </span>&#123;       <span class="hljs-comment">//插入节点</span>
-    <span class="hljs-keyword">if</span> (position &gt;= <span class="hljs-number">0</span> &amp;&amp; position &lt;= length) &#123;       <span class="hljs-comment">//检查是否越界</span>
-      <span class="hljs-keyword">var</span> node = <span class="hljs-keyword">new</span> Node(element)
-      <span class="hljs-keyword">var</span> current = head, previous, index = <span class="hljs-number">0</span>
-      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;     <span class="hljs-comment">//如果是在第一个位置插入</span>
-        <span class="hljs-keyword">if</span> (!head) &#123;        <span class="hljs-comment">//如果当前链表为空</span>
-          head = node
-          tail = node
-        &#125; <span class="hljs-keyword">else</span> &#123;
-          node.next = current
-          current.prev = node
-          head = node
-        &#125;
-      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (position === length) &#123;          <span class="hljs-comment">//如果是最后一位</span>
-        current = tail
-        current.next = node
-        node.prev = current
-        tail = node
-      &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">while</span> (index &lt; position) &#123;     <span class="hljs-comment">//链表迭代</span>
-          previous = current
-          current = current.next
-          index++
-        &#125;
-        previous.next = node
-        node.prev = previous
-        node.next = current
-        current.prev = node
-      &#125;
-      length++
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-    &#125;
-  &#125;
-
-  <span class="hljs-keyword">this</span>.removeAt = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">position</span>) </span>&#123;          <span class="hljs-comment">//删除任意位置的节点</span>
-    <span class="hljs-keyword">if</span> (position &gt;= <span class="hljs-number">0</span> &amp;&amp; position &lt;= length) &#123;    <span class="hljs-comment">//检查是否越界</span>
-      <span class="hljs-keyword">var</span> current = head, previous, index = <span class="hljs-number">0</span>
-      <span class="hljs-keyword">if</span> (position === <span class="hljs-number">0</span>) &#123;             <span class="hljs-comment">//删除第一位</span>
-        head = current.next
-        <span class="hljs-keyword">if</span> (length === <span class="hljs-number">1</span>) &#123;
-          tail = <span class="hljs-literal">null</span>
-        &#125; <span class="hljs-keyword">else</span> &#123;
-          head.prev = <span class="hljs-literal">null</span>
-        &#125;
-      &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (position === length - <span class="hljs-number">1</span>) &#123;       <span class="hljs-comment">//删除最后一位</span>
-        current = tail
-        tail = current.prev
-        tail.next = <span class="hljs-literal">null</span>
-      &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">while</span> (index &lt; position) &#123;
-          previous = current
-          current = current.next
-          index++
-        &#125;
-        previous.next = current.next
-        current.next.prev = previous
-      &#125;
-      length--
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
-    &#125;
-  &#125;
-
-  <span class="hljs-comment">//其他方法与单向链表相同</span>
-&#125;</code></pre></p>
+<p>链表的实现：<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DoublyLinkedList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> Node = <span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.element = element</span><br><span class="line">    <span class="keyword">this</span>.prev = <span class="literal">null</span>       <span class="comment">//前继节点</span></span><br><span class="line">    <span class="keyword">this</span>.next = <span class="literal">null</span>       <span class="comment">//后继节点</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> length = <span class="number">0</span></span><br><span class="line">  <span class="keyword">var</span> head = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">var</span> tail = <span class="literal">null</span>           <span class="comment">//用来保存对列表最后一项的引用的tail属性</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.insert = <span class="function"><span class="keyword">function</span> (<span class="params">position, element</span>) </span>&#123;       <span class="comment">//插入节点</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt;= <span class="number">0</span> &amp;&amp; position &lt;= length) &#123;       <span class="comment">//检查是否越界</span></span><br><span class="line">      <span class="keyword">var</span> node = <span class="keyword">new</span> Node(element)</span><br><span class="line">      <span class="keyword">var</span> current = head, previous, index = <span class="number">0</span></span><br><span class="line">      <span class="keyword">if</span> (position === <span class="number">0</span>) &#123;     <span class="comment">//如果是在第一个位置插入</span></span><br><span class="line">        <span class="keyword">if</span> (!head) &#123;        <span class="comment">//如果当前链表为空</span></span><br><span class="line">          head = node</span><br><span class="line">          tail = node</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          node.next = current</span><br><span class="line">          current.prev = node</span><br><span class="line">          head = node</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position === length) &#123;          <span class="comment">//如果是最后一位</span></span><br><span class="line">        current = tail</span><br><span class="line">        current.next = node</span><br><span class="line">        node.prev = current</span><br><span class="line">        tail = node</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; position) &#123;     <span class="comment">//链表迭代</span></span><br><span class="line">          previous = current</span><br><span class="line">          current = current.next</span><br><span class="line">          index++</span><br><span class="line">        &#125;</span><br><span class="line">        previous.next = node</span><br><span class="line">        node.prev = previous</span><br><span class="line">        node.next = current</span><br><span class="line">        current.prev = node</span><br><span class="line">      &#125;</span><br><span class="line">      length++</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">this</span>.removeAt = <span class="function"><span class="keyword">function</span> (<span class="params">position</span>) </span>&#123;          <span class="comment">//删除任意位置的节点</span></span><br><span class="line">    <span class="keyword">if</span> (position &gt;= <span class="number">0</span> &amp;&amp; position &lt;= length) &#123;    <span class="comment">//检查是否越界</span></span><br><span class="line">      <span class="keyword">var</span> current = head, previous, index = <span class="number">0</span></span><br><span class="line">      <span class="keyword">if</span> (position === <span class="number">0</span>) &#123;             <span class="comment">//删除第一位</span></span><br><span class="line">        head = current.next</span><br><span class="line">        <span class="keyword">if</span> (length === <span class="number">1</span>) &#123;</span><br><span class="line">          tail = <span class="literal">null</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          head.prev = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position === length - <span class="number">1</span>) &#123;       <span class="comment">//删除最后一位</span></span><br><span class="line">        current = tail</span><br><span class="line">        tail = current.prev</span><br><span class="line">        tail.next = <span class="literal">null</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (index &lt; position) &#123;</span><br><span class="line">          previous = current</span><br><span class="line">          current = current.next</span><br><span class="line">          index++</span><br><span class="line">        &#125;</span><br><span class="line">        previous.next = current.next</span><br><span class="line">        current.next.prev = previous</span><br><span class="line">      &#125;</span><br><span class="line">      length--</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//其他方法与单向链表相同</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>至此，链表的基本使用方法已经总结完毕。接下来会是集合的学习。👍</p>
 
       
@@ -663,7 +482,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -752,7 +571,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

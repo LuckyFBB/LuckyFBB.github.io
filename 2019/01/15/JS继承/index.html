@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125; Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
+<meta name="description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125;Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于类的继承">
 <meta property="og:url" content="https://luckyfbb.github.io/2019/01/15/JS继承/index.html">
 <meta property="og:site_name" content="LuckyFBB&#39;s Blog">
-<meta property="og:description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125; Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
+<meta property="og:description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125;Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:updated_time" content="2019-03-07T06:47:15.999Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于类的继承">
-<meta name="twitter:description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125; Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
+<meta name="twitter:description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125;Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -339,7 +339,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  449
+                  447
                 </span>
               
 
@@ -364,64 +364,18 @@
       
 
       
-        <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。<br><pre><code class="hljs js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span>()</span>&#123;&#125;
-Person <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Function</span>   <span class="hljs-comment">//true</span></code></pre></p>
+        <p>在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>()</span>&#123;&#125;</span><br><span class="line">Person <span class="keyword">instanceof</span> <span class="built_in">Function</span>   <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
 <p>今天就逐步优化一下类继承的方式。<a id="more"></a></p>
-<h4 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>;
-&#125;
-Parent.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
-&#125;;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
-  Parent.call(<span class="hljs-keyword">this</span>);    <span class="hljs-comment">//可以向父类传递参数</span>
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Child"</span>;
-&#125;
-<span class="hljs-keyword">new</span> Child().say();    <span class="hljs-comment">//not a function</span></code></pre>
+<h4 id="构造函数继承"><a href="#构造函数继承" class="headerlink" title="构造函数继承"></a>构造函数继承</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Parent"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>);    <span class="comment">//可以向父类传递参数</span></span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Child"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> Child().say();    <span class="comment">//not a function</span></span><br></pre></td></tr></table></figure>
 <p>特点: 用call()、apply()将父类构造函数引入子类函数</p>
 <p>缺点: 只继承了父类构造函数的属性，没有继承父类原型的属性</p>
-<h4 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>;
-  <span class="hljs-keyword">this</span>.list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
-&#125;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Child"</span>;
-&#125;
-Child.prototype = <span class="hljs-keyword">new</span> Parent();
-<span class="hljs-keyword">let</span> c1 = <span class="hljs-keyword">new</span> Child();
-<span class="hljs-keyword">let</span> c2 = <span class="hljs-keyword">new</span> Child();
-<span class="hljs-built_in">console</span>.log(c1.list);   <span class="hljs-comment">//[1,2,3]</span>
-c2.list.push(<span class="hljs-number">5</span>);
-<span class="hljs-built_in">console</span>.log(c1.list);   <span class="hljs-comment">//[1,2,3,5]</span></code></pre>
+<h4 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Parent"</span>;</span><br><span class="line">  <span class="keyword">this</span>.list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Child"</span>;</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();</span><br><span class="line"><span class="keyword">let</span> c1 = <span class="keyword">new</span> Child();</span><br><span class="line"><span class="keyword">let</span> c2 = <span class="keyword">new</span> Child();</span><br><span class="line"><span class="built_in">console</span>.log(c1.list);   <span class="comment">//[1,2,3]</span></span><br><span class="line">c2.list.push(<span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(c1.list);   <span class="comment">//[1,2,3,5]</span></span><br></pre></td></tr></table></figure>
 <p>特点: 让新实例的原型等于父类的实例</p>
 <p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
-<h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一<br><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>
-&#125;
-Parent.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
-&#125;;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
-  Parent.call(<span class="hljs-keyword">this</span>)   <span class="hljs-comment">//构造函数继承，第一次调用Parent()</span>
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"child"</span>
-&#125;
-Child.prototype = <span class="hljs-keyword">new</span> Parent()   <span class="hljs-comment">//原型链继承，第二次调用Parent()</span></code></pre></p>
+<h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Parent"</span></span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>)   <span class="comment">//构造函数继承，第一次调用Parent()</span></span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"child"</span></span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent()   <span class="comment">//原型链继承，第二次调用Parent()</span></span><br></pre></td></tr></table></figure></p>
 <p>特点: 结合使用构造函数和原型链的特点</p>
 <p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"Parent"</span>
-&#125;
-Parent.prototype.say = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name);
-&#125;;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span>(<span class="hljs-params"></span>) </span>&#123;
-  Parent.call(<span class="hljs-keyword">this</span>)   <span class="hljs-comment">//构造函数继承</span>
-  <span class="hljs-keyword">this</span>.name = <span class="hljs-string">"child"</span>
-&#125;
-Child.prototype = <span class="hljs-built_in">Object</span>.create(Parent.prototype)   <span class="hljs-comment">//寄生</span>
-Child.prototype.constructor = Child
-<span class="hljs-keyword">new</span> Child() <span class="hljs-keyword">instanceof</span> Parent    <span class="hljs-comment">//true</span>
-<span class="hljs-keyword">new</span> Child().constructor     <span class="hljs-comment">//Child</span></code></pre>
+<h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Parent"</span></span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>)   <span class="comment">//构造函数继承</span></span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"child"</span></span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype)   <span class="comment">//寄生</span></span><br><span class="line">Child.prototype.constructor = Child</span><br><span class="line"><span class="keyword">new</span> Child() <span class="keyword">instanceof</span> Parent    <span class="comment">//true</span></span><br><span class="line"><span class="keyword">new</span> Child().constructor     <span class="comment">//Child</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
 
       
@@ -542,7 +496,7 @@ Child.prototype.constructor = Child
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -631,7 +585,7 @@ Child.prototype.constructor = Child
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 

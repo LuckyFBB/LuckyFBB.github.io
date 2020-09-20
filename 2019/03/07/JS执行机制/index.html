@@ -365,21 +365,9 @@
 
       
         <p>关于JS执行机制这一块内容，一直是自己比较难以理解的知识点，结合自己看的资料与代码实践，写一篇总结。<a id="more"></a></p>
-<p>首先，我们熟知JS是单线程语言，再同一时间只能做一件事情。所以JS是按着语句顺序依次执行下来的。<br><pre><code class="hljs js"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>
-<span class="hljs-built_in">console</span>.log(a)
-
-<span class="hljs-keyword">let</span> b = <span class="hljs-number">2</span>
-<span class="hljs-built_in">console</span>.log(b)
-
-<span class="hljs-comment">//依次输出1 2</span></code></pre></p>
+<p>首先，我们熟知JS是单线程语言，再同一时间只能做一件事情。所以JS是按着语句顺序依次执行下来的。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span></span><br><span class="line"><span class="built_in">console</span>.log(a)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span></span><br><span class="line"><span class="built_in">console</span>.log(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">//依次输出1 2</span></span><br></pre></td></tr></table></figure></p>
 <p>之后，接触了很多知识之后，我们认识到了两个定时器setTimeout和它的兄弟setInterval。这一段代码中，按着之前的逻辑应该依次输出1 2 3。</p>
-<p>但是实际情况的输出为1 3 2。<br><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)
-
-setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)
-&#125;, <span class="hljs-number">1000</span>)
-
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)   <span class="hljs-comment">//1 3 2</span></code></pre></p>
+<p>但是实际情况的输出为1 3 2。<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)   <span class="comment">//1 3 2</span></span><br></pre></td></tr></table></figure></p>
 <p>在这个时候我们就要引入两个概念: 同步任务和异步任务。</p>
 <ul>
 <li>同步任务: 在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务</li>
@@ -394,17 +382,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;
 <li>一旦主线程空闲，就会从任务队列中取对应的函数，进入主线程</li>
 <li>然后重复上述过程，称之为事件循环</li>
 </ul>
-<p>实例练习:<br><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)
-
-setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)
-&#125;, <span class="hljs-number">5000</span>)
-
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)
-
-setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>)
-&#125;, <span class="hljs-number">1000</span>)   <span class="hljs-comment">//1 3 4 2</span></code></pre></p>
+<p>实例练习:<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">&#125;, <span class="number">5000</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;, <span class="number">1000</span>)   <span class="comment">//1 3 4 2</span></span><br></pre></td></tr></table></figure></p>
 <p>按着上述理论，这段代码的执行过程应该如下: </p>
 <ul>
 <li>整段代码进入主程序</li>
@@ -423,22 +401,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;
 </ul>
 <p>按着宏任务微任务来说，执行机制就应该如下图。</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/12814322-f6937d2201d5ad83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
-<p>实例练习:<br><pre><code class="hljs js">setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
-&#125;, <span class="hljs-number">4000</span>)
-
-<span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)
-  resolve()
-&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)
-&#125;)
-
-<span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>)   <span class="hljs-comment">//2 4 3 5 1</span>
-
-setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>);
-&#125;, <span class="hljs-number">1000</span>)</code></pre></p>
+<p>实例练习:<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">4000</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">  resolve()</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">4</span>)   <span class="comment">//2 4 3 5 1</span></span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">5</span>);</span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
 <p>按着上述理论，这段代码的执行过程应该如下: </p>
 <ul>
 <li>整段代码作为宏任务开始执行</li>
@@ -561,7 +524,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -634,7 +597,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">28.9k</span>
+    <span title="Site words total count">28.2k</span>
   
 </div>
 
