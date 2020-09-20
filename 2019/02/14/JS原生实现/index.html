@@ -1,186 +1,368 @@
 <!DOCTYPE html>
-<html>
-  <head><meta name="generator" content="Hexo 3.9.0">
-      <script>
-  var _hmt = _hmt || []
-  ;(function() {
-    var hm = document.createElement('script')
-    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
-    var s = document.getElementsByTagName('script')[0]
-    s.parentNode.insertBefore(hm, s)
-  })()
-</script> 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="LuckyFBB, 前端, 博客, 基础总结, JavaScript, FBB">
-    <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
-    
-    <title>
-      JS原生实现过程 - 路漫漫其修远兮
-    </title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/style/style.css">
-  </head>
-  <body>
-    
-    <div id="post-toc" class="animated hiddenToc hide">
-      <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#new-操作符"><span class="toc-text">new 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#instanceof-操作符"><span class="toc-text">instanceof 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#call-apply-bind-的实现"><span class="toc-text">call / apply / bind 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#call"><span class="toc-text">call</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#apply"><span class="toc-text">apply</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bind"><span class="toc-text">bind</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#flat-的实现"><span class="toc-text">flat 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#防抖-节流"><span class="toc-text">防抖 / 节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jsonp-的实现"><span class="toc-text">jsonp 的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数柯里化"><span class="toc-text">函数柯里化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LazyMan-链式调用"><span class="toc-text">LazyMan(链式调用)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类型判断"><span class="toc-text">类型判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深浅拷贝"><span class="toc-text">深浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-isNaN"><span class="toc-text">Number.isNaN()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-is"><span class="toc-text">Object.is(..)</span></a></li></ol>
-    </div>
-    
-    <div id="fixed-menu-wrap">
-      <span class="menu-reset" style="opacity: 0;"></span>
-      <!-- <span class="iconfont icon-sousuo search-box menu-reset"></span> -->
-      <span class="icon-toc menu-reset">Toc</span>
-      <span class="iconfont icon-arrowup menu-reset"></span>
-    </div>
-    <div id="fixed-menu">
-      <span class="iconfont icon-menu-"></span>
-    </div>
-    <div id="progress">
-      <div class="line"></div>
-    </div>
-    <div id="search-shade" class="animated hiddenSearch hide">
-      <div class="input-wrap">
-        <span class="iconfont icon-sousuo search-box"></span>
-        <input type="text" placeholder="Search">
-        <span class="iconfont icon-close"></span>
-      </div>
-      <div class="search-result">
-        <div class="meta">
-          <span><b id="result-count">0</b> results found</span>
-          <img src="/images/logo.jpg">
-        </div>
-        <ul id="result-box"></ul>
-      </div>
-    </div>
-    <div id="menu-mask" class="animated hideMenuMask hide">
-      <span class="iconfont icon-close"></span>
-      <div class="nav">
-        
-        <a href="/" class>
-          首页
-        </a>
-        
-        <a href="/archives" class>
-          归档
-        </a>
-        
-        <a href="/categories" class>
-          分类
-        </a>
-        
-        <a href="/tags" class>
-          标签
-        </a>
-        
-      </div>
-    </div>
-    <div id="header">
-      <div class="intro">
-        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
-        <div class="author">FBB</div>
-      </div>
-      <div class="nav">
-        <span class="iconfont icon-menu menu-icon"></span>
-        <!-- <a href="#" class="search-box">
-          <span class="iconfont icon-sousuo"></span>
-        </a> -->
-      </div>
-    </div>
-    <div id="side" class="animated bounceInLeft">
-      <div class="shrink">
-        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
-        <span class="iconfont icon-menu toggle-icon"></span>
-        <!-- <a href="#" class="search-box">
-          <span class="iconfont icon-sousuo"></span>
-        </a> -->
-      </div>
-      <div class="magnify">
-        <div class="about">
-          <div class="author">FBB</div>
-          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
-        </div>
 
-        <div class="nav">
-          
-          <a href="/" class>
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="总结一下一些操作符或者方法的原生实现。持续更新">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS原生实现过程">
+<meta property="og:url" content="https://luckyfbb.github.io/2019/02/14/JS原生实现/index.html">
+<meta property="og:site_name" content="LuckyFBB&#39;s Blog">
+<meta property="og:description" content="总结一下一些操作符或者方法的原生实现。持续更新">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-02T08:40:46.395Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS原生实现过程">
+<meta name="twitter:description" content="总结一下一些操作符或者方法的原生实现。持续更新">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luckyfbb.github.io/2019/02/14/JS原生实现/">
+
+
+
+
+
+  <title>JS原生实现过程 | LuckyFBB's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuckyFBB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
             首页
           </a>
-          
-          <a href="/archives" class>
-            归档
-          </a>
-          
-          <a href="/categories" class>
-            分类
-          </a>
-          
-          <a href="/tags" class>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
             标签
           </a>
-          
-          <!-- <a href="#" class="search-box">
-            <span class="iconfont icon-sousuo"></span>
-          </a> -->
-        </div>
-        <div class="bottom">
-          <div class="follow">
-            
-            <a href="https://github.com/LuckyFBB/" target="_block">
-              <span class="iconfont icon-github"></span>
-            </a>
-             
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="container">
-      <div class="main animated bounceInRight delay-0.7s">
-        <article class="post-entry">
-    <div class="header">
+        </li>
       
-      <div class="title">JS原生实现过程</div>
-      <div class="meta">
-        <span class="item">
-          <span class="iconfont icon-time-circle"></span>
-          <span>2019/02/14</span>
-        </span>
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luckyfbb.github.io/2019/02/14/JS原生实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuckyFBB">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuckyFBB's Blog">
+    </span>
+
+    
+      <header class="post-header">
 
         
+        
+          <h1 class="post-title" itemprop="name headline">JS原生实现过程</h1>
+        
 
-         
-        <span class="item">
-          <span class="iconfont icon-folder"></span>
-          <span>
+        <div class="post-meta">
+          <span class="post-time">
+            
+
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
               
-                
-                  <a href="/categories/前端">前端</a>
-                
+                <span class="post-meta-item-text">更新于&#58;</span>
               
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-02T16:40:46+08:00">
+                2020-06-02
+              </time>
+            
           </span>
-        </span>
-        
-        
-         
-          <span class="item">
-            <span class="iconfont icon-tag1"></span>
-            <span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
                 
-                  
-                    <a href="/tags/JS">JS</a>
-                  
                 
+              
             </span>
-          </span>
-         
-      </div>
-      <div>
-      </div>
-    </div>
-    <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
-<h3 id="new-操作符">new 操作符<a class="post-anchor" href="#new-操作符"></a></h3><p>创建某个实例，必须使用 new 操作符。这种方式调用构造函数会经历以下 4 个步骤:</p>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>总结一下一些操作符或者方法的原生实现。持续更新<a id="more"></a></p>
+<h3 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h3><p>创建某个实例，必须使用 new 操作符。这种方式调用构造函数会经历以下 4 个步骤:</p>
 <ul>
 <li>创造一个新的对象</li>
 <li>将构造函数的作用域赋值给新对象(this 指向该对象)</li>
@@ -195,7 +377,7 @@
   <span class="hljs-keyword">var</span> res = fun.call(obj, args);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> res === <span class="hljs-string">"object"</span> ? res : obj;
 &#125;</code></pre>
-<h3 id="instanceof-操作符">instanceof 操作符<a class="post-anchor" href="#instanceof-操作符"></a></h3><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
+<h3 id="instanceof-操作符"><a href="#instanceof-操作符" class="headerlink" title="instanceof 操作符"></a>instanceof 操作符</h3><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myInstanceof</span>(<span class="hljs-params">left, right</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> left !== <span class="hljs-string">"object"</span> || <span class="hljs-keyword">typeof</span> left !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
@@ -212,7 +394,7 @@
     left = left.__proto__;
   &#125;
 &#125;</code></pre>
-<h3 id="call-apply-bind-的实现">call / apply / bind 的实现<a class="post-anchor" href="#call-apply-bind-的实现"></a></h3><pre><code class="hljs js">call  func.call(obj, args1, args2); <span class="hljs-comment">//传入的是参数列表</span>
+<h3 id="call-apply-bind-的实现"><a href="#call-apply-bind-的实现" class="headerlink" title="call / apply / bind 的实现"></a>call / apply / bind 的实现</h3><pre><code class="hljs js">call  func.call(obj, args1, args2); <span class="hljs-comment">//传入的是参数列表</span>
 apply func.apply(obj, [args1, args2]); <span class="hljs-comment">//传入的是数组参数    记法：apply是a开头为array</span>
 bind  func.bind(obj, args1, args2); <span class="hljs-comment">//返回的是函数，前两者为立即执行</span></code></pre>
 <ul>
@@ -241,7 +423,7 @@ bar.apply(foo);
  * 2.执行函数
  * 3.将函数从对象中删除
 */</span></code></pre>
-<h4 id="call">call<a class="post-anchor" href="#call"></a></h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myCall = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
+<h4 id="call"><a href="#call" class="headerlink" title="call"></a>call</h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myCall = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-comment">//使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用</span>
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-comment">//判断调用是否为函数</span>
@@ -254,7 +436,7 @@ bar.apply(foo);
   <span class="hljs-keyword">delete</span> ctx.func; <span class="hljs-comment">//删除函数</span>
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
-<h4 id="apply">apply<a class="post-anchor" href="#apply"></a></h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myApply = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
+<h4 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h4><pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myApply = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
   &#125;
@@ -270,7 +452,7 @@ bar.apply(foo);
   <span class="hljs-keyword">delete</span> ctx.func;
   <span class="hljs-keyword">return</span> result;
 &#125;;</code></pre>
-<h4 id="bind">bind<a class="post-anchor" href="#bind"></a></h4><p>相对于前两个，这个函数返回的函数，并不是立即执行。</p>
+<h4 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h4><p>相对于前两个，这个函数返回的函数，并不是立即执行。</p>
 <pre><code class="hljs js"><span class="hljs-built_in">Function</span>.prototype.myBind = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context</span>) </span>&#123;
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span> !== <span class="hljs-string">"function"</span>) &#123;
     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Error"</span>);
@@ -282,7 +464,7 @@ bar.apply(foo);
     <span class="hljs-keyword">return</span> _this.apply(context, args.concat(...arguments));
   &#125;;
 &#125;;</code></pre>
-<h3 id="flat-的实现">flat 的实现<a class="post-anchor" href="#flat-的实现"></a></h3><p>ES6 中新增了 flat 方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
+<h3 id="flat-的实现"><a href="#flat-的实现" class="headerlink" title="flat 的实现"></a>flat 的实现</h3><p>ES6 中新增了 flat 方法，将多位数组变为低维数组。如果不传参数默认为一层，传参数可以规定展平的层级。</p>
 <ul>
 <li>递归</li>
 </ul>
@@ -345,7 +527,7 @@ bar.apply(foo);
   &#125;);
   <span class="hljs-keyword">return</span> result;
 &#125;</code></pre>
-<h3 id="防抖-节流">防抖 / 节流<a class="post-anchor" href="#防抖-节流"></a></h3><p>在 resize/scroll/keypress/mousemove 等事件触发时，会不断调用回调函数。</p>
+<h3 id="防抖-节流"><a href="#防抖-节流" class="headerlink" title="防抖 / 节流"></a>防抖 / 节流</h3><p>在 resize/scroll/keypress/mousemove 等事件触发时，会不断调用回调函数。</p>
 <p>在我们实现搜索的时候，输入搜索内容进行模糊搜索的时候，也会不断调用回调函数，这样子性能就被降低了。</p>
 <p>对于这类事件的处理方式就是使用事件节流和事件防抖。它们通过对事件对应的回调函数进行包裹，以自由变量的形式缓存时间信息。</p>
 <ul>
@@ -406,7 +588,7 @@ bar.apply(foo);
 </ul>
 </li>
 </ol>
-<h3 id="jsonp-的实现">jsonp 的实现<a class="post-anchor" href="#jsonp-的实现"></a></h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
+<h3 id="jsonp-的实现"><a href="#jsonp-的实现" class="headerlink" title="jsonp 的实现"></a>jsonp 的实现</h3><p>jsonp 的作用是解决跨域问题。<br>因为 script 标签不受同源策略限制，所以可以动态插入 script 实现跨域。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonp</span>(<span class="hljs-params">url, data</span>) </span>&#123;
   data = data || &#123;&#125;;
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resovle, reject</span>) =&gt;</span> &#123;
@@ -439,7 +621,7 @@ jsonp(<span class="hljs-string">"http://jsonplaceholder.typicode.com/comments"</
 &#125;).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;
   <span class="hljs-built_in">console</span>.log(res);
 &#125;);</code></pre>
-<h3 id="函数柯里化">函数柯里化<a class="post-anchor" href="#函数柯里化"></a></h3><p>当某个函数一次需要接受多个参数时，可以使用柯里化来使得当前函数一次性接受少一点的参数。</p>
+<h3 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h3><p>当某个函数一次需要接受多个参数时，可以使用柯里化来使得当前函数一次性接受少一点的参数。</p>
 <p>百科：把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>(<span class="hljs-params">fn</span>) </span>&#123;
   <span class="hljs-keyword">const</span> args = [...arguments].slice(<span class="hljs-number">1</span>);
@@ -464,7 +646,7 @@ carryAdd(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>,
 carryAdd(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
 carryAdd(<span class="hljs-number">1</span>)(<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>);
 carryAdd(<span class="hljs-number">1</span>)()(<span class="hljs-number">2</span>)()(<span class="hljs-number">3</span>);</code></pre>
-<h3 id="LazyMan-链式调用">LazyMan(链式调用)<a class="post-anchor" href="#LazyMan-链式调用"></a></h3><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LazyMan</span>(<span class="hljs-params">name</span>) </span>&#123;
+<h3 id="LazyMan-链式调用"><a href="#LazyMan-链式调用" class="headerlink" title="LazyMan(链式调用)"></a>LazyMan(链式调用)</h3><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LazyMan</span>(<span class="hljs-params">name</span>) </span>&#123;
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> _LazyMan(name);
 &#125;
 
@@ -502,7 +684,7 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
   &#125;);
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
 &#125;;</code></pre>
-<h3 id="数组去重">数组去重<a class="post-anchor" href="#数组去重"></a></h3><ul>
+<h3 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h3><ul>
 <li>双重循环(兼容性好)</li>
 </ul>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unique</span>(<span class="hljs-params">nums</span>) </span>&#123;
@@ -580,7 +762,7 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
 <pre><code class="hljs js"><span class="hljs-built_in">Array</span>.prototype.unique = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>([...this]));
 &#125;;</code></pre>
-<h3 id="类型判断">类型判断<a class="post-anchor" href="#类型判断"></a></h3><ul>
+<h3 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h3><ul>
 <li>typeof(能够判断基本类型)<br>基本类型：number / string / null / undefined / boolean / symbol(ES6)<br>无法区分是哪种类型的对象</li>
 </ul>
 <pre><code class="hljs js"><span class="hljs-keyword">typeof</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">//"object"</span>
@@ -615,12 +797,12 @@ _LazyMan.prototype.sleep = <span class="hljs-function"><span class="hljs-keyword
     ? classTypeMap[<span class="hljs-built_in">Object</span>.prototype.toString.call(obj)]
     : <span class="hljs-keyword">typeof</span> obj;
 &#125;</code></pre>
-<h3 id="深浅拷贝">深浅拷贝<a class="post-anchor" href="#深浅拷贝"></a></h3><p>JS 有两种数据类型</p>
+<h3 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h3><p>JS 有两种数据类型</p>
 <ul>
 <li>基本数据类型 string/number/boolean/undefined/null/symbol(ES6)</li>
 <li>引用数据类型 object/array/function</li>
 </ul>
-<h4 id="浅拷贝">浅拷贝<a class="post-anchor" href="#浅拷贝"></a></h4><p>对于基本数据类型来说，拷贝一份互不影响；而对于数组和对象来说，只会拷贝数组或者对象的引用，对新旧数组进行修改，两个数组都会发生变化。</p>
+<h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><p>对于基本数据类型来说，拷贝一份互不影响；而对于数组和对象来说，只会拷贝数组或者对象的引用，对新旧数组进行修改，两个数组都会发生变化。</p>
 <p>基础的数组方法能够实现浅拷贝，例如 concat()、slice()；对象能够使用 Object.assign()实现浅拷贝；两者同是都可以使用扩展运算符实现浅拷贝。</p>
 <pre><code class="hljs js"><span class="hljs-comment">// 如果是嵌套数组和对象，上述方法不可行</span>
 <span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>],
@@ -642,7 +824,7 @@ arr1[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <
 obj.b = <span class="hljs-number">4</span>; <span class="hljs-comment">//obj&#123; a: 1, b: 4, c: 3 &#125;, copyobj&#123; a: 1, b: 2, c: 3 &#125;</span>
 
 obj1.c.d = <span class="hljs-number">6</span>; <span class="hljs-comment">//obj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;, copyobj1&#123; a: 1, b: 2, c: &#123; d: 6, e: 4 &#125; &#125;</span></code></pre>
-<h4 id="深拷贝">深拷贝<a class="post-anchor" href="#深拷贝"></a></h4><p>指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</p>
+<h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><p>指完全的拷贝一个对象，即使嵌套了对象，两者也相互分离，修改一个对象的属性，也不会影响另一个。</p>
 <ol>
 <li>可以使用 JSON 的两个函数方法实现深拷贝</li>
 </ol>
@@ -670,7 +852,7 @@ arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <s
   &#125;);
   <span class="hljs-keyword">return</span> newObj;
 &#125;</code></pre>
-<h3 id="Number-isNaN">Number.isNaN()<a class="post-anchor" href="#Number-isNaN"></a></h3><p>ES6 中判断 NaN 的函数。</p>
+<h3 id="Number-isNaN"><a href="#Number-isNaN" class="headerlink" title="Number.isNaN()"></a>Number.isNaN()</h3><p>ES6 中判断 NaN 的函数。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNaN</span>(<span class="hljs-params">n</span>) </span>&#123;
   <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> n === <span class="hljs-string">"number"</span> &amp;&amp; <span class="hljs-built_in">window</span>.isNaN(n);
 &#125;</code></pre>
@@ -678,7 +860,7 @@ arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <s
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNaN</span>(<span class="hljs-params">n</span>) </span>&#123;
   <span class="hljs-keyword">return</span> n !== n;
 &#125;</code></pre>
-<h3 id="Object-is">Object.is(..)<a class="post-anchor" href="#Object-is"></a></h3><p>ES6 中加入了这样一个方法来判断两个值是否绝对相等。<br>当然在能够使用==或者===的时候，就尽量不要使用 Object.is(..)</p>
+<h3 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is(..)"></a>Object.is(..)</h3><p>ES6 中加入了这样一个方法来判断两个值是否绝对相等。<br>当然在能够使用==或者===的时候，就尽量不要使用 Object.is(..)</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">is</span>(<span class="hljs-params">v1, v2</span>) </span>&#123;
   <span class="hljs-comment">//判断是否是-0</span>
   <span class="hljs-keyword">if</span> (v1 === <span class="hljs-number">0</span> &amp;&amp; v2 === <span class="hljs-number">0</span>) &#123;
@@ -691,112 +873,399 @@ arr[<span class="hljs-number">3</span>][<span class="hljs-number">1</span>] = <s
   <span class="hljs-keyword">return</span> v1 === v2;
 &#125;</code></pre>
 
+      
+    </div>
+    
+    
+    
 
-  
-    <div class="post-reward">
-    <div id="reward-button">打赏</div>
-      <div id="qr">
-        <div class="wrap">
-            
-            <div class="bg-wrap">
-              <a href="/images/zhifubao.jpg" target="_block" class="bg" style="background-image:url('/images/zhifubao.jpg')"></a>
-              支付宝
-            </div>
-            
-            
-            <div class="bg-wrap">
-                <a href="/images/weixin.jpg" target="_block" class="bg" style="background-image:url('/images/weixin.jpg')"></a>
-              微信
-            </div>
-            
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
         </div>
-      </div>
-    </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/垂直居中/" rel="next" title="如何实现元素居中">
+                <i class="fa fa-chevron-left"></i> 如何实现元素居中
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/05/今日份感想/" rel="prev" title="今日份感想">
+                今日份感想 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
   
-  <div class="post-guide">
-    <div class="item left">
-        
-          <a href="/2019/03/05/今日份感想/">今日份感想</a>
-        
-    </div>
-    <div class="item right">
-        
-          <a href="/2019/02/13/垂直居中/">如何实现元素居中</a>
-        
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
     </div>
   </div>
 
-  
 
-  <div class="post-copyright">
-    <div class="auth">
-      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
-    </div>
-    <div class="link">
-      永久链接：<a href="https://luckyfbb.github.io/2019/02/14/JS原生实现/">https://luckyfbb.github.io/2019/02/14/JS原生实现/</a>
-    </div>
-    <div class="declare">
-      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
-    </div>
-  </div>
-
-  <div id="comment"></div>
-
-  
-  
-</article>
-        <footer>
-          <div class="copyright">
-            ©2020
-            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
-            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
           </div>
           
-        </footer>
-      </div>
-    </div>
-  </body>
+
+
+          
+
   
-</html>
-<script type="text/javascript">
-                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
-                </script> <script type="text/javascript">window.addEventListener('load', function() {
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
     
-    window.loadJs = function(d, m, a) {
-      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
-      var b = document.createElement('script')
-      b.defer = true
-      b.setAttribute('type', 'text/javascript')
-      b.setAttribute('charset', 'UTF-8')
-      b.setAttribute('async', 'true')
-      b.setAttribute('src', d)
-      m && b.setAttribute('data-main', '/scripts/app-built')
-      if (typeof a === 'function') {
-        if (window.attachEvent) {
-          b.onreadystatechange = function() {
-            var e = b.readyState
-            if (e === 'loaded' || e === 'complete') {
-              b.onreadystatechange = null
-              a()
-            }
-          }
-        } else {
-          b.onload = a
-        }
-      }
-      c.appendChild(b)
-    }
-    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
-  })</script> <script type="text/javascript">
-                  ;(function() {
-                    var bp = document.createElement('script')
-                    var curProtocol = window.location.protocol.split(':')[0]
-                    if (curProtocol === 'https') {
-                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
-                    } else {
-                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
-                    }
-                    var s = document.getElementsByTagName('script')[0]
-                    s.parentNode.insertBefore(bp, s)
-                  })()
-                </script> 
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LuckyFBB</p>
+              <p class="site-description motion-element" itemprop="description">时间久了，问题也多了</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-操作符"><span class="nav-number">1.</span> <span class="nav-text">new 操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof-操作符"><span class="nav-number">2.</span> <span class="nav-text">instanceof 操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-apply-bind-的实现"><span class="nav-number">3.</span> <span class="nav-text">call / apply / bind 的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#call"><span class="nav-number">3.1.</span> <span class="nav-text">call</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#apply"><span class="nav-number">3.2.</span> <span class="nav-text">apply</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind"><span class="nav-number">3.3.</span> <span class="nav-text">bind</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flat-的实现"><span class="nav-number">4.</span> <span class="nav-text">flat 的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#防抖-节流"><span class="nav-number">5.</span> <span class="nav-text">防抖 / 节流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jsonp-的实现"><span class="nav-number">6.</span> <span class="nav-text">jsonp 的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数柯里化"><span class="nav-number">7.</span> <span class="nav-text">函数柯里化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LazyMan-链式调用"><span class="nav-number">8.</span> <span class="nav-text">LazyMan(链式调用)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组去重"><span class="nav-number">9.</span> <span class="nav-text">数组去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型判断"><span class="nav-number">10.</span> <span class="nav-text">类型判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深浅拷贝"><span class="nav-number">11.</span> <span class="nav-text">深浅拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#浅拷贝"><span class="nav-number">11.1.</span> <span class="nav-text">浅拷贝</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#深拷贝"><span class="nav-number">11.2.</span> <span class="nav-text">深拷贝</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-isNaN"><span class="nav-number">12.</span> <span class="nav-text">Number.isNaN()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-is"><span class="nav-number">13.</span> <span class="nav-text">Object.is(..)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuckyFBB</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">28.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

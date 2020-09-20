@@ -1,188 +1,370 @@
 <!DOCTYPE html>
-<html>
-  <head><meta name="generator" content="Hexo 3.9.0">
-      <script>
-  var _hmt = _hmt || []
-  ;(function() {
-    var hm = document.createElement('script')
-    hm.src = 'https://hm.baidu.com/hm.js?5a0acc897fd96474a2c8f4deac84611a'
-    var s = document.getElementsByTagName('script')[0]
-    s.parentNode.insertBefore(hm, s)
-  })()
-</script> 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="keywords" content="LuckyFBB, 前端, 博客, 基础总结, JavaScript, FBB">
-    <meta name="description" content="FBB针对某些问题，对于前端基础的总结，所生成的博客">
-    
-    <title>
-      你不知道的JavaScript 之 this - 路漫漫其修远兮
-    </title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/style/style.css">
-  </head>
-  <body>
-    
-    <div id="post-toc" class="animated hiddenToc hide">
-      <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#调用位置"><span class="toc-text">调用位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#绑定规则"><span class="toc-text">绑定规则</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#默认绑定"><span class="toc-text">默认绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#隐式绑定"><span class="toc-text">隐式绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#隐式丢失"><span class="toc-text">隐式丢失</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#显式绑定"><span class="toc-text">显式绑定</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#new-绑定"><span class="toc-text">new 绑定</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#优先级"><span class="toc-text">优先级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#this判断"><span class="toc-text">this判断</span></a></li></ol>
-    </div>
-    
-    <div id="fixed-menu-wrap">
-      <span class="menu-reset" style="opacity: 0;"></span>
-      <!-- <span class="iconfont icon-sousuo search-box menu-reset"></span> -->
-      <span class="icon-toc menu-reset">Toc</span>
-      <span class="iconfont icon-arrowup menu-reset"></span>
-    </div>
-    <div id="fixed-menu">
-      <span class="iconfont icon-menu-"></span>
-    </div>
-    <div id="progress">
-      <div class="line"></div>
-    </div>
-    <div id="search-shade" class="animated hiddenSearch hide">
-      <div class="input-wrap">
-        <span class="iconfont icon-sousuo search-box"></span>
-        <input type="text" placeholder="Search">
-        <span class="iconfont icon-close"></span>
-      </div>
-      <div class="search-result">
-        <div class="meta">
-          <span><b id="result-count">0</b> results found</span>
-          <img src="/images/logo.jpg">
-        </div>
-        <ul id="result-box"></ul>
-      </div>
-    </div>
-    <div id="menu-mask" class="animated hideMenuMask hide">
-      <span class="iconfont icon-close"></span>
-      <div class="nav">
-        
-        <a href="/" class>
-          首页
-        </a>
-        
-        <a href="/archives" class>
-          归档
-        </a>
-        
-        <a href="/categories" class>
-          分类
-        </a>
-        
-        <a href="/tags" class>
-          标签
-        </a>
-        
-      </div>
-    </div>
-    <div id="header">
-      <div class="intro">
-        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
-        <div class="author">FBB</div>
-      </div>
-      <div class="nav">
-        <span class="iconfont icon-menu menu-icon"></span>
-        <!-- <a href="#" class="search-box">
-          <span class="iconfont icon-sousuo"></span>
-        </a> -->
-      </div>
-    </div>
-    <div id="side" class="animated bounceInLeft">
-      <div class="shrink">
-        <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
-        <span class="iconfont icon-menu toggle-icon"></span>
-        <!-- <a href="#" class="search-box">
-          <span class="iconfont icon-sousuo"></span>
-        </a> -->
-      </div>
-      <div class="magnify">
-        <div class="about">
-          <div class="author">FBB</div>
-          <a href="/" class="logo" style="background-image: url('/images/logo.jpg')"></a>
-        </div>
 
-        <div class="nav">
-          
-          <a href="/" class>
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你不知道的JavaScript 之 this">
+<meta property="og:url" content="https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/index.html">
+<meta property="og:site_name" content="LuckyFBB&#39;s Blog">
+<meta property="og:description" content="最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-02-04T09:24:21.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你不知道的JavaScript 之 this">
+<meta name="twitter:description" content="最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/">
+
+
+
+
+
+  <title>你不知道的JavaScript 之 this | LuckyFBB's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuckyFBB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
             首页
           </a>
-          
-          <a href="/archives" class>
-            归档
-          </a>
-          
-          <a href="/categories" class>
-            分类
-          </a>
-          
-          <a href="/tags" class>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
             标签
           </a>
-          
-          <!-- <a href="#" class="search-box">
-            <span class="iconfont icon-sousuo"></span>
-          </a> -->
-        </div>
-        <div class="bottom">
-          <div class="follow">
-            
-            <a href="https://github.com/LuckyFBB/" target="_block">
-              <span class="iconfont icon-github"></span>
-            </a>
-             
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="container">
-      <div class="main animated bounceInRight delay-0.7s">
-        <article class="post-entry">
-    <div class="header">
+        </li>
       
-      <div class="title">你不知道的JavaScript 之 this</div>
-      <div class="meta">
-        <span class="item">
-          <span class="iconfont icon-time-circle"></span>
-          <span>2020/01/16</span>
-        </span>
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuckyFBB">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuckyFBB's Blog">
+    </span>
+
+    
+      <header class="post-header">
 
         
+        
+          <h1 class="post-title" itemprop="name headline">你不知道的JavaScript 之 this</h1>
+        
 
-         
-        <span class="item">
-          <span class="iconfont icon-folder"></span>
-          <span>
+        <div class="post-meta">
+          <span class="post-time">
+            
+
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
               
-                
-                  <a href="/categories/前端">前端</a>
-                
+                <span class="post-meta-item-text">更新于&#58;</span>
               
+              <time title="更新于" itemprop="dateModified" datetime="2020-02-04T17:24:21+08:00">
+                2020-02-04
+              </time>
+            
           </span>
-        </span>
-        
-        
-         
-          <span class="item">
-            <span class="iconfont icon-tag1"></span>
-            <span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
                 
-                  
-                    <a href="/tags/JS">JS</a>
-                  
                 
+              
             </span>
-          </span>
-         
-      </div>
-      <div>
-      </div>
-    </div>
-    <p>最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。</p>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  854
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近把《你不知道的 JavaScript》重读了一遍，其中关于 this 的指向问题，将在这篇文章中做一个小小的总结。</p>
 <a id="more"></a>
-<h4 id="调用位置">调用位置<a class="post-anchor" href="#调用位置"></a></h4><p>每个函数的 this 是在调用时被绑定的，完全取决于函数的调用位置</p>
-<h4 id="绑定规则">绑定规则<a class="post-anchor" href="#绑定规则"></a></h4><h5 id="默认绑定">默认绑定<a class="post-anchor" href="#默认绑定"></a></h5><p>常用的函数调用类型：独立函数调用，this 指向全局对象。这条规则可以看作是无法应用其他规则时的默认规则。</p>
+<h4 id="调用位置"><a href="#调用位置" class="headerlink" title="调用位置"></a>调用位置</h4><p>每个函数的 this 是在调用时被绑定的，完全取决于函数的调用位置</p>
+<h4 id="绑定规则"><a href="#绑定规则" class="headerlink" title="绑定规则"></a>绑定规则</h4><h5 id="默认绑定"><a href="#默认绑定" class="headerlink" title="默认绑定"></a>默认绑定</h5><p>常用的函数调用类型：独立函数调用，this 指向全局对象。这条规则可以看作是无法应用其他规则时的默认规则。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
 &#125;
@@ -196,7 +378,7 @@ foo(); <span class="hljs-comment">//2</span>
 &#125;
 <span class="hljs-keyword">var</span> a = <span class="hljs-number">2</span>;
 foo(); <span class="hljs-comment">// TypeError: this is undefied</span></code></pre>
-<h5 id="隐式绑定">隐式绑定<a class="post-anchor" href="#隐式绑定"></a></h5><p>绑定规则：调用位置是否具有上下文对象。</p>
+<h5 id="隐式绑定"><a href="#隐式绑定" class="headerlink" title="隐式绑定"></a>隐式绑定</h5><p>绑定规则：调用位置是否具有上下文对象。</p>
 <p>当引用拥有上下文对象时，隐式绑定规则会把函数调用中的 this 绑定到这个上下文对象中。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
@@ -212,7 +394,7 @@ obj.foo(); <span class="hljs-comment">//2，使用obj上下文来引用函数。
 <span class="hljs-keyword">var</span> obj = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">foo</span>: foo &#125;;
 <span class="hljs-keyword">var</span> obj1 = &#123; <span class="hljs-attr">a</span>: <span class="hljs-number">12</span>, <span class="hljs-attr">obj</span>: obj &#125;;
 obj1.obj.foo();</code></pre>
-<h6 id="隐式丢失">隐式丢失<a class="post-anchor" href="#隐式丢失"></a></h6><p>常见的 this 绑定问题就是隐式绑定的函数会丢失绑定对象，会应用默认绑定，把 this 绑定到全局对象或者 undefined 上，这也取决于是否为严格模式。</p>
+<h6 id="隐式丢失"><a href="#隐式丢失" class="headerlink" title="隐式丢失"></a>隐式丢失</h6><p>常见的 this 绑定问题就是隐式绑定的函数会丢失绑定对象，会应用默认绑定，把 this 绑定到全局对象或者 undefined 上，这也取决于是否为严格模式。</p>
 <pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.a);
 &#125;
@@ -244,128 +426,415 @@ bar();
 
 <span class="hljs-keyword">var</span> a = <span class="hljs-string">"oops, global"</span>;
 doFoo(obj.foo);</code></pre>
-<h5 id="显式绑定">显式绑定<a class="post-anchor" href="#显式绑定"></a></h5><p>当不想在对象内部包含一个函数的属性时，可以使用 apply()或者 call()函数。它们的第一个参数都是对象，它们会把这个函数绑定到第一个对象参数上，在函数调用时 this 指向这个对象。<br>apply/call 只是参数调用方式不一样(<a href="https://luckyfbb.github.io/2019/02/14/JS%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/#call-apply-bind-%E7%9A%84%E5%AE%9E%E7%8E%B0">两者的原生实现</a>)。</p>
-<h5 id="new-绑定">new 绑定<a class="post-anchor" href="#new-绑定"></a></h5><p>使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作(<a href="https://luckyfbb.github.io/2019/02/14/JS%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/#new-%E6%93%8D%E4%BD%9C%E7%AC%A6">代码实现</a>)</p>
+<h5 id="显式绑定"><a href="#显式绑定" class="headerlink" title="显式绑定"></a>显式绑定</h5><p>当不想在对象内部包含一个函数的属性时，可以使用 apply()或者 call()函数。它们的第一个参数都是对象，它们会把这个函数绑定到第一个对象参数上，在函数调用时 this 指向这个对象。<br>apply/call 只是参数调用方式不一样(<a href="https://luckyfbb.github.io/2019/02/14/JS%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/#call-apply-bind-%E7%9A%84%E5%AE%9E%E7%8E%B0">两者的原生实现</a>)。</p>
+<h5 id="new-绑定"><a href="#new-绑定" class="headerlink" title="new 绑定"></a>new 绑定</h5><p>使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作(<a href="https://luckyfbb.github.io/2019/02/14/JS%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/#new-%E6%93%8D%E4%BD%9C%E7%AC%A6">代码实现</a>)</p>
 <ol>
 <li>创建（或者说构造）一个全新的对象。</li>
 <li>这个新对象会被执行原型连接。</li>
 <li>这个新对象会绑定到函数调用的 this。</li>
 <li>如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。</li>
 </ol>
-<h4 id="优先级">优先级<a class="post-anchor" href="#优先级"></a></h4><p>new绑定 &gt; 显示绑定 &gt; 隐式绑定 &gt; 默认绑定</p>
-<h4 id="this判断">this判断<a class="post-anchor" href="#this判断"></a></h4><ul>
+<h4 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h4><p>new绑定 &gt; 显示绑定 &gt; 隐式绑定 &gt; 默认绑定</p>
+<h4 id="this判断"><a href="#this判断" class="headerlink" title="this判断"></a>this判断</h4><ul>
 <li>函数是否在new中调用(new绑定)。如果是，this指向新创建对象。</li>
 <li>函数是否通过apply/call绑定。如果是，this绑定的是指向对象。</li>
 <li>函数是否存在于某个上下文调用中。如果是，this绑定的是当前上下文。</li>
 <li>如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到undefined，否则绑定到<br>全局对象。</li>
 </ul>
 
+      
+    </div>
+    
+    
+    
 
-  
-    <div class="post-reward">
-    <div id="reward-button">打赏</div>
-      <div id="qr">
-        <div class="wrap">
-            
-            <div class="bg-wrap">
-              <a href="/images/zhifubao.jpg" target="_block" class="bg" style="background-image:url('/images/zhifubao.jpg')"></a>
-              支付宝
-            </div>
-            
-            
-            <div class="bg-wrap">
-                <a href="/images/weixin.jpg" target="_block" class="bg" style="background-image:url('/images/weixin.jpg')"></a>
-              微信
-            </div>
-            
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
         </div>
-      </div>
-    </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/04/2020/" rel="next" title="你好，2020">
+                <i class="fa fa-chevron-left"></i> 你好，2020
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/03/我不知道的文件指纹/" rel="prev" title="我不知道的文件指纹">
+                我不知道的文件指纹 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
   
-  <div class="post-guide">
-    <div class="item left">
-        
-          <a href="/2020/04/03/我不知道的文件指纹/">我不知道的文件指纹</a>
-        
-    </div>
-    <div class="item right">
-        
-          <a href="/2020/01/04/2020/">你好，2020</a>
-        
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
     </div>
   </div>
 
-  
 
-  <div class="post-copyright">
-    <div class="auth">
-      本文作者：<a href="https://luckyfbb.github.io">FBB</a>
-    </div>
-    <div class="link">
-      永久链接：<a href="https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/">https://luckyfbb.github.io/2020/01/16/你不知道的JS-this/</a>
-    </div>
-    <div class="declare">
-      版权声明：本文首发于<a href="https://luckyfbb.github.io">FBB</a>的博客，转载请注明出处！
-    </div>
-  </div>
-
-  <div id="comment"></div>
-
-  
-  
-</article>
-        <footer>
-          <div class="copyright">
-            ©2020
-            <a href="https://luckyfbb.github.io">FBB</a> Powered by <a href="https://hexo.io">Hexo</a> |
-            <a href="https://github.com/shixiaohu2206/hexo-theme-huhu">hexo-theme-huhu</a>
           </div>
           
-        </footer>
-      </div>
-    </div>
-  </body>
+
+
+          
+
   
-</html>
-<script type="text/javascript">
-                  window.HUHU_CONFIG = JSON.parse("{\"share\":[\"weibo\",\"weixin\",\"qqkongjian\",\"QQ\",\"douban\",\"facebook\",\"twitter\",\"google\"],\"service_worker\":{\"open\":false}}")
-                </script> <script type="text/javascript">window.addEventListener('load', function() {
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
     
-    window.loadJs = function(d, m, a) {
-      var c = document.getElementsByTagName('head')[0] || document.head || document.documentElement
-      var b = document.createElement('script')
-      b.defer = true
-      b.setAttribute('type', 'text/javascript')
-      b.setAttribute('charset', 'UTF-8')
-      b.setAttribute('async', 'true')
-      b.setAttribute('src', d)
-      m && b.setAttribute('data-main', '/scripts/app-built')
-      if (typeof a === 'function') {
-        if (window.attachEvent) {
-          b.onreadystatechange = function() {
-            var e = b.readyState
-            if (e === 'loaded' || e === 'complete') {
-              b.onreadystatechange = null
-              a()
-            }
-          }
-        } else {
-          b.onload = a
-        }
-      }
-      c.appendChild(b)
-    }
-    window.loadJs && window.loadJs('https://cdn.bootcss.com/require.js/2.3.6/require.min.js', true, function() {require.config({"paths":{"util":"util","share":"share","search":"search","registerSW":"registerSW","valine":"cdn/Valine.min","av":["https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min"],"pjax":["https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min"],"jquery":["https://cdn.bootcss.com/jquery/3.4.1/jquery.min"],"confirm":["https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min"],"fancybox":["https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min"],"chart":["https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.bundle.min"]},"map":{"*":{"css":"https://cdn.bootcss.com/require-css/0.1.10/css.min.js"}},"shim":{"fancybox":{"deps":["css!https://cdn.bootcss.com/fancybox/3.5.7/jquery.fancybox.min.css"]},"confirm":{"deps":["css!https://cdn.bootcss.com/jquery-confirm/3.3.4/jquery-confirm.min.css"]},"chart":{"deps":["css!https://cdn.bootcss.com/Chart.js/2.8.0-rc.1/Chart.min.css"]}},"waitSeconds":3})})
-  })</script> <script type="text/javascript">
-                  ;(function() {
-                    var bp = document.createElement('script')
-                    var curProtocol = window.location.protocol.split(':')[0]
-                    if (curProtocol === 'https') {
-                      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
-                    } else {
-                      bp.src = 'http://push.zhanzhang.baidu.com/push.js'
-                    }
-                    var s = document.getElementsByTagName('script')[0]
-                    s.parentNode.insertBefore(bp, s)
-                  })()
-                </script> 
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">LuckyFBB</p>
+              <p class="site-description motion-element" itemprop="description">时间久了，问题也多了</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#调用位置"><span class="nav-number">1.</span> <span class="nav-text">调用位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定规则"><span class="nav-number">2.</span> <span class="nav-text">绑定规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#默认绑定"><span class="nav-number">2.1.</span> <span class="nav-text">默认绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#隐式绑定"><span class="nav-number">2.2.</span> <span class="nav-text">隐式绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#隐式丢失"><span class="nav-number">2.2.1.</span> <span class="nav-text">隐式丢失</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显式绑定"><span class="nav-number">2.3.</span> <span class="nav-text">显式绑定</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#new-绑定"><span class="nav-number">2.4.</span> <span class="nav-text">new 绑定</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优先级"><span class="nav-number">3.</span> <span class="nav-text">优先级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#this判断"><span class="nav-number">4.</span> <span class="nav-text">this判断</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuckyFBB</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">28.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
