@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="LuckyFBB&#39;s Blog">
 <meta property="og:description" content="之前一直有断断续续在学习一些数据结构的知识，在前文中也有过一些总结，一直以来刷 leetcode 也是属于瞎刷，不能够很好的总结题型与解决方案。在此之后，准备按着数据结构类型和算法刷题。在刷完二叉树之后，着手开始链表的刷题，也会在此篇博文中进行记录。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-11T11:33:24.647Z">
+<meta property="og:updated_time" content="2020-10-11T12:13:52.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="链表的解题思路">
 <meta name="twitter:description" content="之前一直有断断续续在学习一些数据结构的知识，在前文中也有过一些总结，一直以来刷 leetcode 也是属于瞎刷，不能够很好的总结题型与解决方案。在此之后，准备按着数据结构类型和算法刷题。在刷完二叉树之后，着手开始链表的刷题，也会在此篇博文中进行记录。">
@@ -286,7 +286,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-10-11T19:33:24+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-10-11T20:13:52+08:00">
                 2020-10-11
               </time>
             
@@ -365,16 +365,6 @@
 <a id="more"></a>
 <p>在<a href="https://luckyfbb.github.io/2019/03/22/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/">前文</a>中介绍了链表的相关知识，可以进行查看阅读。</p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h3><p>对于删除节点类的题型，无外乎是获得当前需要删除的节点 curr，然后改变前序节点 prev 的指向，<strong>prev.next = curr.next</strong>，从而达到删除 curr 的效果。</p>
-<h3 id="翻转链表"><a href="#翻转链表" class="headerlink" title="翻转链表"></a>翻转链表</h3><ul>
-<li><p>递归翻转</p>
-</li>
-<li><p>迭代解法</p>
-<ul>
-<li>定义两个节点：pre, cur ，其中 cur 是 pre 的后继结点，如果是首次定义， 需要把 pre 指向 cur 的指针去掉，否则由于之后链表翻转，cur 会指向 pre</li>
-<li>定义了 cur 和 pre，翻转就容易了，把 cur 指向 pre 即可，之后把 cur 设置为 pre ，cur 的后继结点设置为 cur 一直往前重复此步骤即可</li>
-</ul>
-</li>
-</ul>
 <h3 id="利用哨兵简化难度"><a href="#利用哨兵简化难度" class="headerlink" title="利用哨兵简化难度"></a>利用哨兵简化难度</h3><p>引入一个哨兵节点 pivot，使得 pivot.next = head。哨兵结点是不存储数据的。因为哨兵结点一直存在，所以插入第一个结点和插入其他结点，删除最后一个结点和删除其他结点，都可以统一为相同的代码实现逻辑了。</p>
 <h3 id="边界问题"><a href="#边界问题" class="headerlink" title="边界问题"></a>边界问题</h3><ul>
 <li>如果链表为空时，代码是否能正常工作？</li>
@@ -403,7 +393,10 @@
 <li>分析 2：采用快慢指针。使得 fast 在 slow 前的 n 个位置，当 fast 到达链表尾节点时，slow.next 指向当前需删除的节点。</li>
 </ul>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> removeNthFromEnd = <span class="function"><span class="keyword">function</span> (<span class="params">head, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> pivot = <span class="keyword">new</span> ListNode(<span class="number">-1</span>);</span><br><span class="line">  pivot.next = head;</span><br><span class="line">  <span class="keyword">let</span> fast = pivot;</span><br><span class="line">  <span class="keyword">let</span> slow = pivot;</span><br><span class="line">  <span class="keyword">while</span> (n !== <span class="number">0</span>) &#123;</span><br><span class="line">    n--;</span><br><span class="line">    fast = fast.next;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (fast.next !== <span class="literal">null</span>) &#123;</span><br><span class="line">    fast = fast.next;</span><br><span class="line">    slow = slow.next;</span><br><span class="line">  &#125;</span><br><span class="line">  slow.next = slow.next.next;</span><br><span class="line">  <span class="keyword">return</span> pivot.next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//Runtime: 88 ms, faster than 36.59% of JavaScript</span></span><br></pre></td></tr></table></figure>
-<h2 id="翻转链表-1"><a href="#翻转链表-1" class="headerlink" title="翻转链表"></a>翻转链表</h2><h2 id="合并链表"><a href="#合并链表" class="headerlink" title="合并链表"></a>合并链表</h2>
+<h2 id="翻转链表"><a href="#翻转链表" class="headerlink" title="翻转链表"></a>翻转链表</h2><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反转一个单链表。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure>
+<p><a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">leetcode</a><br>分析：设置哨兵节点 null，将当前节点的指针指向上一个节点，然后更新当前节点和下一个节点的值即顺移，重复以上动作直到当前节点为尾节点的节点 null</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseList = <span class="function"><span class="keyword">function</span> (<span class="params">head</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> prev = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> curr = head;</span><br><span class="line">  <span class="keyword">while</span> (curr) &#123;</span><br><span class="line">    <span class="keyword">const</span> next = curr.next;</span><br><span class="line">    curr.next = prev;</span><br><span class="line">    prev = curr;</span><br><span class="line">    curr = next;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="合并链表"><a href="#合并链表" class="headerlink" title="合并链表"></a>合并链表</h2>
       
     </div>
     
@@ -575,7 +568,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除节点"><span class="nav-number">1.1.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#翻转链表"><span class="nav-number">1.2.</span> <span class="nav-text">翻转链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用哨兵简化难度"><span class="nav-number">1.3.</span> <span class="nav-text">利用哨兵简化难度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界问题"><span class="nav-number">1.4.</span> <span class="nav-text">边界问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除节点-1"><span class="nav-number">2.</span> <span class="nav-text">删除节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移除链表元素"><span class="nav-number">2.1.</span> <span class="nav-text">移除链表元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除排序链表中的重复元素"><span class="nav-number">2.2.</span> <span class="nav-text">删除排序链表中的重复元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除排序链表中的重复元素-II"><span class="nav-number">2.3.</span> <span class="nav-text">删除排序链表中的重复元素 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除链表的倒数第-n-个节点"><span class="nav-number">2.4.</span> <span class="nav-text">删除链表的倒数第 n 个节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻转链表-1"><span class="nav-number">3.</span> <span class="nav-text">翻转链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并链表"><span class="nav-number">4.</span> <span class="nav-text">合并链表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#删除节点"><span class="nav-number">1.1.</span> <span class="nav-text">删除节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用哨兵简化难度"><span class="nav-number">1.2.</span> <span class="nav-text">利用哨兵简化难度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边界问题"><span class="nav-number">1.3.</span> <span class="nav-text">边界问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除节点-1"><span class="nav-number">2.</span> <span class="nav-text">删除节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移除链表元素"><span class="nav-number">2.1.</span> <span class="nav-text">移除链表元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除排序链表中的重复元素"><span class="nav-number">2.2.</span> <span class="nav-text">删除排序链表中的重复元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除排序链表中的重复元素-II"><span class="nav-number">2.3.</span> <span class="nav-text">删除排序链表中的重复元素 II</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除链表的倒数第-n-个节点"><span class="nav-number">2.4.</span> <span class="nav-text">删除链表的倒数第 n 个节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#翻转链表"><span class="nav-number">3.</span> <span class="nav-text">翻转链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反转链表"><span class="nav-number">3.1.</span> <span class="nav-text">反转链表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并链表"><span class="nav-number">4.</span> <span class="nav-text">合并链表</span></a></li></ol></div>
             
 
           </div>
