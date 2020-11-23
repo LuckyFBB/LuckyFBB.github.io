@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.jpg?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="根据想学习 React 源码的初衷，但是又不了解 React 的大体工作流程，在某博主的指引下找到了一篇mini 教程，由于是英文文档所以在此记录从头开始写 React 的过程。">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="build-your-own-React">
+<meta property="og:url" content="https://luckyfbb.github.io/2020/11/14/build-your-own-React/index.html">
+<meta property="og:site_name" content="LuckyFBB&#39;s Blog">
+<meta property="og:description" content="根据想学习 React 源码的初衷，但是又不了解 React 的大体工作流程，在某博主的指引下找到了一篇mini 教程，由于是英文文档所以在此记录从头开始写 React 的过程。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-11-23T09:03:50.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="build-your-own-React">
+<meta name="twitter:description" content="根据想学习 React 源码的初衷，但是又不了解 React 的大体工作流程，在某博主的指引下找到了一篇mini 教程，由于是英文文档所以在此记录从头开始写 React 的过程。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://luckyfbb.github.io/2020/11/14/build-your-own-React/">
+
+
+
+
+
+  <title>build-your-own-React | LuckyFBB's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuckyFBB's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">路漫漫其修远兮</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://luckyfbb.github.io/2020/11/14/build-your-own-React/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="LuckyFBB">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuckyFBB's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">build-your-own-React</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-14T11:18:43+08:00">
+                2020-11-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-11-23T17:03:50+08:00">
+                2020-11-23
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.9k
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>根据想学习 React 源码的初衷，但是又不了解 React 的大体工作流程，在某博主的指引下找到了一篇<a href="https://pomb.us/build-your-own-react/" target="_blank" rel="noopener">mini 教程</a>，由于是英文文档所以在此记录从头开始写 React 的过程。</p>
+<a id="more"></a>
+<p>在我们重写 React 的过程中需要依次做如下的事情:</p>
+<ol>
+<li>The createElement Function</li>
+<li>The render Function</li>
+<li>Concurrent Mode</li>
+<li>Fibers</li>
+<li>Render and Commit Phases</li>
+<li>Reconciliation</li>
+<li>Function Components</li>
+<li>Hooks</li>
+</ol>
+<h3 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h3><p>在开始之前，首先需要回顾一下基础概念。如果在此之前你已经了解 React/JSX/Dom Elements 工作的方式，可以跳过这个步骤。<br>我们将使用仅有三行的 React 程序。第一行是定义 React 元素。第二行是从 DOM 中获取一个节点。第三行是渲染 React 元素到容器中。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>=<span class="string">"foo"</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">ReactDOM.render(element, container);</span><br></pre></td></tr></table></figure>
+<p>我们将用原生 JS 替换掉 React 代码。<br>第一行代码使用 JSX 定义了一个元素，他甚至不是有效的 JS，因此要用原生的 JS 取代它。首先我们用有效的 JS 替换它。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = React.createElement(<span class="string">"h1"</span>, &#123; <span class="attr">title</span>: <span class="string">"foo"</span> &#125;, <span class="string">"Hello"</span>);</span><br></pre></td></tr></table></figure>
+<p>JSX 通过 Babel 这种工具被编译为 JS。这种编译方式很简单，使用对 createElement 的调用来替换 tag 内的代码，并将 tag 名称，props 和 children 作为参数传递。<br>React.CreateElement 通过他的参数创建一个对象。除了一些验证之外，这就是全部了。因此我们可以将函数调用替换为它的输出。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = &#123;</span><br><span class="line">  type: <span class="string">"h1"</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    title: <span class="string">"foo"</span>,</span><br><span class="line">    children: <span class="string">"Hello"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>element 是什么，一个有 type 和 props 两个属性的对象。(其实还有<a href="https://github.com/facebook/react/blob/f4cc45ce962adc9f307690e1d5cfa28a288418eb/packages/react/src/ReactElement.js#L111" target="_blank" rel="noopener">别的属性</a>，但是我们只在意这两个。)<br>type 是一个字符串，用于指定我们需要创建的 DOM 节点类型，它是创建 HTML 元素时传递给 document.createElement 的 tagName。它也可以是一个函数，我们留到第七步。<br>props 是另一个对象，他具有 JSX 属性的所有 key-value 值，他还有一个特殊的属性：children。<br>children 在这个例子中是一个字符串，但是通常是一个包含更多元素的数组，这就是为什么元素大多是树的原因。</p>
+<p>我们需要替换另一部分的 React 代码是 ReactDOM.render 的调用，render 是 React 改变 DOM 的地方，所以让我们自己进行更新。<br>首先，我们使用元素类型(本例中的 h1)创建一个 node。然后我们将所有元素的 props 分配给该节点，这里是 title 字段。为了避免混淆，我们使用 element 来指代 React 元素，并使用 node 来指代 DOM 元素。<br>我们为 children 创建节点，我们只有一个字符串作为子代，因此我们创建一个文本节点。<br>使用 textNode 而不是设置 innerText 将允许我们以后用相同的方式对待所有的元素。另外请注意我们已经像设置 h1 标题一样设置 nodeValue，就像字符串中带有 props 一样：{nodeValue:”hello”}</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> node = <span class="built_in">document</span>.createElement(element.type);</span><br><span class="line">node[<span class="string">"title"</span>] = element.props.title;</span><br><span class="line"><span class="keyword">const</span> text = <span class="built_in">document</span>.createTextNode(<span class="string">""</span>);</span><br><span class="line">text[<span class="string">"nodeValue"</span>] = element.props.children;</span><br></pre></td></tr></table></figure>
+<p>最后我们把 textNode 添加到 h1 上并将 h1 添加到容器上。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">node.appendChild(text);</span><br><span class="line">container.appendChild(node);</span><br></pre></td></tr></table></figure>
+<p>现在我们有和以前相同的应用程序，但是没有使用 React。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = &#123;</span><br><span class="line">  type: <span class="string">"h1"</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    title: <span class="string">"foo"</span>,</span><br><span class="line">    children: <span class="string">"Hello"</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>)</span><br><span class="line">​</span><br><span class="line"><span class="keyword">const</span> node = <span class="built_in">document</span>.createElement(element.type)</span><br><span class="line">node[<span class="string">"title"</span>] = element.props.title</span><br><span class="line">​</span><br><span class="line"><span class="keyword">const</span> text = <span class="built_in">document</span>.createTextNode(<span class="string">""</span>)</span><br><span class="line">text[<span class="string">"nodeValue"</span>] = element.props.children</span><br><span class="line">​</span><br><span class="line">node.appendChild(text)</span><br><span class="line">container.appendChild(node)</span><br></pre></td></tr></table></figure>
+<h3 id="The-createElement-Function"><a href="#The-createElement-Function" class="headerlink" title="The createElement Function"></a>The createElement Function</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = (</span><br><span class="line">  &lt;div id=<span class="string">"foo"</span>&gt;</span><br><span class="line">    &lt;a&gt;bar&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;b /</span>&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp">const container = document.getElementById("root");</span></span><br><span class="line"><span class="regexp">ReactDOM.render(element, container);</span></span><br></pre></td></tr></table></figure>
+<p>我们从另一个应用程序开始。这次，我们将用自己的 React 版本替换 React 代码。<br>我们编写自己的 createElement 开始。<br>让我们将 JSX 转换为 JS，以便可以看到 createElement 调用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = React.createElement(</span><br><span class="line">  <span class="string">"div"</span>,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="string">"foo"</span> &#125;,</span><br><span class="line">  React.createElement(<span class="string">"a"</span>, <span class="literal">null</span>, <span class="string">"bar"</span>),</span><br><span class="line">  React.createElement(<span class="string">"b"</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>正如我们在前一步看到的，一个 element 是一个剧有 type 和 props 的对象。函数需要做的唯一一件事就是创建那样的对象。<br>我们对道具使用扩展运算符，对 children 使用 rest 参数语法，这样 children 将始终是数组。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type,</span><br><span class="line">    props: &#123;</span><br><span class="line">      ...props,</span><br><span class="line">      children,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//例如：</span></span><br><span class="line">createElement(<span class="string">"div"</span>) returns:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">  <span class="string">"props"</span>: &#123; <span class="string">"children"</span>: [] &#125;</span><br><span class="line">&#125;</span><br><span class="line">createElement(<span class="string">"div"</span>, <span class="literal">null</span>, a) returns:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">  <span class="string">"props"</span>: &#123; <span class="string">"children"</span>: [a] &#125;</span><br><span class="line">&#125;</span><br><span class="line">createElement(<span class="string">"div"</span>, <span class="literal">null</span>, a, b) returns:</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"type"</span>: <span class="string">"div"</span>,</span><br><span class="line">  <span class="string">"props"</span>: &#123; <span class="string">"children"</span>: [a, b] &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>children 数组可能包含原始值(数字和字符串)。因此，我们会将不是对象的所有内容包含在其自己的元素中，并为其创建特殊类型:TEXT_ELEMENT。<br>当没有子节点时，React 没有包装原始值或者创建空数组。但是我们这样做得目的是它简化我们的代码，对于我们的库来说，更喜欢简单的代码而不是高性能的代码。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type,</span><br><span class="line">    props: &#123;</span><br><span class="line">      ...props,</span><br><span class="line">      children: children.map(<span class="function">(<span class="params">child</span>) =&gt;</span></span><br><span class="line">        <span class="keyword">typeof</span> child === <span class="string">"object"</span> ? child : createTextElement(child)</span><br><span class="line">      ),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createTextElement</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: <span class="string">"TEXT_ELEMENT"</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">      nodeValue: text,</span><br><span class="line">      children: [],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们现在仍然使用的 React.createElement。为了替换他，为我们的库取一个名字。我们需要去一个听起来像 react 的名字但是暗示它的教学目的。我们取名字叫 Didact。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Didact = &#123;</span><br><span class="line">  createElement,</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="keyword">const</span> element = Didact.createElement(</span><br><span class="line">  <span class="string">"div"</span>,</span><br><span class="line">  &#123; <span class="attr">id</span>: <span class="string">"foo"</span> &#125;,</span><br><span class="line">  Didact.createElement(<span class="string">"a"</span>, <span class="literal">null</span>, <span class="string">"bar"</span>),</span><br><span class="line">  Didact.createElement(<span class="string">"b"</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>我们仍然想使用 JSX，如何能告诉 Babel 使用 Didact 的 createElement 而不是 React 的。<br>我们需要有一个注释，当 babel 转译 JSX 时，它将使用我们定义的功能。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** @jsx Didact.createElement */</span></span><br><span class="line"><span class="keyword">const</span> element = (</span><br><span class="line">  &lt;div id=<span class="string">"foo"</span>&gt;</span><br><span class="line">    &lt;a&gt;bar&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;b /</span>&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br></pre></td></tr></table></figure>
+<h3 id="The-render-Function"><a href="#The-render-Function" class="headerlink" title="The render Function"></a>The render Function</h3><p>我们需要编写我们的 ReactDOM.render 函数版本。<br>目前，我们只关心向 DOM 添加内容，稍后我们处理更新和删除。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// TODO create dom nodes</span></span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="keyword">const</span> Didact = &#123;</span><br><span class="line">  createElement,</span><br><span class="line">  render,</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="comment">/** @jsx Didact.createElement */</span></span><br><span class="line"><span class="keyword">const</span> element = (</span><br><span class="line">  &lt;div id=<span class="string">"foo"</span>&gt;</span><br><span class="line">    &lt;a&gt;bar&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">    &lt;b /</span>&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br><span class="line"><span class="regexp">const container = document.getElementById("root")</span></span><br><span class="line"><span class="regexp">Didact.render(element, container)</span></span><br></pre></td></tr></table></figure>
+<p>我们开始于用 element 的类型创建 DOM，然后把它添加到容器中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> dom = <span class="built_in">document</span>.createElement(element.type);</span><br><span class="line">  <span class="comment">//递归每一个子节点。</span></span><br><span class="line">  element.props.children.map(<span class="function">(<span class="params">child</span>) =&gt;</span> &#123;</span><br><span class="line">    render(child, dom);</span><br><span class="line">  &#125;);</span><br><span class="line">  container.appendChild(dom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样的我们需要处理文本节点，如果是 TYPE_ELEMENT，我们创建一个文本节点而不是一个常规节点。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//const dom = document.createElement(element.type);</span></span><br><span class="line">  <span class="keyword">const</span> dom =</span><br><span class="line">    element.type === <span class="string">"TYPE_ELEMENT"</span></span><br><span class="line">      ? createTextElement(<span class="string">""</span>)</span><br><span class="line">      : createElement(element.type);</span><br><span class="line">  element.props.children.map(<span class="function">(<span class="params">child</span>) =&gt;</span> &#123;</span><br><span class="line">    render(child, dom);</span><br><span class="line">  &#125;);</span><br><span class="line">  container.appendChild(dom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们需要做的最后一件事是合并 element 的 props 到这个节点中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> isPorperty = <span class="function">(<span class="params">key</span>) =&gt;</span> key !== <span class="string">"children"</span>;</span><br><span class="line"><span class="built_in">Object</span>.keys(element.props)</span><br><span class="line">  .filter(isPorperty)</span><br><span class="line">  .forEach(<span class="function">(<span class="params">name</span>) =&gt;</span> &#123;</span><br><span class="line">    dom[name] = element.props[name];</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p>到目前为止，我们已经有一个能够渲染 JSX 到 DOM 的库了。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createElement</span>(<span class="params">type, props, ...children</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type,</span><br><span class="line">    props: &#123;</span><br><span class="line">      ...props,</span><br><span class="line">      children: children.map(<span class="function">(<span class="params">child</span>) =&gt;</span></span><br><span class="line">        <span class="keyword">typeof</span> child === <span class="string">"object"</span> ? child : createTextElement(child)</span><br><span class="line">      ),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createTextElement</span>(<span class="params">text</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    type: <span class="string">"TEXT_ELEMENT"</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">      nodeValue: text,</span><br><span class="line">      children: [],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(element);</span><br><span class="line">  <span class="keyword">const</span> dom =</span><br><span class="line">    element.type == <span class="string">"TEXT_ELEMENT"</span></span><br><span class="line">      ? <span class="built_in">document</span>.createTextNode(<span class="string">""</span>)</span><br><span class="line">      : <span class="built_in">document</span>.createElement(element.type);</span><br><span class="line">  <span class="keyword">const</span> isProperty = <span class="function">(<span class="params">key</span>) =&gt;</span> key !== <span class="string">"children"</span>;</span><br><span class="line">  <span class="built_in">Object</span>.keys(element.props)</span><br><span class="line">    .filter(isProperty)</span><br><span class="line">    .forEach(<span class="function">(<span class="params">name</span>) =&gt;</span> &#123;</span><br><span class="line">      dom[name] = element.props[name];</span><br><span class="line">    &#125;);</span><br><span class="line">  element.props.children.forEach(<span class="function">(<span class="params">child</span>) =&gt;</span> render(child, dom));</span><br><span class="line">  container.appendChild(dom);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> Didact = &#123;</span><br><span class="line">  createElement,</span><br><span class="line">  render,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/** @jsx Didact.createElement */</span></span><br><span class="line"><span class="keyword">const</span> element = (</span><br><span class="line">  &lt;div id=<span class="string">"foo"</span>&gt;</span><br><span class="line">    &lt;h1&gt;Hello&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">    &lt;h2&gt;FBB&lt;/</span>h2&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp">const container = document.getElementById("root");</span></span><br><span class="line"><span class="regexp">Didact.render(element, container);</span></span><br></pre></td></tr></table></figure>
+<h3 id="Concurrent-Mode"><a href="#Concurrent-Mode" class="headerlink" title="Concurrent Mode"></a>Concurrent Mode</h3><h3 id="Fibers"><a href="#Fibers" class="headerlink" title="Fibers"></a>Fibers</h3><h3 id="Render-and-Commit-Phases"><a href="#Render-and-Commit-Phases" class="headerlink" title="Render and Commit Phases"></a>Render and Commit Phases</h3><h3 id="Reconciliation"><a href="#Reconciliation" class="headerlink" title="Reconciliation"></a>Reconciliation</h3><h3 id="Function-Components"><a href="#Function-Components" class="headerlink" title="Function Components"></a>Function Components</h3><h3 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/24/栈-队列的解题思路/" rel="next" title="栈/队列的解题思路">
+                <i class="fa fa-chevron-left"></i> 栈/队列的解题思路
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="LuckyFBB">
+            
+              <p class="site-author-name" itemprop="name">LuckyFBB</p>
+              <p class="site-description motion-element" itemprop="description">时间久了，问题也多了</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#回顾"><span class="nav-number">1.</span> <span class="nav-text">回顾</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-createElement-Function"><span class="nav-number">2.</span> <span class="nav-text">The createElement Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-render-Function"><span class="nav-number">3.</span> <span class="nav-text">The render Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concurrent-Mode"><span class="nav-number">4.</span> <span class="nav-text">Concurrent Mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fibers"><span class="nav-number">5.</span> <span class="nav-text">Fibers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Render-and-Commit-Phases"><span class="nav-number">6.</span> <span class="nav-text">Render and Commit Phases</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reconciliation"><span class="nav-number">7.</span> <span class="nav-text">Reconciliation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Function-Components"><span class="nav-number">8.</span> <span class="nav-text">Function Components</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hooks"><span class="nav-number">9.</span> <span class="nav-text">Hooks</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LuckyFBB</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">42.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
