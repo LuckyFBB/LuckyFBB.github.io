@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://luckyfbb.github.io/image/buildReact/fiber.png">
 <meta property="og:image" content="https://luckyfbb.github.io/image/buildReact/fiber_goal.png">
-<meta property="og:updated_time" content="2020-11-26T11:28:41.642Z">
+<meta property="og:updated_time" content="2020-12-01T15:06:01.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="build-your-own-React">
 <meta name="twitter:description" content="根据想学习 React 源码的初衷，但是又不了解 React 的大体工作流程，在某博主的指引下找到了一篇mini 教程，由于是英文文档所以在此记录从头开始写 React 的过程。">
@@ -301,8 +301,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-11-26T19:28:41+08:00">
-                2020-11-26
+              <time title="更新于" itemprop="dateModified" datetime="2020-12-01T23:06:01+08:00">
+                2020-12-01
               </time>
             
           </span>
@@ -351,7 +351,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.3k
+                  4k
                 </span>
               
 
@@ -459,7 +459,22 @@
 <p>相反，我们引用 fiber tree 的根。我们称之为 work in progress root(wipRoot)。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">element, container</span>) </span>&#123;</span><br><span class="line">  wipRoot = &#123;</span><br><span class="line">    dom: container,</span><br><span class="line">    props: &#123;</span><br><span class="line">      children: [element],</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">  nextUnitOfWork = wipRoot</span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="keyword">let</span> nextUnitOfWork = <span class="literal">null</span></span><br><span class="line"><span class="keyword">let</span> wipRoot = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
 <p>一旦我们完成了所有的工作(我们知道完成了是因为没有下一个工作单元了)，我们提交整个 fiber tree 到 DOM 中。<br>我们在 commitRoot 函数中做到这一点，在这里我们将多有节点递归添加到 DOM 中。</p>
-<h3 id="Reconciliation"><a href="#Reconciliation" class="headerlink" title="Reconciliation"></a>Reconciliation</h3><h3 id="Function-Components"><a href="#Function-Components" class="headerlink" title="Function Components"></a>Function Components</h3><h3 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h3>
+<h3 id="Reconciliation"><a href="#Reconciliation" class="headerlink" title="Reconciliation"></a>Reconciliation</h3><p>到目前为止，我们仅向 DOM 中添加内容，但是更新或者删除节点又怎么做呢？<br>那是我们现在要做的，我们需要将在 render 函数上收到的元素与我们提交给 DOM 的最后一棵 fiber tree 做比较。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">commitRoot</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  commitWork(wipRoot.child)</span><br><span class="line">  wipRoot = <span class="literal">null</span></span><br><span class="line">&#125;</span><br><span class="line">​</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">commitWork</span>(<span class="params">fiber</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!fiber) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> domParent = fiber.parent.dom</span><br><span class="line">  domParent.appendChild(fiber.dom)</span><br><span class="line">  commitWork(fiber.child)</span><br><span class="line">  commitWork(fiber.sibling)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此，在完成提交之后，我们需要储存”我们提交给 DOM 的最后一个 fiber tree”的引用。我们称它为 currentRoot。<br>我们也添加 alternate 属性到每一个 fiber。这个属性是我们在上一个提交阶段 fiber 的链接。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">unction render(element, container) &#123;</span><br><span class="line">  <span class="comment">//TODO set next unit of work</span></span><br><span class="line">  wipRoot = &#123;</span><br><span class="line">    dom: container,</span><br><span class="line">    props: &#123;</span><br><span class="line">      children: [element],</span><br><span class="line">    &#125;,</span><br><span class="line">    alternate: currentRoot,</span><br><span class="line">  &#125;;</span><br><span class="line">  nextUnitOfWork = wipRoot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">commitRoot</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// TODO add nodes to dom</span></span><br><span class="line">  commitWork(wipRoot.child);</span><br><span class="line">  currentRoot = wipRoot;</span><br><span class="line">  wipRoot = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> wipRoot = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> currentRoot = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> nextUnitOfWork = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+<p>现在我们从 performUnitOfWork 中提取代码，该代码将新的 fiber 来创建到新的 reconcileChildren 函数。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">performUnitOfWork</span>(<span class="params">fiber</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// TODO add dom node</span></span><br><span class="line">  <span class="keyword">const</span> elements = fiber.props.children;</span><br><span class="line">  reconcileChildren(fiber, elements);</span><br><span class="line">  <span class="comment">// TODO return next unit of work</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconcileChildren</span>(<span class="params">wipFiber, elements</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> prevSibling = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span> (index &lt; elements.length) &#123;</span><br><span class="line">    <span class="keyword">const</span> element = elements[index];</span><br><span class="line">    <span class="keyword">const</span> newFiber = &#123;</span><br><span class="line">      type: element.type,</span><br><span class="line">      props: element.props,</span><br><span class="line">      parent: wipFiber,</span><br><span class="line">      dom: <span class="literal">null</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (index === <span class="number">0</span>) &#123;</span><br><span class="line">      wipFiber.child = newFiber;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      prevSibling.sibling = newFiber;</span><br><span class="line">    &#125;</span><br><span class="line">    prevSibling = newFiber;</span><br><span class="line">    index++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们将老 fiber 和新的 element 进行协调。<br>我们同时遍历旧 fiber 的子级(wipFiber.alternate)和要协调的元素数组。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconcileChildren</span>(<span class="params">wipFiber, elements</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> oldFiber = wipFiber.alternate &amp;&amp; wipFiber.alternate.child;</span><br><span class="line">  <span class="keyword">let</span> prevSibling = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span> (index &lt; elements.length || oldFiber !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> element = elements[index];</span><br><span class="line">    <span class="keyword">let</span> newFiber = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// TODO campare oldFiber to element</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们忽略了同时迭代数组和链接列表所需的所有样板，那么这次循环剩下的就是 oldFiber 和 element。 element 是我们要渲染到 DOM 的东西，而 oldFiber 是我们上次渲染的东西。<br>我们需要对它进行比较，查看是否需要对 DOM 进行修改。<br>了比较它们，我们使用这种方法：</p>
+<ul>
+<li>如果旧 fiber 和新 element 具有相同的类型，我们可以保留 DOM 节点并仅使用新 props 进行更新</li>
+<li>如果类型不同并且有一个新元素，则意味着我们需要创建一个新的 DOM 节点</li>
+<li>并且如果类型是不同的，并且有一个旧 fiber，我们需要删除旧的节点</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reconcileChildren</span>(<span class="params">wipFiber, elements</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> oldFiber = wipFiber.alternate &amp;&amp; wipFiber.alternate.child;</span><br><span class="line">  <span class="keyword">let</span> prevSibling = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span> (index &lt; elements.length || oldFiber !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> element = elements[index];</span><br><span class="line">    <span class="keyword">let</span> newFiber = <span class="literal">null</span>;</span><br><span class="line">    <span class="comment">// TODO campare oldFiber to element</span></span><br><span class="line">    <span class="keyword">const</span> sameType = oldFiber &amp;&amp; element &amp;&amp; oldFiber.type === element.type;</span><br><span class="line">    <span class="keyword">if</span> (sameType) &#123;</span><br><span class="line">      <span class="comment">//TODO Update Node</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (element &amp;&amp; !sameType) &#123;</span><br><span class="line">      <span class="comment">// TODO add this node</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (oldFiber &amp;&amp; !sameType) &#123;</span><br><span class="line">      <span class="comment">// TODO delete the oldFiber's node</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Function-Components"><a href="#Function-Components" class="headerlink" title="Function Components"></a>Function Components</h3><h3 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h3>
       
     </div>
     
@@ -669,7 +684,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">44.4k</span>
+    <span title="Site words total count">45.1k</span>
   
 </div>
 
