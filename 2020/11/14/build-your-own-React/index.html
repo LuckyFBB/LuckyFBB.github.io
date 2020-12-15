@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://luckyfbb.github.io/image/buildReact/fiber.png">
 <meta property="og:image" content="https://luckyfbb.github.io/image/buildReact/fiber_goal.png">
-<meta property="og:updated_time" content="2020-12-08T13:26:09.257Z">
+<meta property="og:updated_time" content="2020-12-08T14:16:18.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="build-your-own-React">
 <meta name="twitter:description" content="根据想学习 React 源码的初衷，但是又不了解 React 的大体工作流程，在某博主的指引下找到了一篇mini 教程，由于是英文文档所以在此记录从头开始写 React 的过程。">
@@ -301,7 +301,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-12-08T21:26:09+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-12-08T22:16:18+08:00">
                 2020-12-08
               </time>
             
@@ -351,7 +351,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5.9k
+                  6k
                 </span>
               
 
@@ -390,7 +390,7 @@
 <li>Hooks</li>
 </ol>
 <h3 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h3><p>在开始之前，首先需要回顾一下基础概念。如果在此之前你已经了解 React/JSX/Dom Elements 工作的方式，可以跳过这个步骤。<br>我们将使用仅有三行的 React 程序。第一行是定义 React 元素。第二行是从 DOM 中获取一个节点。第三行是渲染 React 元素到容器中。</p>
-<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = &lt;h1 title="foo"&gt;Hello&lt;/h1&gt;;</span><br><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">ReactDOM.render(element, container);</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">title</span>=<span class="string">"foo"</span>&gt;</span>Hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line"><span class="keyword">const</span> container = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">ReactDOM.render(element, container);</span><br></pre></td></tr></table></figure>
 <p>我们将用原生 JS 替换掉 React 代码。<br>第一行代码使用 JSX 定义了一个元素，他甚至不是有效的 JS，因此要用原生的 JS 取代它。首先我们用有效的 JS 替换它。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> element = React.createElement(<span class="string">"h1"</span>, &#123; <span class="attr">title</span>: <span class="string">"foo"</span> &#125;, <span class="string">"Hello"</span>);</span><br></pre></td></tr></table></figure>
 <p>JSX 通过 Babel 这种工具被编译为 JS。这种编译方式很简单，使用对 createElement 的调用来替换 tag 内的代码，并将 tag 名称，props 和 children 作为参数传递。<br>React.CreateElement 通过他的参数创建一个对象。除了一些验证之外，这就是全部了。因此我们可以将函数调用替换为它的输出。</p>
@@ -519,7 +519,10 @@
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">commitWork</span>(<span class="params">fiber</span>) </span>&#123;</span><br><span class="line">  .<span class="comment">//...</span></span><br><span class="line">  <span class="keyword">let</span> domParentFiber = fiber.parent;</span><br><span class="line">  <span class="keyword">while</span> (!domParentFiber.dom) &#123;</span><br><span class="line">    domParentFiber = domParentFiber.parent;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> domParent = domParentFiber.dom;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当移除节点时，需要继续执行直到我们找到一个带有 child 的 DOM 节点。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">commitWork</span>(<span class="params">fiber</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (fiber.effectTag === <span class="string">"DELETION"</span>) &#123;</span><br><span class="line">    commitDeletion(fiber, domParent);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">commitDeletion</span>(<span class="params">fiber, domParent</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (fiber.dom) &#123;</span><br><span class="line">    domParent.removeChild(fiber.dom);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    commitDeletion(fiber.child, domParent);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h3>
+<h3 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h3><p>最后一步。现在我们有函数组件了，让我们添加 state。</p>
+<p>我们将示例改为经典计数器组件，每次单击它，状态都会增加 1。我们现在使用 Didact.useState 获取和更新计数器值。</p>
+<p>在这里，我们从示例中调用Counter函数。在该函数内部，我们称为useState。</p>
+
       
     </div>
     
@@ -640,7 +643,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -729,7 +732,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">47k</span>
+    <span title="Site words total count">50k</span>
   
 </div>
 
