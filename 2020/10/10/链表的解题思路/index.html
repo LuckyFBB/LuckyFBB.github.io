@@ -88,7 +88,7 @@
 <meta property="og:description" content="之前一直有断断续续在学习一些数据结构的知识，在前文中也有过一些总结，一直以来刷 leetcode 也是属于瞎刷，不能够很好的总结题型与解决方案。在此之后，准备按着数据结构类型和算法刷题。在刷完二叉树之后，着手开始链表的刷题，也会在此篇博文中进行记录。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://luckyfbb.github.io/image/linked_list_sycle.png">
-<meta property="og:updated_time" content="2020-10-22T02:37:02.358Z">
+<meta property="og:updated_time" content="2020-12-23T09:43:38.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="链表的解题思路">
 <meta name="twitter:description" content="之前一直有断断续续在学习一些数据结构的知识，在前文中也有过一些总结，一直以来刷 leetcode 也是属于瞎刷，不能够很好的总结题型与解决方案。在此之后，准备按着数据结构类型和算法刷题。在刷完二叉树之后，着手开始链表的刷题，也会在此篇博文中进行记录。">
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-10-22T10:37:02+08:00">
-                2020-10-22
+              <time title="更新于" itemprop="dateModified" datetime="2020-12-23T17:43:38+08:00">
+                2020-12-23
               </time>
             
           </span>
@@ -411,7 +411,7 @@
 <h2 id="翻转链表"><a href="#翻转链表" class="headerlink" title="翻转链表"></a>翻转链表</h2><h3 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反转一个单链表。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure>
 <p><a href="https://leetcode-cn.com/problems/reverse-linked-list/" target="_blank" rel="noopener">leetcode</a><br>分析：设置哨兵节点 null，将当前节点的指针指向上一个节点，然后更新当前节点和下一个节点的值即顺移，重复以上动作直到当前节点为尾节点的节点 null</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseList = <span class="function"><span class="keyword">function</span> (<span class="params">head</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> prev = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> curr = head;</span><br><span class="line">  <span class="keyword">while</span> (curr) &#123;</span><br><span class="line">    <span class="keyword">const</span> next = curr.next;</span><br><span class="line">    curr.next = prev;</span><br><span class="line">    prev = curr;</span><br><span class="line">    curr = next;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> prev;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="反转链表-II"><a href="#反转链表-II" class="headerlink" title="反转链表 II"></a>反转链表 II</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</span><br><span class="line"></span><br><span class="line">说明:</span><br><span class="line">1 ≤ m ≤ n ≤ 链表长度。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4</span><br><span class="line">输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</span><br><span class="line"></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">链接：</span><br><span class="line">著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+<h3 id="反转链表-II"><a href="#反转链表-II" class="headerlink" title="反转链表 II"></a>反转链表 II</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反转从位置 m 到 n 的链表。请使用一趟扫描完成反转。</span><br><span class="line">说明:</span><br><span class="line">1 ≤ m ≤ n ≤ 链表长度。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2, n = 4</span><br><span class="line">输出: 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</span><br></pre></td></tr></table></figure>
 <p><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii" target="_blank" rel="noopener">leetcode</a><br>分析：只需要对 m 到 n 之间的元素进行翻转。翻转的思路和上一题一样，但是需要取到 m-n 之间的元素。所以调用了两次 while 循环，获取到 m-n 之间的元素</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseBetween = <span class="function"><span class="keyword">function</span> (<span class="params">head, m, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> pivot = <span class="keyword">new</span> ListNode();</span><br><span class="line">  pivot.next = head;</span><br><span class="line">  <span class="keyword">let</span> temp = pivot;</span><br><span class="line">  <span class="keyword">let</span> length = n - m;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; m - <span class="number">1</span>; i++) &#123;</span><br><span class="line">    temp = temp.next;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> prev = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> curr = temp.next;</span><br><span class="line">  <span class="keyword">while</span> (length &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> next = curr.next;</span><br><span class="line">    curr.next = prev;</span><br><span class="line">    prev = curr;</span><br><span class="line">    curr = next;</span><br><span class="line">    length--;</span><br><span class="line">  &#125;</span><br><span class="line">  temp.next.next = curr;</span><br><span class="line">  temp.next = prev;</span><br><span class="line">  <span class="keyword">return</span> pivot.next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//Runtime: 72 ms, faster than 86.55% of JavaScript</span></span><br></pre></td></tr></table></figure>
 <h3 id="两两交换链表中的节点"><a href="#两两交换链表中的节点" class="headerlink" title="两两交换链表中的节点"></a>两两交换链表中的节点</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。</span><br><span class="line"></span><br><span class="line">你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line">给定 1-&gt;2-&gt;3-&gt;4, 你应该返回 2-&gt;1-&gt;4-&gt;3.</span><br></pre></td></tr></table></figure>
@@ -671,7 +671,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">55.6k</span>
+    <span title="Site words total count">56.9k</span>
   
 </div>
 
