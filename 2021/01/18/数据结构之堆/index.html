@@ -88,7 +88,7 @@
 <meta property="og:description" content="翻了翻博客，大概在前年的时候，总结过一些数据结构的知识以及使用，但是始终没有发现堆的影子。也是从去年总结到今年的常见算法合集中，遇到需要用堆来解决的算法，一筹莫展。所以将对堆的常规操作做一个总结，以便记忆。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://luckyfbb.github.io/image/algorithm/heap.png">
-<meta property="og:updated_time" content="2021-01-23T07:41:10.416Z">
+<meta property="og:updated_time" content="2021-01-23T07:48:37.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构之堆">
 <meta name="twitter:description" content="翻了翻博客，大概在前年的时候，总结过一些数据结构的知识以及使用，但是始终没有发现堆的影子。也是从去年总结到今年的常见算法合集中，遇到需要用堆来解决的算法，一筹莫展。所以将对堆的常规操作做一个总结，以便记忆。">
@@ -300,7 +300,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2021-01-23T15:41:10+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2021-01-23T15:48:37+08:00">
                 2021-01-23
               </time>
             
@@ -427,6 +427,7 @@
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sort</span>(<span class="params">arr, num</span>) </span>&#123;</span><br><span class="line">  __buildHeap(arr, num);</span><br><span class="line">  <span class="keyword">let</span> len = num;</span><br><span class="line">  <span class="keyword">while</span> (len &gt; <span class="number">1</span>) &#123;</span><br><span class="line">    __swap(arr, len, <span class="number">1</span>);</span><br><span class="line">    len--;</span><br><span class="line">    __shiftDown(arr, len, <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>堆排序包括建堆和排序两个操作，建堆的复杂度是 O(n)，堆排序的复杂度是 O(nlogn)，所以整体的复杂度为 O(nlogn)。<br>堆排序不是稳定的排序算法，因为在排序的过程中，堆嘴后一个元素和堆顶节点交换，可能改变值相同数据原始的相对顺序。</p>
+<p><a href="https://github.com/LuckyFBB/data_structure/blob/4b2abac3fa34d398ca5a2f48f83353262e7bf76b/heap/maxHeap.js" target="_blank" rel="noopener">完整代码</a></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>堆是一种完全二叉树。最大的特性是：每个节点的值大于等于(小于等于)其子树节点的值。因此分为大顶堆和小顶堆。</p>
 <p>堆中最重要的操作是插入数据和删除堆顶数据。插入数据时，把新数据放到最后，从下往上堆化。删除堆顶元素时，把最后一个元素放到堆顶，从上往下堆化。两者的复杂程度都是 O(logn)。</p>
 <p>堆排序包含两个过程：建堆和堆化。建堆时，将下标从 n/2 到 1 的节点依次从上到下的堆化操作，然后可以把数组中的数字变成堆这种数据结构。排序时，堆顶的元素放到堆的末尾，并将堆的大小减一，然后再堆化，重复这个过程，直到堆中只剩下一个元素。</p>
@@ -630,7 +631,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">65.7k</span>
+    <span title="Site words total count">67k</span>
   
 </div>
 
