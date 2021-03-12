@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="LuckyFBB&#39;s Blog">
 <meta property="og:description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125;Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2019-03-07T06:47:15.999Z">
+<meta property="og:image" content="https://luckyfbb.github.io/image/prototype/12814322-6287c06f7e3abf73.png">
+<meta property="og:image" content="https://luckyfbb.github.io/image/prototype/12814322-467ded8f03c1ce09.png">
+<meta property="og:updated_time" content="2021-03-08T11:14:59.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于类的继承">
 <meta name="twitter:description" content="在JS中并不存在类这一说法，class只是语法糖，本质上还是函数。class Person()&amp;#123;&amp;#125;Person instanceof Function   //true 今天就逐步优化一下类继承的方式。">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="https://luckyfbb.github.io/image/prototype/12814322-6287c06f7e3abf73.png">
 
 
 
@@ -301,8 +301,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-03-07T14:47:15+08:00">
-                2019-03-07
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-08T19:14:59+08:00">
+                2021-03-08
               </time>
             
           </span>
@@ -386,9 +386,9 @@
 <p>缺点: 所有子类共享父类实例的属性(原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改)</p>
 <h4 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h4><p>常见的继承方式之一<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Parent"</span></span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>)   <span class="comment">//构造函数继承，第一次调用Parent()</span></span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"child"</span></span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent()   <span class="comment">//原型链继承，第二次调用Parent()</span></span><br></pre></td></tr></table></figure></p>
 <p>特点: 结合使用构造函数和原型链的特点</p>
-<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><img src="https://upload-images.jianshu.io/upload_images/12814322-6287c06f7e3abf73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>缺点: 在继承父类函数的时候调用了父类构造函数，子类的原型上多了父类属性。两次调用构造函数。<br><img src="/image/prototype/12814322-6287c06f7e3abf73.png" alt="image.png"></p>
 <h4 id="组合继承优化-寄生"><a href="#组合继承优化-寄生" class="headerlink" title="组合继承优化(寄生)"></a>组合继承优化(寄生)</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"Parent"</span></span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.say = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  Parent.call(<span class="keyword">this</span>)   <span class="comment">//构造函数继承</span></span><br><span class="line">  <span class="keyword">this</span>.name = <span class="string">"child"</span></span><br><span class="line">&#125;</span><br><span class="line">Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype)   <span class="comment">//寄生</span></span><br><span class="line">Child.prototype.constructor = Child</span><br><span class="line"><span class="keyword">new</span> Child() <span class="keyword">instanceof</span> Parent    <span class="comment">//true</span></span><br><span class="line"><span class="keyword">new</span> Child().constructor     <span class="comment">//Child</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://upload-images.jianshu.io/upload_images/12814322-467ded8f03c1ce09.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="/image/prototype/12814322-467ded8f03c1ce09.png" alt="image.png"></p>
 
       
     </div>
@@ -510,7 +510,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +599,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">68k</span>
+    <span title="Site words total count">67.5k</span>
   
 </div>
 

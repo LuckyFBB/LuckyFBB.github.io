@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="LuckyFBB&#39;s Blog">
 <meta property="og:description" content="总结一下一些操作符或者方法的原生实现。持续更新">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-02T08:40:46.395Z">
+<meta property="og:updated_time" content="2021-03-11T11:49:55.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS原生实现过程">
 <meta name="twitter:description" content="总结一下一些操作符或者方法的原生实现。持续更新">
@@ -298,8 +298,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-06-02T16:40:46+08:00">
-                2020-06-02
+              <time title="更新于" itemprop="dateModified" datetime="2021-03-11T19:49:55+08:00">
+                2021-03-11
               </time>
             
           </span>
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k
+                  3.5k
                 </span>
               
 
@@ -381,7 +381,7 @@
 <li>执行构造函数中的代码(为新对象添加属性)</li>
 <li>返回新对象</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myNew</span>(<span class="params">fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(fun.prototype);</span><br><span class="line">  <span class="comment">//var obj = &#123;&#125;</span></span><br><span class="line">  <span class="comment">//obj.__proto__ = fun.prototype  与上述方法实现效果相同</span></span><br><span class="line">  <span class="keyword">var</span> args = [...arguments].slice(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> res = fun.call(obj, args);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> res === <span class="string">"object"</span> ? res : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myNew</span>(<span class="params">fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(fun.prototype);</span><br><span class="line">  <span class="comment">//var obj = &#123;&#125;</span></span><br><span class="line">  <span class="comment">//obj.__proto__ = fun.prototype  与上述方法实现效果相同</span></span><br><span class="line">  <span class="keyword">var</span> args = [...arguments].slice(<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> res = fun.call(obj, ...args);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> res === <span class="string">"object"</span> ? res : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="instanceof-操作符"><a href="#instanceof-操作符" class="headerlink" title="instanceof 操作符"></a>instanceof 操作符</h3><p>instanceof 可以正确的判断对象的类型，因为内部的机制是通过判断对象的原型链中是不是能够找到类型的 prototype。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myInstanceof</span>(<span class="params">left, right</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> left !== <span class="string">"object"</span> || <span class="keyword">typeof</span> left !== <span class="string">"function"</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> prototype = right.prototype;</span><br><span class="line">  left = left.__proto__;</span><br><span class="line">  <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (left === <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (prototype === left) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    left = left.__proto__;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="call-apply-bind-的实现"><a href="#call-apply-bind-的实现" class="headerlink" title="call / apply / bind 的实现"></a>call / apply / bind 的实现</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">call  func.call(obj, args1, args2); <span class="comment">//传入的是参数列表</span></span><br><span class="line">apply func.apply(obj, [args1, args2]); <span class="comment">//传入的是数组参数    记法：apply是a开头为array</span></span><br><span class="line">bind  func.bind(obj, args1, args2); <span class="comment">//返回的是函数，前两者为立即执行</span></span><br></pre></td></tr></table></figure>
@@ -508,6 +508,13 @@
 <li>深拷贝函数</li>
 </ol>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//判断是不是对象</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      (<span class="keyword">typeof</span> obj !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> obj === <span class="string">"object"</span>) ||</span><br><span class="line">      <span class="keyword">typeof</span> obj === <span class="string">"function"</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (!isObject(obj)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> newObj = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;; <span class="comment">//判断对象类型</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(obj).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">    newObj[key] = isObject(obj[key]) ? deepClone(obj[key]) : obj[key]; <span class="comment">//判断当前值是不是对象</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> newObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>进阶版深拷贝函数<br>上面实现的 deepClone 有一个问题，当我们对这样一个对象进行深拷贝时，会报错。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> target = &#123;</span><br><span class="line">  filed1: <span class="number">1</span>,</span><br><span class="line">  filed2: <span class="number">2</span>,</span><br><span class="line">  filed: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">&#125;;</span><br><span class="line">target.target = target;</span><br></pre></td></tr></table></figure>
+<p>在对 target 对象进行深拷贝，报错调用栈溢出 Maximum call stack size exceeded。导致这个的原因是对象的属性间接或直接的引用了自身的情况。<br>为了解决这个问题，我们可以开辟一个新的空间来存储当前对象和拷贝对象的关系，当需要拷贝当前对象时，先去存储空间找是否拷贝过；如果有直接返回，如果没有就继续拷贝。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">obj, map = new Map(</span>)) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//判断是不是对象</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      (<span class="keyword">typeof</span> obj !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> obj === <span class="string">"object"</span>) ||</span><br><span class="line">      <span class="keyword">typeof</span> obj === <span class="string">"function"</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (isObject(obj)) &#123;</span><br><span class="line">    <span class="keyword">let</span> newObj = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;; <span class="comment">//判断对象类型</span></span><br><span class="line">    <span class="keyword">if</span> (map.get(obj)) &#123;</span><br><span class="line">      <span class="comment">//如果已经克隆过了，直接返回</span></span><br><span class="line">      <span class="keyword">return</span> map.get(obj);</span><br><span class="line">    &#125;</span><br><span class="line">    map.set(obj, newObj); <span class="comment">//否则将当前对象作为key，克隆对象作为value存储</span></span><br><span class="line">    <span class="built_in">Object</span>.keys(obj).forEach(<span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">      newObj[key] = isObject(obj[key]) ? deepClone(obj[key], map) : obj[key]; <span class="comment">//判断当前值是不是对象</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> newObj;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以把 map 改为 weakMap，采用弱引用。</p>
 <h3 id="Number-isNaN"><a href="#Number-isNaN" class="headerlink" title="Number.isNaN()"></a>Number.isNaN()</h3><p>ES6 中判断 NaN 的函数。</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNaN</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> n === <span class="string">"number"</span> &amp;&amp; <span class="built_in">window</span>.isNaN(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>还可以使用 NaN 不等于自身的这个特点</p>
@@ -635,7 +642,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -724,7 +731,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">68k</span>
+    <span title="Site words total count">67.5k</span>
   
 </div>
 
