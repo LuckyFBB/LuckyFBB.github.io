@@ -22,18 +22,20 @@
     var CONFIG = {"hostname":"luckyfbb.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="时间久了，问题也多了">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LuckyFBB&#39;s Blog">
-<meta property="og:url" content="https://luckyfbb.github.io/archives/2020/index.html">
+  <meta name="description" content="面试的时候会被问到 CSS 隐藏元素的方式以及每种方式的点击事件。在这里总结一下相关的信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS隐藏元素的方法">
+<meta property="og:url" content="https://luckyfbb.github.io/2021/06/15/CSS%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="LuckyFBB&#39;s Blog">
-<meta property="og:description" content="时间久了，问题也多了">
+<meta property="og:description" content="面试的时候会被问到 CSS 隐藏元素的方式以及每种方式的点击事件。在这里总结一下相关的信息。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-15T10:57:43.000Z">
+<meta property="article:modified_time" content="2021-06-15T14:07:43.383Z">
 <meta property="article:author" content="LuckyFBB">
 <meta property="article:tag" content="LuckyFBB, 前端, 博客, 基础总结, JavaScript, FBB">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://luckyfbb.github.io/archives/2020/">
+<link rel="canonical" href="https://luckyfbb.github.io/2021/06/15/CSS%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -41,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | LuckyFBB's Blog</title>
+  <title>CSS隐藏元素的方法 | LuckyFBB's Blog</title>
   
 
 
@@ -155,235 +157,95 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        
-        <span class="collection-header">还行! 目前共计 31 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://luckyfbb.github.io/2021/06/15/CSS%E9%9A%90%E8%97%8F%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%B9%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="LuckyFBB">
+      <meta itemprop="description" content="时间久了，问题也多了">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuckyFBB's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS隐藏元素的方法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-15 18:57:43 / 修改时间：22:07:43" itemprop="dateCreated datePublished" datetime="2021-06-15T18:57:43+08:00">2021-06-15</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-30T16:20:34+08:00"
-              content="2020-12-30">
-          12-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/30/%E6%88%91%E7%9A%842020/" itemprop="url">
-            <span itemprop="name">你好，2021</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-11T13:37:19+08:00"
-              content="2020-12-11">
-          12-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/11/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%90%88%E9%9B%86/" itemprop="url">
-            <span itemprop="name">常见算法合集</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-27T16:26:29+08:00"
-              content="2020-11-27">
-          11-27
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/27/%E5%8D%81%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url">
-            <span itemprop="name">十大排序算法</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-11-14T11:18:43+08:00"
-              content="2020-11-14">
-          11-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/11/14/build-your-own-React/" itemprop="url">
-            <span itemprop="name">build-your-own-React</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-24T16:17:08+08:00"
-              content="2020-10-24">
-          10-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/24/%E6%A0%88-%E9%98%9F%E5%88%97%E7%9A%84%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" itemprop="url">
-            <span itemprop="name">栈/队列的解题思路</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-10-10T15:38:23+08:00"
-              content="2020-10-10">
-          10-10
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/10/10/%E9%93%BE%E8%A1%A8%E7%9A%84%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" itemprop="url">
-            <span itemprop="name">链表的解题思路</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-09-20T17:32:25+08:00"
-              content="2020-09-20">
-          09-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/09/20/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF/" itemprop="url">
-            <span itemprop="name">二叉树的解题思路</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-06-29T14:19:51+08:00"
-              content="2020-06-29">
-          06-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/06/29/V8%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6/" itemprop="url">
-            <span itemprop="name">V8的垃圾回收机制</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-19T21:34:54+08:00"
-              content="2020-05-19">
-          05-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/05/19/Promise%E7%9A%84%E5%88%86%E6%9E%90%E4%B8%8E%E5%AE%9E%E7%8E%B0/" itemprop="url">
-            <span itemprop="name">Promise的分析与实现</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-09T16:59:02+08:00"
-              content="2020-05-09">
-          05-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/05/09/%E5%9B%BE/" itemprop="url">
-            <span itemprop="name">解锁图的相关知识</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>面试的时候会被问到 CSS 隐藏元素的方式以及每种方式的点击事件。在这里总结一下相关的信息。</p>
+<span id="more"></span>
+<p>对于隐藏元素我能想到的有以下几种方案，如下</p>
+<ul>
+<li>display: none</li>
+<li>visibility: hidden</li>
+<li>opcity: 0</li>
+<li>overflow: hidden</li>
+<li>position 定位</li>
+<li>z-index 层级设置</li>
+</ul>
+<h4 id="display-方案"><a href="#display-方案" class="headerlink" title="display 方案"></a>display 方案</h4><p>可以设置 display:none，彻底的隐藏元素，从而<strong>不占据空间大小</strong>，也<strong>无法响应事件</strong>。</p>
+<h4 id="visibility-方案"><a href="#visibility-方案" class="headerlink" title="visibility 方案"></a>visibility 方案</h4><p>对于 visibility 来说有 visible，hidden 等取值，显示或隐藏元素而不更改文档的布局。<br>对于 hidden 来说隐藏元素，但是其他元素的布局不改变，相当于此元素变成透明，<strong>占据空间大小</strong>且<strong>无法触发响应事件</strong></p>
+<h4 id="opcity-方案"><a href="#opcity-方案" class="headerlink" title="opcity 方案"></a>opcity 方案</h4><p>opacity 属性指定了一个元素的不透明度。opacity 属性指定了一个元素后面的背景的被覆盖程度。一个元素和它包含的子元素都会具有和元素背景相同的透明度，除非它的子元素有小于这个元素的 opacity 属性值。<br>对于 opcity 设置为 0 来说，能够实现隐藏元素的效果，<strong>占据空间大小</strong>且<strong>能够触发响应事件</strong></p>
+<h4 id="overflow-方案"><a href="#overflow-方案" class="headerlink" title="overflow 方案"></a>overflow 方案</h4><p>CSS 属性 overflow 定义当一个元素的内容太大而无法适应块级格式化上下文的表现。<br>为使 overflow 有效果，块级容器必须有一个指定的高度（height 或者 max-height）或者将 white-space 设置为 nowrap。<br>对于 overflow: hidden 来说隐藏元素溢出部分，<strong>占据空间</strong>且<strong>无法响应点击事件</strong>。</p>
+<h4 id="position-方案"><a href="#position-方案" class="headerlink" title="position 方案"></a>position 方案</h4><p>对于 position 来说 fixed/absolute/relative 都能够实现隐藏元素的效果。思路都是解决将元素移出可视区域。<br>对于 position: fixed/absolute 来说，<strong>不占据空间大小</strong>且<strong>无法点击</strong><br>对于 position: relative 来说，<strong>占据空间大小</strong>且<strong>无法点击</strong></p>
+<h4 id="z-index-方案"><a href="#z-index-方案" class="headerlink" title="z-index 方案"></a>z-index 方案</h4><p>z-index 属性设定了一个定位元素及其后代元素或 flex 项目的 z-order。当元素之间重叠的时候， z-index 较大的元素会覆盖较小的元素在上层进行显示。<br>z-index 值使其它元素遮盖该元素也算是一种隐藏。<strong>不占据空间大小</strong>且<strong>无法点击</strong></p>
+<p>❗ 思考：在此环境下，如何能够出发 z-index 被遮盖的元素? <span style="background-color:#fff;color: #fff;">在遮盖层设置 pointer-events:none,元素永远不会成为鼠标事件的 target</span></p>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/12/http%E7%BC%93%E5%AD%98/" rel="prev" title="Http缓存机制">
+      <i class="fa fa-chevron-left"></i> Http缓存机制
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2020/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  
+  
 
 
 
@@ -435,6 +297,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#display-%E6%96%B9%E6%A1%88"><span class="nav-number">1.</span> <span class="nav-text">display 方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#visibility-%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">visibility 方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#opcity-%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">opcity 方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overflow-%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">overflow 方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#position-%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">position 方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#z-index-%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">z-index 方案</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
